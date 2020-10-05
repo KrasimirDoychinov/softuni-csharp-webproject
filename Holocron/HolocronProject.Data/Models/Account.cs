@@ -29,11 +29,9 @@ namespace HolocronProject.Data.Models
 
         public ICollection<Character> Characters { get; set; } = new List<Character>();
 
-        // TODO: Figure out how to make this 
-        // TODO: Make a intermediate class
-        public ICollection<Account> Friends { get; set; } = new List<Account>();
-
         public ICollection<Post> Posts { get; set; } = new List<Post>();
+
+        public ICollection<AccountThread> Threads { get; set; } = new List<AccountThread>();
 
     }
 }

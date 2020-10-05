@@ -11,10 +11,7 @@ namespace HolocronProject.ConsoleApp
     {
         static async Task Main(string[] args)
         {
-            var context = new HolocronDbContext();
-
-            var accounts = context.Accounts.FirstOrDefault();
-
+            // TODO: Look over all the classes again
         }
     }
 }

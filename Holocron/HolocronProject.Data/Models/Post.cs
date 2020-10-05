@@ -8,6 +8,7 @@ namespace HolocronProject.Data.Models
     public class Post
     {
         private string shortDescription;
+        
         public int Id { get; set; }
 
         // TODO: Add max length (add a common)
@@ -30,10 +31,16 @@ namespace HolocronProject.Data.Models
             }
         }
 
-        public ICollection<PostTag> Tags { get; set; } = new List<PostTag>();
-
         public int AccountId { get; set; }
 
         public Account Account { get; set; }
+
+        public int ThreadId { get; set; }
+
+        public Thread Thread { get; set; }
+
+        public ICollection<PostTag> Tags { get; set; } = new List<PostTag>();
+
+        
     }
 }
