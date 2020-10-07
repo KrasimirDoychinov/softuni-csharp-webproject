@@ -1,35 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.ComponentModel.DataAnnotations;
+
+using HolocronProject.Data.Common;
 
 namespace HolocronProject.Data.Models
 {
     public class Post
     {
-        private string shortDescription;
-        
         public int Id { get; set; }
 
-        // TODO: Add max length (add a common)
-        public string Title { get; set; }
-
-        // TODO: Add max length (add a common)
+        [MaxLength(GlobalConstants.PostConstants.DescriptionMaxLength)]
         public string Description { get; set; }
 
-        // TODO: Add max length (add a common)
-        public string ShortDescription
-        {
-            get
-            {
-                return this.shortDescription;
-            }
-
-            set
-            {
-                this.shortDescription = this.Description.Substring(0, 50);
-            }
-        }
+        public string CreatedOn { get; set; } = DateTime.Now.ToString("MM/dd/yyyy h:mm tt");
 
         public int AccountId { get; set; }
 
@@ -40,7 +24,6 @@ namespace HolocronProject.Data.Models
         public Thread Thread { get; set; }
 
         public ICollection<PostTag> Tags { get; set; } = new List<PostTag>();
-
         
     }
 }

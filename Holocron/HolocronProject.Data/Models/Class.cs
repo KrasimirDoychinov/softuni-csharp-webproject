@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
+using HolocronProject.Data.Common;
 
 namespace HolocronProject.Data.Models
 {
@@ -8,10 +10,9 @@ namespace HolocronProject.Data.Models
     {
         public int Id { get; set; }
 
-        // TODO: Add a max length (add a common)
+        [MaxLength(GlobalConstants.ClassConstants.NameMaxLength)]
         public string Name { get; set; }
 
-        // TODO: Make a intermediate class
         public ICollection<Character> Characters { get; set; } = new List<Character>();
     }
 }

@@ -51,8 +51,6 @@ namespace HolocronProject.Data
 
             builder.Entity<AccountThread>()
                 .HasKey(x => new { x.AccountId, x.ThreadId });
-
-            
         }
     }
 }

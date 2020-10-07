@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using HolocronProject.Data.Common;
+using System.ComponentModel.DataAnnotations;
 
 namespace HolocronProject.Data.Models
 {
@@ -10,8 +12,8 @@ namespace HolocronProject.Data.Models
     {
         public int Id { get; set; }
 
-        // TODO: Add max length (add a common)
-        public string CharacterName { get; set; }
+        [MaxLength(GlobalConstants.CharacterConstants.NameMaxLength)]
+        public string Name { get; set; }
 
         public Gender Gender { get; set; } = 0;
 
@@ -38,7 +40,7 @@ namespace HolocronProject.Data.Models
         public string Title { get; set; } = "None";
 
         // TODO: Figure out how to make an image
-        public string Image { get; set; }
+        public string Image { get; set; } = "Placeholder image";
 
         // TODO: Add something else if I think of something
     }
