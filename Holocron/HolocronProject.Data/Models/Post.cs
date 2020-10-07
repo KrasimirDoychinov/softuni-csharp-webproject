@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-
 using HolocronProject.Data.Common;
 
 namespace HolocronProject.Data.Models
@@ -12,6 +11,8 @@ namespace HolocronProject.Data.Models
 
         [MaxLength(GlobalConstants.PostConstants.DescriptionMaxLength)]
         public string Description { get; set; }
+
+        public string CreatedOn { get; set; } = DateTime.Now.ToString("MM/dd/yyyy h:mm tt");
 
         public string CreatedOn { get; set; } = DateTime.Now.ToString("MM/dd/yyyy h:mm tt");
 

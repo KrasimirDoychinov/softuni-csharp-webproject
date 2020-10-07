@@ -14,6 +14,6 @@ namespace HolocronProject.Data.Models
         [MaxLength(GlobalConstants.TagConstants.NameMaxLength)]
         public string Name { get; set; }
 
-        public ICollection<PostTag> Posts { get; set; } = new List<PostTag>(); 
+        public ICollection<PostTag> Posts { get; set; } = new List<PostTag>();
     }
 }
