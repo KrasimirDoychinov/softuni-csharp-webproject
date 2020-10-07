@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
+using HolocronProject.Data.Common;
 
 namespace HolocronProject.Data.Models
 {
@@ -8,10 +10,10 @@ namespace HolocronProject.Data.Models
     {
         public int Id { get; set; }
 
-        // TODO: Add max length (add a common)
+        [MaxLength(GlobalConstants.BaseThreadConstants.NameMaxLength)]
         public string Name { get; set; }
 
-        // TODO: Add max length (add a common)
+        [MaxLength(GlobalConstants.BaseThreadConstants.DescriptionMaxLength)]
         public string Description { get; set; }
 
         public ICollection<Thread> Threads { get; set; } = new List<Thread>();
