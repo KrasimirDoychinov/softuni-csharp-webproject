@@ -8,6 +8,8 @@ using HolocronProject.Data.Common;
 
 namespace HolocronProject.Data.Models
 {
+
+    // TODO: Fix the passwords!
     public class Account
     {
         public int Id { get; set; }
@@ -16,12 +18,12 @@ namespace HolocronProject.Data.Models
         public string AccountName { get; set; }
 
         [MaxLength(GlobalConstants.AccountConstants.PasswordMaxLength)]
-        public string Pasword { get; set; }
+        public string Password { get; set; }
 
         [MaxLength(GlobalConstants.AccountConstants.DisplayNameMaxLength)]
         public string DisplayName { get; set; }
 
-        public DateTime CreationDate { get; set; } = DateTime.UtcNow;
+        public string CreatedOn { get; set; } = DateTime.Now.ToString("MM/dd/yyyy h:mm tt");
 
         // TODO: Add max length (add a common)
         // TODO: Need to figure out how to add an AvatarImage

@@ -3,14 +3,16 @@ using HolocronProject.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HolocronProject.Data.Migrations
 {
     [DbContext(typeof(HolocronDbContext))]
-    partial class HolocronDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201007195751_DeletedClassesTable")]
+    partial class DeletedClassesTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -73,13 +75,13 @@ namespace HolocronProject.Data.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<string>("Title")
+                    b.Property<string>("Name")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("BaseThreads");
+                    b.ToTable("BaseThread");
                 });
 
             modelBuilder.Entity("HolocronProject.Data.Models.Character", b =>
@@ -242,7 +244,7 @@ namespace HolocronProject.Data.Migrations
 
                     b.HasIndex("BaseThreadId");
 
-                    b.ToTable("Threads");
+                    b.ToTable("Thread");
                 });
 
             modelBuilder.Entity("HolocronProject.Data.Models.AccountThread", b =>

@@ -3,14 +3,16 @@ using HolocronProject.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HolocronProject.Data.Migrations
 {
     [DbContext(typeof(HolocronDbContext))]
-    partial class HolocronDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201007192014_FixedAccountTable")]
+    partial class FixedAccountTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -73,13 +75,13 @@ namespace HolocronProject.Data.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<string>("Title")
+                    b.Property<string>("Name")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("BaseThreads");
+                    b.ToTable("BaseThread");
                 });
 
             modelBuilder.Entity("HolocronProject.Data.Models.Character", b =>
@@ -95,8 +97,8 @@ namespace HolocronProject.Data.Migrations
                     b.Property<int>("CharacterType")
                         .HasColumnType("int");
 
-                    b.Property<string>("Class")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("ClassId")
+                        .HasColumnType("int");
 
                     b.Property<int>("Faction")
                         .HasColumnType("int");
@@ -124,11 +126,29 @@ namespace HolocronProject.Data.Migrations
 
                     b.HasIndex("AccountId");
 
+                    b.HasIndex("ClassId");
+
                     b.HasIndex("RaceId");
 
                     b.HasIndex("ServerId");
 
                     b.ToTable("Characters");
+                });
+
+            modelBuilder.Entity("HolocronProject.Data.Models.Class", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Classes");
                 });
 
             modelBuilder.Entity("HolocronProject.Data.Models.Post", b =>
@@ -242,7 +262,7 @@ namespace HolocronProject.Data.Migrations
 
                     b.HasIndex("BaseThreadId");
 
-                    b.ToTable("Threads");
+                    b.ToTable("Thread");
                 });
 
             modelBuilder.Entity("HolocronProject.Data.Models.AccountThread", b =>
@@ -272,6 +292,12 @@ namespace HolocronProject.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("HolocronProject.Data.Models.Class", "Class")
+                        .WithMany("Characters")
+                        .HasForeignKey("ClassId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("HolocronProject.Data.Models.Race", "Race")
                         .WithMany("Characters")
                         .HasForeignKey("RaceId")
@@ -285,6 +311,8 @@ namespace HolocronProject.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Account");
+
+                    b.Navigation("Class");
 
                     b.Navigation("Race");
 
@@ -352,6 +380,11 @@ namespace HolocronProject.Data.Migrations
             modelBuilder.Entity("HolocronProject.Data.Models.BaseThread", b =>
                 {
                     b.Navigation("Threads");
+                });
+
+            modelBuilder.Entity("HolocronProject.Data.Models.Class", b =>
+                {
+                    b.Navigation("Characters");
                 });
 
             modelBuilder.Entity("HolocronProject.Data.Models.Post", b =>

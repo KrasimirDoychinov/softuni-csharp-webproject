@@ -17,7 +17,7 @@ namespace HolocronProject.Data.Common
 
         public static class BaseThreadConstants
         {
-            public const int NameMaxLength = 50;
+            public const int TitleMaxLength = 50;
 
             public const int DescriptionMaxLength = 200;
         }
@@ -30,7 +30,7 @@ namespace HolocronProject.Data.Common
 
         public static class ClassConstants
         {
-            public const int NameMaxLength = 20;
+            public const int BaseClassNameMaxLength = 20;
         }
 
         public static class PostConstants

@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\HolocronProject.Data\HolocronProject.Data.csproj" />
+    <ProjectReference Include="..\HolocronProject.Services\HolocronProject.Services.csproj" />
   </ItemGroup>
 
 </Project>

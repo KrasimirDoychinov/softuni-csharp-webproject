@@ -12,8 +12,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\HolocronProject.Services\HolocronProject.Services.csproj" />
-  </ItemGroup>
-
 </Project>

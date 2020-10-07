@@ -10,8 +10,8 @@ namespace HolocronProject.Data.Models
     {
         public int Id { get; set; }
 
-        [MaxLength(GlobalConstants.BaseThreadConstants.NameMaxLength)]
-        public string Name { get; set; }
+        [MaxLength(GlobalConstants.BaseThreadConstants.TitleMaxLength)]
+        public string Title { get; set; }
 
         public ICollection<Thread> Threads { get; set; } = new List<Thread>();
     }

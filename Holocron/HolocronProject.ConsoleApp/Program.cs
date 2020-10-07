@@ -1,5 +1,7 @@
 ﻿using HolocronProject.Data;
+using HolocronProject.Data.Enums;
 using HolocronProject.Data.Models;
+using HolocronProject.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,13 +24,22 @@ namespace HolocronProject.ConsoleApp
     //}
     // TODO: Add LastPostName in the UI
 
+
+    // TODO: Add light/dark side for chars
+    // TODO: Short backstory if the player wants
+    // TODO: Add new model: GUILDS
+    // TODO: Think more about the tables that you'll need
+
     class Program
     {
+        
         static async Task Main(string[] args)
         {
             var context = new HolocronDbContext();
 
-            context.Database.EnsureDeleted();
+            IBaseThreadService baseThreadService = new BaseThreadService();
+
+            await baseThreadService.Create("PVP");
         }
     }
 }

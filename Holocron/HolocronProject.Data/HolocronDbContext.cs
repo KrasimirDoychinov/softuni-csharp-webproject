@@ -22,7 +22,9 @@ namespace HolocronProject.Data
 
         public DbSet<Character> Characters { get; set; }
 
-        public DbSet<Class> Classes { get; set; }
+        public DbSet<Thread> Threads { get; set; }
+
+        public DbSet<BaseThread> BaseThreads { get; set; }
 
         public DbSet<Post> Posts { get; set; }
 
