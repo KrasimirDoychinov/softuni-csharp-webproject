@@ -14,5 +14,7 @@ namespace HolocronProject.Data.Models
         public string Title { get; set; }
 
         public ICollection<Thread> Threads { get; set; } = new List<Thread>();
+
+        public bool IsDeleted { get; set; } = false;
     }
 }

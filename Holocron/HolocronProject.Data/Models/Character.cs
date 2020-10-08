@@ -21,6 +21,8 @@ namespace HolocronProject.Data.Models
 
         public Faction Faction { get; set; } = 0;
 
+        public ForceAffiliation ForceAffiliation { get; set; }
+
         public string Class { get; set; }
 
         public int RaceId { get; set; }
@@ -41,5 +43,7 @@ namespace HolocronProject.Data.Models
         public string Image { get; set; } = "Placeholder image";
 
         // TODO: Add something else if I think of something
+
+        public bool IsDeleted { get; set; } = false;
     }
 }

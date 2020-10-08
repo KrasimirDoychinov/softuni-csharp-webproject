@@ -37,7 +37,9 @@ namespace HolocronProject.Data.Models
 
         public ICollection<Post> Posts { get; set; } = new List<Post>();
 
-        public ICollection<AccountThread> Threads { get; set; } = new List<AccountThread>();
+        public ICollection<Thread> Threads { get; set; } = new List<Thread>();
+
+        public bool IsDeleted { get; set; } = false;
 
     }
 }

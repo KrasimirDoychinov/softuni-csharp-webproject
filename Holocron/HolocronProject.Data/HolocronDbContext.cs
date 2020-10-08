@@ -36,8 +36,6 @@ namespace HolocronProject.Data
 
         public DbSet<Tag> Tags { get; set; }
 
-        public DbSet<AccountThread> AccountThreads { get; set; }
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -51,8 +49,11 @@ namespace HolocronProject.Data
             builder.Entity<PostTag>()
                 .HasKey(x => new { x.PostId, x.TagId });
 
-            builder.Entity<AccountThread>()
-                .HasKey(x => new { x.AccountId, x.ThreadId });
+            builder.Entity<Thread>()
+                .HasOne(x => x.Account)
+                .WithMany(y => y.Threads)
+                .HasForeignKey(x => x.AccountId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

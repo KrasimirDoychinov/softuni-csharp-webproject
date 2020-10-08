@@ -13,10 +13,10 @@ namespace HolocronProject.Services
 
         Task CreateCharacter(string accountName, string characterName,
             int gender, int characterType, int faction,
-            string className, string raceName, string serverName);
+            string className, string raceName, string serverName, int forceAffiliation);
 
-        void CreatePost(string accountName, string description);
+        Task CreatePost(string accountName, string description, string threadName);
 
-        void CreateThread(string accountName, string description, string title, string baseThreadTitle);
+        Task CreateThread(string accountName, string title, string baseThreadTitle);
     }
 }

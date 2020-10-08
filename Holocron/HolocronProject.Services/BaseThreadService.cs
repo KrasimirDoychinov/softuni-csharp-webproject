@@ -3,6 +3,7 @@ using HolocronProject.Data;
 using HolocronProject.Data.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,7 +19,15 @@ namespace HolocronProject.Services
 
         public async Task Create(string title)
         {
-            var baseThread = new BaseThread
+            var baseThread = context.BaseThreads.FirstOrDefault(x => x.Title == title);
+
+            if (baseThread != null)
+            {
+                Console.WriteLine("The base thread already exists!");
+                return;
+            }
+
+            baseThread = new BaseThread
             {
                 Title = title
             };

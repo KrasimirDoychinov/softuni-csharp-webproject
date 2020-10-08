@@ -1,11 +1,11 @@
-﻿using HolocronProject.Data;
+﻿using System;
+using System.Linq;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+using HolocronProject.Data;
 using HolocronProject.Data.Enums;
 using HolocronProject.Data.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HolocronProject.Services
 {
@@ -31,8 +31,6 @@ namespace HolocronProject.Services
             "Commando"
         };
 
-        
-
         private HolocronDbContext context;
         public AccountService()
         {
@@ -42,7 +40,6 @@ namespace HolocronProject.Services
         public async Task Create(string accountName, string password, string displayName)
         {
             var newAccount = context.Accounts.FirstOrDefault(x => x.AccountName == accountName);
-
             if (newAccount != null)
             {
                 Console.WriteLine("Account exists!");
@@ -53,9 +50,19 @@ namespace HolocronProject.Services
             newAccount = new Account
             {
                 AccountName = accountName,
-                Password = password,
-                DisplayName = displayName
+                Password = password
             };
+
+            // TODO: Add option to type the display name again
+            var newDisplayName = context.Accounts.Select(x => x.DisplayName)
+                .FirstOrDefault(x => x == displayName);
+            if (newDisplayName != null)
+            {
+                Console.WriteLine("The display name exist!");
+                Console.WriteLine("Choose another one...");
+                return;
+            }
+            newAccount.DisplayName = newDisplayName;
 
             context.Accounts.Add(newAccount);
 
@@ -64,7 +71,7 @@ namespace HolocronProject.Services
 
         public async Task CreateCharacter(string accountName, string characterName, 
             int gender, int characterType, int faction,
-            string className, string raceName, string serverName)
+            string className, string raceName, string serverName, int forceAffiliation)
         {
             var newCharacter = context.Characters.FirstOrDefault(x => x.Name == characterName);
             var account = context.Accounts.FirstOrDefault(x => x.AccountName == accountName);
@@ -90,7 +97,8 @@ namespace HolocronProject.Services
                 Name = characterName,
                 Gender = (Gender)gender,
                 CharacterType = (CharacterType)characterType,
-                Faction = (Faction)faction
+                Faction = (Faction)faction,
+                ForceAffiliation = (ForceAffiliation)forceAffiliation
             };
 
             if (!correctClasses.Contains(className))
@@ -126,12 +134,35 @@ namespace HolocronProject.Services
             await context.SaveChangesAsync();
         }
 
-        public void CreatePost(string accountName, string description)
+        public async Task CreatePost(string accountName, string description, string threadName)
         {
-            throw new NotImplementedException();
+            var account = context.Accounts.FirstOrDefault(x => x.AccountName == accountName);
+            if (account == null)
+            {
+                Console.WriteLine("This account doesn't exist!");
+                return;
+            }
+
+            var thread = context.Threads.FirstOrDefault(x => x.Title == threadName);
+            if (thread == null)
+            {
+                Console.WriteLine("The thread doesn't exist!");
+                return;
+            }
+
+            var post = new Post
+            {
+                Account = account,
+                Description = description,
+                Thread = thread
+            };
+
+            account.Posts.Add(post);
+
+            await context.SaveChangesAsync();
         }
 
-        public void CreateThread(string accountName, string description, string title, string baseThreadTitle)
+        public async Task CreateThread(string accountName, string title, string baseThreadTitle)
         {
             var account = context.Accounts.FirstOrDefault(x => x.AccountName == accountName);
             
@@ -154,7 +185,10 @@ namespace HolocronProject.Services
                 BaseThread = baseThread
             };
 
-            //account.Threads.Add(thread);
+
+            account.Threads.Add(thread);
+
+            await context.SaveChangesAsync();
         }
     }
 }

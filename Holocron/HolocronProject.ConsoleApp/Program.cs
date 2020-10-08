@@ -1,12 +1,7 @@
-﻿using HolocronProject.Data;
-using HolocronProject.Data.Enums;
-using HolocronProject.Data.Models;
-using HolocronProject.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
+using HolocronProject.Data;
+using HolocronProject.Services;
 namespace HolocronProject.ConsoleApp
 {
     // TODO: Look over all the classes again
@@ -36,10 +31,20 @@ namespace HolocronProject.ConsoleApp
         static async Task Main(string[] args)
         {
             var context = new HolocronDbContext();
+            context.Database.EnsureDeleted();
+            context.Database.EnsureCreated();
 
-            IBaseThreadService baseThreadService = new BaseThreadService();
+            //IAccountService accountService = new AccountService();
+            //IBaseThreadService baseThreadService = new BaseThreadService();
 
-            await baseThreadService.Create("PVP");
+            //await baseThreadService.Create("PVP");
+            //await accountService.Create("deth45", "krasitoobrat4545", "Deth");
+            //await accountService.CreateThread("deth45", "Tips for PVP", "PVP");
+            //await accountService.CreatePost("deh45", "First post for tips for PVP", "Tips for PVP");
+
+
+
+
         }
     }
 }

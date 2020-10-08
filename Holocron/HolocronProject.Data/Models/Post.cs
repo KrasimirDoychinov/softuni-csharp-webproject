@@ -23,6 +23,8 @@ namespace HolocronProject.Data.Models
         public Thread Thread { get; set; }
 
         public ICollection<PostTag> Tags { get; set; } = new List<PostTag>();
-        
+
+        public bool IsDeleted { get; set; } = false;
+
     }
 }
