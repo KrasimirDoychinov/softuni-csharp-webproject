@@ -1,17 +1,16 @@
-﻿
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
+
 using HolocronProject.Data;
 using HolocronProject.Data.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HolocronProject.Services
 {
     public class BaseThreadService : IBaseThreadService
     {
         private HolocronDbContext context;
+
         public BaseThreadService()
         {
             context = new HolocronDbContext();

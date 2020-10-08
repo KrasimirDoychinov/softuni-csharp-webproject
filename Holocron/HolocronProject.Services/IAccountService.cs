@@ -18,5 +18,7 @@ namespace HolocronProject.Services
         Task CreatePost(string accountName, string description, string threadName);
 
         Task CreateThread(string accountName, string title, string baseThreadTitle);
+
+        Task DeleteCharacter(string characterName);
     }
 }

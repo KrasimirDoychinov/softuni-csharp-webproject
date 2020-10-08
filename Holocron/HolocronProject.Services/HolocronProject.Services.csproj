@@ -16,4 +16,8 @@
     <ProjectReference Include="..\HolocronProject.Data\HolocronProject.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
 </Project>

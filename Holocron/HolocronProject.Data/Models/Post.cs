@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+
 using HolocronProject.Data.Common;
 
 namespace HolocronProject.Data.Models

@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
+
 using HolocronProject.Data.Common;
 
 
@@ -31,15 +30,13 @@ namespace HolocronProject.Data.Models
 
         // ?TODO?: Figure out how to add a forum signature
         // ?TODO?: Add max length (add a common) 
-        public string ForumSignature { get; set; }
+        public string ForumSignature { get; set; } = "Placeholder forum signature";
 
         public ICollection<Character> Characters { get; set; } = new List<Character>();
 
         public ICollection<Post> Posts { get; set; } = new List<Post>();
 
         public ICollection<Thread> Threads { get; set; } = new List<Thread>();
-
-        public bool IsDeleted { get; set; } = false;
 
     }
 }

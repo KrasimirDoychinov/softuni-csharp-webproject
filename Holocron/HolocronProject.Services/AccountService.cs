@@ -9,6 +9,8 @@ using HolocronProject.Data.Models;
 
 namespace HolocronProject.Services
 {
+
+    // TODO: Fix the class for web
     public class AccountService : IAccountService
     {
         private List<string> correctClasses = new List<string>
@@ -39,6 +41,7 @@ namespace HolocronProject.Services
 
         public async Task Create(string accountName, string password, string displayName)
         {
+            var list = context.Accounts.ToList();
             var newAccount = context.Accounts.FirstOrDefault(x => x.AccountName == accountName);
             if (newAccount != null)
             {
@@ -53,16 +56,22 @@ namespace HolocronProject.Services
                 Password = password
             };
 
-            // TODO: Add option to type the display name again
-            var newDisplayName = context.Accounts.Select(x => x.DisplayName)
+
+            var displayNameEixts = context.Accounts.Select(x => x.DisplayName)
                 .FirstOrDefault(x => x == displayName);
-            if (newDisplayName != null)
+            while (displayNameEixts != null)
             {
                 Console.WriteLine("The display name exist!");
                 Console.WriteLine("Choose another one...");
-                return;
+
+                displayName = Console.ReadLine();
+
+                displayNameEixts = context.Accounts.Select(x => x.DisplayName)
+                .FirstOrDefault(x => x == displayName);
             }
-            newAccount.DisplayName = newDisplayName;
+            
+            
+            newAccount.DisplayName = displayName;
 
             context.Accounts.Add(newAccount);
 
@@ -112,25 +121,21 @@ namespace HolocronProject.Services
             var race = context.Races.FirstOrDefault(x => x.Name == raceName);
             if (race == null)
             {
-                race = new Race
-                {
-                    Name = raceName
-                };
+                Console.WriteLine("The race doesn't exist!");
+                return;
             }
             newCharacter.Race = race;
 
-            var server = context.Servers.FirstOrDefault(x => x.Name == serverName);
+            var server = context.Servers.FirstOrDefault(x => x.Name == serverName && x.IsDeleted == false);
             if (server == null)
             {
-                server = new Server
-                {
-                    Name = serverName
-                };
+                Console.WriteLine("The server doesn't exist!");
+                return;
             }
             newCharacter.Server = server;
 
-            context.Characters.Add(newCharacter);
 
+            await context.Characters.AddAsync(newCharacter);
             await context.SaveChangesAsync();
         }
 
@@ -158,7 +163,6 @@ namespace HolocronProject.Services
             };
 
             account.Posts.Add(post);
-
             await context.SaveChangesAsync();
         }
 
@@ -187,8 +191,25 @@ namespace HolocronProject.Services
 
 
             account.Threads.Add(thread);
+            await context.SaveChangesAsync();
+        }
+
+        public async Task DeleteCharacter(string characterName)
+        {
+            var characterToDelete = context.Characters.FirstOrDefault(x => x.Name == characterName && x.IsDeleted == false);
+
+            if (characterToDelete == null)
+            {
+                Console.WriteLine("Character not found");
+                return;
+            }
+
+            characterToDelete.IsDeleted = true;
+
+            context.Characters.Update(characterToDelete);
 
             await context.SaveChangesAsync();
         }
+
     }
 }

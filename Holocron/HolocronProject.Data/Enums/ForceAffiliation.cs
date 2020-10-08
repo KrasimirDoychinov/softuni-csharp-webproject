@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace HolocronProject.Data.Enums
+﻿namespace HolocronProject.Data.Enums
 {
     public enum ForceAffiliation
     {

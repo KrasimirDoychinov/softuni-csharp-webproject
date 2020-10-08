@@ -10,6 +10,5 @@ namespace HolocronProject.Data.Models
 
         public ICollection<Character> Characters { get; set; } = new List<Character>();
 
-        public bool IsDeleted { get; set; } = false;
     }
 }

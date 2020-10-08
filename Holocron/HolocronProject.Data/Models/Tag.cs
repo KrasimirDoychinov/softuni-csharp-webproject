@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
+
 using HolocronProject.Data.Common;
 
 namespace HolocronProject.Data.Models
@@ -15,7 +13,5 @@ namespace HolocronProject.Data.Models
         public string Name { get; set; }
 
         public ICollection<PostTag> Posts { get; set; } = new List<PostTag>();
-
-        public bool IsDeleted { get; set; } = false;
     }
 }

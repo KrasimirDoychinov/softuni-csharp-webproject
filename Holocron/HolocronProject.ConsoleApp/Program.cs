@@ -31,20 +31,11 @@ namespace HolocronProject.ConsoleApp
         static async Task Main(string[] args)
         {
             var context = new HolocronDbContext();
-            context.Database.EnsureDeleted();
-            context.Database.EnsureCreated();
 
-            //IAccountService accountService = new AccountService();
-            //IBaseThreadService baseThreadService = new BaseThreadService();
+            IAccountService accountService = new AccountService();
+            IBaseThreadService baseThreadService = new BaseThreadService();
 
-            //await baseThreadService.Create("PVP");
-            //await accountService.Create("deth45", "krasitoobrat4545", "Deth");
-            //await accountService.CreateThread("deth45", "Tips for PVP", "PVP");
-            //await accountService.CreatePost("deh45", "First post for tips for PVP", "Tips for PVP");
-
-
-
-
+            await accountService.CreateCharacter("gosho", "Daffarda", 1, 2, 2, "Sith Juggernaut", "Human", "Darth Malgus", 2);
         }
     }
 }
