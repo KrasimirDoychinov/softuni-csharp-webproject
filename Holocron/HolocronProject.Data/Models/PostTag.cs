@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace HolocronProject.Data.Models
+﻿namespace HolocronProject.Data.Models
 {
     public class PostTag
     {

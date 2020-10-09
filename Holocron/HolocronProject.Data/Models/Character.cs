@@ -13,6 +13,9 @@ namespace HolocronProject.Data.Models
         [MaxLength(GlobalConstants.CharacterConstants.NameMaxLength)]
         public string Name { get; set; }
 
+        [MaxLength(GlobalConstants.CharacterConstants.BackstoryMaxLength)]
+        public string Backstory { get; set; } = "None";
+
         public Gender Gender { get; set; } = 0;
 
         public CharacterType CharacterType { get; set; } = 0;

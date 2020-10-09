@@ -28,8 +28,8 @@ namespace HolocronProject.Data.Models
         // TODO: Need to figure out how to add an AvatarImage
         public string AvatarImage { get; set; } = "Placeholder Image";
 
-        // ?TODO?: Figure out how to add a forum signature
-        // ?TODO?: Add max length (add a common) 
+        // ?TODA?: Figure out how to add a forum signature
+        // ?TODA?: Add max length (add a common) 
         public string ForumSignature { get; set; } = "Placeholder forum signature";
 
         public ICollection<Character> Characters { get; set; } = new List<Character>();

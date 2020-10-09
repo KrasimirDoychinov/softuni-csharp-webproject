@@ -1,5 +1,6 @@
 ﻿using HolocronProject.Data;
 using HolocronProject.Data.Models;
+using HolocronProject.Services.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -74,6 +75,11 @@ namespace HolocronProject.Services
 
             await context.Servers.AddAsync(newServer);
             await context.SaveChangesAsync();
+        }
+
+        public IEnumerable<ServerDto> MostPopularServers()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -9,6 +9,7 @@
             public const int PasswordMaxLength = 50;
 
             public const int DisplayNameMaxLength = 20;
+
         }
 
         public static class BaseThreadConstants
@@ -21,8 +22,9 @@
         public static class CharacterConstants
         {
             public const int NameMaxLength = 20;
-        }
 
+            public const int BackstoryMaxLength = 200;
+        }
 
         public static class ClassConstants
         {

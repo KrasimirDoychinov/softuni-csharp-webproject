@@ -4,6 +4,7 @@ using HolocronProject.Data.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HolocronProject.Services.Models;
 
 namespace HolocronProject.Services
 {
@@ -16,6 +17,7 @@ namespace HolocronProject.Services
             this.context = new HolocronDbContext();
         }
 
+        // The two classes below are admin classes
         public async Task CreateAllCurrentRaces()
         {
             var currentRaces = new List<Race>();
@@ -111,6 +113,11 @@ namespace HolocronProject.Services
             context.Races.Add(newRace);
 
             await context.SaveChangesAsync();
+        }
+
+        public IEnumerable<RaceDto> MostPlayedRaces()
+        {
+            throw new NotImplementedException();
         }
     }
 }
