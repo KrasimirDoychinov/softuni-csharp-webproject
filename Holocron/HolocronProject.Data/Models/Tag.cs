@@ -9,6 +9,7 @@ namespace HolocronProject.Data.Models
     {
         public int Id { get; set; }
 
+        [Required]
         [MaxLength(GlobalConstants.TagConstants.NameMaxLength)]
         public string Name { get; set; }
 

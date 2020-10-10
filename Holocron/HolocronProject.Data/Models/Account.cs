@@ -13,12 +13,15 @@ namespace HolocronProject.Data.Models
     {
         public int Id { get; set; }
 
+        [Required]
         [MaxLength(GlobalConstants.AccountConstants.AccountNameMaxLength)]
         public string AccountName { get; set; }
 
+        [Required]
         [MaxLength(GlobalConstants.AccountConstants.PasswordMaxLength)]
         public string Password { get; set; }
 
+        [Required]
         [MaxLength(GlobalConstants.AccountConstants.DisplayNameMaxLength)]
         public string DisplayName { get; set; }
 

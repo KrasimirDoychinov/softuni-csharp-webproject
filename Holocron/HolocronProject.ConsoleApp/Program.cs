@@ -21,11 +21,15 @@ namespace HolocronProject.ConsoleApp
     //}
     // Add LastPostName in the UI
 
+
     // TODO: TODA = maybe TODO's
+
     // TODO: Go over the code each day
+
     // TODO: Fix the service methods, make them cleaner
-    // TODO: Add more services
     // TODO: Code some DTO's
+    // TODO: Finish the services
+    // TODO: Add more services
 
 
     // TODO: Fix the passowrds

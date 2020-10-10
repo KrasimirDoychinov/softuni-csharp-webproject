@@ -10,6 +10,7 @@ namespace HolocronProject.Data.Models
     {
         public int Id { get; set; }
 
+        [Required]
         [MaxLength(GlobalConstants.PostConstants.DescriptionMaxLength)]
         public string Description { get; set; }
 

@@ -10,20 +10,27 @@ namespace HolocronProject.Data.Models
     {
         public int Id { get; set; }
 
+        [Required]
         [MaxLength(GlobalConstants.CharacterConstants.NameMaxLength)]
         public string Name { get; set; }
 
+        [Required]
         [MaxLength(GlobalConstants.CharacterConstants.BackstoryMaxLength)]
         public string Backstory { get; set; } = "None";
 
+        [Required]
         public Gender Gender { get; set; } = 0;
 
+        [Required]
         public CharacterType CharacterType { get; set; } = 0;
 
+        [Required]
         public Faction Faction { get; set; } = 0;
 
+        [Required]
         public ForceAffiliation ForceAffiliation { get; set; }
 
+        [Required]
         public string Class { get; set; }
 
         public int RaceId { get; set; }
@@ -38,6 +45,7 @@ namespace HolocronProject.Data.Models
 
         public Account Account { get; set; }
 
+        [MaxLength(GlobalConstants.CharacterConstants.TitleMaxLength)]
         public string Title { get; set; } = "None";
 
         // TODO: Figure out how to make an image

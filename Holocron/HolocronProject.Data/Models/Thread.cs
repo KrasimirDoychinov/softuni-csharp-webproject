@@ -13,6 +13,7 @@ namespace HolocronProject.Data.Models
         [MaxLength(GlobalConstants.ThreadConstants.TitleMaxLength)]
         public string Title { get; set; }
 
+
         public int BaseThreadId { get; set; }
 
         public BaseThread BaseThread { get; set; }
@@ -26,5 +27,7 @@ namespace HolocronProject.Data.Models
         public ICollection<Post> Posts { get; set; } = new List<Post>();
 
         public bool IsDeleted { get; set; } = false;
+
+        
     }
 }
