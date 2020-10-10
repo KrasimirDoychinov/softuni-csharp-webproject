@@ -17,28 +17,9 @@ namespace HolocronProject.Services
             context = new HolocronDbContext();
         }
 
-        public async Task Create(string title)
-        {
-            var baseThread = context.BaseThreads.FirstOrDefault(x => x.Title == title);
-
-            if (baseThread != null)
-            {
-                Console.WriteLine("The base thread already exists!");
-                return;
-            }
-
-            baseThread = new BaseThread
-            {
-                Title = title
-            };
-
-            context.BaseThreads.Add(baseThread);
-
-            await context.SaveChangesAsync();
-        }
-
+        // Admin classes
         // TODO: Add more base threads
-        public async Task CreateAllBaseThreads()
+        public async Task CreateAllCurrentBaseThreads()
         {
             var currentBaseThreads = new List<BaseThread>();
 
@@ -76,5 +57,26 @@ namespace HolocronProject.Services
             await context.AddRangeAsync(currentBaseThreads);
             await context.SaveChangesAsync();
         }
+
+        public async Task CreateNewBaseThread(string title)
+        {
+            var baseThread = context.BaseThreads.FirstOrDefault(x => x.Title == title);
+            if (baseThread != null)
+            {
+                Console.WriteLine("The base thread already exists!");
+                return;
+            }
+
+            baseThread = new BaseThread
+            {
+                Title = title
+            };
+
+            context.BaseThreads.Add(baseThread);
+
+            await context.SaveChangesAsync();
+        }
+
+        
     }
 }

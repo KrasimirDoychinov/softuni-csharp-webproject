@@ -10,7 +10,8 @@ namespace HolocronProject.Services
 {
     public interface IAccountService
     {
-        Task Create(string accountName, string password, string displayName);
+        Task Create(string accountName, string password, string displayName,
+            string avatarImage = "Placeholder");
 
         Task CreateCharacter(string accountName, string characterName,
             int gender, int characterType, int faction,

@@ -33,7 +33,7 @@
 
         public static class ThreadConstants
         {
-            public const int TitleMaxLength = 50;
+            public const int TitleMaxLength = 150;
         }
 
         public static class TagConstants

@@ -19,7 +19,7 @@ namespace HolocronProject.Services
         }
 
         // The two classes below are admin classes
-        public async Task CreateAllServers()
+        public async Task CreateAllCurrentServers()
         {
             var currentServers = new List<Server>();
 

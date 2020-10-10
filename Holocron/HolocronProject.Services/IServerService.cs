@@ -9,7 +9,7 @@ namespace HolocronProject.Services
     public interface IServerService
     {
         // Admin services
-        Task CreateAllServers();
+        Task CreateAllCurrentServers();
 
         Task CreateNewServer(string serverName);
 

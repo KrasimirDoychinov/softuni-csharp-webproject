@@ -7,6 +7,7 @@ using System.Text;
 
 namespace HolocronProject.Services
 {
+    // TODO: Add more character services
     public class CharacterService : ICharacterService
     {
         private HolocronDbContext context;
