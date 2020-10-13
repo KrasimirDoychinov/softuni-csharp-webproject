@@ -1,4 +1,5 @@
-﻿using HolocronProject.Data.Enums;
+﻿using AutoMapper;
+using HolocronProject.Data.Enums;
 using HolocronProject.Data.Models;
 using HolocronProject.Services.Models;
 using System;
@@ -24,10 +25,12 @@ namespace HolocronProject.Services
         Task DeleteCharacter(string characterName);
 
         // Search services
-        IEnumerable<AccountDto> SearchByMostPosts(int ammountOfAccounts);
+        IEnumerable<AccountDto> SearchByMostPosts(int amountOfAccounts);
 
-        IEnumerable<AccountDto> SearchOldestAccounts(int ammountOfAccounts);
+        IEnumerable<AccountDto> SearchOldestAccounts(int amountOfAccounts);
 
-        ForeignAccountDto ForeignAccount(string displayName);
+        IEnumerable<AccountDto> SearchAccountsWithMostCharacters(int amountOfAccounts);
+
+        ForeignAccountDto SearchForeignAccount(string displayName);
     }
 }

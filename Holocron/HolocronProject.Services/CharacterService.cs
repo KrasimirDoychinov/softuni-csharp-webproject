@@ -1,4 +1,6 @@
-﻿using HolocronProject.Data;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using HolocronProject.Data;
 using HolocronProject.Services.Models;
 using System;
 using System.Collections.Generic;
@@ -10,33 +12,23 @@ namespace HolocronProject.Services
     // TODO: Add more character services
     public class CharacterService : ICharacterService
     {
+        private IConfigurationProvider config;
         private HolocronDbContext context;
 
-        public CharacterService()
+        public CharacterService(IConfigurationProvider config)
         {
             context = new HolocronDbContext();
+            this.config = config;
         }
 
         public IEnumerable<CharacterDto> MostPopularClasses()
         {
             var characters = context.Characters
-                .Select(x => new CharacterDto
-                {
-                    AccountDisplayName = x.Account.DisplayName,
-                    Name = x.Name,
-                    Class = x.Class,
-                    RaceName = x.Race.Name,
-                    ServerName = x.Server.Name,
-                    Faction = x.Faction.ToString(),
-                    ForceAffiliation = x.ForceAffiliation.ToString(),
-                    CharacterType = x.CharacterType.ToString(),
-                    Gender = x.Gender.ToString()
-                })
-                .OrderByDescending(x => x.Class)
+                .ProjectTo<CharacterDto>(this.config)
+                .OrderByDescending(x => x.Faction)
                 .ToList();
 
             return characters;
-
         }
     }
 }

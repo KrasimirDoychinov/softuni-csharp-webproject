@@ -7,36 +7,21 @@ using HolocronProject.Data;
 using HolocronProject.Data.Enums;
 using HolocronProject.Data.Models;
 using HolocronProject.Services.Models;
+using AutoMapper.QueryableExtensions;
+using AutoMapper;
 
 namespace HolocronProject.Services
 {
 
     public class AccountService : IAccountService
     {
-        private List<string> correctClasses = new List<string>
-        {
-            "Sith Juggernaut",
-            "Sith Marauder",
-            "Sith Assassin",
-            "Sith Sorcerer",
-            "Operative",
-            "Sniper",
-            "Powertech",
-            "Mercenary",
-            "Jedi Guardian",
-            "Jedi Sentinel",
-            "Jedi Shadow",
-            "Jedi Sage",
-            "Scoundrel",
-            "Gunslinger",
-            "Vanguard",
-            "Commando"
-        };
+        private IConfigurationProvider config;
         private HolocronDbContext context;
 
-        public AccountService()
+        public AccountService(IConfigurationProvider config)
         {
-            context = new HolocronDbContext();
+            this.context = new HolocronDbContext();
+            this.config = config;
         }
 
         public async Task Create(string accountName, string password, string displayName,
@@ -193,58 +178,45 @@ namespace HolocronProject.Services
             await context.SaveChangesAsync();
         }
 
-        public ForeignAccountDto ForeignAccount(string displayName)
+        public IEnumerable<AccountDto> SearchByMostPosts(int amountOfAccounts)
+        {
+            var listAccounts = context.Accounts
+            .ProjectTo<AccountDto>(this.config)
+            .OrderByDescending(x => x.PostsCount)
+            .Take(amountOfAccounts)
+            .ToList();
+
+            return listAccounts;
+        }
+
+        public IEnumerable<AccountDto> SearchOldestAccounts(int amountOfAccounts)
+        {
+            var listAccounts = context.Accounts.ProjectTo<AccountDto>(this.config)
+            .OrderBy(x => x.CreatedOn)
+            .Take(amountOfAccounts)
+            .ToList();
+
+            return listAccounts;
+        }
+
+        public IEnumerable<AccountDto> SearchAccountsWithMostCharacters(int amountOfAccounts)
+        {
+            var accounts = this.context.Accounts
+                .ProjectTo<AccountDto>(this.config)
+                .OrderByDescending(x => x.CharactersCount)
+                .Take(amountOfAccounts)
+                .ToList();
+
+            return accounts;
+        }
+
+        public ForeignAccountDto SearchForeignAccount(string displayName)
         {
             var foreignAccount = context.Accounts
-                .Select(x => new ForeignAccountDto
-                {
-                    DisplayName = x.DisplayName,
-                    AvatarImage = x.AvatarImage,
-                    Characters = x.Characters,
-                    Posts = x.Posts,
-                    Threads = x.Threads,
-                    CreatedOn = x.CreatedOn
-                })
+                .ProjectTo<ForeignAccountDto>(this.config)
                 .FirstOrDefault(x => x.DisplayName == displayName);
 
             return foreignAccount;
-        }
-
-        public IEnumerable<AccountDto> SearchByMostPosts(int ammountOfAccounts)
-        {
-            var listAccounts = context.Accounts.Select(x => new AccountDto
-            {
-                DisplayName = x.DisplayName,
-                CreatedOn = x.CreatedOn,
-                AvatarImage = x.AvatarImage,
-                CharactersCount = x.Characters.Count,
-                PostsCount = x.Posts.Count,
-                ThreadsCount = x.Threads.Count
-            })
-            .OrderByDescending(x => x.PostsCount)
-            .Take(ammountOfAccounts)
-            .ToList();
-
-            return listAccounts;
-        }
-
-        public IEnumerable<AccountDto> SearchOldestAccounts(int ammountOfAccounts)
-        {
-            var listAccounts = context.Accounts.Select(x => new AccountDto
-            {
-                DisplayName = x.DisplayName,
-                CreatedOn = x.CreatedOn,
-                AvatarImage = x.AvatarImage,
-                CharactersCount = x.Characters.Count,
-                PostsCount = x.Posts.Count,
-                ThreadsCount = x.Threads.Count
-
-            })
-            .OrderBy(x => x.CreatedOn)
-            .Take(ammountOfAccounts)
-            .ToList();
-
-            return listAccounts;
         }
     }
 }
