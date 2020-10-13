@@ -44,6 +44,32 @@ namespace HolocronProject.ConsoleApp
             //await context.SaveChangesAsync();
             //-----Server-----
 
+
+            //-----Base Threads-----
+            var jsonBaseThreads = File.ReadAllText("../../../../HolocronProject.Services/Files/baseThreads.json");
+            var allBaseThreads = JsonConvert.DeserializeObject<List<BaseThread>>(jsonBaseThreads);
+            await context.BaseThreads.AddRangeAsync(allBaseThreads);
+            await context.SaveChangesAsync();
+            //-----Base Threads-----
+        }
+
+        public static List<BaseThread> CreatAllBaseThreads()
+        {
+            var currentBaseThreads = new List<BaseThread>();
+
+            var pvp = new BaseThread("Pvp");
+            var pve = new BaseThread("Pve");
+            var rp = new BaseThread("Rp");
+            var guides = new BaseThread("Guides");
+            var fashion = new BaseThread("Fashion");
+
+            currentBaseThreads.Add(pvp);
+            currentBaseThreads.Add(pve);
+            currentBaseThreads.Add(rp);
+            currentBaseThreads.Add(guides);
+            currentBaseThreads.Add(fashion);
+
+            return currentBaseThreads;
         }
     }
 }

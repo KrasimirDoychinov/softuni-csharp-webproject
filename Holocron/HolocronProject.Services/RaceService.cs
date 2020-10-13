@@ -17,7 +17,7 @@ namespace HolocronProject.Services
             this.context = new HolocronDbContext();
         }
 
-        // The class below is an admin class
+        // Admin class
         public async Task CreateNewRace(string raceName)
         {
             var newRace = new Race(raceName);

@@ -18,7 +18,6 @@ namespace HolocronProject.Services
         }
 
         // Admin classes
-        // TODO: Add more base threads
         public async Task CreateAllCurrentBaseThreads()
         {
             var currentBaseThreads = new List<BaseThread>();
