@@ -10,7 +10,7 @@ namespace HolocronProject.Services
     {
         Task CreateNewRace(string raceName);
 
-        IEnumerable<RaceDto> MostPlayedRaces(int topAmmount);
+        IEnumerable<RaceDto> MostPlayedRaces();
 
     }
 }

@@ -9,7 +9,5 @@ namespace HolocronProject.Services.Models
         public string Name { get; set; }
 
         public int CharacterCount { get; set; }
-
-
     }
 }

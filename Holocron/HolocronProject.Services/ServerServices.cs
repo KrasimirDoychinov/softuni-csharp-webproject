@@ -40,7 +40,16 @@ namespace HolocronProject.Services
 
         public IEnumerable<ServerDto> MostPopularServers()
         {
-            throw new NotImplementedException();
+            var servers = this.context.Servers
+                .Select(x => new ServerDto
+                {
+                    Name = x.Name,
+                    CountOfCharacters = x.Characters.Count
+                })
+                .OrderByDescending(x => x.CountOfCharacters)
+                .ToList();
+
+            return servers;
         }
     }
 }

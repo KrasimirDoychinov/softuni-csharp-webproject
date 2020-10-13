@@ -26,7 +26,7 @@ namespace HolocronProject.Services
             await context.SaveChangesAsync();
         }
 
-        public IEnumerable<RaceDto> MostPlayedRaces(int topAmmount)
+        public IEnumerable<RaceDto> MostPlayedRaces()
         {
             var mostPlayedRaces = this.context.Races
                 .Select(x => new RaceDto

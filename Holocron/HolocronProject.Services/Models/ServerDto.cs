@@ -6,5 +6,8 @@ namespace HolocronProject.Services.Models
 {
     public class ServerDto
     {
+        public string Name { get; set; }
+
+        public int CountOfCharacters { get; set; }
     }
 }
