@@ -1,0 +1,32 @@
+[
+  {
+    "Id": 0,
+    "Name": "Darth Malgus",
+    "Characters": [],
+    "IsDeleted": false
+  },
+  {
+    "Id": 0,
+    "Name": "Star Forge",
+    "Characters": [],
+    "IsDeleted": false
+  },
+  {
+    "Id": 0,
+    "Name": "Satele Shan",
+    "Characters": [],
+    "IsDeleted": false
+  },
+  {
+    "Id": 0,
+    "Name": "Tulak Hord",
+    "Characters": [],
+    "IsDeleted": false
+  },
+  {
+    "Id": 0,
+    "Name": "The Leviathan",
+    "Characters": [],
+    "IsDeleted": false
+  }
+]

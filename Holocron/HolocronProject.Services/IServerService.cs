@@ -8,12 +8,8 @@ namespace HolocronProject.Services
 {
     public interface IServerService
     {
-        // Admin services
-        Task CreateAllCurrentServers();
-
         Task CreateNewServer(string serverName);
 
-        // Search services
         IEnumerable<ServerDto> MostPopularServers();
     }
 }
