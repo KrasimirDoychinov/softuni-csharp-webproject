@@ -5,6 +5,11 @@ namespace HolocronProject.Data.Models
 {
     public class Server
     {
+        public Server(string name)
+        {
+            this.Name = name;
+        }
+
         public int Id { get; set; }
 
         [Required]

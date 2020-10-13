@@ -23,39 +23,39 @@ namespace HolocronProject.Services
         {
             var currentServers = new List<Server>();
 
-            var darthMalgus = new Server
-            {
-                Name = "Darth Malgus"
-            };
+            //var darthMalgus = new Server
+            //{
+            //    Name = "Darth Malgus"
+            //};
 
-            var starForge = new Server
-            {
-                Name = "Star Forge"
-            };
+            //var starForge = new Server
+            //{
+            //    Name = "Star Forge"
+            //};
 
-            var sateleShan = new Server
-            {
-                Name = "Satele Shan"
-            };
+            //var sateleShan = new Server
+            //{
+            //    Name = "Satele Shan"
+            //};
 
-            var tulakHord = new Server
-            {
-                Name = "Tulak Hord"
-            };
+            //var tulakHord = new Server
+            //{
+            //    Name = "Tulak Hord"
+            //};
 
-            var theLeviathan = new Server
-            {
-                Name = "The Leviathan"
-            };
+            //var theLeviathan = new Server
+            //{
+            //    Name = "The Leviathan"
+            //};
 
-            currentServers.Add(darthMalgus);
-            currentServers.Add(starForge);
-            currentServers.Add(sateleShan);
-            currentServers.Add(tulakHord);
-            currentServers.Add(theLeviathan);
+            //currentServers.Add(darthMalgus);
+            //currentServers.Add(starForge);
+            //currentServers.Add(sateleShan);
+            //currentServers.Add(tulakHord);
+            //currentServers.Add(theLeviathan);
 
-            await context.Servers.AddRangeAsync(currentServers);
-            await context.SaveChangesAsync();
+            //await context.Servers.AddRangeAsync(currentServers);
+            //await context.SaveChangesAsync();
         }
 
         public async Task CreateNewServer(string serverName)
@@ -68,10 +68,10 @@ namespace HolocronProject.Services
                 return;
             }
 
-            newServer = new Server
-            {
-                Name = serverName
-            };
+            //newServer = new Server
+            //{
+            //    Name = serverName
+            //};
 
             await context.Servers.AddAsync(newServer);
             await context.SaveChangesAsync();

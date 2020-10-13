@@ -20,104 +20,58 @@ namespace HolocronProject.Services
         // The two classes below are admin classes
         public async Task CreateAllCurrentRaces()
         {
-            var currentRaces = new List<Race>();
+            //var currentRaces = new List<Race>();
 
-            var chiss = new Race
-            {
-                Name = "Chiss"
-            };
+            //var chiss = new Race("Chiss");
+            //var cyborg = new Race("Cyborg");
+            //var human = new Race("Human");
+            //var miraluka = new Race("Miraluka");
+            //var mirialan = new Race("Mirialan");
+            //var rattataki = new Race("Rattaki");
+            //var sithPureblood = new Race("Sith Pureblood");
+            //var twilek = new Race("Twi'lek");
+            //var zabrak = new Race("Zabrak");
+            //var cathar = new Race("Cathar");
+            //var togruta = new Race("Togruta");
+            //var nautolan = new Race("Nautolan");
 
-            var cyborg = new Race
-            {
-                Name = "Cyborg"
-            };
+            //currentRaces.Add(chiss);
+            //currentRaces.Add(cyborg);
+            //currentRaces.Add(human);
+            //currentRaces.Add(miraluka);
+            //currentRaces.Add(mirialan);
+            //currentRaces.Add(rattataki);
+            //currentRaces.Add(sithPureblood);
+            //currentRaces.Add(twilek);
+            //currentRaces.Add(zabrak);
+            //currentRaces.Add(cathar);
+            //currentRaces.Add(togruta);
+            //currentRaces.Add(nautolan);
 
-            var human = new Race
-            {
-                Name = "Human"
-            };
-
-            var miraluka = new Race
-            {
-                Name = "Miraluka"
-            };
-
-            var mirialan = new Race
-            {
-                Name = "Mirialan"
-            };
-
-            var rattataki = new Race
-            {
-                Name = "Rattataki"
-            };
-
-            var sithPureblood = new Race
-            {
-                Name = "Sith Pureblood"
-            };
-
-            var twilek = new Race
-            {
-                Name = "Twi'lek"
-            };
-
-            var zabrak = new Race
-            {
-                Name = "Zabrak"
-            };
-
-            var cathar = new Race
-            {
-                Name = "Cathar"
-            };
-
-            var togruta = new Race
-            {
-                Name = "Togruta"
-            };
-
-            var nautolan = new Race
-            {
-                Name = "Nautolan"
-
-            };
-
-            currentRaces.Add(chiss);
-            currentRaces.Add(cyborg);
-            currentRaces.Add(human);
-            currentRaces.Add(miraluka);
-            currentRaces.Add(mirialan);
-            currentRaces.Add(rattataki);
-            currentRaces.Add(sithPureblood);
-            currentRaces.Add(twilek);
-            currentRaces.Add(zabrak);
-            currentRaces.Add(cathar);
-            currentRaces.Add(togruta);
-            currentRaces.Add(nautolan);
-
-            await context.Races.AddRangeAsync(currentRaces);
-            await context.SaveChangesAsync();
+            //await context.Races.AddRangeAsync(currentRaces);
+            //await context.SaveChangesAsync();
         }
 
         public async Task CreateNewRace(string raceName)
         {
-            var newRace = context.Races.FirstOrDefault(x => x.Name == raceName);
-
-            if (newRace != null)
-            {
-                Console.WriteLine("The race already exists!");
-                return;
-            }
-
-            context.Races.Add(newRace);
-
-            await context.SaveChangesAsync();
+            //var newRace = new Race(raceName);
+            
+            //await context.Races.AddAsync(newRace);
+            //await context.SaveChangesAsync();
         }
 
-        public IEnumerable<RaceDto> MostPlayedRaces()
+        public IEnumerable<RaceDto> MostPlayedRaces(int topAmmount)
         {
-            throw new NotImplementedException();
+            var mostPlayedRaces = this.context.Races
+                .Select(x => new RaceDto
+                {
+                    Name = x.Name,
+                    CharacterCount = x.Characters.Count
+                })
+                .OrderByDescending(x => x.CharacterCount)
+                .ToList();
+
+            return mostPlayedRaces;
         }
     }
 }

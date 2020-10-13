@@ -5,6 +5,12 @@ namespace HolocronProject.Data.Models
 {
     public class Race
     {
+        public Race(string name, int id)
+        {
+            this.Name = name;
+            this.Id = id;
+        }
+
         public int Id { get; set; }
 
         [Required]

@@ -23,30 +23,11 @@ namespace HolocronProject.Services
         {
             var currentBaseThreads = new List<BaseThread>();
 
-            var pvp = new BaseThread
-            {
-                Title = "Pvp"
-            };
-
-            var pve = new BaseThread
-            {
-                Title = "Pve"
-            };
-
-            var rp = new BaseThread
-            {
-                Title = "Rp"
-            };
-
-            var guides = new BaseThread
-            {
-                Title = "Guides"
-            };
-
-            var fashion = new BaseThread
-            {
-                Title = "Fashion"
-            };
+            var pvp = new BaseThread("Pvp");
+            var pve = new BaseThread("Pve");
+            var rp = new BaseThread("Rp");
+            var guides = new BaseThread("Guides");
+            var fashion = new BaseThread("Fashion");
 
             currentBaseThreads.Add(pvp);
             currentBaseThreads.Add(pve);
@@ -61,22 +42,11 @@ namespace HolocronProject.Services
         public async Task CreateNewBaseThread(string title)
         {
             var baseThread = context.BaseThreads.FirstOrDefault(x => x.Title == title);
-            if (baseThread != null)
-            {
-                Console.WriteLine("The base thread already exists!");
-                return;
-            }
+            baseThread = new BaseThread(title);
 
-            baseThread = new BaseThread
-            {
-                Title = title
-            };
-
-            context.BaseThreads.Add(baseThread);
-
+            await context.BaseThreads.AddAsync(baseThread);
             await context.SaveChangesAsync();
         }
-
         
     }
 }

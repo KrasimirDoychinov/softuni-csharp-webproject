@@ -6,5 +6,10 @@ namespace HolocronProject.Services.Models
 {
     public class RaceDto
     {
+        public string Name { get; set; }
+
+        public int CharacterCount { get; set; }
+
+
     }
 }

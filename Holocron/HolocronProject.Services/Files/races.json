@@ -1,0 +1,62 @@
+[
+  {
+    "Id": 1,
+    "Name": "Chiss",
+    "Characters": []
+  },
+  {
+    "Id": 2,
+    "Name": "Cyborg",
+    "Characters": []
+  },
+  {
+    "Id": 3,
+    "Name": "Human",
+    "Characters": []
+  },
+  {
+    "Id": 4,
+    "Name": "Miraluka",
+    "Characters": []
+  },
+  {
+    "Id": 5,
+    "Name": "Mirialan",
+    "Characters": []
+  },
+  {
+    "Id": 6,
+    "Name": "Rattaki",
+    "Characters": []
+  },
+  {
+    "Id": 7,
+    "Name": "Sith Pureblood",
+    "Characters": []
+  },
+  {
+    "Id": 8,
+    "Name": "Twi'lek",
+    "Characters": []
+  },
+  {
+    "Id": 9,
+    "Name": "Zabrak",
+    "Characters": []
+  },
+  {
+    "Id": 10,
+    "Name": "Cathar",
+    "Characters": []
+  },
+  {
+    "Id": 11,
+    "Name": "Togruta",
+    "Characters": []
+  },
+  {
+    "Id": 12,
+    "Name": "Nautolan",
+    "Characters": []
+  }
+]

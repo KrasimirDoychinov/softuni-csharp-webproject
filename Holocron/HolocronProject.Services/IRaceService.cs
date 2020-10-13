@@ -13,7 +13,7 @@ namespace HolocronProject.Services
         Task CreateNewRace(string raceName);
 
         // Search services
-        IEnumerable<RaceDto> MostPlayedRaces();
+        IEnumerable<RaceDto> MostPlayedRaces(int topAmmount);
 
     }
 }

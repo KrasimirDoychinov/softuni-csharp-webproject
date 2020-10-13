@@ -7,6 +7,11 @@ namespace HolocronProject.Data.Models
 {
     public class Tag
     {
+        public Tag(string name)
+        {
+            this.Name =  name;
+        }
+
         public int Id { get; set; }
 
         [Required]

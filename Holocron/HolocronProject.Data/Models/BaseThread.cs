@@ -7,6 +7,11 @@ namespace HolocronProject.Data.Models
 {
     public class BaseThread
     {
+        public BaseThread(string title)
+        {
+            this.Title = title;
+        }
+        
         public int Id { get; set; }
 
         [Required]
