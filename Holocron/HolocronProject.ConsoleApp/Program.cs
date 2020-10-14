@@ -13,6 +13,8 @@ namespace HolocronProject.ConsoleApp
     // TODA = maybe TODO's
     // TODO: Go over the code each day
 
+    // TODO: Look over ForumNet's models
+    // TODO: Finish implementing the automapper
     // TODO: Look over the services and maybe add something, else look over and polish the data layer
 
     // TODO: Fix the passowrds
