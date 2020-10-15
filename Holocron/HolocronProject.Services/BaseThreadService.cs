@@ -17,11 +17,12 @@ namespace HolocronProject.Services
             context = new HolocronDbContext();
         }
 
+        // TODO: Fix this method it isn't creating a base thread
         // Admin class
         public async Task CreateNewBaseThread(string title)
         {
             var baseThread = context.BaseThreads.FirstOrDefault(x => x.Title == title);
-            baseThread = new BaseThread(title);
+            baseThread = new BaseThread();
 
             await context.BaseThreads.AddAsync(baseThread);
             await context.SaveChangesAsync();

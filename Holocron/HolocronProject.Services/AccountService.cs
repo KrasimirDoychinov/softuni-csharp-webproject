@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Text;
 using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Security.Cryptography;
 
 using HolocronProject.Data;
 using HolocronProject.Data.Enums;
@@ -18,48 +20,26 @@ namespace HolocronProject.Services
         private IConfigurationProvider config;
         private HolocronDbContext context;
 
-        public AccountService(IConfigurationProvider config)
+        public AccountService(IConfigurationProvider config, HolocronDbContext context)
         {
-            this.context = new HolocronDbContext();
+            this.context = context;
             this.config = config;
         }
+
+        
 
         public async Task Create(string accountName, string password, string displayName,
             string avatarImage = "Placeholder")
         {
-            var account = context.Accounts.FirstOrDefault(x => x.AccountName == accountName);
-            if (account != null)
-            {
-                Console.WriteLine("The account already exist!");
-                return;
-            }
+            IsAccountNameTaken(accountName);
+            IsDisplayNameTaken(displayName);
+            IsAccountDetailsValidForRegistration(accountName, password, displayName);
 
-            if (accountName.Length < 5)
-            {
-                Console.WriteLine("The account name is too short!");
-                return;
-            }
 
-            if (password.Length < 5 
-                || !password.Any(char.IsDigit) 
-                || !password.Any(char.IsUpper)
-                || !password.Any(char.IsLower))
-            {
-                Console.WriteLine("The password doesn't meet the requirements!");
-                return;
-            }
-
-            var displayNameTaken = context.Accounts.Any(x => x.DisplayName == displayName);
-            if (displayNameTaken)
-            {
-                Console.WriteLine("The display name is taken!");
-                return;
-            }
-
-            account = new Account
+            var account = new Account
             {
                 AccountName = accountName,
-                Password = password,
+                Password = CommuteHash(password),
                 DisplayName = displayName,
                 AvatarImage = avatarImage
             };
@@ -217,6 +197,82 @@ namespace HolocronProject.Services
                 .FirstOrDefault(x => x.DisplayName == displayName);
 
             return foreignAccount;
+        }
+
+        private void IsAccountDetailsValidForRegistration(string accountName, string password, string displayName)
+        {
+
+            if (accountName.Length < 5
+                || accountName.Length > 30)
+            {
+                throw new ArgumentException("Account is too short or too long.");
+            }
+
+            if (password.Length < 5
+                || !password.Any(char.IsDigit)
+                || !password.Any(char.IsUpper)
+                || !password.Any(char.IsLower))
+            {
+                throw new ArgumentException("The password is too short or invalid!");
+            }
+
+            if (displayName.Length < 5
+                || displayName.Length > 25)
+            {
+                throw new ArgumentException("The display name is too short or too long!");
+            }
+
+        }
+
+        private void IsAccountNameTaken(string accountName)
+        {
+            var account = this.context.Accounts
+                .FirstOrDefault(x => x.AccountName == accountName);
+
+            if (account != null)
+            {
+                throw new ArgumentException("The account name is already taken!");
+            }
+
+        }
+
+        private void IsDisplayNameTaken(string displayName)
+        {
+            var account = this.context.Accounts
+                .FirstOrDefault(x => x.DisplayName == displayName);
+
+            if (account != null)
+            {
+                throw new ArgumentException("The display name is already taken!");
+            }
+
+        }
+
+        private bool IsAccountDetailsValidForLogin(string accountName, string password)
+        {
+            var account = this.context.Accounts
+                .FirstOrDefault(x => x.AccountName == accountName && x.Password == password);
+
+            if (account == null)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        private string CommuteHash(string input)
+        {
+            var bytes = Encoding.UTF8.GetBytes(input);
+            using var hash = SHA512.Create();
+            var hashedInputBytes = hash.ComputeHash(bytes);
+
+            // Convert to text
+            // StringBuilder Capacity is 128, because 512 bits / 8 bits in byte * 2 symbols for byte 
+            var hashedInputStringBuilder = new System.Text.StringBuilder(128);
+            foreach (var b in hashedInputBytes)
+                hashedInputStringBuilder.Append(b.ToString("X2"));
+            return hashedInputStringBuilder.ToString();
         }
     }
 }

@@ -6,8 +6,6 @@
         {
             public const int AccountNameMaxLength = 30;
 
-            public const int PasswordMaxLength = 50;
-
             public const int DisplayNameMaxLength = 25;
 
         }

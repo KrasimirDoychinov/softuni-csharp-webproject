@@ -8,11 +8,6 @@ namespace HolocronProject.Data.Models
 {
     public class Post
     {
-        public Post()
-        {
-
-        }
-
         public int Id { get; set; }
 
         [Required]
@@ -33,5 +28,6 @@ namespace HolocronProject.Data.Models
 
         public bool IsDeleted { get; set; } = false;
 
+       
     }
 }

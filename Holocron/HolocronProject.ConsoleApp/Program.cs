@@ -12,12 +12,16 @@ namespace HolocronProject.ConsoleApp
 {
     // TODA = maybe TODO's
     // TODO: Go over the code each day
+    // TODO: Don't forget about the character contest
+    
+    // TODO: Go over the entities and add more properties !!!
 
+    // TODO: Fix dependancy inversion on all classes. !!!
+    // TODO: Add more services for checking availability of certain things. Make it more clean and add more services.
     // TODO: Look over ForumNet's models
     // TODO: Finish implementing the automapper
     // TODO: Look over the services and maybe add something, else look over and polish the data layer
 
-    // TODO: Fix the passowrds
     public class Program
     {
         
@@ -33,15 +37,10 @@ namespace HolocronProject.ConsoleApp
             
             IRaceService raceService = new RaceService();
             IServerService serverService = new ServerServices();
-            IAccountService accountService = new AccountService(config);
+            IAccountService accountService = new AccountService(config, context);
             IBaseThreadService baseThreadService = new BaseThreadService();
 
-            var list = accountService.SearchByMostPosts(10);
-
-            foreach (var account in list)
-            {
-                System.Console.WriteLine(account.ToString());
-            }
+            await accountService.Create("testAcc", "asfwqSD1234", "Ne znam ko staa");
 
 
 

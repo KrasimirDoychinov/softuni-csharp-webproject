@@ -18,7 +18,6 @@ namespace HolocronProject.Data.Models
         public string AccountName { get; set; }
 
         [Required]
-        [MaxLength(GlobalConstants.AccountConstants.PasswordMaxLength)]
         public string Password { get; set; }
 
         [Required]
