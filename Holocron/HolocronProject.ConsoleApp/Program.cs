@@ -35,13 +35,10 @@ namespace HolocronProject.ConsoleApp
             
             var context = new HolocronDbContext();
             
-            IRaceService raceService = new RaceService();
-            IServerService serverService = new ServerServices();
+            IRaceService raceService = new RaceService(context);
+            IServerService serverService = new ServerServices(context);
             IAccountService accountService = new AccountService(config, context);
-            IBaseThreadService baseThreadService = new BaseThreadService();
-
-            await accountService.Create("testAcc", "asfwqSD1234", "Ne znam ko staa");
-
+            IBaseThreadService baseThreadService = new BaseThreadService(context);
 
 
             // Code below is to create initial races and servers

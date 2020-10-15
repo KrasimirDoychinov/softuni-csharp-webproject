@@ -15,9 +15,9 @@ namespace HolocronProject.Services
         private IConfigurationProvider config;
         private HolocronDbContext context;
 
-        public CharacterService(IConfigurationProvider config)
+        public CharacterService(IConfigurationProvider config, HolocronDbContext context)
         {
-            context = new HolocronDbContext();
+            this.context = context;
             this.config = config;
         }
 

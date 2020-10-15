@@ -13,9 +13,9 @@ namespace HolocronProject.Services
     {
         private HolocronDbContext context;
 
-        public ServerServices()
+        public ServerServices(HolocronDbContext context)
         {
-            this.context = new HolocronDbContext();
+            this.context = context;
         }
 
         // Admin class

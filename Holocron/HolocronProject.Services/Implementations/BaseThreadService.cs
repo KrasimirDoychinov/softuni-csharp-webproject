@@ -12,9 +12,9 @@ namespace HolocronProject.Services
     {
         private HolocronDbContext context;
 
-        public BaseThreadService()
+        public BaseThreadService(HolocronDbContext context)
         {
-            context = new HolocronDbContext();
+            this.context = context;
         }
 
         // TODO: Fix this method it isn't creating a base thread

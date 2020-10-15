@@ -12,9 +12,9 @@ namespace HolocronProject.Services
     {
         private HolocronDbContext context;
 
-        public RaceService()
+        public RaceService(HolocronDbContext context)
         {
-            this.context = new HolocronDbContext();
+            this.context = context;
         }
 
         // Admin class
