@@ -10,11 +10,6 @@
 
         }
 
-        public static class BaseThreadConstants
-        {
-            public const int TitleMaxLength = 100;
-        }
-
         public static class CharacterConstants
         {
             public const int NameMaxLength = 25;
@@ -38,5 +33,6 @@
         {
             public const int NameMaxLength = 15;
         }
+
     }
 }

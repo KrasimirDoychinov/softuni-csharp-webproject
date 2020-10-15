@@ -5,10 +5,6 @@ namespace HolocronProject.Data.Models
 {
     public class Race
     {
-        public Race(string name)
-        {
-            this.Name = name;
-        }
 
         public int Id { get; set; }
 

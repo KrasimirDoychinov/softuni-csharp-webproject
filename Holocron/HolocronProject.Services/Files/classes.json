@@ -1,0 +1,98 @@
+[
+  {
+    "Id": 0,
+    "Name": "Sith Juggernaut",
+    "Characters": [],
+    "Faction": 2
+  },
+  {
+    "Id": 0,
+    "Name": "Sith Marauder",
+    "Characters": [],
+    "Faction": 2
+  },
+  {
+    "Id": 0,
+    "Name": "Sith Sorcerer",
+    "Characters": [],
+    "Faction": 2
+  },
+  {
+    "Id": 0,
+    "Name": "Operative",
+    "Characters": [],
+    "Faction": 2
+  },
+  {
+    "Id": 0,
+    "Name": "Sniper",
+    "Characters": [],
+    "Faction": 2
+  },
+  {
+    "Id": 0,
+    "Name": "Assassin",
+    "Characters": [],
+    "Faction": 2
+  },
+  {
+    "Id": 0,
+    "Name": "Powertech",
+    "Characters": [],
+    "Faction": 2
+  },
+  {
+    "Id": 0,
+    "Name": "Mercenary",
+    "Characters": [],
+    "Faction": 2
+  },
+  {
+    "Id": 0,
+    "Name": "Gunslinger",
+    "Characters": [],
+    "Faction": 1
+  },
+  {
+    "Id": 0,
+    "Name": "Shadow",
+    "Characters": [],
+    "Faction": 1
+  },
+  {
+    "Id": 0,
+    "Name": "Vanguard",
+    "Characters": [],
+    "Faction": 1
+  },
+  {
+    "Id": 0,
+    "Name": "Commando",
+    "Characters": [],
+    "Faction": 1
+  },
+  {
+    "Id": 0,
+    "Name": "Sentinel",
+    "Characters": [],
+    "Faction": 1
+  },
+  {
+    "Id": 0,
+    "Name": "Sage",
+    "Characters": [],
+    "Faction": 1
+  },
+  {
+    "Id": 0,
+    "Name": "Guardian",
+    "Characters": [],
+    "Faction": 1
+  },
+  {
+    "Id": 0,
+    "Name": "Scoundrel",
+    "Characters": [],
+    "Faction": 1
+  }
+]

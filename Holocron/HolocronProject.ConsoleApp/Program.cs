@@ -4,6 +4,7 @@ using System.IO;
 using System.Threading.Tasks;
 using AutoMapper;
 using HolocronProject.Data;
+using HolocronProject.Data.Enums;
 using HolocronProject.Data.Models;
 using HolocronProject.Services;
 using Newtonsoft.Json;
@@ -64,6 +65,12 @@ namespace HolocronProject.ConsoleApp
             //await context.SaveChangesAsync();
             //-----Base Threads-----
 
+            //-----Classes-----
+            //var jsonClasses = File.ReadAllText("../../../../HolocronProject.Services/Files/classes.json");
+            //var allClasses = JsonConvert.DeserializeObject<List<Class>>(jsonClasses);
+            //await context.Classes.AddRangeAsync(allClasses);
+            //await context.SaveChangesAsync();
+            //-----Classes-----
 
         }
     }

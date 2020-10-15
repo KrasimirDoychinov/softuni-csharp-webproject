@@ -36,6 +36,8 @@ namespace HolocronProject.Data
 
         public DbSet<Tag> Tags { get; set; }
 
+        public DbSet<Class> Classes { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

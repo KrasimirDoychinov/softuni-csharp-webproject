@@ -19,12 +19,14 @@ namespace HolocronProject.Services
     public class AccountService : IAccountService
     {
         private IConfigurationProvider config;
+        private ICharacterService characterService;
         private HolocronDbContext context;
 
-        public AccountService(IConfigurationProvider config, HolocronDbContext context)
+        public AccountService(IConfigurationProvider config, ICharacterService characterService ,HolocronDbContext context)
         {
             this.context = context;
             this.config = config;
+            this.characterService = characterService;
         }
 
         
@@ -51,26 +53,15 @@ namespace HolocronProject.Services
 
         public async Task CreateCharacter(string accountName, string characterName, 
             int gender, int characterType, int faction,
-            string className, string raceName, string serverName, int forceAffiliation, string backstory = "none")
+            string className, string raceName, string serverName, int forceAffiliation, string backstory, string title)
         {
-            var account = context.Accounts.FirstOrDefault(x => x.AccountName == accountName);
-            var character = context.Characters.FirstOrDefault(x => x.Name == characterName);
+            characterService.IsCharacterDetailsValid(characterName, gender, 
+                characterType, faction, className,
+                raceName, serverName, forceAffiliation, backstory);
 
-            if (account == null)
-            {
-                Console.WriteLine("The account doesn't exist!");
-                return;
-            }
+            
 
-            if (character != null)
-            {
-                Console.WriteLine("The character name is already taken!");
-                return;
-            }
-            var race = context.Races.FirstOrDefault(x => x.Name == raceName);
-            var server = context.Servers.FirstOrDefault(x => x.Name == serverName);
-
-            character = new Character
+            var character = new Character
             {
                 Account = account,
                 Name = characterName,
@@ -78,7 +69,7 @@ namespace HolocronProject.Services
                 CharacterType = (CharacterType)characterType,
                 Faction = (Faction)faction,
                 ForceAffiliation = (ForceAffiliation)forceAffiliation,
-                Class = className,
+                Class = new Class(className, Faction.Empire),
                 Race = race,
                 Server = server,
                 Backstory = backstory
