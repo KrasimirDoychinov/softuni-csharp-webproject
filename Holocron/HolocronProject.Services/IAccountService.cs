@@ -11,12 +11,13 @@ namespace HolocronProject.Services
 {
     public interface IAccountService
     {
-        Task Create(string accountName, string password, string displayName,
+        Task CreateAccount(string accountName, string password, string displayName,
             string avatarImage = "Placeholder");
 
         Task CreateCharacter(string accountName, string characterName,
             int gender, int characterType, int faction,
-            string className, string raceName, string serverName, int forceAffiliation, string backstory = "none");
+            string className, string raceName, string serverName, int forceAffiliation, string backstory,
+            string title, string image);
 
         Task CreatePost(string accountName, string description, string threadName);
 
@@ -32,5 +33,6 @@ namespace HolocronProject.Services
         IEnumerable<AccountDto> SearchAccountsWithMostCharacters(int amountOfAccounts);
 
         ForeignAccountDto SearchForeignAccount(string displayName);
+
     }
 }

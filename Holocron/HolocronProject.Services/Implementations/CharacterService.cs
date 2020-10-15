@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using HolocronProject.Data;
+using HolocronProject.Data.Models;
 using HolocronProject.Services.Models;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,9 @@ namespace HolocronProject.Services
             this.config = config;
         }
 
+        public Character GetCharacterByName(string characterName)
+            => this.context.Characters.FirstOrDefault(x => x.Name == characterName);
+
         public IEnumerable<CharacterDto> MostPopularClasses()
         {
             var characters = context.Characters
@@ -36,22 +40,22 @@ namespace HolocronProject.Services
             int forceAffiliation, string backstory) 
         {
 
-            if (gender != 1 || gender != 2)
+            if (gender != 1 && gender != 2)
             {
                 throw new ArgumentException("The gender is invalid!");
             }
 
-            if (characterType != 1 || characterType != 2 || characterType != 3)
+            if (characterType != 1 && characterType != 2 && characterType != 3)
             {
                 throw new ArgumentException("The character type is invalid!");
             }
 
-            if (faction != 1 || faction != 2)
+            if (faction != 1 && faction != 2)
             {
                 throw new ArgumentException("The faction is invalid!");
             }
 
-            if (forceAffiliation != 1 || forceAffiliation != 2)
+            if (forceAffiliation != 1 && forceAffiliation != 2)
             {
                 throw new ArgumentException("The force affiliation is invalid!");
             }
@@ -91,6 +95,5 @@ namespace HolocronProject.Services
                 throw new ArgumentException("The character name is taken!");
             }
         }
-
     }
 }

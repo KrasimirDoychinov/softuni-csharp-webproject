@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using HolocronProject.Data.Models;
+using System.Threading.Tasks;
 
 namespace HolocronProject.Services
 {

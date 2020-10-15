@@ -1,4 +1,5 @@
-﻿using HolocronProject.Services.Models;
+﻿using HolocronProject.Data.Models;
+using HolocronProject.Services.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,6 +10,8 @@ namespace HolocronProject.Services
     public interface IServerService
     {
         Task CreateNewServer(string serverName);
+
+        Server GetServerByName(string serverName);
 
         IEnumerable<ServerDto> MostPopularServers();
     }

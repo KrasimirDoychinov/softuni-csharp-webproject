@@ -38,6 +38,9 @@ namespace HolocronProject.Services
             await context.SaveChangesAsync();
         }
 
+        public Server GetServerByName(string serverName)
+            => this.context.Servers.FirstOrDefault(x => x.Name == serverName);
+
         public IEnumerable<ServerDto> MostPopularServers()
         {
             var servers = this.context.Servers

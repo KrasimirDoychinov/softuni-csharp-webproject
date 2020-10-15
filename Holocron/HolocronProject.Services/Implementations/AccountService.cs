@@ -18,26 +18,37 @@ namespace HolocronProject.Services
 
     public class AccountService : IAccountService
     {
+        private IClassService classService;
+        private IRaceService raceService;
+        private IServerService serverService;
         private IConfigurationProvider config;
         private ICharacterService characterService;
         private HolocronDbContext context;
 
-        public AccountService(IConfigurationProvider config, ICharacterService characterService ,HolocronDbContext context)
+        public AccountService(IConfigurationProvider config,
+            IClassService classService,
+            IRaceService raceService,
+            IServerService serverService,
+            ICharacterService characterService,
+            HolocronDbContext context)
         {
             this.context = context;
             this.config = config;
+
+            this.classService = classService;
+            this.raceService = raceService;
+            this.serverService = serverService;
             this.characterService = characterService;
         }
 
         
 
-        public async Task Create(string accountName, string password, string displayName,
+        public async Task CreateAccount(string accountName, string password, string displayName,
             string avatarImage = "Placeholder")
         {
             IsAccountNameTaken(accountName);
             IsDisplayNameTaken(displayName);
             IsAccountDetailsValidForRegistration(accountName, password, displayName);
-
 
             var account = new Account
             {
@@ -53,13 +64,19 @@ namespace HolocronProject.Services
 
         public async Task CreateCharacter(string accountName, string characterName, 
             int gender, int characterType, int faction,
-            string className, string raceName, string serverName, int forceAffiliation, string backstory, string title)
+            string className, string raceName, string serverName, int forceAffiliation, string backstory, 
+            string title, string image)
         {
             characterService.IsCharacterDetailsValid(characterName, gender, 
                 characterType, faction, className,
                 raceName, serverName, forceAffiliation, backstory);
+            characterService.IsCharacterNameTaken(characterName);
+            IsAccountExist(accountName);
 
-            
+            var race = this.raceService.GetRaceByName(raceName);
+            var server = this.serverService.GetServerByName(serverName);
+            var @class = this.classService.GetClassByName(className);
+            var account = GetAccountByName(accountName);
 
             var character = new Character
             {
@@ -69,10 +86,12 @@ namespace HolocronProject.Services
                 CharacterType = (CharacterType)characterType,
                 Faction = (Faction)faction,
                 ForceAffiliation = (ForceAffiliation)forceAffiliation,
-                Class = new Class(className, Faction.Empire),
+                Class = @class,
                 Race = race,
                 Server = server,
-                Backstory = backstory
+                Backstory = backstory,
+                Title = title,
+                Image = image
             };
 
             await context.Characters.AddAsync(character);
@@ -191,6 +210,9 @@ namespace HolocronProject.Services
             return foreignAccount;
         }
 
+        public Account GetAccountByName(string accountName)
+            => this.context.Accounts.FirstOrDefault(x => x.AccountName == accountName);
+
         private void IsAccountDetailsValidForRegistration(string accountName, string password, string displayName)
         {
 
@@ -226,6 +248,17 @@ namespace HolocronProject.Services
                 throw new ArgumentException("The account name is already taken!");
             }
 
+        }
+
+        private void IsAccountExist(string accountName)
+        {
+            var account = this.context.Accounts
+                .FirstOrDefault(x => x.AccountName == accountName);
+
+            if (account == null)
+            {
+                throw new ArgumentException("The account doesn't exist!");
+            }
         }
 
         private void IsDisplayNameTaken(string displayName)
@@ -266,5 +299,6 @@ namespace HolocronProject.Services
                 hashedInputStringBuilder.Append(b.ToString("X2"));
             return hashedInputStringBuilder.ToString();
         }
+
     }
 }

@@ -7,6 +7,7 @@ using HolocronProject.Data;
 using HolocronProject.Data.Enums;
 using HolocronProject.Data.Models;
 using HolocronProject.Services;
+using HolocronProject.Services.Implementations;
 using Newtonsoft.Json;
 
 namespace HolocronProject.ConsoleApp
@@ -17,7 +18,6 @@ namespace HolocronProject.ConsoleApp
     
     // TODO: Go over the entities and add more properties !!!
 
-    // TODO: Fix dependancy inversion on all classes. !!!
     // TODO: Add more services for checking availability of certain things. Make it more clean and add more services.
     // TODO: Look over ForumNet's models
     // TODO: Finish implementing the automapper
@@ -35,12 +35,16 @@ namespace HolocronProject.ConsoleApp
 
             
             var context = new HolocronDbContext();
-            
+
+            IClassService classService = new ClassService(context);
+            ICharacterService characterService = new CharacterService(config, context);
             IRaceService raceService = new RaceService(context);
             IServerService serverService = new ServerServices(context);
-            IAccountService accountService = new AccountService(config, context);
             IBaseThreadService baseThreadService = new BaseThreadService(context);
+            IAccountService accountService = new AccountService(config, classService, raceService, serverService, characterService, context);
 
+            //await accountService.CreateAccount("detha", "Krasitoobrat4545", "Detha");
+            //await accountService.CreateCharacter("detha", "TestCharcho", 1, 1, 1, "Operative", "Human", "Darth Malgus", 1, "none", "none", "none");
 
             // Code below is to create initial races and servers
 
