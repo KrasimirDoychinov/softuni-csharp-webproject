@@ -20,5 +20,10 @@ namespace HolocronProject.Services.Implementations
             .Where(x => x.Title.Contains(title))
             .OrderByDescending(x => x.CreatedOn)
             .ToList();
+
+        public IEnumerable<Thread> GetLatestThreads()
+            => this.context.Threads
+            .OrderByDescending(x => x.CreatedOn)
+            .ToList();
     }
 }

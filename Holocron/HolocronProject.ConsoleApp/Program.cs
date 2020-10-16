@@ -16,7 +16,7 @@ namespace HolocronProject.ConsoleApp
     // TODO: Go over the code each day
     // TODO: Don't forget about the character contest
     
-    // TODO: Go over the entities and add more properties !!!
+    // TODO: Add DTO's to all the service implementations
 
     // TODO: Add more services for checking availability of certain things. Make it more clean and add more services.
     // TODO: Look over ForumNet's models

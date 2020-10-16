@@ -30,7 +30,6 @@ namespace HolocronProject.Services
         public Race GetRaceByName(string raceName)
             => this.context.Races.FirstOrDefault(x => x.Name == raceName);
        
-
         public IEnumerable<RaceDto> MostPlayedRaces()
         {
             var mostPlayedRaces = this.context.Races
