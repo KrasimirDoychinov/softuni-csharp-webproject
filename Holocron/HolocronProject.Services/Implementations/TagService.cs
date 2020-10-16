@@ -10,6 +10,7 @@ namespace HolocronProject.Services.Implementations
     public class TagService : ITagService
     {
         private HolocronDbContext context;
+
         public TagService(HolocronDbContext context)
         {
             this.context = context;

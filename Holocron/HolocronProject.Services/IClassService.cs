@@ -8,5 +8,7 @@ namespace HolocronProject.Services
     public interface IClassService
     {
         Class GetClassByName(string className);
+
+        IEnumerable<Class> GetMostPlayedCasses();
     }
 }

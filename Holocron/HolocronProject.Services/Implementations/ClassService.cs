@@ -18,5 +18,10 @@ namespace HolocronProject.Services.Implementations
 
         public Class GetClassByName(string className)
             => this.context.Classes.FirstOrDefault(x => x.Name == className);
+
+        public IEnumerable<Class> GetMostPlayedCasses()
+            => this.context.Classes
+            .OrderByDescending(x => x.Characters.Count())
+            .ToList();
     }
 }
