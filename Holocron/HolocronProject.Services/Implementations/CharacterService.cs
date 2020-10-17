@@ -1,12 +1,13 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Linq;
+using System.Collections.Generic;
+
+using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using HolocronProject.Data;
 using HolocronProject.Data.Models;
 using HolocronProject.Services.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+
 
 namespace HolocronProject.Services
 {

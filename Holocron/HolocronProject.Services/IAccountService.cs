@@ -1,11 +1,7 @@
-﻿using AutoMapper;
-using HolocronProject.Data.Enums;
-using HolocronProject.Data.Models;
-using HolocronProject.Services.Models;
-using System;
+﻿using System.Threading.Tasks;
 using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+
+using HolocronProject.Services.Models;
 
 namespace HolocronProject.Services
 {

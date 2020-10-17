@@ -33,7 +33,7 @@ namespace HolocronProject.ConsoleApp
                 cfg.AddProfile(new MappingProfile());
             });
 
-            
+
             var context = new HolocronDbContext();
 
             IClassService classService = new ClassService(context);

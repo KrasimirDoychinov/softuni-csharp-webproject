@@ -1,9 +1,8 @@
-﻿using HolocronProject.Data;
-using HolocronProject.Data.Models;
-using System;
-using System.Collections;
+﻿using System.Linq;
 using System.Collections.Generic;
-using System.Linq;
+
+using HolocronProject.Data;
+using HolocronProject.Data.Models;
 
 namespace HolocronProject.Services.Implementations
 {
