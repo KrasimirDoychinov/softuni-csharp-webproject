@@ -16,6 +16,8 @@ namespace HolocronProject.ConsoleApp
     // TODO: Go over the code each day
     // TODO: Don't forget about the character contest
     
+    // TODO: Add view models to the services
+    
     // TODO: Add DTO's to all the service implementations
 
     // TODO: Add more services for checking availability of certain things. Make it more clean and add more services.

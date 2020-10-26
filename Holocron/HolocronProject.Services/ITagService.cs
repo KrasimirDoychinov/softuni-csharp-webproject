@@ -6,6 +6,6 @@ namespace HolocronProject.Services
     {
         Tag GetTagByName(string tagName);
 
-        void IsTagNameTaken(string tagName);
+        bool IsTagNameTaken(string tagName);
     }
 }

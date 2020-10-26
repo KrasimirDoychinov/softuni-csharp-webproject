@@ -275,15 +275,8 @@ namespace HolocronProject.Services
 
         private bool IsAccountDetailsValidForLogin(string accountName, string password)
         {
-            var account = this.context.Accounts
-                .FirstOrDefault(x => x.AccountName == accountName && x.Password == password);
-
-            if (account == null)
-            {
-                return false;
-            }
-
-            return true;
+            return this.context.Accounts
+                .Any(x => x.AccountName == accountName && x.Password == password);
         }
 
         private string CommuteHash(string input)

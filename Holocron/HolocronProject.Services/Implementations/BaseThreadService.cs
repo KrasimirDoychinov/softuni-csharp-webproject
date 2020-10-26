@@ -27,6 +27,12 @@ namespace HolocronProject.Services
             await context.BaseThreads.AddAsync(baseThread);
             await context.SaveChangesAsync();
         }
-        
+
+        public BaseThread GetBaseThreadByName(string title)
+        {
+            return this.context.BaseThreads
+                .FirstOrDefault(x => x.Title == title);
+
+        }
     }
 }
