@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 using HolocronProject.Data.Models;
-using HolocronProject.Services.Models;
+using HolocronProject.Services.ViewModelsTemp;
 
 namespace HolocronProject.Services
 {
@@ -12,7 +12,7 @@ namespace HolocronProject.Services
 
         Race GetRaceByName(string raceName);
 
-        IEnumerable<RaceDto> MostPlayedRaces();
+        //IEnumerable<RaceDto> MostPlayedRaces();
         
     }
 }

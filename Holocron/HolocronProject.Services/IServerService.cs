@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 using HolocronProject.Data.Models;
-using HolocronProject.Services.Models;
+using HolocronProject.Services.ViewModelsTemp;
 
 namespace HolocronProject.Services
 {
@@ -12,6 +12,6 @@ namespace HolocronProject.Services
 
         Server GetServerByName(string serverName);
 
-        IEnumerable<ServerDto> MostPopularServers();
+        //IEnumerable<ServerDto> MostPopularServers();
     }
 }

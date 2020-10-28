@@ -8,6 +8,11 @@ namespace HolocronProject.Data.Models
 {
     public class Post
     {
+        // TODO: Implement service
+        // TODO: Edit posts
+        // TODO: Add tags
+        // TODO: Delete post
+        // TODO: View services
         public Post()
         {
             this.Id = Guid.NewGuid().ToString();

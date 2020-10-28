@@ -15,8 +15,6 @@ namespace HolocronProject.Services.ViewModelsTemp
 
         public CharacterType CharacterType { get; set; }
 
-        public Faction Faction { get; set; }
-
         public ForceAffiliation ForceAffiliation { get; set; }
 
         public string ClassId { get; set; }

@@ -9,6 +9,7 @@ namespace HolocronProject.Data.Models
 
     public class BugReport
     {
+        // TODO: View services
         public BugReport()
         {
             this.Id = Guid.NewGuid().ToString();

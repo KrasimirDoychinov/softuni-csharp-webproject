@@ -10,5 +10,7 @@ namespace HolocronProject.Services
         Task CreateCharacter(CharacterInputModel input);
 
         Task DeleteCharacter(string characterId);
+
+        Character GetCharacterById(string characterId);
     }
 }

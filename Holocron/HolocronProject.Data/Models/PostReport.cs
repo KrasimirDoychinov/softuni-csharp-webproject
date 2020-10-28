@@ -8,6 +8,9 @@ namespace HolocronProject.Data.Models
 {
     public class PostReport
     {
+        // TODO: Implement services
+        // TODO: Resolve service
+        // TODO: View services
         public PostReport()
         {
             this.Id = Guid.NewGuid().ToString();
@@ -30,6 +33,8 @@ namespace HolocronProject.Data.Models
         public string PostId { get; set; }
 
         public Post Post { get; set; }
+
+        public bool IsResolved { get; set; }
 
     }
 }

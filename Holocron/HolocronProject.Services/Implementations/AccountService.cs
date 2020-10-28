@@ -8,7 +8,7 @@ using System.Security.Cryptography;
 using HolocronProject.Data;
 using HolocronProject.Data.Enums;
 using HolocronProject.Data.Models;
-using HolocronProject.Services.Models;
+using HolocronProject.Services.ViewModelsTemp;
 
 using AutoMapper.QueryableExtensions;
 using AutoMapper;

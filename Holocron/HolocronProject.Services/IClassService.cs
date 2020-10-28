@@ -8,6 +8,6 @@ namespace HolocronProject.Services
     {
         Class GetClassByName(string className);
 
-        IEnumerable<Class> GetMostPlayedCasses();
+        Class GetClassById(string classId);
     }
 }

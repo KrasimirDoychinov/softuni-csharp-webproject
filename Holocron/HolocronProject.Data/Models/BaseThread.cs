@@ -8,6 +8,7 @@ namespace HolocronProject.Data.Models
 {
     public class BaseThread
     {
+        // TODO: View services
         public BaseThread()
         {
             this.Id = Guid.NewGuid().ToString();

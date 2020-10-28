@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
-
+using System.Threading.Tasks;
 using HolocronProject.Data.Models;
 
 namespace HolocronProject.Services
 {
     public interface IPostService
     {
-        IEnumerable<Post> GetPostByDescription(string description);
+        //Task CreatePost();
     }
 }

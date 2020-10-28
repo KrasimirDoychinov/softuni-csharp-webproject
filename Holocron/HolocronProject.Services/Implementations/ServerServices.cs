@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 using HolocronProject.Data;
 using HolocronProject.Data.Models;
-using HolocronProject.Services.Models;
+using HolocronProject.Services.ViewModelsTemp;
 
 namespace HolocronProject.Services
 {
@@ -41,18 +41,18 @@ namespace HolocronProject.Services
         public Server GetServerByName(string serverName)
             => this.context.Servers.FirstOrDefault(x => x.Name == serverName);
 
-        public IEnumerable<ServerDto> MostPopularServers()
-        {
-            var servers = this.context.Servers
-                .Select(x => new ServerDto
-                {
-                    Name = x.Name,
-                    CountOfCharacters = x.Characters.Count
-                })
-                .OrderByDescending(x => x.CountOfCharacters)
-                .ToList();
+        //public IEnumerable<ServerDto> MostPopularServers()
+        //{
+        //    var servers = this.context.Servers
+        //        .Select(x => new ServerDto
+        //        {
+        //            Name = x.Name,
+        //            CountOfCharacters = x.Characters.Count
+        //        })
+        //        .OrderByDescending(x => x.CountOfCharacters)
+        //        .ToList();
 
-            return servers;
-        }
+        //    return servers;
+        //}
     }
 }

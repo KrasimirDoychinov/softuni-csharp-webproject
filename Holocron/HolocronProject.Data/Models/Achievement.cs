@@ -8,7 +8,7 @@ namespace HolocronProject.Data.Models
 {
     public class Achievement
     {
-
+        // TODO: Service to win achievement
         public Achievement()
         {
             this.Id = Guid.NewGuid().ToString();

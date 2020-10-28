@@ -8,6 +8,10 @@ namespace HolocronProject.Data.Models
 {
     public class Competition
     {
+        // TODO: Implement services
+        // TODO: Make sure IsFinished works
+        // TODO: Make sure everything works
+        // TODO: View services
         public Competition()
         {
             this.Id = Guid.NewGuid().ToString();

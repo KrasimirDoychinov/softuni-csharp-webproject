@@ -8,6 +8,9 @@ namespace HolocronProject.Data.Models
 {
     public class Thread
     {
+        // TODO: Implement services
+        // TODO: Delete service
+        // TODO: View services
         public Thread()
         {
             this.Id = Guid.NewGuid().ToString();

@@ -1,5 +1,4 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -13,17 +12,10 @@ using Newtonsoft.Json;
 namespace HolocronProject.ConsoleApp
 {
     // TODA = maybe TODO's
-    // TODO: Go over the code each day
     // TODO: Don't forget about the character contest
     
-    // TODO: Add view models to the services
-    
-    // TODO: Add DTO's to all the service implementations
-
-    // TODO: Add more services for checking availability of certain things. Make it more clean and add more services.
-    // TODO: Look over ForumNet's models
-    // TODO: Finish implementing the automapper
-    // TODO: Look over the services and maybe add something, else look over and polish the data layer
+    // TODO: Review the code each day at the beginning of the code session and at the end of the session
+    // TODO: For tmmrw - finish up the services and start adding more "search like" methods to the services
 
     public class Program
     {
@@ -39,14 +31,14 @@ namespace HolocronProject.ConsoleApp
             var context = new HolocronDbContext();
 
             IClassService classService = new ClassService(context);
-            ICharacterService characterService = new CharacterService(config, context);
+            ICharacterService characterService = new CharacterService(context);
             IRaceService raceService = new RaceService(context);
             IServerService serverService = new ServerServices(context);
             IBaseThreadService baseThreadService = new BaseThreadService(context);
-            IAccountService accountService = new AccountService(config, classService, raceService, serverService, characterService, context);
+            IAccountService accountService = new AccountService(config, context);
 
-            await accountService.CreateAccount("detha", "Krasitoobrat4545", "Detha");
-            //await accountService.CreateCharacter("detha", "TestCharcho", 1, 1, 1, "Operative", "Human", "Darth Malgus", 1, "none", "none", "none");
+            //await accountService.CreateAccount("detha", "Krasitoobrat4545", "Detha");
+            //await accountService.CreateCharacter();
 
             // Code below is to create initial races and servers
 

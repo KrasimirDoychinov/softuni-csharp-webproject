@@ -8,6 +8,7 @@ namespace HolocronProject.Data.Models
 {
     public class Class
     {
+        // TODO: View services
         public Class()
         {
             this.Id = Guid.NewGuid().ToString();

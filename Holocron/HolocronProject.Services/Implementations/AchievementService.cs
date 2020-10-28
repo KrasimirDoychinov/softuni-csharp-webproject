@@ -10,21 +10,41 @@ namespace HolocronProject.Services.Implementations
     public class AchievementService : IAchievementService
     {
         private readonly HolocronDbContext context;
+        private readonly ICompetitionService competitionService;
 
-        public AchievementService(HolocronDbContext context)
+        public AchievementService(HolocronDbContext context, 
+            ICompetitionService competitionService)
         {
             this.context = context;
+            this.competitionService = competitionService;
         }
 
-        public async Task CreateAchievement(string name, string competitionId)
+        public async Task CreateAchievement(string competitionId)
         {
-            var achievement = new Achievement
+            var competition = this.competitionService.GetCompetitionById(competitionId);
+
+            var achievementFirst = new Achievement
             {
-                Name = name,
+                Name = $"First place - {competition.Title}",
                 CompetitionId = competitionId
             };
 
-            await this.context.Achievements.AddAsync(achievement);
+            var achievementSecond = new Achievement
+            {
+                Name = $"Second place - {competition.Title}",
+                CompetitionId = competitionId
+            };
+
+            var achievementThird = new Achievement
+            {
+                Name = $"Third place - {competition.Title}",
+                CompetitionId = competitionId
+            };
+
+
+            await this.context.Achievements.AddAsync(achievementFirst);
+            await this.context.Achievements.AddAsync(achievementSecond);
+            await this.context.Achievements.AddAsync(achievementThird);
             await this.context.SaveChangesAsync();
         }
     }

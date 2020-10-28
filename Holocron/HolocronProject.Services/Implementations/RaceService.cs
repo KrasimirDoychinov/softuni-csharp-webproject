@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 using HolocronProject.Data;
 using HolocronProject.Data.Models;
-using HolocronProject.Services.Models;
+using HolocronProject.Services.ViewModelsTemp;
 
 namespace HolocronProject.Services
 {
@@ -30,18 +30,18 @@ namespace HolocronProject.Services
         public Race GetRaceByName(string raceName)
             => this.context.Races.FirstOrDefault(x => x.Name == raceName);
        
-        public IEnumerable<RaceDto> MostPlayedRaces()
-        {
-            var mostPlayedRaces = this.context.Races
-                .Select(x => new RaceDto
-                {
-                    Name = x.Name,
-                    CharacterCount = x.Characters.Count
-                })
-                .OrderByDescending(x => x.CharacterCount)
-                .ToList();
+        //public IEnumerable<RaceDto> MostPlayedRaces()
+        //{
+        //    var mostPlayedRaces = this.context.Races
+        //        .Select(x => new RaceDto
+        //        {
+        //            Name = x.Name,
+        //            CharacterCount = x.Characters.Count
+        //        })
+        //        .OrderByDescending(x => x.CharacterCount)
+        //        .ToList();
 
-            return mostPlayedRaces;
-        }
+        //    return mostPlayedRaces;
+        //}
     }
 }

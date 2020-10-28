@@ -2,6 +2,8 @@
 {
     public class PostTag
     {
+        // TODO: Implement services
+        // TODO: Check to be sure
         public string PostId { get; set; }
 
         public Post Post { get; set; }

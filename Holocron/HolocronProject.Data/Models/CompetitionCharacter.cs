@@ -6,6 +6,11 @@ namespace HolocronProject.Data.Models
 {
     public class CompetitionCharacter
     {
+        // TODO: Make sure this works
+        // TODO: Implement services
+        // TODO: Service to increase votes
+        // TODO: View services
+
         public string CompetitionId { get; set; }
 
         public Competition Competition { get; set; }

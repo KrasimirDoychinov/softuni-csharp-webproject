@@ -10,6 +10,7 @@ namespace HolocronProject.Data.Models
 {
     public class Character
     {
+        // TODO: Edditing character info
         public Character()
         {
             this.Id = Guid.NewGuid().ToString();
@@ -36,9 +37,6 @@ namespace HolocronProject.Data.Models
 
         [Required]
         public CharacterType CharacterType { get; set; } = 0;
-
-        [Required]
-        public Faction Faction { get; set; } = 0;
 
         [Required]
         public ForceAffiliation ForceAffiliation { get; set; }

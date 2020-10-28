@@ -8,6 +8,9 @@ namespace HolocronProject.Data.Models
 {
     public class Tag
     {
+        // TODO: Implement services
+        // TODO: Service to add tags to post
+        // TODO: View services
         public Tag()
         {
             this.Id = Guid.NewGuid().ToString();

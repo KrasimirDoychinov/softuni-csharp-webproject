@@ -7,6 +7,6 @@ namespace HolocronProject.Services
 {
     public interface IAchievementService
     {
-        Task CreateAchievement(string name, string competitionId);
+        Task CreateAchievement(string competitionId);
     }
 }

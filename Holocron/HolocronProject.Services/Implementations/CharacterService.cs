@@ -6,7 +6,7 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using HolocronProject.Data;
 using HolocronProject.Data.Models;
-using HolocronProject.Services.Models;
+using HolocronProject.Services.ViewModelsTemp;
 using System.Threading.Tasks;
 using HolocronProject.Services.ViewModelsTemp;
 
@@ -33,7 +33,6 @@ namespace HolocronProject.Services
                 Image = input.Image,
                 Gender = input.Gender,
                 CharacterType = input.CharacterType,
-                Faction = input.Faction,
                 ForceAffiliation = input.ForceAffiliation,
                 ClassId = input.ClassId,
                 RaceId = input.RaceId,

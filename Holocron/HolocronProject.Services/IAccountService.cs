@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using System.Collections.Generic;
 
-using HolocronProject.Services.Models;
+using HolocronProject.Services.ViewModelsTemp;
 using HolocronProject.Data.Models;
 
 namespace HolocronProject.Services
@@ -21,6 +21,8 @@ namespace HolocronProject.Services
         Task UpdateAccountName(string accountId, string newAccountName);
 
         Account GetAccountById(string accountId);
+
+        Account GetAccountByIdAndPassword(string accountId, string password);
 
     }
 }

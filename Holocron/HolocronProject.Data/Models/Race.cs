@@ -6,6 +6,8 @@ namespace HolocronProject.Data.Models
 {
     public class Race
     {
+        // TODO: Implement services
+        // TODO: View services
         public Race()
         {
             this.Id = Guid.NewGuid().ToString();
