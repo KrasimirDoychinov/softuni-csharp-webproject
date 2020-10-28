@@ -28,7 +28,7 @@ namespace HolocronProject.Data.Models
 
         public Account Account { get; set; }
 
-        public bool IsResolved { get; set; }
+        public bool IsResolved { get; set; } = false;
 
     }
 }

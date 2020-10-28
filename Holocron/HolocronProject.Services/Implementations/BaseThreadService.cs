@@ -17,7 +17,7 @@ namespace HolocronProject.Services
             this.context = context;
         }
 
-        public async Task CreateNewBaseThread(string title)
+        public async Task CreateBaseThread(string title)
         {
             var baseThread = new BaseThread
             {
