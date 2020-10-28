@@ -2,13 +2,20 @@
 
 using HolocronProject.Data.Enums;
 using HolocronProject.Data.Common;
-
+using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace HolocronProject.Data.Models
 {
     public class Character
     {
-        public int Id { get; set; }
+        public Character()
+        {
+            this.Id = Guid.NewGuid().ToString();
+        }
+
+        public string Id { get; set; }
 
         [Required]
         [MaxLength(GlobalConstants.CharacterConstants.NameMaxLength)]
@@ -30,21 +37,26 @@ namespace HolocronProject.Data.Models
         [Required]
         public ForceAffiliation ForceAffiliation { get; set; }
 
-        public int ClassId { get; set; }
+        public string ClassId { get; set; }
 
         public Class Class { get; set; }
 
-        public int RaceId { get; set; }
+        public string RaceId { get; set; }
 
         public Race Race { get; set; }
 
-        public int ServerId { get; set; }
+        public string ServerId { get; set; }
 
         public Server Server { get; set; }
 
-        public int AccountId { get; set; }
+        public string AccountId { get; set; }
 
         public Account Account { get; set; }
+
+        public ICollection<Achievement> Achievements { get; set; } = new List<Achievement>();
+
+        public ICollection<CompetitionCharacter> Competitions { get; set;  } = new List<CompetitionCharacter>();
+
 
         [MaxLength(GlobalConstants.CharacterConstants.TitleMaxLength)]
         public string Title { get; set; } = "None";

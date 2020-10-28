@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 using HolocronProject.Data.Common;
@@ -7,12 +8,12 @@ namespace HolocronProject.Data.Models
 {
     public class Tag
     {
-        public Tag(string name)
+        public Tag()
         {
-            this.Name =  name;
+            this.Id = Guid.NewGuid().ToString();
         }
 
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         [Required]
         [MaxLength(GlobalConstants.TagConstants.NameMaxLength)]

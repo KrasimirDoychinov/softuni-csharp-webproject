@@ -2,11 +2,11 @@
 {
     public class PostTag
     {
-        public int PostId { get; set; }
+        public string PostId { get; set; }
 
         public Post Post { get; set; }
 
-        public int TagId { get; set; }
+        public string TagId { get; set; }
 
         public Tag Tag { get; set; }
 

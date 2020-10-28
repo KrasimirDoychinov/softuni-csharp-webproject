@@ -8,7 +8,12 @@ namespace HolocronProject.Data.Models
 {
     public class Post
     {
-        public int Id { get; set; }
+        public Post()
+        {
+            this.Id = Guid.NewGuid().ToString();
+        }
+
+        public string Id { get; set; }
 
         [Required]
         [MaxLength(GlobalConstants.PostConstants.DescriptionMaxLength)]
@@ -16,18 +21,16 @@ namespace HolocronProject.Data.Models
 
         public string CreatedOn { get; set; } = DateTime.Now.ToString("MM/dd/yyyy h:mm tt");
 
-        public int AccountId { get; set; }
+        public string AccountId { get; set; }
 
         public Account Account { get; set; }
 
-        public int ThreadId { get; set; }
+        public string ThreadId { get; set; }
 
         public Thread Thread { get; set; }
 
         public ICollection<PostTag> Tags { get; set; } = new List<PostTag>();
 
         public bool IsDeleted { get; set; } = false;
-
-       
     }
 }

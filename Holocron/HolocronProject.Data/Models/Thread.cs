@@ -8,17 +8,22 @@ namespace HolocronProject.Data.Models
 {
     public class Thread
     {
-        public int Id { get; set; }
+        public Thread()
+        {
+            this.Id = Guid.NewGuid().ToString();
+        }
+
+        public string Id { get; set; }
 
         [Required]
         [MaxLength(GlobalConstants.ThreadConstants.TitleMaxLength)]
         public string Title { get; set; }
 
-        public int BaseThreadId { get; set; }
+        public string BaseThreadId { get; set; }
 
         public BaseThread BaseThread { get; set; }
 
-        public int AccountId { get; set; }
+        public string AccountId { get; set; }
 
         public Account Account { get; set; }
 
@@ -27,7 +32,6 @@ namespace HolocronProject.Data.Models
         public ICollection<Post> Posts { get; set; } = new List<Post>();
 
         public bool IsDeleted { get; set; } = false;
-
         
     }
 }

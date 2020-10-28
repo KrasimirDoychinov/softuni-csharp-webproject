@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 using HolocronProject.Data.Common;
@@ -7,8 +8,12 @@ namespace HolocronProject.Data.Models
 {
     public class BaseThread
     {
-        
-        public int Id { get; set; }
+        public BaseThread()
+        {
+            this.Id = Guid.NewGuid().ToString();
+        }
+
+        public string Id { get; set; }
 
         [Required]
         public string Title { get; set; }

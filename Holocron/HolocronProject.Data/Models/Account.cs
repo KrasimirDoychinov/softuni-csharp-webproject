@@ -8,10 +8,14 @@ using HolocronProject.Data.Common;
 namespace HolocronProject.Data.Models
 {
 
-    // TODO: Fix the passwords!
     public class Account
     {
-        public int Id { get; set; }
+        public Account()
+        {
+            this.Id = Guid.NewGuid().ToString();
+        }
+
+        public string Id { get; set; }
 
         [Required]
         [MaxLength(GlobalConstants.AccountConstants.AccountNameMaxLength)]
@@ -20,7 +24,7 @@ namespace HolocronProject.Data.Models
         [Required]
         public string Password { get; set; }
 
-        [Required]
+        [Required] 
         [MaxLength(GlobalConstants.AccountConstants.DisplayNameMaxLength)]
         public string DisplayName { get; set; }
 
@@ -39,6 +43,10 @@ namespace HolocronProject.Data.Models
         public ICollection<Post> Posts { get; set; } = new List<Post>();
 
         public ICollection<Thread> Threads { get; set; } = new List<Thread>();
+
+        public ICollection<BugReport> BugReports { get; set; } = new List<BugReport>();
+
+        public ICollection<PostReport> PostReports { get; set; } = new List<PostReport>();
 
     }
 }

@@ -1,5 +1,6 @@
 ﻿
 using HolocronProject.Data.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -7,13 +8,11 @@ namespace HolocronProject.Data.Models
 {
     public class Class
     {
-        public Class(string name, Faction faction)
+        public Class()
         {
-            this.Name = name;
-            this.Faction = faction;
-
+            this.Id = Guid.NewGuid().ToString();
         }
-        public int Id { get; set; }
+        public string Id { get; set; }
         
         [Required]
         public string Name { get; set; }

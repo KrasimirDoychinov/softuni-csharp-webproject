@@ -38,6 +38,16 @@ namespace HolocronProject.Data
 
         public DbSet<Class> Classes { get; set; }
 
+        public DbSet<BugReport> BugReports { get; set; }
+
+        public DbSet<PostReport> PostReports { get; set; }
+
+        public DbSet<Achievement> Achievements { get; set; }
+
+        public DbSet<Competition> Competitions { get; set; }
+
+        public DbSet<CompetitionCharacter> CompetitionsCharacters { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -51,11 +61,15 @@ namespace HolocronProject.Data
             builder.Entity<PostTag>()
                 .HasKey(x => new { x.PostId, x.TagId });
 
+            builder.Entity<CompetitionCharacter>()
+                .HasKey(x => new { x.CharacterId, x.CompetitionId });
+
             builder.Entity<Thread>()
                 .HasOne(x => x.Account)
                 .WithMany(y => y.Threads)
                 .HasForeignKey(x => x.AccountId)
                 .OnDelete(DeleteBehavior.Restrict);
+
         }
     }
 }
