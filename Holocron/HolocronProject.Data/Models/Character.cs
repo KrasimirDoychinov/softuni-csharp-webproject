@@ -25,6 +25,12 @@ namespace HolocronProject.Data.Models
         [MaxLength(GlobalConstants.CharacterConstants.BackstoryMaxLength)]
         public string Backstory { get; set; } = "None";
 
+        [MaxLength(GlobalConstants.CharacterConstants.TitleMaxLength)]
+        public string Title { get; set; } = "None";
+
+        // TODO: Figure out how to make an image
+        public string Image { get; set; } = "Placeholder image";
+
         [Required]
         public Gender Gender { get; set; } = 0;
 
@@ -56,13 +62,6 @@ namespace HolocronProject.Data.Models
         public ICollection<Achievement> Achievements { get; set; } = new List<Achievement>();
 
         public ICollection<CompetitionCharacter> Competitions { get; set;  } = new List<CompetitionCharacter>();
-
-
-        [MaxLength(GlobalConstants.CharacterConstants.TitleMaxLength)]
-        public string Title { get; set; } = "None";
-
-        // TODO: Figure out how to make an image
-        public string Image { get; set; } = "Placeholder image";
 
         // TODO: Add something else if I think of something
 

@@ -7,94 +7,54 @@ using AutoMapper.QueryableExtensions;
 using HolocronProject.Data;
 using HolocronProject.Data.Models;
 using HolocronProject.Services.Models;
-
+using System.Threading.Tasks;
+using HolocronProject.Services.ViewModelsTemp;
 
 namespace HolocronProject.Services
 {
     // TODO: Add more character services
     public class CharacterService : ICharacterService
     {
-        private IConfigurationProvider config;
-        private HolocronDbContext context;
+        private readonly HolocronDbContext context;
 
-        public CharacterService(IConfigurationProvider config, HolocronDbContext context)
+        public CharacterService(HolocronDbContext context)
         {
             this.context = context;
-            this.config = config;
         }
 
-        public Character GetCharacterByName(string characterName)
-            => this.context.Characters.FirstOrDefault(x => x.Name == characterName);
-
-        public IEnumerable<CharacterViewModel> MostPopularClasses()
+        public async Task CreateCharacter(CharacterInputModel input)
         {
-            var characters = context.Characters
-                .ProjectTo<CharacterViewModel>(this.config)
-                .OrderByDescending(x => x.Faction)
-                .ToList();
+            var character = new Character
+            {
+                AccountId = input.AccountId,
+                Name = input.Name,
+                Backstory = input.Backstory,
+                Title = input.Title,
+                Image = input.Image,
+                Gender = input.Gender,
+                CharacterType = input.CharacterType,
+                Faction = input.Faction,
+                ForceAffiliation = input.ForceAffiliation,
+                ClassId = input.ClassId,
+                RaceId = input.RaceId,
+                ServerId = input.ServerId
+            };
 
-            return characters;
+            await this.context.Characters.AddAsync(character);
+            await this.context.SaveChangesAsync();
         }
 
-        public void IsCharacterDetailsValid(string characterName, int gender, int characterType, int faction,
-            string className, string raceName, string serverName, 
-            int forceAffiliation, string backstory) 
+        public async Task DeleteCharacter(string characterId)
         {
+            var character = GetCharacterById(characterId);
 
-            if (gender != 1 && gender != 2)
-            {
-                throw new ArgumentException("The gender is invalid!");
-            }
+            character.IsDeleted = true;
 
-            if (characterType != 1 && characterType != 2 && characterType != 3)
-            {
-                throw new ArgumentException("The character type is invalid!");
-            }
-
-            if (faction != 1 && faction != 2)
-            {
-                throw new ArgumentException("The faction is invalid!");
-            }
-
-            if (forceAffiliation != 1 && forceAffiliation != 2)
-            {
-                throw new ArgumentException("The force affiliation is invalid!");
-            }
-
-            var validClass = this.context.Classes
-                .Any(x => x.Name == className);
-
-            if (!validClass)
-            {
-                throw new ArgumentException("The class is invalid!");
-            }
-
-            var validRace = this.context.Races
-                .Any(x => x.Name == raceName);
-
-            if (!validRace)
-            {
-                throw new ArgumentException("The race is invalid!");
-            }
-
-            var validServer = this.context.Servers
-                .Any(x => x.Name == serverName);
-
-            if (!validClass)
-            {
-                throw new ArgumentException("The server is invalid!");
-            }
+            this.context.Characters.Update(character);
+            await this.context.SaveChangesAsync();
         }
 
-        public void IsCharacterNameTaken(string characterName)
-        {
-            var character = this.context.Characters
-                .Any(x => x.Name == characterName);
-
-            if (character)
-            {
-                throw new ArgumentException("The character name is taken!");
-            }
-        }
+        public Character GetCharacterById(string characterId)
+            => this.context.Characters.FirstOrDefault(x => x.Id == characterId);
     }
 }

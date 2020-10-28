@@ -1,20 +1,14 @@
 ﻿using System.Collections.Generic;
-
+using System.Threading.Tasks;
 using HolocronProject.Data.Models;
-using HolocronProject.Services.Models;
+using HolocronProject.Services.ViewModelsTemp;
 
 namespace HolocronProject.Services
 {
     public interface ICharacterService
     {
-        IEnumerable<CharacterViewModel> MostPopularClasses();
+        Task CreateCharacter(CharacterInputModel input);
 
-        Character GetCharacterByName(string characterName);
-
-        void IsCharacterDetailsValid(string characterName, int gender, int characterType, int faction,
-            string className, string raceName, string serverName,
-            int forceAffiliation, string backstory);
-
-        void IsCharacterNameTaken(string characterName);
+        Task DeleteCharacter(string characterId);
     }
 }
