@@ -17,22 +17,26 @@ namespace HolocronProject.Services
             this.context = context;
         }
 
-        // TODO: Fix this method it isn't creating a base thread
-        // Admin class
         public async Task CreateNewBaseThread(string title)
         {
-            var baseThread = context.BaseThreads.FirstOrDefault(x => x.Title == title);
-            baseThread = new BaseThread();
+            var baseThread = new BaseThread
+            {
+                Title = title
+            };
 
-            await context.BaseThreads.AddAsync(baseThread);
-            await context.SaveChangesAsync();
+            await this.context.BaseThreads.AddAsync(baseThread);
+            await this.context.SaveChangesAsync();
         }
 
-        public BaseThread GetBaseThreadByName(string title)
+        public async Task DeleteBaseThread(string baseThreadId)
         {
-            return this.context.BaseThreads
-                .FirstOrDefault(x => x.Title == title);
+            var baseThread = this.context.BaseThreads
+                .FirstOrDefault(x => x.Id == baseThreadId);
 
+            baseThread.IsDeleted = true;
+
+            this.context.BaseThreads.Update(baseThread);
+            await this.context.SaveChangesAsync();
         }
     }
 }

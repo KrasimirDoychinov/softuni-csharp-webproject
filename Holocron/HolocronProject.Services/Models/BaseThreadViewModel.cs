@@ -4,7 +4,7 @@ using System.Text;
 
 namespace HolocronProject.Services.Models
 {
-    public class ClassDto
+    class BaseThreadViewModel
     {
     }
 }

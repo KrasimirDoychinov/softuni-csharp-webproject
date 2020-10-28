@@ -7,7 +7,7 @@ namespace HolocronProject.Services
 {
     public interface ICharacterService
     {
-        IEnumerable<CharacterDto> MostPopularClasses();
+        IEnumerable<CharacterViewModel> MostPopularClasses();
 
         Character GetCharacterByName(string characterName);
 

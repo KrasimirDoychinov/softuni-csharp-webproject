@@ -4,7 +4,7 @@ using System.Text;
 
 namespace HolocronProject.Services.Models
 {
-    public class CharacterDto
+    public class CharacterViewModel
     {
         public string Name { get; set; }
 
@@ -23,7 +23,6 @@ namespace HolocronProject.Services.Models
         public string ServerName { get; set; }
 
         public string AccountDisplayName { get; set; }
-
 
         public override string ToString()
         {

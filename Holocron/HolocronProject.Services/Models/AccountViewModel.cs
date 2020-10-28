@@ -5,7 +5,7 @@ using System.Text;
 
 namespace HolocronProject.Services.Models
 {
-    public class AccountDto
+    public class AccountViewModel
     {
         public string DisplayName { get; set; }
 

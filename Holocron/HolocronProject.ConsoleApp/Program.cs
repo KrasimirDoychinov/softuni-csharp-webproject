@@ -45,7 +45,7 @@ namespace HolocronProject.ConsoleApp
             IBaseThreadService baseThreadService = new BaseThreadService(context);
             IAccountService accountService = new AccountService(config, classService, raceService, serverService, characterService, context);
 
-            //await accountService.CreateAccount("detha", "Krasitoobrat4545", "Detha");
+            await accountService.CreateAccount("detha", "Krasitoobrat4545", "Detha");
             //await accountService.CreateCharacter("detha", "TestCharcho", 1, 1, 1, "Operative", "Human", "Darth Malgus", 1, "none", "none", "none");
 
             // Code below is to create initial races and servers

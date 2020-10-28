@@ -11,9 +11,9 @@ namespace HolocronProject.ConsoleApp
     {
         public MappingProfile()
         {
-            this.CreateMap<Account, AccountDto>();
+            this.CreateMap<Account, AccountViewModel>();
             this.CreateMap<Account, ForeignAccountDto>();
-            this.CreateMap<Character, CharacterDto>();
+            this.CreateMap<Character, CharacterViewModel>();
             this.CreateMap<Race, RaceDto>();
             this.CreateMap<Server, ServerDto>();
             

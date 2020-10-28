@@ -2,33 +2,25 @@
 using System.Collections.Generic;
 
 using HolocronProject.Services.Models;
+using HolocronProject.Data.Models;
 
 namespace HolocronProject.Services
 {
     public interface IAccountService
     {
-        Task CreateAccount(string accountName, string password, string displayName,
-            string avatarImage = "Placeholder");
+        Task CreateAccount(string accountName, string password, string displayName);
 
-        Task CreateCharacter(string accountName, string characterName,
-            int gender, int characterType, int faction,
-            string className, string raceName, string serverName, int forceAffiliation, string backstory,
-            string title, string image);
+        Task UpdateForumSignature(string accountId, string forumSignature);
 
-        Task CreatePost(string accountName, string description, string threadName);
+        Task UptadeImage(string accountId, string avatarImage);
 
-        Task CreateThread(string accountName, string title, string baseThreadTitle);
+        Task UpdatePassword(string accountId, string newPassword);
 
-        Task DeleteCharacter(string characterName);
+        Task UpdateDisplayName(string accountId, string newDisplayName);
 
-        // Search services
-        IEnumerable<AccountDto> SearchByMostPosts(int amountOfAccounts);
+        Task UpdateAccountName(string accountId, string newAccountName);
 
-        IEnumerable<AccountDto> SearchOldestAccounts(int amountOfAccounts);
-
-        IEnumerable<AccountDto> SearchAccountsWithMostCharacters(int amountOfAccounts);
-
-        ForeignAccountDto SearchForeignAccount(string displayName);
+        Account GetAccountById(string accountId);
 
     }
 }

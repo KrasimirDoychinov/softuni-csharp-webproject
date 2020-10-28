@@ -26,10 +26,10 @@ namespace HolocronProject.Services
         public Character GetCharacterByName(string characterName)
             => this.context.Characters.FirstOrDefault(x => x.Name == characterName);
 
-        public IEnumerable<CharacterDto> MostPopularClasses()
+        public IEnumerable<CharacterViewModel> MostPopularClasses()
         {
             var characters = context.Characters
-                .ProjectTo<CharacterDto>(this.config)
+                .ProjectTo<CharacterViewModel>(this.config)
                 .OrderByDescending(x => x.Faction)
                 .ToList();
 
