@@ -6,6 +6,6 @@ namespace HolocronProject.Services
 {
     public interface IPostService
     {
-        //Task CreatePost();
+        Task CreatePost(string description, string accountId, string threadId);
     }
 }

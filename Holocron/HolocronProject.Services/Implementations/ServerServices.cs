@@ -18,41 +18,15 @@ namespace HolocronProject.Services
             this.context = context;
         }
 
-        // Admin class
-        public async Task CreateNewServer(string serverName)
+        public async Task CreateServer(string name)
         {
-            var newServer = context.Servers.FirstOrDefault(x => x.Name == serverName);
-
-            if (newServer != null)
+            var server = new Server
             {
-                Console.WriteLine("There is a server with that name already!");
-                return;
-            }
+                Name = name
+            };
 
-            //newServer = new Server
-            //{
-            //    Name = serverName
-            //};
-
-            await context.Servers.AddAsync(newServer);
-            await context.SaveChangesAsync();
+            await this.context.Servers.AddAsync(server);
+            await this.context.SaveChangesAsync();
         }
-
-        public Server GetServerByName(string serverName)
-            => this.context.Servers.FirstOrDefault(x => x.Name == serverName);
-
-        //public IEnumerable<ServerDto> MostPopularServers()
-        //{
-        //    var servers = this.context.Servers
-        //        .Select(x => new ServerDto
-        //        {
-        //            Name = x.Name,
-        //            CountOfCharacters = x.Characters.Count
-        //        })
-        //        .OrderByDescending(x => x.CountOfCharacters)
-        //        .ToList();
-
-        //    return servers;
-        //}
     }
 }

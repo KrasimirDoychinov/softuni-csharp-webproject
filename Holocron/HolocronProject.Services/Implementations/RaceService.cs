@@ -17,31 +17,15 @@ namespace HolocronProject.Services
             this.context = context;
         }
 
-        // TODO: Fix this method
-        // Admin class
-        public async Task CreateNewRace(string raceName)
+        public async Task CreateRace(string name)
         {
-            var newRace = new Race();
+            var race = new Race
+            {
+                Name = name
+            };
 
-            await context.Races.AddAsync(newRace);
-            await context.SaveChangesAsync();
+            await this.context.Races.AddAsync(race);
+            await this.context.SaveChangesAsync();
         }
-
-        public Race GetRaceByName(string raceName)
-            => this.context.Races.FirstOrDefault(x => x.Name == raceName);
-       
-        //public IEnumerable<RaceDto> MostPlayedRaces()
-        //{
-        //    var mostPlayedRaces = this.context.Races
-        //        .Select(x => new RaceDto
-        //        {
-        //            Name = x.Name,
-        //            CharacterCount = x.Characters.Count
-        //        })
-        //        .OrderByDescending(x => x.CharacterCount)
-        //        .ToList();
-
-        //    return mostPlayedRaces;
-        //}
     }
 }

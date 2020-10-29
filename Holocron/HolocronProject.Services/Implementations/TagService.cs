@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-
+using System.Threading.Tasks;
 using HolocronProject.Data;
 using HolocronProject.Data.Models;
 
@@ -15,13 +15,15 @@ namespace HolocronProject.Services.Implementations
             this.context = context;
         }
 
-        public Tag GetTagByName(string tagName)
-            => this.context.Tags.FirstOrDefault(x => x.Name == tagName);
-
-        public bool IsTagNameTaken(string tagName)
+        public async Task CreateTag(string name)
         {
-            return this.context.Tags
-                .Any(x => x.Name == tagName);
+            var tag = new Tag
+            {
+                Name = name
+            };
+
+            await this.context.Tags.AddAsync(tag);
+            await this.context.SaveChangesAsync();
         }
     }
 }

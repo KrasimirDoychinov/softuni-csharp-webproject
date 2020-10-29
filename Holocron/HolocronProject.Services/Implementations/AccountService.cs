@@ -28,7 +28,6 @@ namespace HolocronProject.Services
             this.config = config;
         }
 
-        
 
         public async Task CreateAccount(string accountName, string password, string displayName)
         {

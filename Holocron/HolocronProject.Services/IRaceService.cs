@@ -8,11 +8,7 @@ namespace HolocronProject.Services
 {
     public interface IRaceService
     {
-        Task CreateNewRace(string raceName);
-
-        Race GetRaceByName(string raceName);
-
-        //IEnumerable<RaceDto> MostPlayedRaces();
+        Task CreateRace(string name);
         
     }
 }

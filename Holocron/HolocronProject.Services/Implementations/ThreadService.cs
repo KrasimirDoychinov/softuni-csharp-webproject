@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using HolocronProject.Data;
 using HolocronProject.Data.Models;
+using System.Threading.Tasks;
 
 namespace HolocronProject.Services.Implementations
 {
@@ -14,15 +15,17 @@ namespace HolocronProject.Services.Implementations
             this.context = context;
         }
 
-        public IEnumerable<Thread> GetThreadsByTitle(string title)
-            => this.context.Threads
-            .Where(x => x.Title.Contains(title))
-            .OrderByDescending(x => x.CreatedOn)
-            .ToList();
+        public async Task CreateThread(string title, string baseThreadId, string accountId)
+        {
+            var thread = new Thread
+            {
+                Title = title,
+                BaseThreadId = baseThreadId,
+                AccountId = accountId
+            };
 
-        public IEnumerable<Thread> GetLatestThreads()
-            => this.context.Threads
-            .OrderByDescending(x => x.CreatedOn)
-            .ToList();
+            await this.context.Threads.AddAsync(thread);
+            await this.context.SaveChangesAsync();
+        }
     }
 }

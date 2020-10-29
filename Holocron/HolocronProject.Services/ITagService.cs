@@ -1,11 +1,10 @@
 ﻿using HolocronProject.Data.Models;
+using System.Threading.Tasks;
 
 namespace HolocronProject.Services
 {
     public interface ITagService
     {
-        Tag GetTagByName(string tagName);
-
-        bool IsTagNameTaken(string tagName);
+        Task CreateTag(string name);
     }
 }
