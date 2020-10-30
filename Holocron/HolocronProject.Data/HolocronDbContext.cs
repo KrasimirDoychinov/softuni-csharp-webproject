@@ -58,6 +58,60 @@ namespace HolocronProject.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<Class>()
+                .HasData(
+                new Class { Name = "Juggernaut", Faction = Enums.Faction.Empire },
+                new Class { Name = "Marauder", Faction = Enums.Faction.Empire },
+                new Class { Name = "Sorcerer", Faction = Enums.Faction.Empire },
+                new Class { Name = "Assassin", Faction = Enums.Faction.Empire },
+                new Class { Name = "Sniper", Faction = Enums.Faction.Empire },
+                new Class { Name = "Operative", Faction = Enums.Faction.Empire },
+                new Class { Name = "Powertech", Faction = Enums.Faction.Empire },
+                new Class { Name = "Mercenary", Faction = Enums.Faction.Empire },
+                new Class { Name = "Gunslinger", Faction = Enums.Faction.Republic },
+                new Class { Name = "Scoundrel", Faction = Enums.Faction.Republic },
+                new Class { Name = "Vanguard", Faction = Enums.Faction.Republic },
+                new Class { Name = "Commando", Faction = Enums.Faction.Republic },
+                new Class { Name = "Sage", Faction = Enums.Faction.Republic },
+                new Class { Name = "Shadow", Faction = Enums.Faction.Republic },
+                new Class { Name = "Sentinel", Faction = Enums.Faction.Republic },
+                new Class { Name = "Guardian", Faction = Enums.Faction.Republic }
+                );
+
+            builder.Entity<Race>()
+                .HasData(
+                new Race { Name = "Chiss" },
+                new Race { Name = "Cyborg" },
+                new Race { Name = "Human" },
+                new Race { Name = "Miraluka" },
+                new Race { Name = "Mirialan" },
+                new Race { Name = "Rattaki" },
+                new Race { Name = "Sith Pureblood" },
+                new Race { Name = "Twi'lek" },
+                new Race { Name = "Zabrak" },
+                new Race { Name = "Cathar" },
+                new Race { Name = "Togruta" },
+                new Race { Name = "Nautolan" }
+                );
+
+            builder.Entity<Server>()
+                .HasData(
+                new Server { Name = "Darth Malgus" },
+                new Server { Name = "Star Forge" },
+                new Server { Name = "Satele Shan" },
+                new Server { Name = "Tulak Hord" },
+                new Server { Name = "The Leviathan" }
+                );
+
+            builder.Entity<BaseThread>()
+                .HasData(
+                new BaseThread { Title = "PVP" },
+                new BaseThread { Title = "PVE" },
+                new BaseThread { Title = "RP" },
+                new BaseThread { Title = "Guides" },
+                new BaseThread { Title = "Fashion" }
+                );
+
             builder.Entity<PostTag>()
                 .HasKey(x => new { x.PostId, x.TagId });
 

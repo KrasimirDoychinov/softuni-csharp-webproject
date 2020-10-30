@@ -30,6 +30,9 @@ namespace HolocronProject.ConsoleApp
 
             var context = new HolocronDbContext();
 
+            context.Database.EnsureDeleted();
+            context.Database.EnsureCreated();
+
             IClassService classService = new ClassService(context);
             ICharacterService characterService = new CharacterService(context);
             IRaceService raceService = new RaceService(context);
