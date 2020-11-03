@@ -18,14 +18,11 @@ namespace HolocronProject.Services
 
     public class AccountService : IAccountService
     {
-        private IConfigurationProvider config;
         private HolocronDbContext context;
 
-        public AccountService(IConfigurationProvider config,
-            HolocronDbContext context)
+        public AccountService(HolocronDbContext context)
         {
             this.context = context;
-            this.config = config;
         }
 
 
@@ -52,7 +49,7 @@ namespace HolocronProject.Services
             await this.context.SaveChangesAsync();
         }
 
-        public async Task UptadeImage(string accountId, string avatarImage)
+        public async Task UpdateAvatarImage(string accountId, string avatarImage)
         {
             var account = GetAccountById(accountId);
 
@@ -96,9 +93,9 @@ namespace HolocronProject.Services
             => this.context.Accounts
             .FirstOrDefault(x => x.Id == accountId);
 
-        public Account GetAccountByIdAndPassword(string accountId, string password)
+        public Account GetAccountByNameAndPassword(string username, string password)
             => this.context.Accounts
-            .FirstOrDefault(x => x.Id == accountId && x.Password == HashPassword(password));
+            .FirstOrDefault(x => x.AccountName == username && x.Password == HashPassword(password));
 
         private static string HashPassword(string input)
         {
@@ -115,8 +112,5 @@ namespace HolocronProject.Services
                 return hashedInputStringBuilder.ToString();
             }
         }
-
-        
-
     }
 }

@@ -12,7 +12,7 @@ namespace HolocronProject.Services
 
         Task UpdateForumSignature(string accountId, string forumSignature);
 
-        Task UptadeImage(string accountId, string avatarImage);
+        Task UpdateAvatarImage(string accountId, string avatarImage);
 
         Task UpdatePassword(string accountId, string newPassword);
 
@@ -22,7 +22,8 @@ namespace HolocronProject.Services
 
         Account GetAccountById(string accountId);
 
-        Account GetAccountByIdAndPassword(string accountId, string password);
+        Account GetAccountByNameAndPassword(string username, string password);
+
 
     }
 }

@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using HolocronProject.Data;
@@ -15,7 +17,7 @@ namespace HolocronProject.ConsoleApp
     // TODO: Don't forget about the character contest
     
     // TODO: Review the code each day at the beginning of the code session and at the end of the session
-    // TODO: For tmmrw - finish up the services and start adding more "search like" methods to the services
+    // TODO: For tmmrw - Look into how to make a PM style of messaging service
 
     public class Program
     {
@@ -30,49 +32,28 @@ namespace HolocronProject.ConsoleApp
 
             var context = new HolocronDbContext();
 
-            context.Database.EnsureDeleted();
-            context.Database.EnsureCreated();
+            //context.Database.EnsureDeleted();
+            //context.Database.EnsureCreated();
 
             IClassService classService = new ClassService(context);
+
             ICharacterService characterService = new CharacterService(context);
+
             IRaceService raceService = new RaceService(context);
+
             IServerService serverService = new ServerServices(context);
             IBaseThreadService baseThreadService = new BaseThreadService(context);
-            IAccountService accountService = new AccountService(config, context);
 
-            //await accountService.CreateAccount("detha", "Krasitoobrat4545", "Detha");
-            //await accountService.CreateCharacter();
+            IAccountService accountService = new AccountService(context);
 
-            // Code below is to create initial races and servers
+            IAchievementService achievementService = new AchievementService(context);
+            ICompetitionService competitionService = new CompetitionService(context, achievementService);
 
-            //-----Races-----
-            //var jsonRaces = File.ReadAllText("../../../../HolocronProject.Services/Files/races.json");
-            //var allRaces = JsonConvert.DeserializeObject<List<Race>>(jsonRaces);
-            //context.Races.AddRange(allRaces);
-            //context.SaveChanges();
-            //-----Races-----
+            //await accountService.CreateAccount("deth45", "1234", "dasda");
 
-            //-----Server-----
-            //var jsonServers = File.ReadAllText("../../../../HolocronProject.Services/Files/servers.json");
-            //var allServers = JsonConvert.DeserializeObject<List<Server>>(jsonServers);
-            //await context.Servers.AddRangeAsync(allServers);
-            //await context.SaveChangesAsync();
-            //-----Server-----
+            //await accountService.UpdateForumSignature("2804dc2d-539b-41ec-836c-8f4572428c54", "Test");
 
-            //-----Base Threads-----
-            //var jsonBaseThreads = File.ReadAllText("../../../../HolocronProject.Services/Files/baseThreads.json");
-            //var allBaseThreads = JsonConvert.DeserializeObject<List<BaseThread>>(jsonBaseThreads);
-            //await context.BaseThreads.AddRangeAsync(allBaseThreads);
-            //await context.SaveChangesAsync();
-            //-----Base Threads-----
-
-            //-----Classes-----
-            //var jsonClasses = File.ReadAllText("../../../../HolocronProject.Services/Files/classes.json");
-            //var allClasses = JsonConvert.DeserializeObject<List<Class>>(jsonClasses);
-            //await context.Classes.AddRangeAsync(allClasses);
-            //await context.SaveChangesAsync();
-            //-----Classes-----
-
-        }
+            //var account = accountService.GetAccountById("2804dc2d-539b-41ec-836c-8f4572428c54");
+       }
     }
 }
