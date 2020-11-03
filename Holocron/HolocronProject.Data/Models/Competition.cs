@@ -35,7 +35,7 @@ namespace HolocronProject.Data.Models
 
         public ICollection<Achievement> Achievements { get; set; } = new List<Achievement>();
 
-        public bool IsFinished => this.EndDate > this.StartDate ? true : false;
+        public bool IsFinished { get; set; } = false;
 
     }
 }

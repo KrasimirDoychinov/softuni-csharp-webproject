@@ -37,6 +37,16 @@ namespace HolocronProject.Services.Implementations
             await this.context.SaveChangesAsync();
         }
 
+        public async Task FinishCompetition(string competitionId)
+        {
+            var competition = GetCompetitionById(competitionId);
+
+            competition.IsFinished = true;
+
+            this.context.Competitions.Update(competition);
+            await this.context.SaveChangesAsync();
+        }
+
         public Competition GetCompetitionById(string competitionId)
             => this.context.Competitions.FirstOrDefault(x => x.Id == competitionId);
     }

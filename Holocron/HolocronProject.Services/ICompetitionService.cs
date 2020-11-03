@@ -11,6 +11,8 @@ namespace HolocronProject.Services
     {
         Task CreateCompetition(string title, string description, DateTime startDate, DateTime endDate);
 
+        Task FinishCompetition(string competitionId);
+
         Competition GetCompetitionById(string competitionId);
     }
 }

@@ -28,7 +28,9 @@ namespace HolocronProject.Tests.Services
             await this.context.Database.EnsureCreatedAsync();
 
             await this.accountService.CreateAccount("TestSetup", "TestSetup", "TestSetup");
-            testAccount = this.context.Accounts.FirstOrDefault();
+            testAccount = this.context.Accounts
+                .Where(x => x.AccountName == "TestSetup")
+                .FirstOrDefault();
         }
 
         [TearDown]
