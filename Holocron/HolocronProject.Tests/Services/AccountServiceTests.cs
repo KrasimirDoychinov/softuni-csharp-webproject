@@ -9,7 +9,7 @@ using System.Linq;
 using HolocronProject.Data.Models;
 using System.Security.Cryptography;
 
-namespace HolocronProject.Tests.ServiceTests
+namespace HolocronProject.Tests.Services
 {
     [TestFixture]
     public class AccountServiceTests
@@ -45,7 +45,7 @@ namespace HolocronProject.Tests.ServiceTests
             await this.accountService.CreateAccount(accountName, password, displayName);
 
             var actualResult = this.context.Accounts.Count();
-            var expectedResult = 2;
+            var expectedResult = 3;
 
             Assert.AreEqual(expectedResult, actualResult);
         }
@@ -120,8 +120,8 @@ namespace HolocronProject.Tests.ServiceTests
         {
             var account = this.accountService.GetAccountByNameAndPassword(username, password);
 
-            var actualResult = account;
-            var expectedResult = testAccount;
+            var actualResult = account.AccountName;
+            var expectedResult = testAccount.AccountName;
 
             Assert.AreEqual(expectedResult, actualResult);
 

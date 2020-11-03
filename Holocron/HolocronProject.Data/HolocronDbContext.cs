@@ -1,4 +1,5 @@
-﻿using HolocronProject.Data.Models;
+﻿using HolocronProject.Data.Enums;
+using HolocronProject.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -58,6 +59,28 @@ namespace HolocronProject.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<Account>()
+                .HasData(
+                new Account
+                {
+                    AccountName = "Test username",
+                    Password = "Test password",
+                    DisplayName = "Test display name"
+                }
+                );
+
+            builder.Entity<Character>()
+                .HasData(
+                new Character 
+                { 
+                    Name = "Test char", 
+                    Backstory = "Test backstory", 
+                    Gender = Gender.Male,
+                    CharacterType = CharacterType.PVE,
+                    ForceAffiliation = ForceAffiliation.DarkSide
+                }
+                );
+
             builder.Entity<Class>()
                 .HasData(
                 new Class { Name = "Juggernaut", Faction = Enums.Faction.Empire },
@@ -123,7 +146,6 @@ namespace HolocronProject.Data
                 .WithMany(y => y.Threads)
                 .HasForeignKey(x => x.AccountId)
                 .OnDelete(DeleteBehavior.Restrict);
-
         }
     }
 }

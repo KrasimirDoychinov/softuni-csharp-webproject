@@ -32,8 +32,8 @@ namespace HolocronProject.ConsoleApp
 
             var context = new HolocronDbContext();
 
-            //context.Database.EnsureDeleted();
-            //context.Database.EnsureCreated();
+            context.Database.EnsureDeleted();
+            context.Database.EnsureCreated();
 
             IClassService classService = new ClassService(context);
 
@@ -53,10 +53,10 @@ namespace HolocronProject.ConsoleApp
 
             //await accountService.CreateAccount("deth45", "1234", "dasda");
 
-            var id = context.Accounts
-                .Select(x => x.Id)
-                .FirstOrDefault();
-            await bugReportService.CreateBugReport(id, "Test", "Desc");
+            //var id = context.Accounts
+            //    .Select(x => x.Id)
+            //    .FirstOrDefault();
+            //await bugReportService.CreateBugReport(id, "Test", "Desc");
        }
     }
 }
