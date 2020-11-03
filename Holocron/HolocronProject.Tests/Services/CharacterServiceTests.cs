@@ -27,6 +27,12 @@ namespace HolocronProject.Tests.Services
             await this.context.Database.EnsureCreatedAsync();
         }
 
+        [TearDown]
+        public async Task TearDown()
+        {
+            await context.DisposeAsync();
+        }
+
         [Test]
         public async Task CreateCharacterCreatesCharacter()
         {
