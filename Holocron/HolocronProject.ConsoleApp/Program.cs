@@ -49,11 +49,14 @@ namespace HolocronProject.ConsoleApp
             IAchievementService achievementService = new AchievementService(context);
             ICompetitionService competitionService = new CompetitionService(context, achievementService);
 
+            IBugReportService bugReportService = new BugReportService(context);
+
             //await accountService.CreateAccount("deth45", "1234", "dasda");
 
-            //await accountService.UpdateForumSignature("2804dc2d-539b-41ec-836c-8f4572428c54", "Test");
-
-            //var account = accountService.GetAccountById("2804dc2d-539b-41ec-836c-8f4572428c54");
+            var id = context.Accounts
+                .Select(x => x.Id)
+                .FirstOrDefault();
+            await bugReportService.CreateBugReport(id, "Test", "Desc");
        }
     }
 }

@@ -36,6 +36,12 @@ namespace HolocronProject.Tests.Services
             Assert.AreEqual(expectedResult, actualResult);
         }
 
+        [TearDown]
+        public async Task TearDown()
+        {
+            await context.DisposeAsync();
+        }
+
         [Test]
         public async Task DeleteBaseThreadDeletesBaseThread()
         {
