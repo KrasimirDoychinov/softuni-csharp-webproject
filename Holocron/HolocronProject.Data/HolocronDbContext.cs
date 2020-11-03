@@ -81,6 +81,11 @@ namespace HolocronProject.Data
                 }
                 );
 
+            builder.Entity<Thread>()
+                .HasData(
+                new Thread { Title = "Test thread" }
+                );
+
             builder.Entity<Class>()
                 .HasData(
                 new Class { Name = "Juggernaut", Faction = Enums.Faction.Empire },
