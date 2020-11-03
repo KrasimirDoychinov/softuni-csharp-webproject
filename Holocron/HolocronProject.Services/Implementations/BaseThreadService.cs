@@ -28,15 +28,18 @@ namespace HolocronProject.Services
             await this.context.SaveChangesAsync();
         }
 
-        public async Task DeleteBaseThread(string baseThreadId)
+        public async Task DeleteBaseThreadById(string baseThreadId)
         {
-            var baseThread = this.context.BaseThreads
-                .FirstOrDefault(x => x.Id == baseThreadId);
+            var baseThread = GetBaseThreadById(baseThreadId);
 
             baseThread.IsDeleted = true;
 
             this.context.BaseThreads.Update(baseThread);
             await this.context.SaveChangesAsync();
         }
+
+        public BaseThread GetBaseThreadById(string baseThreadId)
+            => this.context.BaseThreads
+                .FirstOrDefault(x => x.Id == baseThreadId);
     }
 }

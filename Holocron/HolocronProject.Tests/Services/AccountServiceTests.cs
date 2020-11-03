@@ -5,7 +5,6 @@ using NUnit.Framework;
 using System.Threading.Tasks;
 using HolocronProject.Data;
 using HolocronProject.Services;
-using AutoMapper;
 using System.Linq;
 using HolocronProject.Data.Models;
 using System.Security.Cryptography;

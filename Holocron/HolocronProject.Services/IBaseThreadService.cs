@@ -7,6 +7,6 @@ namespace HolocronProject.Services
     {
         Task CreateBaseThread(string title);
 
-        Task DeleteBaseThread(string baseThreadId);
+        Task DeleteBaseThreadById(string baseThreadId);
     }
 }
