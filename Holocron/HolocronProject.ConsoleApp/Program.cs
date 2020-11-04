@@ -15,20 +15,21 @@ namespace HolocronProject.ConsoleApp
 {
     // TODA = maybe TODO's
     // TODO: Don't forget about the character contest
-    
+
     // TODO: Review the code each day at the beginning of the code session and at the end of the session
     // TODO: For tmmrw - Look into how to make a PM style of messaging service
 
+    // Test
+
     public class Program
     {
-        
+
         static async Task Main(string[] args)
         {
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile(new MappingProfile());
             });
-
 
             var context = new HolocronDbContext();
 
@@ -57,6 +58,6 @@ namespace HolocronProject.ConsoleApp
             //    .Select(x => x.Id)
             //    .FirstOrDefault();
             //await bugReportService.CreateBugReport(id, "Test", "Desc");
-       }
+        }
     }
 }
