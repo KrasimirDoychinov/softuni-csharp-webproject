@@ -57,6 +57,8 @@ namespace HolocronProject.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            base.OnModelCreating(builder);
+
             builder.Entity<Account>()
                 .HasData(
                 new Account

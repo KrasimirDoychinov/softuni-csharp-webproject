@@ -13,11 +13,7 @@ using Newtonsoft.Json;
 
 namespace HolocronProject.ConsoleApp
 {
-    // TODA = maybe TODO's
-    // TODO: Don't forget about the character contest
     
-    // TODO: Review the code each day at the beginning of the code session and at the end of the session
-    // TODO: Port the project to web
 
     public class Program
     {
