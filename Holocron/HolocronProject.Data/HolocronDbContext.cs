@@ -1,13 +1,11 @@
 ﻿using HolocronProject.Data.Enums;
 using HolocronProject.Data.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace HolocronProject.Data
 {
-    public class HolocronDbContext : DbContext
+    public class HolocronDbContext : IdentityDbContext<Account>
     {
 
         public HolocronDbContext()

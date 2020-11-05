@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 using HolocronProject.Data.Common;
-
+using Microsoft.AspNetCore.Identity;
 
 namespace HolocronProject.Data.Models
 {
 
-    public class Account
+    public class Account : IdentityUser
     {
         // TODO: Editting account info
         public Account()

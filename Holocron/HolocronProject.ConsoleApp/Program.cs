@@ -17,7 +17,7 @@ namespace HolocronProject.ConsoleApp
     // TODO: Don't forget about the character contest
     
     // TODO: Review the code each day at the beginning of the code session and at the end of the session
-    // TODO: For tmmrw - Look into how to make a PM style of messaging service
+    // TODO: Port the project to web
 
     public class Program
     {
