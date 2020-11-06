@@ -36,7 +36,7 @@ namespace HolocronProject.Tests.Services
                 .Select(x => x.Id)
                 .FirstOrDefault();
 
-            await this.threadService.CreateThread("Test", baseThreadId, accountId);
+            await this.threadService.CreateThreadAsync("Test", baseThreadId, accountId);
 
             var actualResult = this.context.Threads
                 .Count();

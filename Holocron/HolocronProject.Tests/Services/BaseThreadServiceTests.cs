@@ -27,7 +27,7 @@ namespace HolocronProject.Tests.Services
         [Test]
         public async Task CreateBaseThreadCreatesBaseThread()
         {
-            await this.baseThreadService.CreateBaseThread("Test");
+            await this.baseThreadService.CreateBaseThreadAsync("Test");
 
             var actualResult = this.context.BaseThreads.Count();
             var expectedResult = 6;
@@ -44,11 +44,11 @@ namespace HolocronProject.Tests.Services
         [Test]
         public async Task DeleteBaseThreadDeletesBaseThread()
         {
-            await this.baseThreadService.CreateBaseThread("Test");
+            await this.baseThreadService.CreateBaseThreadAsync("Test");
             var baseThread = this.context.BaseThreads
                 .FirstOrDefault(x => x.Title == "Test");
 
-            await this.baseThreadService.DeleteBaseThreadById(baseThread.Id);
+            await this.baseThreadService.DeleteBaseThreadByIdAsync(baseThread.Id);
 
             var actualResult = this.context.BaseThreads
                 .Where(x => !x.IsDeleted)

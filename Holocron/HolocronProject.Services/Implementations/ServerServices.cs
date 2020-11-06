@@ -18,7 +18,7 @@ namespace HolocronProject.Services.Implementations
             this.context = context;
         }
 
-        public async Task CreateServer(string name)
+        public async Task CreateServerAsync(string name)
         {
             var server = new Server
             {

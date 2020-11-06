@@ -26,7 +26,7 @@ namespace HolocronProject.Services.Implementations
         }
 
 
-        public async Task UpdateForumSignature(string accountId, string forumSignature)
+        public async Task UpdateForumSignatureAsync(string accountId, string forumSignature)
         {
             var account = GetAccountById(accountId);
 
@@ -36,7 +36,7 @@ namespace HolocronProject.Services.Implementations
             await this.context.SaveChangesAsync();
         }
 
-        public async Task UpdateAvatarImage(string accountId, string avatarImage)
+        public async Task UpdateAvatarImageAsync(string accountId, string avatarImage)
         {
             var account = GetAccountById(accountId);
 
@@ -48,7 +48,7 @@ namespace HolocronProject.Services.Implementations
 
         
 
-        public async Task UpdateDisplayName(string accountId, string newDisplayName)
+        public async Task UpdateDisplayNameAsync(string accountId, string newDisplayName)
         {
             var account = GetAccountById(accountId);
 
@@ -58,7 +58,7 @@ namespace HolocronProject.Services.Implementations
             await this.context.SaveChangesAsync();
         }
 
-        public async Task UpdateAccountName(string accountId, string newUserName)
+        public async Task UpdateAccountNameAsync(string accountId, string newUserName)
         {
             var account = GetAccountById(accountId);
 

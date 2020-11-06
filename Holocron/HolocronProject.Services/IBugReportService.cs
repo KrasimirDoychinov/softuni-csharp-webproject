@@ -8,9 +8,9 @@ namespace HolocronProject.Services
 {
     public interface IBugReportService
     {
-        Task CreateBugReport(string accountId, string title, string description);
+        Task CreateBugReportAsync(string accountId, string title, string description);
 
-        Task ResolveBugReport(string bugReportId);
+        Task ResolveBugReportAsync(string bugReportId);
 
         BugReport GetBugReportById(string bugReportId);
     }

@@ -5,8 +5,8 @@ namespace HolocronProject.Services
 {
     public interface IBaseThreadService 
     {
-        Task CreateBaseThread(string title);
+        Task CreateBaseThreadAsync(string title);
 
-        Task DeleteBaseThreadById(string baseThreadId);
+        Task DeleteBaseThreadByIdAsync(string baseThreadId);
     }
 }

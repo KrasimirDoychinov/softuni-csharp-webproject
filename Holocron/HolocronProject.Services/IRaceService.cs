@@ -8,7 +8,7 @@ namespace HolocronProject.Services
 {
     public interface IRaceService
     {
-        Task CreateRace(string name);
+        Task CreateRaceAsync(string name);
         
     }
 }

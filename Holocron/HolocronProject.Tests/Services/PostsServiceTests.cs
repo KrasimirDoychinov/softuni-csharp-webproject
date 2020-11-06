@@ -35,7 +35,7 @@ namespace HolocronProject.Tests.Services
                 .Select(x => x.Id)
                 .FirstOrDefault();
 
-            await this.threadService.CreateThread("Test thread", threadId, accountId);
+            await this.threadService.CreateThreadAsync("Test thread", threadId, accountId);
         }
 
         [TearDown]
@@ -49,7 +49,7 @@ namespace HolocronProject.Tests.Services
         {
             var thread = this.context.Threads
                 .FirstOrDefault();
-            await this.postService.CreatePost("Test description", thread.AccountId, thread.Id);
+            await this.postService.CreatePostAsync("Test description", thread.AccountId, thread.Id);
 
             var actualResult = this.context.Posts
                 .Where(x => !x.IsDeleted)

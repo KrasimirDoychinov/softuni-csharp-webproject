@@ -17,7 +17,7 @@ namespace HolocronProject.Services.Implementations
             this.context = context;
         }
 
-        public async Task CreateBaseThread(string title)
+        public async Task CreateBaseThreadAsync(string title)
         {
             var baseThread = new BaseThread
             {
@@ -28,7 +28,7 @@ namespace HolocronProject.Services.Implementations
             await this.context.SaveChangesAsync();
         }
 
-        public async Task DeleteBaseThreadById(string baseThreadId)
+        public async Task DeleteBaseThreadByIdAsync(string baseThreadId)
         {
             var baseThread = GetBaseThreadById(baseThreadId);
 

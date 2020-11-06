@@ -43,7 +43,7 @@ namespace HolocronProject.Tests.Services
         [Test]
         public async Task CreateBugReportIncreasesBugReportCount()
         {
-            await this.bugReportService.CreateBugReport(testAccount.Id, "Test", "Test");
+            await this.bugReportService.CreateBugReportAsync(testAccount.Id, "Test", "Test");
 
             var actualResult = this.context.BugReports
                 .Where(x => !x.IsResolved)
@@ -56,12 +56,12 @@ namespace HolocronProject.Tests.Services
         [Test]
         public async Task ResolveBugReportResolvesBugreport()
         {
-            await this.bugReportService.CreateBugReport(testAccount.Id, "Test", "Test");
+            await this.bugReportService.CreateBugReportAsync(testAccount.Id, "Test", "Test");
             var id = this.context.BugReports
                 .Select(x => x.Id)
                 .FirstOrDefault();
 
-            await this.bugReportService.ResolveBugReport(id);
+            await this.bugReportService.ResolveBugReportAsync(id);
 
             var actualResult = this.context.BugReports
                 .Where(x => x.IsResolved)

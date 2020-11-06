@@ -9,9 +9,9 @@ namespace HolocronProject.Services
 {
     public interface ICompetitionService
     {
-        Task CreateCompetition(string title, string description, DateTime startDate, DateTime endDate);
+        Task CreateCompetitionAsync(string title, string description, DateTime startDate, DateTime endDate);
 
-        Task FinishCompetition(string competitionId);
+        Task FinishCompetitionAsync(string competitionId);
 
         Competition GetCompetitionById(string competitionId);
     }

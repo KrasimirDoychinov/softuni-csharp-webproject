@@ -64,7 +64,7 @@ namespace HolocronProject.Tests.Services
                 ServerId = serverId
             };
 
-            await this.characterService.CreateCharacter(character);
+            await this.characterService.CreateCharacterAsync(character);
 
             var actualResult = this.context.Characters
                 .Where(x => !x.IsDeleted)
@@ -81,7 +81,7 @@ namespace HolocronProject.Tests.Services
                 .Select(x => x.Id)
                 .FirstOrDefault();
 
-            await this.characterService.DeleteCharacter(characterId);
+            await this.characterService.DeleteCharacterAsync(characterId);
 
             var actualResult = this.context.Characters
                 .Where(x => x.IsDeleted)

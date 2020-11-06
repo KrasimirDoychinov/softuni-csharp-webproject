@@ -15,7 +15,7 @@ namespace HolocronProject.Services.Implementations
             this.context = context;
         }
 
-        public async Task CreateTag(string name)
+        public async Task CreateTagAsync(string name)
         {
             var tag = new Tag
             {

@@ -8,14 +8,13 @@ namespace HolocronProject.Services
 {
     public interface IAccountService
     {
+        Task UpdateForumSignatureAsync(string accountId, string forumSignature);
 
-        Task UpdateForumSignature(string accountId, string forumSignature);
+        Task UpdateAvatarImageAsync(string accountId, string avatarImage);
 
-        Task UpdateAvatarImage(string accountId, string avatarImage);
+        Task UpdateDisplayNameAsync(string accountId, string newDisplayName);
 
-        Task UpdateDisplayName(string accountId, string newDisplayName);
-
-        Task UpdateAccountName(string accountId, string newAccountName);
+        Task UpdateAccountNameAsync(string accountId, string newAccountName);
 
         Account GetAccountById(string accountId);
 

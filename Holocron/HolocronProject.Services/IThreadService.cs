@@ -6,6 +6,6 @@ namespace HolocronProject.Services
 {
     public interface IThreadService
     {
-        Task CreateThread(string title, string baseThreadId, string accountId);
+        Task CreateThreadAsync(string title, string baseThreadId, string accountId);
     }
 }

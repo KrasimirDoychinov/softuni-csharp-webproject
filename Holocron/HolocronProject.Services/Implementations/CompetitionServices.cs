@@ -20,7 +20,7 @@ namespace HolocronProject.Services.Implementations
         }
 
 
-        public async Task CreateCompetition(string title, string description, DateTime startDate, DateTime endDate)
+        public async Task CreateCompetitionAsync(string title, string description, DateTime startDate, DateTime endDate)
         {
             var achievements = this.achievementService.CreateAchievement(title);
 
@@ -37,7 +37,7 @@ namespace HolocronProject.Services.Implementations
             await this.context.SaveChangesAsync();
         }
 
-        public async Task FinishCompetition(string competitionId)
+        public async Task FinishCompetitionAsync(string competitionId)
         {
             var competition = GetCompetitionById(competitionId);
 

@@ -17,7 +17,7 @@ namespace HolocronProject.Services.Implementations
             this.context = context;
         }
 
-        public async Task CreateBugReport(string accountId, string title, string description)
+        public async Task CreateBugReportAsync(string accountId, string title, string description)
         {
             var bugReport = new BugReport
             {
@@ -30,7 +30,7 @@ namespace HolocronProject.Services.Implementations
             await this.context.SaveChangesAsync();
         }
 
-        public async Task ResolveBugReport(string bugReportId)
+        public async Task ResolveBugReportAsync(string bugReportId)
         {
             var bugReport = GetBugReportById(bugReportId);
 

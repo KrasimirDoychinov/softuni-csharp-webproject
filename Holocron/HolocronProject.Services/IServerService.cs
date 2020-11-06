@@ -8,6 +8,6 @@ namespace HolocronProject.Services
 {
     public interface IServerService
     {
-        Task CreateServer(string name);
+        Task CreateServerAsync(string name);
     }
 }

@@ -5,6 +5,6 @@ namespace HolocronProject.Services
 {
     public interface ITagService
     {
-        Task CreateTag(string name);
+        Task CreateTagAsync(string name);
     }
 }

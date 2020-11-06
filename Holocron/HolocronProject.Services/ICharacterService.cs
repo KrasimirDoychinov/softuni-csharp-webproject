@@ -7,9 +7,9 @@ namespace HolocronProject.Services
 {
     public interface ICharacterService
     {
-        Task CreateCharacter(CharacterInputModel input);
+        Task CreateCharacterAsync(CharacterInputModel input);
 
-        Task DeleteCharacter(string characterId);
+        Task DeleteCharacterAsync(string characterId);
 
         Character GetCharacterById(string characterId);
     }

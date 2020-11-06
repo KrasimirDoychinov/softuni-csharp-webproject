@@ -37,7 +37,7 @@ namespace HolocronProject.Tests.Services
         [Test]
         public async Task CreateCompetitionCreatesCompetitionAndIncreasesCount()
         {
-            await this.competitionService.CreateCompetition("Test", "Test", DateTime.UtcNow, DateTime.UtcNow.AddHours(20));
+            await this.competitionService.CreateCompetitionAsync("Test", "Test", DateTime.UtcNow, DateTime.UtcNow.AddHours(20));
 
             var actualResult = this.context.Competitions
                 .ToList()
@@ -51,12 +51,12 @@ namespace HolocronProject.Tests.Services
         [Test]
         public async Task FinishCompetitionFinishesTheCompetition()
         {
-            await this.competitionService.CreateCompetition("Test", "Test", DateTime.UtcNow, DateTime.UtcNow.AddHours(20));
+            await this.competitionService.CreateCompetitionAsync("Test", "Test", DateTime.UtcNow, DateTime.UtcNow.AddHours(20));
             var competitionId = this.context.Competitions
                 .Select(x => x.Id)
                 .FirstOrDefault();
 
-            await this.competitionService.FinishCompetition(competitionId);
+            await this.competitionService.FinishCompetitionAsync(competitionId);
 
             var actualResult = this.context.Competitions
                 .Where(x => x.IsFinished)

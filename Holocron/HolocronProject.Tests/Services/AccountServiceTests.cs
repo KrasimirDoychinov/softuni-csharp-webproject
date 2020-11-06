@@ -45,7 +45,7 @@ namespace HolocronProject.Tests.Services
         [TestCase("Test Signature3")]
         public async Task UpdateForumSignatureUpdatesSignature(string forumSignature)
         {
-            await this.accountService.UpdateForumSignature(testAccount.Id, forumSignature);
+            await this.accountService.UpdateForumSignatureAsync(testAccount.Id, forumSignature);
 
             var actualResult = testAccount.ForumSignature;
             var expectedResult = forumSignature;
@@ -58,7 +58,7 @@ namespace HolocronProject.Tests.Services
         [TestCase("Avatar Image3")]
         public async Task UpdateAvatarImageShouldChangeAvatarImage(string avatarImage)
         {
-            await this.accountService.UpdateAvatarImage(testAccount.Id, avatarImage);
+            await this.accountService.UpdateAvatarImageAsync(testAccount.Id, avatarImage);
 
             var actualResult = testAccount.AvatarImage;
             var expectedResult = avatarImage;
@@ -71,7 +71,7 @@ namespace HolocronProject.Tests.Services
         [TestCase("Test DisplayName3")]
         public async Task UpdateDisplayNameShouldChangeDisplayName(string displayName)
         {
-            await this.accountService.UpdateDisplayName(testAccount.Id, displayName);
+            await this.accountService.UpdateDisplayNameAsync(testAccount.Id, displayName);
 
             var actualResult = testAccount.DisplayName;
             var expectedResult = displayName;
@@ -84,7 +84,7 @@ namespace HolocronProject.Tests.Services
         [TestCase("Test AccountName3")]
         public async Task UpdateAccountNameChangesAccountName(string newUserName)
         {
-            await this.accountService.UpdateAccountName(testAccount.Id, newUserName);
+            await this.accountService.UpdateAccountNameAsync(testAccount.Id, newUserName);
 
             var actualResult = testAccount.UserName;
             var expectedResult = newUserName;

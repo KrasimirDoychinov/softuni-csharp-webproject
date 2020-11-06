@@ -16,7 +16,7 @@ namespace HolocronProject.Services.Implementations
             this.context = context;
         }
 
-        public async Task CreatePost(string description, string accountId, string threadId)
+        public async Task CreatePostAsync(string description, string accountId, string threadId)
         {
             var post = new Post
             {

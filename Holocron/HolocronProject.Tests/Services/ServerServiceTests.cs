@@ -1,5 +1,6 @@
 ﻿using HolocronProject.Data;
 using HolocronProject.Services;
+using HolocronProject.Services.Implementations;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -28,7 +29,7 @@ namespace HolocronProject.Tests.Services
         [Test]
         public async Task CreateRaceCreatesRaceAndIncreasesCount()
         {
-            await this.serverService.CreateServer("Test");
+            await this.serverService.CreateServerAsync("Test");
 
             var actualResult = this.context.Servers
                 .Count();

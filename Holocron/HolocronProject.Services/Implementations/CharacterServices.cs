@@ -22,7 +22,7 @@ namespace HolocronProject.Services.Implementations
             this.context = context;
         }
 
-        public async Task CreateCharacter(CharacterInputModel input)
+        public async Task CreateCharacterAsync(CharacterInputModel input)
         {
             var character = new Character
             {
@@ -43,7 +43,7 @@ namespace HolocronProject.Services.Implementations
             await this.context.SaveChangesAsync();
         }
 
-        public async Task DeleteCharacter(string characterId)
+        public async Task DeleteCharacterAsync(string characterId)
         {
             var character = GetCharacterById(characterId);
 

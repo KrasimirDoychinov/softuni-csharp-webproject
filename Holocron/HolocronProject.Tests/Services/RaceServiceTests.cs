@@ -34,7 +34,7 @@ namespace HolocronProject.Tests.Services
         [Test]
         public async Task CreateRaceCreatesRaceAndIncreasesCount()
         {
-            await this.raceService.CreateRace("Test");
+            await this.raceService.CreateRaceAsync("Test");
 
             var actualResult = this.context.Races
                 .Count();

@@ -17,7 +17,7 @@ namespace HolocronProject.Services
             this.context = context;
         }
 
-        public async Task CreateRace(string name)
+        public async Task CreateRaceAsync(string name)
         {
             var race = new Race
             {

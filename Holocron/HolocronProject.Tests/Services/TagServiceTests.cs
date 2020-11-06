@@ -29,7 +29,7 @@ namespace HolocronProject.Tests.Services
         [Test]
         public async Task CreateTagCreatesTagAndIncreaesCount()
         {
-            await this.tagService.CreateTag("Test");
+            await this.tagService.CreateTagAsync("Test");
 
             var actualResult = this.context.Tags
                 .Count();
