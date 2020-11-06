@@ -22,7 +22,7 @@ namespace HolocronProject.ConsoleApp
         {
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.AddProfile(new MappingProfile());
+                
             });
 
 

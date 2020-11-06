@@ -19,6 +19,8 @@ namespace HolocronProject.Web
     // TODO: Clean up the DB
     // TODO: Start working on the services that will display data
     // TODO: Work with Razor
+    // TODO: Implement a good voting system
+    // TODO: Implement PM messages
 
     public class Program
     {

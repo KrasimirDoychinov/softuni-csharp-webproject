@@ -9,6 +9,7 @@ using HolocronProject.Data;
 using HolocronProject.Data.Models;
 using HolocronProject.Services;
 using HolocronProject.Services.Implementations;
+using AutoMapper;
 
 namespace HolocronProject.Web
 {
@@ -31,6 +32,8 @@ namespace HolocronProject.Web
                 .AddEntityFrameworkStores<HolocronDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            services.AddAutoMapper(typeof(Startup));
 
             services.AddTransient<IAccountService, AccountServices>();
             services.AddTransient<IAchievementService, AchievementServices>();

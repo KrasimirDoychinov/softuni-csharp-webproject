@@ -1,10 +1,9 @@
 ﻿using HolocronProject.Data;
 using HolocronProject.Services;
+using HolocronProject.Services.Implementations;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
+
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace HolocronProject.Tests.Services
