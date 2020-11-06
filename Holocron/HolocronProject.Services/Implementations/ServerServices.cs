@@ -7,7 +7,7 @@ using HolocronProject.Data;
 using HolocronProject.Data.Models;
 using HolocronProject.Services.ViewModelsTemp;
 
-namespace HolocronProject.Services
+namespace HolocronProject.Services.Implementations
 {
     public class ServerServices : IServerService
     {

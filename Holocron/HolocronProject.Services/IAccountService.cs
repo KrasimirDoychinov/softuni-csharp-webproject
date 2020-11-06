@@ -8,21 +8,21 @@ namespace HolocronProject.Services
 {
     public interface IAccountService
     {
-        Task CreateAccount(string accountName, string password, string displayName);
+        //Task CreateAccount(string accountName, string password, string displayName);
 
-        Task UpdateForumSignature(string accountId, string forumSignature);
+        //Task UpdateForumSignature(string accountId, string forumSignature);
 
-        Task UpdateAvatarImage(string accountId, string avatarImage);
+        //Task UpdateAvatarImage(string accountId, string avatarImage);
 
-        Task UpdatePassword(string accountId, string newPassword);
+        //Task UpdatePassword(string accountId, string newPassword);
 
-        Task UpdateDisplayName(string accountId, string newDisplayName);
+        //Task UpdateDisplayName(string accountId, string newDisplayName);
 
-        Task UpdateAccountName(string accountId, string newAccountName);
+        //Task UpdateAccountName(string accountId, string newAccountName);
 
-        Account GetAccountById(string accountId);
+        //Account GetAccountById(string accountId);
 
-        Account GetAccountByNameAndPassword(string username, string password);
+        //Account GetAccountByNameAndPassword(string username, string password);
 
 
     }

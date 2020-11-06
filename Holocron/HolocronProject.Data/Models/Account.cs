@@ -16,11 +16,6 @@ namespace HolocronProject.Data.Models
             this.Id = Guid.NewGuid().ToString();
         }
 
-        [MaxLength(GlobalConstants.AccountConstants.AccountNameMaxLength)]
-        public string AccountName { get; set; }
-
-        public string Password { get; set; }
-
         [MaxLength(GlobalConstants.AccountConstants.DisplayNameMaxLength)]
         public string DisplayName { get; set; }
 

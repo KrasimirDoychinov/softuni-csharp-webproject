@@ -59,16 +59,6 @@ namespace HolocronProject.Data
         {
             base.OnModelCreating(builder);
 
-            builder.Entity<Account>()
-                .HasData(
-                new Account
-                {
-                    AccountName = "Test username",
-                    Password = "Test password",
-                    DisplayName = "Test display name"
-                }
-                );
-
             builder.Entity<Character>()
                 .HasData(
                 new Character 

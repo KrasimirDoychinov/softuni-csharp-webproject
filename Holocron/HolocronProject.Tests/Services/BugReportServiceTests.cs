@@ -30,7 +30,7 @@ namespace HolocronProject.Tests.Services
             await this.context.Database.EnsureDeletedAsync();
             await this.context.Database.EnsureCreatedAsync();
 
-            await this.accountService.CreateAccount("Test", "Test", "Test");
+            //await this.accountService.CreateAccount("Test", "Test", "Test");
             testAccount = this.context.Accounts.FirstOrDefault();
         }
 

@@ -13,7 +13,7 @@ using HolocronProject.Services.ViewModelsTemp;
 using AutoMapper.QueryableExtensions;
 using AutoMapper;
 
-namespace HolocronProject.Services
+namespace HolocronProject.Services.Implementations
 {
 
     public class AccountServices : IAccountService
@@ -26,18 +26,18 @@ namespace HolocronProject.Services
         }
 
 
-        public async Task CreateAccount(string accountName, string password, string displayName)
-        {
-            var account = new Account
-            {
-                AccountName = accountName,
-                Password = HashPassword(password),
-                DisplayName = displayName
-            };
+        //public async Task CreateAccount(string accountName, string password, string displayName)
+        //{
+        //    var account = new Account
+        //    {
+        //        AccountName = accountName,
+        //        Password = HashPassword(password),
+        //        DisplayName = displayName
+        //    };
 
-            await this.context.Accounts.AddAsync(account);
-            await this.context.SaveChangesAsync();
-        }
+        //    await this.context.Accounts.AddAsync(account);
+        //    await this.context.SaveChangesAsync();
+        //}
 
         public async Task UpdateForumSignature(string accountId, string forumSignature)
         {
@@ -59,15 +59,15 @@ namespace HolocronProject.Services
             await this.context.SaveChangesAsync();
         }
 
-        public async Task UpdatePassword(string accountId, string newPassword)
-        {
-            var account = GetAccountById(accountId);
+        //public async Task UpdatePassword(string accountId, string newPassword)
+        //{
+        //    var account = GetAccountById(accountId);
 
-            account.Password = HashPassword(newPassword);
+        //    account.Password = HashPassword(newPassword);
 
-            this.context.Accounts.Update(account);
-            await this.context.SaveChangesAsync();
-        }
+        //    this.context.Accounts.Update(account);
+        //    await this.context.SaveChangesAsync();
+        //}
 
         public async Task UpdateDisplayName(string accountId, string newDisplayName)
         {
@@ -79,23 +79,23 @@ namespace HolocronProject.Services
             await this.context.SaveChangesAsync();
         }
 
-        public async Task UpdateAccountName(string accountId, string newAccountName)
-        {
-            var account = GetAccountById(accountId);
+        //public async Task UpdateAccountName(string accountId, string newAccountName)
+        //{
+        //    var account = GetAccountById(accountId);
 
-            account.AccountName = newAccountName;
+        //    account.AccountName = newAccountName;
 
-            this.context.Accounts.Update(account);
-            await this.context.SaveChangesAsync();
-        }
+        //    this.context.Accounts.Update(account);
+        //    await this.context.SaveChangesAsync();
+        //}
 
         public Account GetAccountById(string accountId)
             => this.context.Accounts
             .FirstOrDefault(x => x.Id == accountId);
 
-        public Account GetAccountByNameAndPassword(string username, string password)
-            => this.context.Accounts
-            .FirstOrDefault(x => x.AccountName == username && x.Password == HashPassword(password));
+        //public Account GetAccountByNameAndPassword(string username, string password)
+        //    => this.context.Accounts
+        //    .FirstOrDefault(x => x.AccountName == username && x.Password == HashPassword(password));
 
         private static string HashPassword(string input)
         {

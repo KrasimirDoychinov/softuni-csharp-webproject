@@ -14,7 +14,7 @@ namespace HolocronProject.Web
     // TODO: Don't forget about the character contest
 
     // TODO: Review the code each day at the beginning of the code session and at the end of the session
-    // TODO: Add all services to the injector
+    // TODO: Fix the tests to work with ASP.NET
     // TODO: Fix account entity to work with the default Asp.Net User entity
     // TODO: Clean up the DB
     // TODO: Start working on the services that will display data

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using HolocronProject.Data;
 using HolocronProject.Data.Models;
 
-namespace HolocronProject.Services
+namespace HolocronProject.Services.Implementations
 {
     public class BaseThreadServices : IBaseThreadService
     {

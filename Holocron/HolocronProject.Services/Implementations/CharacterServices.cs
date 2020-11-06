@@ -10,7 +10,7 @@ using HolocronProject.Services.ViewModelsTemp;
 using System.Threading.Tasks;
 using HolocronProject.Services.ViewModelsTemp;
 
-namespace HolocronProject.Services
+namespace HolocronProject.Services.Implementations
 {
     // TODO: Add more character services
     public class CharacterServices : ICharacterService
