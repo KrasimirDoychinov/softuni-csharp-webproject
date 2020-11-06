@@ -13,11 +13,11 @@ using HolocronProject.Services.ViewModelsTemp;
 namespace HolocronProject.Services
 {
     // TODO: Add more character services
-    public class CharacterService : ICharacterService
+    public class CharacterServices : ICharacterService
     {
         private readonly HolocronDbContext context;
 
-        public CharacterService(HolocronDbContext context)
+        public CharacterServices(HolocronDbContext context)
         {
             this.context = context;
         }

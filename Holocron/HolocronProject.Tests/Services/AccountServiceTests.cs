@@ -22,7 +22,7 @@ namespace HolocronProject.Tests.Services
         public async Task SetUp()
         {
             this.context = new HolocronDbContext();
-            this.accountService = new AccountService(context);
+            this.accountService = new AccountServices(context);
 
             await this.context.Database.EnsureDeletedAsync();
             await this.context.Database.EnsureCreatedAsync();

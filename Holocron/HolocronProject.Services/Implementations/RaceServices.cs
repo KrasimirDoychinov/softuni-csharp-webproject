@@ -8,11 +8,11 @@ using HolocronProject.Services.ViewModelsTemp;
 
 namespace HolocronProject.Services
 {
-    public class RaceService : IRaceService
+    public class RaceServices : IRaceService
     {
         private HolocronDbContext context;
 
-        public RaceService(HolocronDbContext context)
+        public RaceServices(HolocronDbContext context)
         {
             this.context = context;
         }

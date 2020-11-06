@@ -22,8 +22,8 @@ namespace HolocronProject.Tests.Services
         public async Task SetUp()
         {
             this.context = new HolocronDbContext();
-            this.postService = new PostService(context);
-            this.threadService = new ThreadService(context);
+            this.postService = new PostServices(context);
+            this.threadService = new ThreadServices(context);
 
             await this.context.Database.EnsureDeletedAsync();
             await this.context.Database.EnsureCreatedAsync();

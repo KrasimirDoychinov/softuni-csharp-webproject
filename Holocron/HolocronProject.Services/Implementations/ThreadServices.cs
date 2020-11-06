@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace HolocronProject.Services.Implementations
 {
-    public class ThreadService : IThreadService
+    public class ThreadServices : IThreadService
     {
         private HolocronDbContext context;
-        public ThreadService(HolocronDbContext context)
+        public ThreadServices(HolocronDbContext context)
         {
             this.context = context;
         }

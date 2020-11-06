@@ -21,8 +21,8 @@ namespace HolocronProject.Tests.Services
         public async Task SetUp()
         {
             this.context = new HolocronDbContext();
-            this.achievementService = new AchievementService(context);
-            this.competitionService = new CompetitionService(context, this.achievementService);
+            this.achievementService = new AchievementServices(context);
+            this.competitionService = new CompetitionServices(context, this.achievementService);
 
             await this.context.Database.EnsureDeletedAsync();
             await this.context.Database.EnsureCreatedAsync();

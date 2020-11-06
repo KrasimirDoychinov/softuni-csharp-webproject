@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace HolocronProject.Services.Implementations
 {
-    public class PostService : IPostService
+    public class PostServices : IPostService
     {
         private HolocronDbContext context;
 
-        public PostService(HolocronDbContext context)
+        public PostServices(HolocronDbContext context)
         {
             this.context = context;
         }

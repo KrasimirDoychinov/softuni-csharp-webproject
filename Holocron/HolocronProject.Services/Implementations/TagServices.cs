@@ -6,11 +6,11 @@ using HolocronProject.Data.Models;
 
 namespace HolocronProject.Services.Implementations
 {
-    public class TagService : ITagService
+    public class TagServices : ITagService
     {
         private HolocronDbContext context;
 
-        public TagService(HolocronDbContext context)
+        public TagServices(HolocronDbContext context)
         {
             this.context = context;
         }

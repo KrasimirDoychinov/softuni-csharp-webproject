@@ -31,8 +31,16 @@ namespace HolocronProject.Web
             services.AddControllersWithViews();
             services.AddRazorPages();
 
-            services.AddTransient<IAccountService, AccountService>();
-            services.AddTransient<IAchievementService, AchievementService>();
+            services.AddTransient<IAccountService, AccountServices>();
+            services.AddTransient<IAchievementService, AchievementServices>();
+            services.AddTransient<IBaseThreadService, BaseThreadServices>();
+            services.AddTransient<IBugReportService, BugReportServices>();
+            services.AddTransient<ICharacterService, CharacterServices>();
+            services.AddTransient<IClassService, ClassServices>();
+            services.AddTransient<ICompetitionService, CompetitionServices>();
+            services.AddTransient<IPostService, PostServices>();
+            services.AddTransient<IRaceService, RaceServices>();
+            services.AddTransient<IServerService, ServerServices>();
 
         }
 

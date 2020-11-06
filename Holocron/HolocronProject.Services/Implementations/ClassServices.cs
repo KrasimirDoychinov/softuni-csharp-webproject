@@ -5,11 +5,11 @@ using HolocronProject.Data.Models;
 
 namespace HolocronProject.Services.Implementations
 {
-    public class ClassService : IClassService
+    public class ClassServices : IClassService
     {
         private readonly HolocronDbContext context;
 
-        public ClassService(HolocronDbContext context)
+        public ClassServices(HolocronDbContext context)
         {
             this.context = context;
         }

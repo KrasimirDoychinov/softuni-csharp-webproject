@@ -31,21 +31,21 @@ namespace HolocronProject.ConsoleApp
             context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
 
-            IClassService classService = new ClassService(context);
+            IClassService classService = new ClassServices(context);
 
-            ICharacterService characterService = new CharacterService(context);
+            ICharacterService characterService = new CharacterServices(context);
 
-            IRaceService raceService = new RaceService(context);
+            IRaceService raceService = new RaceServices(context);
 
             IServerService serverService = new ServerServices(context);
-            IBaseThreadService baseThreadService = new BaseThreadService(context);
+            IBaseThreadService baseThreadService = new BaseThreadServices(context);
 
-            IAccountService accountService = new AccountService(context);
+            IAccountService accountService = new AccountServices(context);
 
-            IAchievementService achievementService = new AchievementService(context);
-            ICompetitionService competitionService = new CompetitionService(context, achievementService);
+            IAchievementService achievementService = new AchievementServices(context);
+            ICompetitionService competitionService = new CompetitionServices(context, achievementService);
 
-            IBugReportService bugReportService = new BugReportService(context);
+            IBugReportService bugReportService = new BugReportServices(context);
 
             //await accountService.CreateAccount("deth45", "1234", "dasda");
 

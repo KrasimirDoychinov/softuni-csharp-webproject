@@ -16,11 +16,11 @@ using AutoMapper;
 namespace HolocronProject.Services
 {
 
-    public class AccountService : IAccountService
+    public class AccountServices : IAccountService
     {
         private HolocronDbContext context;
 
-        public AccountService(HolocronDbContext context)
+        public AccountServices(HolocronDbContext context)
         {
             this.context = context;
         }

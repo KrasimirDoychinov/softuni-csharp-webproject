@@ -8,11 +8,11 @@ using HolocronProject.Data.Models;
 
 namespace HolocronProject.Services
 {
-    public class BaseThreadService : IBaseThreadService
+    public class BaseThreadServices : IBaseThreadService
     {
         private HolocronDbContext context;
 
-        public BaseThreadService(HolocronDbContext context)
+        public BaseThreadServices(HolocronDbContext context)
         {
             this.context = context;
         }

@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace HolocronProject.Services.Implementations
 {
-    public class CompetitionService : ICompetitionService
+    public class CompetitionServices : ICompetitionService
     {
         private readonly HolocronDbContext context;
         private readonly IAchievementService achievementService;
 
-        public CompetitionService(HolocronDbContext context, IAchievementService achievementService)
+        public CompetitionServices(HolocronDbContext context, IAchievementService achievementService)
         {
             this.context = context;
             this.achievementService = achievementService;

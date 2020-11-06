@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace HolocronProject.Services.Implementations
 {
-    public class BugReportService : IBugReportService
+    public class BugReportServices : IBugReportService
     {
         private readonly HolocronDbContext context;
 
-        public BugReportService(HolocronDbContext context)
+        public BugReportServices(HolocronDbContext context)
         {
             this.context = context;
         }
