@@ -2,12 +2,9 @@
 using HolocronProject.Data.Enums;
 using HolocronProject.Services;
 using HolocronProject.Services.Implementations;
-using HolocronProject.Services.ViewModelsTemp;
+using HolocronProject.Services.ViewModelsTemp.InputModelsTemp;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace HolocronProject.Tests.Services
@@ -17,6 +14,8 @@ namespace HolocronProject.Tests.Services
     {
         private HolocronDbContext context;
         private ICharacterService characterService;
+
+
         [SetUp]
         public async Task SetUp()
         {

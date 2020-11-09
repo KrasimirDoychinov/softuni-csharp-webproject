@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using HolocronProject.Services.ViewModelsTemp;
 using HolocronProject.Data.Models;
+using HolocronProject.Services.ViewModelsTemp.ViewModelsTemp;
 
 namespace HolocronProject.Services
 {
@@ -17,6 +18,8 @@ namespace HolocronProject.Services
         Task UpdateAccountNameAsync(string accountId, string newAccountName);
 
         Account GetAccountById(string accountId);
+
+        ForeignAccountViewModel GetForeignAccount(string accountId);
 
     }
 }

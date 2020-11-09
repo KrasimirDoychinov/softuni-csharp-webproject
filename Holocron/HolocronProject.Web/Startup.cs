@@ -33,7 +33,6 @@ namespace HolocronProject.Web
             services.AddControllersWithViews();
             services.AddRazorPages();
 
-            services.AddAutoMapper(typeof(Startup));
 
             services.AddTransient<IAccountService, AccountServices>();
             services.AddTransient<IAchievementService, AchievementServices>();

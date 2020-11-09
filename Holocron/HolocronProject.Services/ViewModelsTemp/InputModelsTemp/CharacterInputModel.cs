@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace HolocronProject.Services.ViewModelsTemp
+namespace HolocronProject.Services.ViewModelsTemp.InputModelsTemp
 {
     public class CharacterInputModel
     {

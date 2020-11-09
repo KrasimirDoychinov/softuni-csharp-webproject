@@ -6,9 +6,8 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using HolocronProject.Data;
 using HolocronProject.Data.Models;
-using HolocronProject.Services.ViewModelsTemp;
 using System.Threading.Tasks;
-using HolocronProject.Services.ViewModelsTemp;
+using HolocronProject.Services.ViewModelsTemp.InputModelsTemp;
 
 namespace HolocronProject.Services.Implementations
 {
