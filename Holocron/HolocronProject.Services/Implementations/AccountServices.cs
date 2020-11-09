@@ -4,7 +4,7 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using HolocronProject.Data;
 using HolocronProject.Data.Models;
-using HolocronProject.Services.ViewModelsTemp.ViewModelsTemp;
+using HolocronProject.Web.ViewModels;
 
 namespace HolocronProject.Services.Implementations
 {
@@ -15,6 +15,7 @@ namespace HolocronProject.Services.Implementations
 
         public AccountServices(HolocronDbContext context)
         {
+            var test = new Test();
             this.context = context;
         }
 
@@ -72,8 +73,5 @@ namespace HolocronProject.Services.Implementations
             .Where(x => x.Id == accountId)
             .FirstOrDefault();
 
-        public bool IsDisplayNameTaken(string displayName)
-            => this.context.Accounts
-            .Any(x => x.DisplayName == displayName);
     }
 }

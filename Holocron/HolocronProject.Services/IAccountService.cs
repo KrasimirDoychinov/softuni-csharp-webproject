@@ -1,9 +1,7 @@
 ﻿using System.Threading.Tasks;
 using System.Collections.Generic;
 
-using HolocronProject.Services.ViewModelsTemp;
 using HolocronProject.Data.Models;
-using HolocronProject.Services.ViewModelsTemp.ViewModelsTemp;
 
 namespace HolocronProject.Services
 {

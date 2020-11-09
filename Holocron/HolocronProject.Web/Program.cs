@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using HolocronProject.Data;
+using HolocronProject.Web.ViewModels;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -28,6 +29,8 @@ namespace HolocronProject.Web
     {
         public static void Main(string[] args)
         {
+            var test = new Test();
+
             CreateHostBuilder(args).Build().Run();
         }
 

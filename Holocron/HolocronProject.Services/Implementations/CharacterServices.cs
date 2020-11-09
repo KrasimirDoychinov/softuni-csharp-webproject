@@ -54,5 +54,9 @@ namespace HolocronProject.Services.Implementations
 
         public Character GetCharacterById(string characterId)
             => this.context.Characters.FirstOrDefault(x => x.Id == characterId);
+
+        // TODO: Move to controller
+        public bool IsCharacterNameTaken(string characterName)
+            => this.context.Characters.Any(x => x.Name == characterName);
     }
 }
