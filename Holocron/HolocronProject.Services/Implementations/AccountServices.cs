@@ -1,10 +1,16 @@
-﻿using System.Linq;
+﻿using System;
+using System.Text;
+using System.Linq;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using AutoMapper;
-using AutoMapper.QueryableExtensions;
+using System.Security.Cryptography;
+
 using HolocronProject.Data;
+using HolocronProject.Data.Enums;
 using HolocronProject.Data.Models;
-using HolocronProject.Web.ViewModels;
+using HolocronProject.Services.ViewModelsTemp;
+
+using AutoMapper.QueryableExtensions;
 
 namespace HolocronProject.Services.Implementations
 {
@@ -15,9 +21,9 @@ namespace HolocronProject.Services.Implementations
 
         public AccountServices(HolocronDbContext context)
         {
-            var test = new Test();
             this.context = context;
         }
+
 
         public async Task UpdateForumSignatureAsync(string accountId, string forumSignature)
         {
@@ -38,6 +44,8 @@ namespace HolocronProject.Services.Implementations
             this.context.Accounts.Update(account);
             await this.context.SaveChangesAsync();
         }
+
+        
 
         public async Task UpdateDisplayNameAsync(string accountId, string newDisplayName)
         {
@@ -62,16 +70,6 @@ namespace HolocronProject.Services.Implementations
         public Account GetAccountById(string accountId)
             => this.context.Accounts
             .FirstOrDefault(x => x.Id == accountId);
-
-        public ForeignAccountViewModel GetForeignAccount(string accountId)
-            => this.context.Accounts
-            .Select(x => new ForeignAccountViewModel
-            {
-                Id = x.Id,
-                DisplayName = x.DisplayName,
-            })
-            .Where(x => x.Id == accountId)
-            .FirstOrDefault();
 
     }
 }

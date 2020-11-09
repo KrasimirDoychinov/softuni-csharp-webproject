@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 
 using HolocronProject.Data;
 using HolocronProject.Data.Models;
@@ -14,10 +13,6 @@ namespace HolocronProject.Services.Implementations
         {
             this.context = context;
         }
-
-        public IEnumerable<Class> GetAll()
-            => this.context.Classes
-            .ToList();
 
         public Class GetClassById(string classId)
             => this.context.Classes.FirstOrDefault(x => x.Id == classId);

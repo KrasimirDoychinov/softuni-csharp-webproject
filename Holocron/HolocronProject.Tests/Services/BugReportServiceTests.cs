@@ -1,9 +1,7 @@
-﻿using AutoMapper;
-using HolocronProject.Data;
+﻿using HolocronProject.Data;
 using HolocronProject.Data.Models;
 using HolocronProject.Services;
 using HolocronProject.Services.Implementations;
-using HolocronProject.Web;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -19,13 +17,12 @@ namespace HolocronProject.Tests.Services
         private HolocronDbContext context;
         private IBugReportService bugReportService;
         private IAccountService accountService;
-        private MapperConfiguration config;
+
         private Account testAccount;
 
         [SetUp]
         public async Task SetUp()
         {
-
             this.context = new HolocronDbContext();
             this.bugReportService = new BugReportServices(context);
             this.accountService = new AccountServices(context);
