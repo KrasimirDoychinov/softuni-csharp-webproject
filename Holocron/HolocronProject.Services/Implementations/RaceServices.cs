@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 using HolocronProject.Data;
 using HolocronProject.Data.Models;
+using HolocronProject.Services.ViewModelsTemp;
 
 namespace HolocronProject.Services
 {

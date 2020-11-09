@@ -9,5 +9,7 @@ namespace HolocronProject.Services
         Class GetClassByName(string className);
 
         Class GetClassById(string classId);
+
+        IEnumerable<Class> GetAll();
     }
 }

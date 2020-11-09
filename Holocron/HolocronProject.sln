@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HolocronProject.Services", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HolocronProject.Tests", "HolocronProject.Tests\HolocronProject.Tests.csproj", "{56B1233E-A8E8-4EB4-8916-D6B5BD6F6D24}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HolocronProject.Web", "HolocronProject.Web\HolocronProject.Web.csproj", "{05F3546F-56DF-4F50-BA28-4A52742FACF6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{56B1233E-A8E8-4EB4-8916-D6B5BD6F6D24}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{56B1233E-A8E8-4EB4-8916-D6B5BD6F6D24}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{56B1233E-A8E8-4EB4-8916-D6B5BD6F6D24}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05F3546F-56DF-4F50-BA28-4A52742FACF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05F3546F-56DF-4F50-BA28-4A52742FACF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05F3546F-56DF-4F50-BA28-4A52742FACF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05F3546F-56DF-4F50-BA28-4A52742FACF6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

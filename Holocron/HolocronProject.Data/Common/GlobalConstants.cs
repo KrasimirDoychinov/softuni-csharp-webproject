@@ -4,10 +4,7 @@
     {
         public static class AccountConstants
         {
-            public const int AccountNameMaxLength = 100;
-
             public const int DisplayNameMaxLength = 25;
-
         }
 
         public static class CharacterConstants

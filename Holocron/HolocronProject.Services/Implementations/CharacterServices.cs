@@ -6,9 +6,8 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using HolocronProject.Data;
 using HolocronProject.Data.Models;
-using HolocronProject.Services.ViewModelsTemp;
 using System.Threading.Tasks;
-using HolocronProject.Services.ViewModelsTemp;
+using HolocronProject.Services.ViewModelsTemp.InputModelsTemp;
 
 namespace HolocronProject.Services.Implementations
 {
@@ -55,9 +54,5 @@ namespace HolocronProject.Services.Implementations
 
         public Character GetCharacterById(string characterId)
             => this.context.Characters.FirstOrDefault(x => x.Id == characterId);
-
-        // TODO: Move to controller
-        public bool IsCharacterNameTaken(string characterName)
-            => this.context.Characters.Any(x => x.Name == characterName);
     }
 }
