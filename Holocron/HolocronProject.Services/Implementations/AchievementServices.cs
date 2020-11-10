@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 namespace HolocronProject.Services.Implementations
 {
     public class AchievementServices : IAchievementService
