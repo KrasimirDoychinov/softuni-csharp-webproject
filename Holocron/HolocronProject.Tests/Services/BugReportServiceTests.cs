@@ -22,20 +22,20 @@ namespace HolocronProject.Tests.Services
         private MapperConfiguration config;
         private Account testAccount;
 
-        [SetUp]
-        public async Task SetUp()
-        {
+        //[SetUp]
+        //public async Task SetUp()
+        //{
 
-            this.context = new HolocronDbContext();
-            this.bugReportService = new BugReportServices(context);
-            this.accountService = new AccountServices(context);
+        //    this.context = new HolocronDbContext();
+        //    this.bugReportService = new BugReportServices(context);
+        //    this.accountService = new AccountServices(context);
 
-            await this.context.Database.EnsureDeletedAsync();
-            await this.context.Database.EnsureCreatedAsync();
+        //    await this.context.Database.EnsureDeletedAsync();
+        //    await this.context.Database.EnsureCreatedAsync();
 
-            //await this.accountService.CreateAccount("Test", "Test", "Test");
-            testAccount = this.context.Accounts.FirstOrDefault();
-        }
+        //    //await this.accountService.CreateAccount("Test", "Test", "Test");
+        //    testAccount = this.context.Accounts.FirstOrDefault();
+        //}
 
         [TearDown]
         public async Task TearDown()

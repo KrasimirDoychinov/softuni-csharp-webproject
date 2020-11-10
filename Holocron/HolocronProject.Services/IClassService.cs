@@ -6,7 +6,7 @@ namespace HolocronProject.Services
 {
     public interface IClassService
     {
-        Class GetClassByName(string className);
+        Class GetClassIdByName(string className);
 
         Class GetClassById(string classId);
 

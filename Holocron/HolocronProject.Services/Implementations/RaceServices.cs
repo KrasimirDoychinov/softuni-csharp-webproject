@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 using HolocronProject.Data;
 using HolocronProject.Data.Models;
-using HolocronProject.Services.ViewModelsTemp;
+using System.Security.Cryptography.X509Certificates;
 
 namespace HolocronProject.Services
 {
@@ -27,5 +27,8 @@ namespace HolocronProject.Services
             await this.context.Races.AddAsync(race);
             await this.context.SaveChangesAsync();
         }
+
+        public Race GetRaceIdByName(string name)
+            => this.context.Races.FirstOrDefault(x => x.Name == name);
     }
 }

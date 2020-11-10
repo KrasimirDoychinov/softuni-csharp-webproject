@@ -1,10 +1,11 @@
 ﻿using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using HolocronProject.Data;
 using HolocronProject.Data.Models;
-using HolocronProject.Services.ViewModelsTemp.ViewModelsTemp;
+using HolocronProject.Services.Models;
 
 namespace HolocronProject.Services.Implementations
 {
@@ -12,10 +13,12 @@ namespace HolocronProject.Services.Implementations
     public class AccountServices : IAccountService
     {
         private HolocronDbContext context;
+        private readonly IMapper mapper;
 
-        public AccountServices(HolocronDbContext context)
+        public AccountServices(HolocronDbContext context, IMapper mapper)
         {
             this.context = context;
+            this.mapper = mapper;
         }
 
         public async Task UpdateForumSignatureAsync(string accountId, string forumSignature)
@@ -62,15 +65,14 @@ namespace HolocronProject.Services.Implementations
             => this.context.Accounts
             .FirstOrDefault(x => x.Id == accountId);
 
-        public ForeignAccountViewModel GetForeignAccount(string accountId)
-            => this.context.Accounts
-            .Select(x => new ForeignAccountViewModel
-            {
-                Id = x.Id,
-                DisplayName = x.DisplayName,
-            })
-            .Where(x => x.Id == accountId)
-            .FirstOrDefault();
+        public ForeignAccountDto GetForeignAccount(string accountId)
+        {
+            var foreignAcc = this.context.Accounts
+            .FirstOrDefault(x => x.Id == accountId);
+
+            return mapper.Map<ForeignAccountDto>(foreignAcc);
+        }
+            
 
         public bool IsDisplayNameTaken(string displayName)
             => this.context.Accounts

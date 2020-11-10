@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 using HolocronProject.Data;
 using HolocronProject.Data.Models;
-using HolocronProject.Services.ViewModelsTemp;
+using System.Security.Cryptography.X509Certificates;
 
 namespace HolocronProject.Services.Implementations
 {
@@ -28,5 +28,8 @@ namespace HolocronProject.Services.Implementations
             await this.context.Servers.AddAsync(server);
             await this.context.SaveChangesAsync();
         }
+
+        public Server GetServerIdByName(string name)
+            => this.context.Servers.FirstOrDefault(x => x.Name == name);
     }
 }

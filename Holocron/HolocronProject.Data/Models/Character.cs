@@ -18,27 +18,27 @@ namespace HolocronProject.Data.Models
 
         public string Id { get; set; }
 
-        [Required]
-        [MaxLength(GlobalConstants.CharacterConstants.NameMaxLength)]
+        //[Required]
+        //[MaxLength(GlobalConstants.CharacterConstants.NameMaxLength)]
         public string Name { get; set; }
 
-        [Required]
-        [MaxLength(GlobalConstants.CharacterConstants.BackstoryMaxLength)]
-        public string Backstory { get; set; } = "None";
+        //[Required]
+        //[MaxLength(GlobalConstants.CharacterConstants.BackstoryMaxLength)]
+        public string Backstory { get; set; } 
 
-        [MaxLength(GlobalConstants.CharacterConstants.TitleMaxLength)]
-        public string Title { get; set; } = "None";
+        //[MaxLength(GlobalConstants.CharacterConstants.TitleMaxLength)]
+        public string Title { get; set; } 
 
         // TODO: Figure out how to make an image
-        public string Image { get; set; } = "Placeholder image";
+        public string Image { get; set; } 
 
-        [Required]
-        public Gender Gender { get; set; } = 0;
+        //[Required]
+        public Gender Gender { get; set; }
 
-        [Required]
-        public CharacterType CharacterType { get; set; } = 0;
+        //[Required]
+        public CharacterType CharacterType { get; set; }
 
-        [Required]
+        //[Required]
         public ForceAffiliation ForceAffiliation { get; set; }
 
         public string ClassId { get; set; }

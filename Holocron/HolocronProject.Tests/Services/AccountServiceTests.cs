@@ -19,19 +19,19 @@ namespace HolocronProject.Tests.Services
         private HolocronDbContext context;
         private IAccountService accountService;
 
-        [SetUp]
-        public async Task SetUp()
-        {
-            this.context = new HolocronDbContext();
-            this.accountService = new AccountServices(context);
+        //[SetUp]
+        //public async Task SetUp()
+        //{
+        //    this.context = new HolocronDbContext();
+        //    this.accountService = new AccountServices(context);
 
-            await this.context.Database.EnsureDeletedAsync();
-            await this.context.Database.EnsureCreatedAsync();
+        //    await this.context.Database.EnsureDeletedAsync();
+        //    await this.context.Database.EnsureCreatedAsync();
 
-            testAccount = this.context.Accounts
-                .Where(x => x.UserName == "TestSetup")
-                .FirstOrDefault();
-        }
+        //    testAccount = this.context.Accounts
+        //        .Where(x => x.UserName == "TestSetup")
+        //        .FirstOrDefault();
+        //}
 
         [TearDown]
         public async Task TearDown()

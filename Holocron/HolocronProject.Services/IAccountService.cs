@@ -1,9 +1,8 @@
 ﻿using System.Threading.Tasks;
 using System.Collections.Generic;
 
-using HolocronProject.Services.ViewModelsTemp;
 using HolocronProject.Data.Models;
-using HolocronProject.Services.ViewModelsTemp.ViewModelsTemp;
+using HolocronProject.Services.Models;
 
 namespace HolocronProject.Services
 {
@@ -19,7 +18,7 @@ namespace HolocronProject.Services
 
         Account GetAccountById(string accountId);
 
-        ForeignAccountViewModel GetForeignAccount(string accountId);
+        ForeignAccountDto GetForeignAccount(string accountId);
 
     }
 }

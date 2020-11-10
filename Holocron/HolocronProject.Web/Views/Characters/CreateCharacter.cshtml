@@ -1,0 +1,70 @@
+﻿@using HolocronProject.Data.Enums 
+@model HolocronProject.Web.ViewModels.Character.CharacterInputModel
+
+<form method="post" class="col-md-6">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="form-group ">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Backstory"></label>
+        <textarea asp-for="Backstory" class="form-control"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Title"></label>
+        <input asp-for="Title" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Image"></label>
+        <input asp-for="Image" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Gender"></label>
+        <select asp-for="Gender" class="form-control"
+                asp-items="@Html.GetEnumSelectList<Gender>()">
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="CharacterType"></label>
+        <select asp-for="CharacterType" class="form-control"
+                asp-items="@Html.GetEnumSelectList<CharacterType>()">
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ForceAffiliation"></label>
+        <select asp-for="ForceAffiliation" class="form-control"
+                asp-items="@Html.GetEnumSelectList<ForceAffiliation>()">
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Class"></label>
+        <select asp-for="Class" class="form-control" 
+                asp-items="@Model.ClassList">
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Race"></label>
+        <select asp-for="Race" class="form-control"
+                asp-items="@Model.RaceList">
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Server"></label>
+        <select asp-for="Server" class="form-control"
+                asp-items="@Model.ServerList">
+        </select>
+    </div>
+
+    <input type="submit" />
+</form>

@@ -10,7 +10,7 @@ using HolocronProject.Data.Models;
 using HolocronProject.Services;
 using HolocronProject.Services.Implementations;
 using AutoMapper;
-using HolocronProject.Web.Profiles;
+using HolocronProject.Services.Profiles;
 
 namespace HolocronProject.Web
 {
@@ -36,7 +36,7 @@ namespace HolocronProject.Web
 
             var mappingConfig = new MapperConfiguration(cfg =>
             {
-                cfg.AddProfile(new TestClassProfile());
+                cfg.AddProfile(new AccountProfiles());
             });
 
             var mapper = mappingConfig.CreateMapper();

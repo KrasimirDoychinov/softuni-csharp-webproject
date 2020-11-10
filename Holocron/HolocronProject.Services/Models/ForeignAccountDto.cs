@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace HolocronProject.Services.ViewModelsTemp.ViewModelsTemp
+namespace HolocronProject.Services.Models
 {
-    public class ForeignAccountViewModel
+    public class ForeignAccountDto
     {
         public string Id { get; set; }
 

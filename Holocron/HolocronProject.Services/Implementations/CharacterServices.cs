@@ -7,7 +7,7 @@ using AutoMapper.QueryableExtensions;
 using HolocronProject.Data;
 using HolocronProject.Data.Models;
 using System.Threading.Tasks;
-using HolocronProject.Services.ViewModelsTemp.InputModelsTemp;
+using HolocronProject.Services.Models;
 
 namespace HolocronProject.Services.Implementations
 {
@@ -21,8 +21,10 @@ namespace HolocronProject.Services.Implementations
             this.context = context;
         }
 
-        public async Task CreateCharacterAsync(CharacterInputModel input)
+        public async Task CreateCharacterAsync(CharacterInputDto input)
         {
+            var list = this.context.Characters.ToList();
+
             var character = new Character
             {
                 AccountId = input.AccountId,
@@ -33,13 +35,15 @@ namespace HolocronProject.Services.Implementations
                 Gender = input.Gender,
                 CharacterType = input.CharacterType,
                 ForceAffiliation = input.ForceAffiliation,
-                ClassId = input.ClassId,
-                RaceId = input.RaceId,
-                ServerId = input.ServerId
+                Class = input.Class,
+                Race = input.Race,
+                Server = input.Server
             };
 
             await this.context.Characters.AddAsync(character);
             await this.context.SaveChangesAsync();
+
+
         }
 
         public async Task DeleteCharacterAsync(string characterId)

@@ -21,4 +21,8 @@
     <ProjectReference Include="..\HolocronProject.Services\HolocronProject.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Profiles\" />
+  </ItemGroup>
+
 </Project>

@@ -47,19 +47,19 @@ namespace HolocronProject.Tests.Services
             Assert.AreEqual(expectedResult, actualResult);
         }
 
-        [Test]
-        public void GetClassByNameReturnsCorrectClass()
-        {
-            var className = this.context.Classes
-                .Select(x => x.Name)
-                .FirstOrDefault();
+        //[Test]
+        //public void GetClassByNameReturnsCorrectClass()
+        //{
+        //    var className = this.context.Classes
+        //        .Select(x => x.Name)
+        //        .FirstOrDefault();
 
-            var @class = this.classService.GetClassByName(className);
+        //    var @class = this.classService.GetClassByName(className);
 
-            var actualResult = @class.Name;
-            var expectedResult = className;
+        //    var actualResult = @class.Name;
+        //    var expectedResult = className;
 
-            Assert.AreEqual(expectedResult, actualResult);
-        }
+        //    Assert.AreEqual(expectedResult, actualResult);
+        //}
     }
 }
