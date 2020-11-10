@@ -2,13 +2,12 @@
 using System.Linq;
 using System.Collections.Generic;
 
-using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using HolocronProject.Data;
 using HolocronProject.Data.Models;
 using System.Threading.Tasks;
 using HolocronProject.Services.Models;
 using System.Security.Cryptography.X509Certificates;
+using HolocronProject.Services.Models.Character;
 
 namespace HolocronProject.Services.Implementations
 {
@@ -61,6 +60,13 @@ namespace HolocronProject.Services.Implementations
         public Character GetCharacterById(string characterId)
             => this.context.Characters.FirstOrDefault(x => x.Id == characterId);
 
+        public IEnumerable<CharacterUserDto> GetCurrentUsersCharacter(string accountId)
+        {
+            var charDtoList = new List<CharacterUserDto>();
+
+            return charDtoList;
+
+        }
         public bool IsCharacterNameOnServerTaken(string characterName, string serverId)
             => this.context.Characters
             .Any(x => x.ServerId == serverId && x.Name.ToLower() == characterName.ToLower());

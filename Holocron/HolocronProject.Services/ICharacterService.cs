@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using HolocronProject.Data.Models;
 using HolocronProject.Services.Models;
+using HolocronProject.Services.Models.Character;
 
 namespace HolocronProject.Services
 {
@@ -14,5 +15,7 @@ namespace HolocronProject.Services
         Character GetCharacterById(string characterId);
 
         bool IsCharacterNameOnServerTaken(string characterName, string serverId);
+
+        IEnumerable<CharacterUserDto> GetCurrentUsersCharacter(string accountId);
     }
 }

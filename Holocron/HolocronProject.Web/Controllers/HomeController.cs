@@ -47,11 +47,5 @@ namespace HolocronProject.Web.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public IActionResult Test()
-        {
-            var classes = this.classService.GetAll();
-
-            return this.View(classes);
-        }
     }
 }

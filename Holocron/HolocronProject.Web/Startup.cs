@@ -9,8 +9,6 @@ using HolocronProject.Data;
 using HolocronProject.Data.Models;
 using HolocronProject.Services;
 using HolocronProject.Services.Implementations;
-using AutoMapper;
-using HolocronProject.Services.Profiles;
 
 namespace HolocronProject.Web
 {
@@ -34,14 +32,8 @@ namespace HolocronProject.Web
             services.AddControllersWithViews();
             services.AddRazorPages();
 
-            var mappingConfig = new MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile(new AccountProfiles());
-            });
 
-            var mapper = mappingConfig.CreateMapper();
 
-            services.AddSingleton(mapper);
             services.AddTransient<IAccountService, AccountServices>();
             services.AddTransient<IAchievementService, AchievementServices>();
             services.AddTransient<IBaseThreadService, BaseThreadServices>();

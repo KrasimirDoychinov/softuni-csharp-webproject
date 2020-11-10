@@ -1,0 +1,24 @@
+﻿@model List<HolocronProject.Web.ViewModels.Character.CharacterUserViewModel>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Character name</th>
+            <th scope="col">Class name</th>
+            <th scope="col">Race name</th>
+            <th scope="col">Server name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.ClassName</td>
+                <td>@item.RaceName</td>
+                <td>@item.ServerName</td>
+            </tr>
+        }
+
+    </tbody>
+</table>
