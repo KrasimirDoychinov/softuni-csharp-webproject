@@ -19,11 +19,11 @@ namespace HolocronProject.Data.Models
         public string Id { get; set; }
 
         [Required]
-        [MaxLength(GlobalConstants.ReportConstants.TitleMaxLength)]
+        [MaxLength(GlobalRangeConstants.ReportConstants.TitleMaxLength)]
         public string Title { get; set; }
 
         [Required]
-        [MaxLength(GlobalConstants.ReportConstants.DescriptionMaxLength)]
+        [MaxLength(GlobalRangeConstants.ReportConstants.DescriptionMaxLength)]
         public string Description { get; set; }
 
         public string AccountId { get; set; }

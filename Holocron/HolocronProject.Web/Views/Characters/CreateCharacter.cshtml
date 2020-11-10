@@ -1,27 +1,35 @@
 ﻿@using HolocronProject.Data.Enums 
+@using HolocronProject.Services.Implementations 
+
 @model HolocronProject.Web.ViewModels.Character.CharacterInputModel
 
 <form method="post" class="col-md-6">
     <div asp-validation-summary="All" class="text-danger"></div>
 
+   
+
     <div class="form-group ">
         <label asp-for="Name"></label>
         <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         <label asp-for="Backstory"></label>
         <textarea asp-for="Backstory" class="form-control"></textarea>
+        <span asp-validation-for="Backstory" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         <label asp-for="Title"></label>
         <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         <label asp-for="Image"></label>
         <input asp-for="Image" class="form-control" />
+        <span asp-validation-for="Image" class="text-danger"></span>
     </div>
 
     <div class="form-group">
@@ -29,6 +37,7 @@
         <select asp-for="Gender" class="form-control"
                 asp-items="@Html.GetEnumSelectList<Gender>()">
         </select>
+        <span asp-validation-for="Gender" class="text-danger"></span>
     </div>
 
     <div class="form-group">
@@ -36,6 +45,7 @@
         <select asp-for="CharacterType" class="form-control"
                 asp-items="@Html.GetEnumSelectList<CharacterType>()">
         </select>
+        <span asp-validation-for="CharacterType" class="text-danger"></span>
     </div>
 
     <div class="form-group">
@@ -43,13 +53,15 @@
         <select asp-for="ForceAffiliation" class="form-control"
                 asp-items="@Html.GetEnumSelectList<ForceAffiliation>()">
         </select>
+        <span asp-validation-for="ForceAffiliation" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         <label asp-for="Class"></label>
-        <select asp-for="Class" class="form-control" 
+        <select asp-for="Class" class="form-control"
                 asp-items="@Model.ClassList">
         </select>
+        <span asp-validation-for="Class" class="text-danger"></span>
     </div>
 
     <div class="form-group">
@@ -57,6 +69,7 @@
         <select asp-for="Race" class="form-control"
                 asp-items="@Model.RaceList">
         </select>
+        <span asp-validation-for="Race" class="text-danger"></span>
     </div>
 
     <div class="form-group">
@@ -64,7 +77,9 @@
         <select asp-for="Server" class="form-control"
                 asp-items="@Model.ServerList">
         </select>
+        <span asp-validation-for="Server" class="text-danger"></span>
     </div>
 
     <input type="submit" />
+
 </form>

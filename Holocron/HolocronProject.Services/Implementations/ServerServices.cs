@@ -29,7 +29,7 @@ namespace HolocronProject.Services.Implementations
             await this.context.SaveChangesAsync();
         }
 
-        public Server GetServerIdByName(string name)
-            => this.context.Servers.FirstOrDefault(x => x.Name == name);
+        public string GetServerIdByName(string name)
+            => this.context.Servers.FirstOrDefault(x => x.Name == name).Id;
     }
 }

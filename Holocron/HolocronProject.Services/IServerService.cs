@@ -9,6 +9,6 @@ namespace HolocronProject.Services
     {
         Task CreateServerAsync(string name);
 
-        Server GetServerIdByName(string name);
+        string GetServerIdByName(string name);
     }
 }

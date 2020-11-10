@@ -22,14 +22,11 @@ namespace HolocronProject.Services.Models
 
         public ForceAffiliation ForceAffiliation { get; set; }
 
-        public Class Class { get; set; }
+        public string ClassId { get; set; }
 
+        public string RaceId { get; set; }
 
-        public Race Race { get; set; }
-
-
-        public Server Server { get; set; }
-
+        public string ServerId { get; set; }
 
         public string AccountId  { get; set; }
     }

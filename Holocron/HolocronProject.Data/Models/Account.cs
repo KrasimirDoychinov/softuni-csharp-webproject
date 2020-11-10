@@ -17,7 +17,7 @@ namespace HolocronProject.Data.Models
         }
         
 
-        [MaxLength(GlobalConstants.AccountConstants.DisplayNameMaxLength)]
+        [MaxLength(GlobalRangeConstants.AccountConstants.DisplayNameMaxLength)]
         public string DisplayName { get; set; }
 
         public string CreatedOn { get; set; } = DateTime.Now.ToString("MM/dd/yyyy h:mm tt");

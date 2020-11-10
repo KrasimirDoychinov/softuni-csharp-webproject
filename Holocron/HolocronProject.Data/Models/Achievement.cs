@@ -17,7 +17,7 @@ namespace HolocronProject.Data.Models
         public string Id { get; set; }
 
         [Required]
-        [MaxLength(GlobalConstants.AchievementConstants.NameMaxLength)]
+        [MaxLength(GlobalRangeConstants.AchievementConstants.NameMaxLength)]
         public string Name { get; set; }
 
         public string CharacterId { get; set; }

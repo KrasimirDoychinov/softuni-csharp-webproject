@@ -8,6 +8,7 @@ using HolocronProject.Data;
 using HolocronProject.Data.Models;
 using System.Threading.Tasks;
 using HolocronProject.Services.Models;
+using System.Security.Cryptography.X509Certificates;
 
 namespace HolocronProject.Services.Implementations
 {
@@ -23,6 +24,7 @@ namespace HolocronProject.Services.Implementations
 
         public async Task CreateCharacterAsync(CharacterInputDto input)
         {
+            
             var list = this.context.Characters.ToList();
 
             var character = new Character
@@ -35,9 +37,9 @@ namespace HolocronProject.Services.Implementations
                 Gender = input.Gender,
                 CharacterType = input.CharacterType,
                 ForceAffiliation = input.ForceAffiliation,
-                Class = input.Class,
-                Race = input.Race,
-                Server = input.Server
+                ClassId = input.ClassId,
+                RaceId = input.RaceId,
+                ServerId = input.ServerId
             };
 
             await this.context.Characters.AddAsync(character);
@@ -58,5 +60,9 @@ namespace HolocronProject.Services.Implementations
 
         public Character GetCharacterById(string characterId)
             => this.context.Characters.FirstOrDefault(x => x.Id == characterId);
+
+        public bool IsCharacterNameOnServerTaken(string characterName, string serverId)
+            => this.context.Characters
+            .Any(x => x.ServerId == serverId && x.Name.ToLower() == characterName.ToLower());
     }
 }

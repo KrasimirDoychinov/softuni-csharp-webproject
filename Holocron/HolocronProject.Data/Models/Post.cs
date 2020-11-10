@@ -21,7 +21,7 @@ namespace HolocronProject.Data.Models
         public string Id { get; set; }
 
         [Required]
-        [MaxLength(GlobalConstants.PostConstants.DescriptionMaxLength)]
+        [MaxLength(GlobalRangeConstants.PostConstants.DescriptionMaxLength)]
         public string Description { get; set; }
 
         public string CreatedOn { get; set; } = DateTime.Now.ToString("MM/dd/yyyy h:mm tt");

@@ -12,5 +12,7 @@ namespace HolocronProject.Services
         Task DeleteCharacterAsync(string characterId);
 
         Character GetCharacterById(string characterId);
+
+        bool IsCharacterNameOnServerTaken(string characterName, string serverId);
     }
 }

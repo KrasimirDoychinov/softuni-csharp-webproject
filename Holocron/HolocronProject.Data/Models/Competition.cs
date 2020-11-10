@@ -20,11 +20,11 @@ namespace HolocronProject.Data.Models
         public string Id { get; set; }
 
         [Required]
-        [MaxLength(GlobalConstants.CompetitionConstants.TitleMaxLength)]
+        [MaxLength(GlobalRangeConstants.CompetitionConstants.TitleMaxLength)]
         public string Title { get; set; }
 
         [Required]
-        [MaxLength(GlobalConstants.CompetitionConstants.DescriptionMaxLength)]
+        [MaxLength(GlobalRangeConstants.CompetitionConstants.DescriptionMaxLength)]
         public string Description { get; set; }
 
         public DateTime StartDate { get; set; }

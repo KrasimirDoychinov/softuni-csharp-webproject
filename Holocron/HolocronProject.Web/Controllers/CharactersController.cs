@@ -4,6 +4,7 @@ using HolocronProject.Services;
 using HolocronProject.Services.Models;
 using HolocronProject.Web.ViewModels;
 using HolocronProject.Web.ViewModels.Character;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -45,13 +46,25 @@ namespace HolocronProject.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateCharacter(CharacterInputModel character)
         {
-            var @class = this.classService.GetClassIdByName(character.Class);
-            var server = this.serverService.GetServerIdByName(character.Server);
-            var race = this.raceService.GetRaceIdByName(character.Race);
+            var accountId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var classId = this.classService.GetClassIdByName(character.Class);
+            var serverId = this.serverService.GetServerIdByName(character.Server);
+            var raceId = this.raceService.GetRaceIdByName(character.Race);
+
+            if (!this.characterService.IsCharacterNameOnServerTaken(character.Name, serverId))
+            {
+
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return this.View(character);
+            }
+
+            
 
             var characterInputDto = new CharacterInputDto
             {
-
                 Name = character.Name,
                 Backstory = character.Backstory,
                 Title = character.Title,
@@ -59,13 +72,13 @@ namespace HolocronProject.Web.Controllers
                 CharacterType = character.CharacterType,
                 ForceAffiliation = character.ForceAffiliation,
                 Image = character.Image,
-                Server = server,
-                Race = race,
-                Class = @class,
-                AccountId = this.User.FindFirstValue(ClaimTypes.NameIdentifier)
+                ServerId = serverId,
+                RaceId = raceId,
+                ClassId = classId,
+                AccountId = accountId
             };
 
-            this.characterService.CreateCharacterAsync(characterInputDto);
+            await this.characterService.CreateCharacterAsync(characterInputDto);
 
             return this.Redirect("/");
         }

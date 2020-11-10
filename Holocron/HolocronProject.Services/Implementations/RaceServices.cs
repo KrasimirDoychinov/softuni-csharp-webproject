@@ -28,7 +28,7 @@ namespace HolocronProject.Services
             await this.context.SaveChangesAsync();
         }
 
-        public Race GetRaceIdByName(string name)
-            => this.context.Races.FirstOrDefault(x => x.Name == name);
+        public string GetRaceIdByName(string name)
+            => this.context.Races.FirstOrDefault(x => x.Name == name).Id;
     }
 }

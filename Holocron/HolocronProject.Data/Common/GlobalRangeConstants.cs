@@ -1,6 +1,6 @@
 ﻿namespace HolocronProject.Data.Common
 {
-    public static class GlobalConstants
+    public static class GlobalRangeConstants
     {
         public static class AccountConstants
         {
@@ -14,6 +14,7 @@
             public const int BackstoryMaxLength = 25000;
 
             public const int TitleMaxLength = 25;
+
         }
 
         public static class PostConstants

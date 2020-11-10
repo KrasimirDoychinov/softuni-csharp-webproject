@@ -1,8 +1,11 @@
-﻿using HolocronProject.Data.Enums;
+﻿using HolocronProject.Data.Common;
+using HolocronProject.Data.Enums;
 using HolocronProject.Data.Models;
+using HolocronProject.Web.ValidationAttributes;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,20 +13,32 @@ namespace HolocronProject.Web.ViewModels.Character
 {
     public class CharacterInputModel
     {
+        [Required]
+        [CharacterNameInServer]
+        [MaxLength(GlobalRangeConstants.CharacterConstants.NameMaxLength, ErrorMessage = GlobalErrorMessages.CharacterErrorMessages.NameMaxLengthError)]
         public string Name { get; set; }
 
+        [MaxLength(GlobalRangeConstants.CharacterConstants.BackstoryMaxLength, ErrorMessage = GlobalErrorMessages.CharacterErrorMessages.BackstoryMaxLengthError)]
         public string Backstory { get; set; }
 
+        [MaxLength(GlobalRangeConstants.CharacterConstants.TitleMaxLength, ErrorMessage = GlobalErrorMessages.CharacterErrorMessages.TitleMaxLengthError)]
         public string Title { get; set; }
 
         public string Image { get; set; }
 
+        [Required]
+        [Range(1,3, ErrorMessage = GlobalErrorMessages.CharacterErrorMessages.InvalidGenderError)]
         public Gender Gender { get; set; }
 
+        [Required]
+        [Range(1,4)]
         public CharacterType CharacterType { get; set; }
 
+        [Required]
+        [Range(1,3)]
         public ForceAffiliation ForceAffiliation { get; set; }
 
+        [Required]
         public string Class { get; set; }
 
         public IEnumerable<SelectListItem> ClassList { get; set; } = new List<SelectListItem>
@@ -46,6 +61,7 @@ namespace HolocronProject.Web.ViewModels.Character
                 new SelectListItem { Value = "Guardian", Text = "Guardian" }
         };
 
+        [Required]
         public string Race { get; set; }
 
         public IEnumerable<SelectListItem> RaceList { get; set; } = new List<SelectListItem>
@@ -64,6 +80,7 @@ namespace HolocronProject.Web.ViewModels.Character
                 new SelectListItem { Value = "Nautolan", Text = "Nautolan" }
         };
 
+        [Required]
         public string Server { get; set; }
 
         public IEnumerable<SelectListItem> ServerList { get; set; } = new List<SelectListItem>
@@ -74,7 +91,5 @@ namespace HolocronProject.Web.ViewModels.Character
                 new SelectListItem { Value = "Tulak Hord", Text = "Tulak Hord" },
                 new SelectListItem { Value = "The Leviathan", Text = "The Leviathan" }
         };
-
-        public string AccountId { get; set; }
     }
 }
