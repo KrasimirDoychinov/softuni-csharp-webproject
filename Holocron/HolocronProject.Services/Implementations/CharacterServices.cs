@@ -23,7 +23,6 @@ namespace HolocronProject.Services.Implementations
 
         public async Task CreateCharacterAsync(CharacterInputDto input)
         {
-            
             var list = this.context.Characters.ToList();
 
             var character = new Character
@@ -57,16 +56,42 @@ namespace HolocronProject.Services.Implementations
             await this.context.SaveChangesAsync();
         }
 
-        public Character GetCharacterById(string characterId)
-            => this.context.Characters.FirstOrDefault(x => x.Id == characterId);
 
         public IEnumerable<CharacterUserDto> GetCurrentUsersCharacter(string accountId)
         {
-            var charDtoList = new List<CharacterUserDto>();
+            var charList = this.context.Characters
+                .Where(x => x.AccountId == accountId)
+                .Select(x => new CharacterUserDto
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    ClassName = x.Class.Name,
+                    ServerName = x.Server.Name,
+                    RaceName = x.Race.Name
+                })
+                .ToList();
 
-            return charDtoList;
-
+            return charList;
         }
+        
+
+        public CharacterUserDto GetCharacterInfo(string characterId)
+        {
+            return this.context.Characters
+                .Select(x => new CharacterUserDto
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    ServerName = x.Server.Name,
+                    ClassName = x.Class.Name,
+                    RaceName = x.Race.Name
+                })
+                .FirstOrDefault(x => x.Id == characterId);
+        }
+
+        public Character GetCharacterById(string characterId)
+            => this.context.Characters.FirstOrDefault(x => x.Id == characterId);
+
         public bool IsCharacterNameOnServerTaken(string characterName, string serverId)
             => this.context.Characters
             .Any(x => x.ServerId == serverId && x.Name.ToLower() == characterName.ToLower());

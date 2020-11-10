@@ -50,11 +50,6 @@ namespace HolocronProject.Web.Controllers
             var serverId = this.serverService.GetServerIdByName(character.Server);
             var raceId = this.raceService.GetRaceIdByName(character.Race);
 
-            if (!this.characterService.IsCharacterNameOnServerTaken(character.Name, serverId))
-            {
-
-            }
-
             if (!ModelState.IsValid)
             {
                 return this.View(character);
@@ -80,11 +75,39 @@ namespace HolocronProject.Web.Controllers
             return this.Redirect("/");
         }
 
-        public IActionResult AllUserCharacters()
+        public IActionResult AllCharacters()
         {
-            var charViewModelList = new List<CharacterUserViewModel>();
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var charListDto = this.characterService.GetCurrentUsersCharacter(userId);
 
-            return this.View(charViewModelList);
+            var charListViewModel = charListDto
+                .Select(x => new CharacterUserViewModel
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    ServerName = x.ServerName,
+                    ClassName = x.ClassName,
+                    RaceName = x.RaceName
+                })
+                .ToList();
+
+            return this.View(charListViewModel);
+        }
+
+        public IActionResult CharacterInfo(string id)
+        {
+            var charDto = this.characterService.GetCharacterInfo(id);
+            var charViewModel = new CharacterUserViewModel()
+            {
+                Id = charDto.Id,
+                Name = charDto.Name,
+                ClassName = charDto.ClassName,
+                RaceName = charDto.RaceName,
+                ServerName = charDto.ServerName
+            };
+
+            return this.View(charViewModel);
+
         }
 
     }

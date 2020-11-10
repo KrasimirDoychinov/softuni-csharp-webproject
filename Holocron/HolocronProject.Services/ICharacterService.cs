@@ -17,5 +17,8 @@ namespace HolocronProject.Services
         bool IsCharacterNameOnServerTaken(string characterName, string serverId);
 
         IEnumerable<CharacterUserDto> GetCurrentUsersCharacter(string accountId);
+
+        CharacterUserDto GetCharacterInfo(string characterId);
+
     }
 }
