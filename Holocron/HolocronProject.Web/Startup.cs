@@ -9,6 +9,9 @@ using HolocronProject.Data;
 using HolocronProject.Data.Models;
 using HolocronProject.Services;
 using HolocronProject.Services.Implementations;
+using HolocronProject.Services.Mapper;
+using HolocronProject.Web.Models;
+using System.Reflection;
 
 namespace HolocronProject.Web
 {
@@ -52,6 +55,8 @@ namespace HolocronProject.Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

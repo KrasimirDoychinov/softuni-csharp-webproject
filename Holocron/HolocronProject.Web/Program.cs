@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
 namespace HolocronProject.Web
@@ -7,8 +7,10 @@ namespace HolocronProject.Web
     // TODO: Don't forget about the character contest
 
     // TODO: Review the code each day at the beginning of the code session and at the end of the session
-    // TODO: Add validation attributes to the input models and fix the class, server and race services to return just ID
-    // TODO: Use attributes to validate date in the Data layer
+    // TODO: Add an interface with DeletedOn and IsDeleted
+    // TODO: Fix the display names for the CreateCharacter View
+    // TODO: Fix the error messages in the ViewModels
+    // TODO: Implement  images
     // TODO: Start working on the services that will display data
     // TODO: Implement a custom login and register page
     // TODO: Implement a good voting system

@@ -1,11 +1,13 @@
-﻿using System;
+﻿using HolocronProject.Services.Mapper;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace HolocronProject.Web.ViewModels.Character
 {
-    public class CharacterUserViewModel
+    public class CharacterUserViewModel : IMapFrom<Data.Models.Character>
     {
         public string Id { get; set; }
 

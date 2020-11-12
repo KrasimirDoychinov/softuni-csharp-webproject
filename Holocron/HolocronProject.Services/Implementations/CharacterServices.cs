@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using HolocronProject.Services.Models;
 using System.Security.Cryptography.X509Certificates;
 using HolocronProject.Services.Models.Character;
+using HolocronProject.Services.Mapper;
 
 namespace HolocronProject.Services.Implementations
 {
@@ -23,8 +24,6 @@ namespace HolocronProject.Services.Implementations
 
         public async Task CreateCharacterAsync(CharacterInputDto input)
         {
-            var list = this.context.Characters.ToList();
-
             var character = new Character
             {
                 AccountId = input.AccountId,
@@ -42,8 +41,6 @@ namespace HolocronProject.Services.Implementations
 
             await this.context.Characters.AddAsync(character);
             await this.context.SaveChangesAsync();
-
-
         }
 
         public async Task DeleteCharacterAsync(string characterId)
@@ -75,19 +72,6 @@ namespace HolocronProject.Services.Implementations
         }
         
 
-        public CharacterUserDto GetCharacterInfo(string characterId)
-        {
-            return this.context.Characters
-                .Select(x => new CharacterUserDto
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    ServerName = x.Server.Name,
-                    ClassName = x.Class.Name,
-                    RaceName = x.Race.Name
-                })
-                .FirstOrDefault(x => x.Id == characterId);
-        }
 
         public Character GetCharacterById(string characterId)
             => this.context.Characters.FirstOrDefault(x => x.Id == characterId);
@@ -95,5 +79,12 @@ namespace HolocronProject.Services.Implementations
         public bool IsCharacterNameOnServerTaken(string characterName, string serverId)
             => this.context.Characters
             .Any(x => x.ServerId == serverId && x.Name.ToLower() == characterName.ToLower());
+
+        public T GetCharacterInfo<T>(string characterId)
+        {
+            return this.context.Characters
+                .Where(x => x.Id == characterId)
+                .To<T>().FirstOrDefault();
+        }
     }
 }

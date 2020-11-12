@@ -1,16 +1,9 @@
-﻿
-using HolocronProject.Data.Models;
-using HolocronProject.Services;
-using HolocronProject.Services.Models;
+﻿using HolocronProject.Services;
 using HolocronProject.Services.Models.Character;
-using HolocronProject.Web.ViewModels;
 using HolocronProject.Web.ViewModels.Character;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
+
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -96,18 +89,9 @@ namespace HolocronProject.Web.Controllers
 
         public IActionResult CharacterInfo(string id)
         {
-            var charDto = this.characterService.GetCharacterInfo(id);
-            var charViewModel = new CharacterUserViewModel()
-            {
-                Id = charDto.Id,
-                Name = charDto.Name,
-                ClassName = charDto.ClassName,
-                RaceName = charDto.RaceName,
-                ServerName = charDto.ServerName
-            };
-
+            var charViewModel = this.characterService.GetCharacterInfo<CharacterUserViewModel>(id);
+            
             return this.View(charViewModel);
-
         }
 
     }
