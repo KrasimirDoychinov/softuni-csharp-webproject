@@ -8,7 +8,7 @@ namespace HolocronProject.Data.Common
     {
         public static class AccountErrorMessages
         {
-            
+            public const string DisplayNameLengthError = "The display name cannot be more thatn 25 characters.";
         }
 
         public static class CharacterErrorMessages

@@ -22,7 +22,6 @@ namespace HolocronProject.Data.Models
 
         public string CreatedOn { get; set; } = DateTime.Now.ToString("MM/dd/yyyy h:mm tt");
 
-        // TODO: Need to figure out how to add an AvatarImage
         public string AvatarImagePath { get; set; } 
 
         // ?TODA?: Figure out how to add a forum signature

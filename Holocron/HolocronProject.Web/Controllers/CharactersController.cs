@@ -48,6 +48,10 @@ namespace HolocronProject.Web.Controllers
             var serverId = this.serverService.GetServerIdByName(character.Server);
             var raceId = this.raceService.GetRaceIdByName(character.Race);
 
+            if (!ModelState.IsValid)
+            {
+                return this.View(character);
+            }
 
             using (var fs = new FileStream(
                this.webHostEnvironment.WebRootPath + $"/Images/CharacterImages/{character.Name}.png", FileMode.Create))
@@ -55,8 +59,8 @@ namespace HolocronProject.Web.Controllers
                 var format = Image.DetectFormat(character.Image.OpenReadStream());
 
                 if (format == null ||
-                    format.Name != "JPEG" ||
-                    format.Name != "PNG" ||
+                    format.Name != "JPEG" &&
+                    format.Name != "PNG" &&
                     format.Name != "JPG")
                 {
                     this.ModelState.AddModelError("Image", "Only .jpeg, .jpg and .png formats are accepted.");
@@ -66,7 +70,7 @@ namespace HolocronProject.Web.Controllers
                 {
                     return this.View(character);
                 }
-
+                
                 else
                 {
                     await character.Image.CopyToAsync(fs);
