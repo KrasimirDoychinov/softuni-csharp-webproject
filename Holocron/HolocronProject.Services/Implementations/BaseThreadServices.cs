@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 using HolocronProject.Data;
 using HolocronProject.Data.Models;
+using HolocronProject.Services.Mapper;
 
 namespace HolocronProject.Services.Implementations
 {
@@ -38,8 +39,20 @@ namespace HolocronProject.Services.Implementations
             await this.context.SaveChangesAsync();
         }
 
+        public IEnumerable<T> GetAll<T>()
+            => this.context.BaseThreads
+            .To<T>()
+            .ToList();
+        public T GetById<T>(string id)
+            => this.context.BaseThreads
+                .Where(x => x.Id == id)
+                .To<T>()
+                .FirstOrDefault();
+
         public BaseThread GetBaseThreadById(string baseThreadId)
             => this.context.BaseThreads
                 .FirstOrDefault(x => x.Id == baseThreadId);
+
+        
     }
 }

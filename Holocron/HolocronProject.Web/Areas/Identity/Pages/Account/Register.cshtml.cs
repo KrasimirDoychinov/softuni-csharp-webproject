@@ -92,30 +92,35 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             Input.AvatarImagePath = $"{Input.Email}.png";
+
             if (ModelState.IsValid)
             {
                 using (var fs = new FileStream(
                this.webHostEnvironment.WebRootPath + $"/Images/AvatarImages/{Input.Email}.png", FileMode.Create))
                 {
-                    var format = Image.DetectFormat(Input.AvatarImage.OpenReadStream());
-
-                    if (format == null ||
-                        format.Name != "JPEG" &&
-                        format.Name != "PNG" &&
-                        format.Name != "JPG")
+                    if (Input.AvatarImage != null)
                     {
-                        this.ModelState.AddModelError("Avatar", "Only .jpeg, .jpg and .png formats are accepted.");
-                    }
+                        var format = Image.DetectFormat(Input.AvatarImage.OpenReadStream());
 
-                    if (!ModelState.IsValid)
-                    {
-                        return this.Page();
-                    }
+                        if (format == null ||
+                            format.Name != "JPEG" &&
+                            format.Name != "PNG" &&
+                            format.Name != "JPG")
+                        {
+                            this.ModelState.AddModelError("Avatar", "Only .jpeg, .jpg and .png formats are accepted.");
+                        }
 
-                    else
-                    {
-                        await Input.AvatarImage.CopyToAsync(fs);
+                        if (!ModelState.IsValid)
+                        {
+                            return this.Page();
+                        }
+
+                        else
+                        {
+                            await Input.AvatarImage.CopyToAsync(fs);
+                        }
                     }
+                    
                 }
 
                 var user = new Data.Models.Account { UserName = Input.Email,

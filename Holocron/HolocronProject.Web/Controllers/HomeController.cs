@@ -10,27 +10,27 @@ using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 using HolocronProject.Services;
 using HolocronProject.Data.Models;
+using HolocronProject.Web.ViewModels.BaseThreads;
 
 namespace HolocronProject.Web.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IClassService classService;
-        private readonly IAccountService accountService;
+        private readonly IBaseThreadService baseThreadService;
 
         public HomeController(ILogger<HomeController> logger,
-            IClassService classService,
-            IAccountService accountService)
+            IBaseThreadService baseThreadService)
         {
             _logger = logger;
-            this.classService = classService;
-            this.accountService = accountService;
+            this.baseThreadService = baseThreadService;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var baseThreads = this.baseThreadService.GetAll<BaseThreadViewModel>();
+
+            return View(baseThreads);
         }
 
         public IActionResult Privacy()
