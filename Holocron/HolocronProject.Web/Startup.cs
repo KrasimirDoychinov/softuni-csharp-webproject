@@ -12,6 +12,7 @@ using HolocronProject.Services.Implementations;
 using HolocronProject.Services.Mapper;
 using HolocronProject.Web.Models;
 using System.Reflection;
+using SixLabors.ImageSharp.Web.DependencyInjection;
 
 namespace HolocronProject.Web
 {
@@ -36,7 +37,7 @@ namespace HolocronProject.Web
             services.AddRazorPages();
 
 
-
+            services.AddImageSharp();
             services.AddTransient<IAccountService, AccountServices>();
             services.AddTransient<IAchievementService, AchievementServices>();
             services.AddTransient<IBaseThreadService, BaseThreadServices>();
@@ -56,6 +57,7 @@ namespace HolocronProject.Web
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
+            app.UseImageSharp();
 
             if (env.IsDevelopment())
             {

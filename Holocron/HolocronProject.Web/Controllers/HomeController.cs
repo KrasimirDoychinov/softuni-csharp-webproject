@@ -9,6 +9,7 @@ using HolocronProject.Web.Models;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 using HolocronProject.Services;
+using HolocronProject.Data.Models;
 
 namespace HolocronProject.Web.Controllers
 {
@@ -29,11 +30,7 @@ namespace HolocronProject.Web.Controllers
 
         public IActionResult Index()
         {
-            var user = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            var account = this.accountService.GetForeignAccount(user);
-
-            return View(account);
+            return View();
         }
 
         public IActionResult Privacy()

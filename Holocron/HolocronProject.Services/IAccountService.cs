@@ -18,7 +18,7 @@ namespace HolocronProject.Services
 
         Account GetAccountById(string accountId);
 
-        ForeignAccountDto GetForeignAccount(string accountId);
+        T GetForeignAccount<T>(string accountId);
 
     }
 }

@@ -6,11 +6,10 @@ namespace HolocronProject.Data.Enums
     public enum ForceAffiliation
     {
         Unknown = 0,
+        None = 1,
         [Display(Name = "Light side")]
-        LightSide = 1,
+        LightSide = 2,
         [Display(Name = "Dark side")]
-        DarkSide = 2,
-        [Display(Name = "Gray jedi")]
-        Gray = 3
+        DarkSide = 3,
     }
 }

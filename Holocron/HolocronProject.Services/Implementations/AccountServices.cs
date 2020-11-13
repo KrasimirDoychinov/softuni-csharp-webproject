@@ -3,6 +3,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using HolocronProject.Data;
 using HolocronProject.Data.Models;
+using HolocronProject.Services.Mapper;
 using HolocronProject.Services.Models;
 
 namespace HolocronProject.Services.Implementations
@@ -27,11 +28,11 @@ namespace HolocronProject.Services.Implementations
             await this.context.SaveChangesAsync();
         }
 
-        public async Task UpdateAvatarImageAsync(string accountId, string avatarImage)
+        public async Task UpdateAvatarImageAsync(string accountId, string avatarImagePath)
         {
             var account = GetAccountById(accountId);
 
-            account.AvatarImage = avatarImage;
+            account.AvatarImagePath = avatarImagePath;
 
             this.context.Accounts.Update(account);
             await this.context.SaveChangesAsync();
@@ -57,32 +58,20 @@ namespace HolocronProject.Services.Implementations
             await this.context.SaveChangesAsync();
         }
 
-        public Account GetAccountById(string accountId)
-            => this.context.Accounts
-            .FirstOrDefault(x => x.Id == accountId);
-
-        public ForeignAccountDto GetForeignAccount(string accountId)
+        public T GetForeignAccount<T>(string accountId)
         {
             return this.context.Accounts
-            .Select(x => new ForeignAccountDto
-            {
-                DisplayName = x.DisplayName,
-                AvatarImage = x.AvatarImage,
-                BugReportsCount = x.BugReports.Count,
-                CharactersCount = x.Characters.Count,
-                CreatedOn = x.CreatedOn,
-                Id = x.Id,
-                PostReportsCount = x.PostReports.Count,
-                PostsCount = x.Posts.Count,
-                ThreadsCount = x.Threads.Count
-            })
-            .FirstOrDefault(x => x.Id == accountId);
+                .Where(x => x.Id == accountId)
+                .To<T>()
+                .FirstOrDefault();
         }
             
-            
-
         public bool IsDisplayNameTaken(string displayName)
             => this.context.Accounts
             .Any(x => x.DisplayName == displayName);
+
+        public Account GetAccountById(string accountId)
+            => this.context.Accounts
+            .FirstOrDefault(x => x.Id == accountId);
     }
 }

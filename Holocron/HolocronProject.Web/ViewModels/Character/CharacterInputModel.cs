@@ -3,6 +3,7 @@ using HolocronProject.Data.Enums;
 using HolocronProject.Data.Models;
 using HolocronProject.Services.Mapper;
 using HolocronProject.Web.ValidationAttributes;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
@@ -25,18 +26,21 @@ namespace HolocronProject.Web.ViewModels.Character
         [MaxLength(GlobalRangeConstants.CharacterConstants.TitleMaxLength, ErrorMessage = GlobalErrorMessages.CharacterErrorMessages.TitleMaxLengthError)]
         public string Title { get; set; }
 
-        public string Image { get; set; }
+        [Required]
+        public IFormFile Image { get; set; }
 
         [Required]
         [Range(1,3, ErrorMessage = GlobalErrorMessages.CharacterErrorMessages.InvalidGenderError)]
         public Gender Gender { get; set; }
 
         [Required]
-        [Range(1,4)]
+        [Display(Name = "Character type")]
+        [Range(1,4, ErrorMessage = GlobalErrorMessages.CharacterErrorMessages.InvalidCharacterTypeError)]
         public CharacterType CharacterType { get; set; }
 
         [Required]
-        [Range(1,3)]
+        [Display(Name = "Force affiliation")]
+        [Range(1,3, ErrorMessage = GlobalErrorMessages.CharacterErrorMessages.InvalidForceAffiliationError)]
         public ForceAffiliation ForceAffiliation { get; set; }
 
         [Required]

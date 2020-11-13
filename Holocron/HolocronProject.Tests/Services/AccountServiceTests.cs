@@ -56,12 +56,12 @@ namespace HolocronProject.Tests.Services
         [TestCase("Avatar Image1")]
         [TestCase("Avatar Image2")]
         [TestCase("Avatar Image3")]
-        public async Task UpdateAvatarImageShouldChangeAvatarImage(string avatarImage)
+        public async Task UpdateAvatarImageShouldChangeAvatarImage(string avatarImagePath)
         {
-            await this.accountService.UpdateAvatarImageAsync(testAccount.Id, avatarImage);
+            await this.accountService.UpdateAvatarImageAsync(testAccount.Id, avatarImagePath);
 
-            var actualResult = testAccount.AvatarImage;
-            var expectedResult = avatarImage;
+            var actualResult = testAccount.AvatarImagePath;
+            var expectedResult = avatarImagePath;
 
             Assert.AreEqual(expectedResult, actualResult);
         }

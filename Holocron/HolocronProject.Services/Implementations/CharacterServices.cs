@@ -30,7 +30,7 @@ namespace HolocronProject.Services.Implementations
                 Name = input.Name,
                 Backstory = input.Backstory,
                 Title = input.Title,
-                Image = input.Image,
+                ImagePath = input.ImagePath,
                 Gender = input.Gender,
                 CharacterType = input.CharacterType,
                 ForceAffiliation = input.ForceAffiliation,

@@ -1,8 +1,10 @@
 ﻿using HolocronProject.Services;
 using HolocronProject.Services.Models.Character;
 using HolocronProject.Web.ViewModels.Character;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-
+using SixLabors.ImageSharp;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -15,17 +17,20 @@ namespace HolocronProject.Web.Controllers
         private readonly ICharacterService characterService;
         private readonly IServerService serverService;
         private readonly IRaceService raceService;
+        private readonly IWebHostEnvironment webHostEnvironment;
 
         public CharactersController(IClassService classService,
             ICharacterService characterService,
             IServerService serverService,
-            IRaceService raceService
+            IRaceService raceService,
+            IWebHostEnvironment webHostEnvironment
             )
         {
             this.classService = classService;
             this.characterService = characterService;
             this.serverService = serverService;
             this.raceService = raceService;
+            this.webHostEnvironment = webHostEnvironment;
         }
 
         public IActionResult CreateCharacter()
@@ -43,11 +48,32 @@ namespace HolocronProject.Web.Controllers
             var serverId = this.serverService.GetServerIdByName(character.Server);
             var raceId = this.raceService.GetRaceIdByName(character.Race);
 
-            if (!ModelState.IsValid)
+
+            using (var fs = new FileStream(
+               this.webHostEnvironment.WebRootPath + $"/Images/CharacterImages/{character.Name}.png", FileMode.Create))
             {
-                return this.View(character);
+                var format = Image.DetectFormat(character.Image.OpenReadStream());
+
+                if (format == null ||
+                    format.Name != "JPEG" ||
+                    format.Name != "PNG" ||
+                    format.Name != "JPG")
+                {
+                    this.ModelState.AddModelError("Image", "Only .jpeg, .jpg and .png formats are accepted.");
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    return this.View(character);
+                }
+
+                else
+                {
+                    await character.Image.CopyToAsync(fs);
+                }
             }
 
+            var imagePath = $"{character.Name}.png";
             var characterInputDto = new CharacterInputDto
             {
                 Name = character.Name,
@@ -56,7 +82,7 @@ namespace HolocronProject.Web.Controllers
                 Gender = character.Gender,
                 CharacterType = character.CharacterType,
                 ForceAffiliation = character.ForceAffiliation,
-                Image = character.Image,
+                ImagePath = imagePath,
                 ServerId = serverId,
                 RaceId = raceId,
                 ClassId = classId,
@@ -72,7 +98,6 @@ namespace HolocronProject.Web.Controllers
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var charListViewModel = this.characterService.GetCurrentUsersCharacter<CharacterUserViewModel>(userId);
-
 
             return this.View(charListViewModel);
         }

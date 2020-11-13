@@ -7,7 +7,6 @@ namespace HolocronProject.Web
     // TODO: Don't forget about the character contest
 
     // TODO: Review the code each day at the beginning of the code session and at the end of the session
-    // TODO: Add an interface with DeletedOn and IsDeleted
     // TODO: Fix the display names for the CreateCharacter View
     // TODO: Fix the error messages in the ViewModels
     // TODO: Implement  images

@@ -21,7 +21,9 @@ namespace HolocronProject.Data.Common
 
             public const string InvalidGenderError = "A character must have a gender.";
 
+            public const string InvalidCharacterTypeError = "A character must have a type.";
 
+            public const string InvalidForceAffiliationError = "Each character must have force affiliation.";
         }
     }
 }
