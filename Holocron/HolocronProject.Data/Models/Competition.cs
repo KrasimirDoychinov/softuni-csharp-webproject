@@ -37,5 +37,6 @@ namespace HolocronProject.Data.Models
 
         public bool IsFinished { get; set; } = false;
 
+        public DateTime? FinishedOn { get; set; }
     }
 }

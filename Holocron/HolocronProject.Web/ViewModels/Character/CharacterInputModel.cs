@@ -1,6 +1,7 @@
 ﻿using HolocronProject.Data.Common;
 using HolocronProject.Data.Enums;
 using HolocronProject.Data.Models;
+using HolocronProject.Services.Mapper;
 using HolocronProject.Web.ValidationAttributes;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace HolocronProject.Web.ViewModels.Character
 {
-    public class CharacterInputModel
+    public class CharacterInputModel : IMapFrom<Data.Models.Character>
     {
         [Required]
         [CharacterNameInServer]

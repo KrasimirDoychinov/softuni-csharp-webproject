@@ -6,7 +6,7 @@ using HolocronProject.Data.Common;
 
 namespace HolocronProject.Data.Models
 {
-    public class BaseThread
+    public class BaseThread : BaseDeletableModel
     {
         // TODO: View services
         public BaseThread()
@@ -21,6 +21,5 @@ namespace HolocronProject.Data.Models
 
         public ICollection<Thread> Threads { get; set; } = new List<Thread>();
 
-        public bool IsDeleted { get; set; } = false;
     }
 }

@@ -54,18 +54,11 @@ namespace HolocronProject.Services.Implementations
         }
 
 
-        public IEnumerable<CharacterUserDto> GetCurrentUsersCharacter(string accountId)
+        public IEnumerable<T> GetCurrentUsersCharacter<T>(string accountId)
         {
             var charList = this.context.Characters
                 .Where(x => x.AccountId == accountId)
-                .Select(x => new CharacterUserDto
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    ClassName = x.Class.Name,
-                    ServerName = x.Server.Name,
-                    RaceName = x.Race.Name
-                })
+                .To<T>()
                 .ToList();
 
             return charList;

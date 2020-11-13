@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace HolocronProject.Data.Models
 {
-    public class Character
+    public class Character : BaseDeletableModel
     {
         // TODO: Edditing character info
         public Character()
@@ -61,8 +61,5 @@ namespace HolocronProject.Data.Models
 
         public ICollection<CompetitionCharacter> Competitions { get; set;  } = new List<CompetitionCharacter>();
 
-        // TODO: Add something else if I think of something
-
-        public bool IsDeleted { get; set; } = false;
     }
 }

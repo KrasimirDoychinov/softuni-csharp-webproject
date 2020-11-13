@@ -7,7 +7,7 @@ using System.Text;
 namespace HolocronProject.Data.Models
 {
 
-    public class BugReport
+    public class BugReport : BaseResolvableModel
     {
         // TODO: View services
         public BugReport()
@@ -29,7 +29,6 @@ namespace HolocronProject.Data.Models
 
         public Account Account { get; set; }
 
-        public bool IsResolved { get; set; } = false;
 
     }
 }

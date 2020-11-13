@@ -34,7 +34,7 @@ namespace HolocronProject.Data.Models
 
         public Post Post { get; set; }
 
-        public bool IsResolved { get; set; }
+        
 
     }
 }

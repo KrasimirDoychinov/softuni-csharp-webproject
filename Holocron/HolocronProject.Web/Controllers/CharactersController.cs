@@ -71,18 +71,8 @@ namespace HolocronProject.Web.Controllers
         public IActionResult AllCharacters()
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var charListDto = this.characterService.GetCurrentUsersCharacter(userId);
+            var charListViewModel = this.characterService.GetCurrentUsersCharacter<CharacterUserViewModel>(userId);
 
-            var charListViewModel = charListDto
-                .Select(x => new CharacterUserViewModel
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    ServerName = x.ServerName,
-                    ClassName = x.ClassName,
-                    RaceName = x.RaceName
-                })
-                .ToList();
 
             return this.View(charListViewModel);
         }

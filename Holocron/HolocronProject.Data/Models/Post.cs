@@ -6,7 +6,7 @@ using HolocronProject.Data.Common;
 
 namespace HolocronProject.Data.Models
 {
-    public class Post
+    public class Post : BaseDeletableModel
     {
         // TODO: Implement service
         // TODO: Edit posts
@@ -36,6 +36,5 @@ namespace HolocronProject.Data.Models
 
         public ICollection<PostTag> Tags { get; set; } = new List<PostTag>();
 
-        public bool IsDeleted { get; set; } = false;
     }
 }
