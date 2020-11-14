@@ -7,7 +7,11 @@ namespace HolocronProject.Web
     // TODO: Don't forget about the character contest
 
     // TODO: Review the code each day at the beginning of the code session and at the end of the session
-    // TODO: Do all pages that are connected to the Account model
+
+    // TODO: !!!Fix attributes for Images!!!
+    // TODO: !!!Fix the input models!!!
+    // TODO: Do all views that are connected to the Account model
+    // TODO: Fix the ViewModel attributes
     // TODO: Start working on the services that will display data
     // TODO: Implement a custom login page
     // TODO: Implement a good voting system

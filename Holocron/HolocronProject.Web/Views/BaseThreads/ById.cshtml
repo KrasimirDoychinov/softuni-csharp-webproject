@@ -2,6 +2,12 @@
 
 <div>
     <h1 class="display-4 text-center">@Model.Title</h1>
-
+    @foreach (var item in Model.Threads)
+    {
+        <h1>Title: @item.Title</h1>
+        <h2>Posts: @item.PostsCount</h2>
+        <h3>Created on: @item.CreatedOn</h3>
+        <hr />
+    }
     <a href="/Threads/Create/?baseThreadId=@Model.Id" class="btn btn-primary">Create new thread</a>
 </div>

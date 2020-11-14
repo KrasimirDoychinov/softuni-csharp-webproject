@@ -19,6 +19,7 @@ using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using SixLabors.ImageSharp;
 using HolocronProject.Data.Common;
+using HolocronProject.Web.ValidationAttributes;
 
 namespace HolocronProject.Web.Areas.Identity.Pages.Account
 {
@@ -75,9 +76,11 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account
             [MaxLength(GlobalRangeConstants.AccountConstants.DisplayNameMaxLength, ErrorMessage = GlobalErrorMessages.AccountErrorMessages.DisplayNameLengthError)]
             public string DisplayName { get; set; }
 
+            
             public string AvatarImagePath { get; set; }
 
             [Display(Name = "Avatar")]
+            [AccountAvatarImage]
             public IFormFile AvatarImage { get; set; }
         }
 
@@ -95,33 +98,15 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
-                using (var fs = new FileStream(
-               this.webHostEnvironment.WebRootPath + $"/Images/AvatarImages/{Input.Email}.png", FileMode.Create))
+                if (Input.AvatarImage != null)
                 {
-                    if (Input.AvatarImage != null)
+                    using (var fs = new FileStream(
+                        this.webHostEnvironment.WebRootPath + $"/Images/AvatarImages/{Input.DisplayName}.png", FileMode.Create))
                     {
-                        var format = Image.DetectFormat(Input.AvatarImage.OpenReadStream());
-
-                        if (format == null ||
-                            format.Name != "JPEG" &&
-                            format.Name != "PNG" &&
-                            format.Name != "JPG")
-                        {
-                            this.ModelState.AddModelError("Avatar", "Only .jpeg, .jpg and .png formats are accepted.");
-                        }
-
-                        if (!ModelState.IsValid)
-                        {
-                            return this.Page();
-                        }
-
-                        else
-                        {
-                            await Input.AvatarImage.CopyToAsync(fs);
-                        }
+                        await Input.AvatarImage.CopyToAsync(fs);
                     }
-                    
                 }
+                
 
                 var user = new Data.Models.Account { UserName = Input.Email,
                     Email = Input.Email, 

@@ -1,5 +1,6 @@
 ﻿using HolocronProject.Data.Models;
 using HolocronProject.Services.Mapper;
+using HolocronProject.Web.ViewModels.Threads;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,5 +15,7 @@ namespace HolocronProject.Web.ViewModels.BaseThreads
         public string Title { get; set; }
 
         public int ThreadsCount { get; set; }
+
+        public ICollection<ThreadViewModel> Threads { get; set; }
     }
 }

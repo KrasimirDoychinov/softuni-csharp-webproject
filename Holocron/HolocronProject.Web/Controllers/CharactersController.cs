@@ -56,25 +56,8 @@ namespace HolocronProject.Web.Controllers
             using (var fs = new FileStream(
                this.webHostEnvironment.WebRootPath + $"/Images/CharacterImages/{character.Name}.png", FileMode.Create))
             {
-                var format = Image.DetectFormat(character.Image.OpenReadStream());
+                await character.Image.CopyToAsync(fs);
 
-                if (format == null ||
-                    format.Name != "JPEG" &&
-                    format.Name != "PNG" &&
-                    format.Name != "JPG")
-                {
-                    this.ModelState.AddModelError("Image", "Only .jpeg, .jpg and .png formats are accepted.");
-                }
-
-                if (!ModelState.IsValid)
-                {
-                    return this.View(character);
-                }
-                
-                else
-                {
-                    await character.Image.CopyToAsync(fs);
-                }
             }
 
             var imagePath = $"{character.Name}.png";

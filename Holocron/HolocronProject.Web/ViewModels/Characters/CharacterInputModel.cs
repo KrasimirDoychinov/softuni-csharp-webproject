@@ -27,6 +27,7 @@ namespace HolocronProject.Web.ViewModels.Character
         public string Title { get; set; }
 
         [Required]
+        [CharacterImageFormatAttribute]
         public IFormFile Image { get; set; }
 
         [Required]
