@@ -76,7 +76,6 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account
             [MaxLength(GlobalRangeConstants.AccountConstants.DisplayNameMaxLength, ErrorMessage = GlobalErrorMessages.AccountErrorMessages.DisplayNameLengthError)]
             public string DisplayName { get; set; }
 
-            
             public string AvatarImagePath { get; set; }
 
             [Display(Name = "Avatar")]
@@ -107,7 +106,6 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account
                     }
                 }
                 
-
                 var user = new Data.Models.Account { UserName = Input.Email,
                     Email = Input.Email, 
                     DisplayName = Input.DisplayName, 

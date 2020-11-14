@@ -73,5 +73,10 @@ namespace HolocronProject.Services.Implementations
         public Account GetAccountById(string accountId)
             => this.context.Accounts
             .FirstOrDefault(x => x.Id == accountId);
+
+        public string GetDisplayName(string accountId)
+            => this.context.Accounts
+            .FirstOrDefault(x => x.Id == accountId)
+            .DisplayName;
     }
 }

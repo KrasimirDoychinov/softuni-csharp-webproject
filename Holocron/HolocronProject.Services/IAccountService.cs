@@ -20,5 +20,7 @@ namespace HolocronProject.Services
 
         T GetForeignAccount<T>(string accountId);
 
+        string GetDisplayName(string accountId);
+
     }
 }
