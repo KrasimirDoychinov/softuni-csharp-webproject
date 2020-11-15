@@ -16,15 +16,16 @@ namespace HolocronProject.Web.ValidationAttributes
             var property = type.GetProperty("Server");
             object serverName = property.GetValue(instance);
 
-            using ( var context = new HolocronDbContext())
+            var context = new HolocronDbContext();
+
+            if (context.Characters.Any(x => x.Name == name && x.Server.Name == serverName))
             {
-                if (context.Characters.Any(x => x.Name == name && x.Server.Name == serverName))
-                {
-                    return new ValidationResult($"The character name {name} is already taken on {serverName}.");
-                }
+                return new ValidationResult($"The character name: {name} is already taken on: {serverName}.");
             }
 
             return ValidationResult.Success;
+
+
         }
     }
 }

@@ -64,20 +64,16 @@ namespace HolocronProject.Services.Implementations
             return charList;
         }
         
-
-
-        public Character GetCharacterById(string characterId)
-            => this.context.Characters.FirstOrDefault(x => x.Id == characterId);
-
-        public bool IsCharacterNameOnServerTaken(string characterName, string serverId)
-            => this.context.Characters
-            .Any(x => x.ServerId == serverId && x.Name.ToLower() == characterName.ToLower());
-
         public T GetCharacterInfo<T>(string characterId)
         {
             return this.context.Characters
                 .Where(x => x.Id == characterId)
                 .To<T>().FirstOrDefault();
         }
+
+
+        public Character GetCharacterById(string characterId)
+            => this.context.Characters.FirstOrDefault(x => x.Id == characterId);
+
     }
 }

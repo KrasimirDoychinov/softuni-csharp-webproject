@@ -1,10 +1,22 @@
 ﻿namespace HolocronProject.Data.Common
 {
-    public static class GlobalRangeConstants
+    public static class GlobalRangeConstraints
     {
         public static class AccountConstants
         {
+            public const string UserNameRegex = @"^[a-zA-Z0-9!@#$%^&*()_+=[\]\\|;:,<.>/?{}-]*$";
+
+            public const string DisplayNameRegex = @"^[a-zA-Z0-9]*$";
+
             public const int DisplayNameMaxLength = 25;
+
+            public const int UserNameMinLenght = 6;
+
+            public const int UserNameMaxLenght = 30;
+
+            public const int PasswordMinLength = 8;
+
+            public const int PasswordMaxLength = 100;
         }
 
         public static class CharacterConstants

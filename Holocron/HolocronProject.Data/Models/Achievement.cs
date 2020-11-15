@@ -17,13 +17,15 @@ namespace HolocronProject.Data.Models
         public string Id { get; set; }
 
         [Required]
-        [MaxLength(GlobalRangeConstants.AchievementConstants.NameMaxLength)]
+        [MaxLength(GlobalRangeConstraints.AchievementConstants.NameMaxLength)]
         public string Name { get; set; }
 
+        [Required]
         public string CharacterId { get; set; }
 
         public Character Character { get; set; }
 
+        [Required]
         public string CompetitionId { get; set; }
 
         public Competition Competition { get; set; }

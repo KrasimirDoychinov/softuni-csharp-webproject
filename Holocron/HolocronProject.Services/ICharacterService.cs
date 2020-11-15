@@ -14,8 +14,6 @@ namespace HolocronProject.Services
 
         Character GetCharacterById(string characterId);
 
-        bool IsCharacterNameOnServerTaken(string characterName, string serverId);
-
         IEnumerable<T> GetCurrentUsersCharacter<T>(string accountId);
 
         T GetCharacterInfo<T>(string characterId);

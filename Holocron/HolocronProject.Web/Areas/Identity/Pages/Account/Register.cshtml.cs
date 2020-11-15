@@ -23,6 +23,9 @@ using HolocronProject.Web.ValidationAttributes;
 
 namespace HolocronProject.Web.Areas.Identity.Pages.Account
 {
+    using static GlobalErrorMessages;
+    using static GlobalRangeConstraints;
+
     [AllowAnonymous]
     public class RegisterModel : PageModel
     {
@@ -58,10 +61,17 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account
             [Required]
             [EmailAddress]
             [Display(Name = "Email")]
+            [AccountEmailTaken]
             public string Email { get; set; }
 
             [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [Display(Name = "User name")]
+            [RegularExpression(AccountConstants.UserNameRegex, ErrorMessage = AccountErrorMessages.UserNameRegexError)]
+            [StringLength(AccountConstants.UserNameMaxLenght, ErrorMessage = AccountErrorMessages.UserNameLengthError, MinimumLength = AccountConstants.UserNameMinLenght)]
+            public string UserName { get; set; }
+
+            [Required]
+            [StringLength(AccountConstants.PasswordMaxLength, ErrorMessage = AccountErrorMessages.PasswordLengthError, MinimumLength = AccountConstants.PasswordMinLength)]
             [DataType(DataType.Password)]
             [Display(Name = "Password")]
             public string Password { get; set; }
@@ -73,7 +83,9 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account
 
             [Required]
             [Display(Name = "Display name")]
-            [MaxLength(GlobalRangeConstants.AccountConstants.DisplayNameMaxLength, ErrorMessage = GlobalErrorMessages.AccountErrorMessages.DisplayNameLengthError)]
+            [RegularExpression(AccountConstants.DisplayNameRegex, ErrorMessage = AccountErrorMessages.DisplayNameRegexError)]
+            [MaxLength(AccountConstants.DisplayNameMaxLength, ErrorMessage = AccountErrorMessages.DisplayNameLengthError)]
+            [AccountDisplayNameTaken]
             public string DisplayName { get; set; }
 
             public string AvatarImagePath { get; set; }
@@ -106,7 +118,7 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account
                     }
                 }
                 
-                var user = new Data.Models.Account { UserName = Input.Email,
+                var user = new Data.Models.Account { UserName = Input.UserName,
                     Email = Input.Email, 
                     DisplayName = Input.DisplayName, 
                     AvatarImagePath = Input.AvatarImagePath};

@@ -21,14 +21,18 @@ namespace HolocronProject.Data.Models
         public string Id { get; set; }
 
         [Required]
-        [MaxLength(GlobalRangeConstants.PostConstants.DescriptionMaxLength)]
+        [MaxLength(GlobalRangeConstraints.PostConstants.DescriptionMaxLength)]
         public string Description { get; set; }
 
         public string CreatedOn { get; set; } = DateTime.Now.ToString("MM/dd/yyyy h:mm tt");
 
+        [Required]
+
         public string AccountId { get; set; }
 
         public Account Account { get; set; }
+
+        [Required]
 
         public string ThreadId { get; set; }
 

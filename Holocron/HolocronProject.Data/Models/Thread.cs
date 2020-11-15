@@ -19,12 +19,16 @@ namespace HolocronProject.Data.Models
         public string Id { get; set; }
 
         [Required]
-        [MaxLength(GlobalRangeConstants.ThreadConstants.TitleMaxLength)]
+        [MaxLength(GlobalRangeConstraints.ThreadConstants.TitleMaxLength)]
         public string Title { get; set; }
+
+        [Required]
 
         public string BaseThreadId { get; set; }
 
         public BaseThread BaseThread { get; set; }
+
+        [Required]
 
         public string AccountId { get; set; }
 

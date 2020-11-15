@@ -59,22 +59,22 @@ namespace HolocronProject.Data
         {
             base.OnModelCreating(builder);
 
-            builder.Entity<Character>()
-                .HasData(
-                new Character 
-                { 
-                    Name = "Test char", 
-                    Backstory = "Test backstory", 
-                    Gender = Gender.Male,
-                    CharacterType = CharacterType.PVE,
-                    ForceAffiliation = ForceAffiliation.DarkSide
-                }
-                );
+            //builder.Entity<Character>()
+            //    .HasData(
+            //    new Character 
+            //    { 
+            //        Name = "Test char", 
+            //        Backstory = "Test backstory", 
+            //        Gender = Gender.Male,
+            //        CharacterType = CharacterType.PVE,
+            //        ForceAffiliation = ForceAffiliation.DarkSide
+            //    }
+            //    );
 
-            builder.Entity<Thread>()
-                .HasData(
-                new Thread { Title = "Test thread" }
-                );
+            //builder.Entity<Thread>()
+            //    .HasData(
+            //    new Thread { Title = "Test thread" }
+            //    );
 
             builder.Entity<Class>()
                 .HasData(

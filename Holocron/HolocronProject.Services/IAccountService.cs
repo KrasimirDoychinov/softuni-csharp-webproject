@@ -20,6 +20,10 @@ namespace HolocronProject.Services
 
         T GetForeignAccount<T>(string accountId);
 
+        bool IsDisplayNameTakne(string displayName);
+
+        bool IsEmailTaken(string email);
+
         string GetDisplayName(string accountId);
 
     }

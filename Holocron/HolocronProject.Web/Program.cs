@@ -8,6 +8,7 @@ namespace HolocronProject.Web
 
     // TODO: Review the code each day at the beginning of the code session and at the end of the session
 
+    // TODO: Fix the login view
     // TODO: !!!Fix the input models!!!
     // TODO: Do all views that are connected to the Account model
     // TODO: Fix the ViewModel attributes

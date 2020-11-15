@@ -13,36 +13,36 @@ using System.Threading.Tasks;
 
 namespace HolocronProject.Web.ViewModels.Character
 {
+    using static GlobalErrorMessages;
+    using static GlobalRangeConstraints;
+
     public class CharacterInputModel : IMapFrom<Data.Models.Character>
     {
-        [Required]
         [CharacterNameInServer]
-        [MaxLength(GlobalRangeConstants.CharacterConstants.NameMaxLength, ErrorMessage = GlobalErrorMessages.CharacterErrorMessages.NameMaxLengthError)]
+        [MaxLength(CharacterConstants.NameMaxLength, ErrorMessage = CharacterErrorMessages.NameMaxLengthError)]
         public string Name { get; set; }
-
-        [MaxLength(GlobalRangeConstants.CharacterConstants.BackstoryMaxLength, ErrorMessage = GlobalErrorMessages.CharacterErrorMessages.BackstoryMaxLengthError)]
+        [MaxLength(CharacterConstants.BackstoryMaxLength, ErrorMessage = CharacterErrorMessages.BackstoryMaxLengthError)]
         public string Backstory { get; set; }
 
-        [MaxLength(GlobalRangeConstants.CharacterConstants.TitleMaxLength, ErrorMessage = GlobalErrorMessages.CharacterErrorMessages.TitleMaxLengthError)]
+        [MaxLength(CharacterConstants.TitleMaxLength, ErrorMessage = CharacterErrorMessages.TitleMaxLengthError)]
         public string Title { get; set; }
 
-        [Required]
         [Display(Name = "Character image")]
         [CharacterImageFormat]
         public IFormFile Image { get; set; }
 
         [Required]
-        [Range(1,3, ErrorMessage = GlobalErrorMessages.CharacterErrorMessages.InvalidGenderError)]
+        [Range(1,3, ErrorMessage = CharacterErrorMessages.InvalidGenderError)]
         public Gender Gender { get; set; }
 
         [Required]
         [Display(Name = "Character type")]
-        [Range(1,4, ErrorMessage = GlobalErrorMessages.CharacterErrorMessages.InvalidCharacterTypeError)]
+        [Range(1,4, ErrorMessage = CharacterErrorMessages.InvalidCharacterTypeError)]
         public CharacterType CharacterType { get; set; }
 
         [Required]
         [Display(Name = "Force affiliation")]
-        [Range(1,3, ErrorMessage = GlobalErrorMessages.CharacterErrorMessages.InvalidForceAffiliationError)]
+        [Range(1,3, ErrorMessage = CharacterErrorMessages.InvalidForceAffiliationError)]
         public ForceAffiliation ForceAffiliation { get; set; }
 
         [Required]

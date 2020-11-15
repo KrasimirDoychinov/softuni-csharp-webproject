@@ -19,14 +19,14 @@ namespace HolocronProject.Data.Models
         public string Id { get; set; }
 
         [Required]
-        [MaxLength(GlobalRangeConstants.CharacterConstants.NameMaxLength)]
+        [MaxLength(GlobalRangeConstraints.CharacterConstants.NameMaxLength)]
         public string Name { get; set; }
 
         [Required]
-        [MaxLength(GlobalRangeConstants.CharacterConstants.BackstoryMaxLength)]
+        [MaxLength(GlobalRangeConstraints.CharacterConstants.BackstoryMaxLength)]
         public string Backstory { get; set; } 
 
-        [MaxLength(GlobalRangeConstants.CharacterConstants.TitleMaxLength)]
+        [MaxLength(GlobalRangeConstraints.CharacterConstants.TitleMaxLength)]
         public string Title { get; set; }
 
         public string ImagePath { get; set; } 
@@ -40,18 +40,23 @@ namespace HolocronProject.Data.Models
         [Required]
         public ForceAffiliation ForceAffiliation { get; set; }
 
+        [Required]
         public string ClassId { get; set; }
 
         public Class Class { get; set; }
 
+        [Required]
         public string RaceId { get; set; }
 
+        [Required]
         public Race Race { get; set; }
 
+        [Required]
         public string ServerId { get; set; }
 
         public Server Server { get; set; }
 
+        [Required]
         public string AccountId { get; set; }
 
         public Account Account { get; set; }

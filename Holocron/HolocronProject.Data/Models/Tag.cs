@@ -19,7 +19,7 @@ namespace HolocronProject.Data.Models
         public string Id { get; set; }
 
         [Required]
-        [MaxLength(GlobalRangeConstants.TagConstants.NameMaxLength)]
+        [MaxLength(GlobalRangeConstraints.TagConstants.NameMaxLength)]
         public string Name { get; set; }
 
         public ICollection<PostTag> Posts { get; set; } = new List<PostTag>();

@@ -78,5 +78,13 @@ namespace HolocronProject.Services.Implementations
             => this.context.Accounts
             .FirstOrDefault(x => x.Id == accountId)
             .DisplayName;
+
+        public bool IsDisplayNameTakne(string displayName)
+            => this.context.Accounts
+            .Any(x => x.DisplayName == displayName);
+
+        public bool IsEmailTaken(string email)
+            => this.context.Accounts
+            .Any(x => x.Email == email);
     }
 }
