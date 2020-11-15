@@ -12,19 +12,10 @@ namespace HolocronProject.Services
 
         Task UpdateAvatarImageAsync(string accountId, string avatarImage);
 
-        Task UpdateDisplayNameAsync(string accountId, string newDisplayName);
-
-        Task UpdateAccountNameAsync(string accountId, string newAccountName);
+        Task UpdateUserNameAsync(string accountId, string newAccountName);
 
         Account GetAccountById(string accountId);
 
-        T GetForeignAccount<T>(string accountId);
-
-        bool IsDisplayNameTakne(string displayName);
-
-        bool IsEmailTaken(string email);
-
-        string GetDisplayName(string accountId);
 
     }
 }

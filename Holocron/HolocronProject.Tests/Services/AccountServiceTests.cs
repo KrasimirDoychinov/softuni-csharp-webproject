@@ -66,25 +66,25 @@ namespace HolocronProject.Tests.Services
             Assert.AreEqual(expectedResult, actualResult);
         }
 
-        [TestCase("Test DisplayName1")]
-        [TestCase("Test DisplayName2")]
-        [TestCase("Test DisplayName3")]
-        public async Task UpdateDisplayNameShouldChangeDisplayName(string displayName)
-        {
-            await this.accountService.UpdateDisplayNameAsync(testAccount.Id, displayName);
+        //[TestCase("Test DisplayName1")]
+        //[TestCase("Test DisplayName2")]
+        //[TestCase("Test DisplayName3")]
+        //public async Task UpdateDisplayNameShouldChangeDisplayName(string displayName)
+        //{
+        //    await this.accountService.UpdateDisplayNameAsync(testAccount.Id, displayName);
 
-            var actualResult = testAccount.DisplayName;
-            var expectedResult = displayName;
+        //    var actualResult = testAccount.DisplayName;
+        //    var expectedResult = displayName;
 
-            Assert.AreEqual(expectedResult, actualResult);
-        }
+        //    Assert.AreEqual(expectedResult, actualResult);
+        //}
         
         [TestCase("Test AccountName1")]
         [TestCase("Test AccountName2")]
         [TestCase("Test AccountName3")]
         public async Task UpdateAccountNameChangesAccountName(string newUserName)
         {
-            await this.accountService.UpdateAccountNameAsync(testAccount.Id, newUserName);
+            await this.accountService.UpdateUserNameAsync(testAccount.Id, newUserName);
 
             var actualResult = testAccount.UserName;
             var expectedResult = newUserName;

@@ -23,13 +23,11 @@ namespace HolocronProject.Data.Models
         public string Title { get; set; }
 
         [Required]
-
         public string BaseThreadId { get; set; }
 
         public BaseThread BaseThread { get; set; }
 
         [Required]
-
         public string AccountId { get; set; }
 
         public Account Account { get; set; }

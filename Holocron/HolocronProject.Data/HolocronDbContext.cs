@@ -76,6 +76,8 @@ namespace HolocronProject.Data
             //    new Thread { Title = "Test thread" }
             //    );
 
+            
+
             builder.Entity<Class>()
                 .HasData(
                 new Class { Name = "Juggernaut", Faction = Enums.Faction.Empire },
@@ -139,6 +141,12 @@ namespace HolocronProject.Data
             builder.Entity<Thread>()
                 .HasOne(x => x.Account)
                 .WithMany(y => y.Threads)
+                .HasForeignKey(x => x.AccountId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Post>()
+                .HasOne(x => x.Account)
+                .WithMany(x => x.Posts)
                 .HasForeignKey(x => x.AccountId)
                 .OnDelete(DeleteBehavior.Restrict);
         }

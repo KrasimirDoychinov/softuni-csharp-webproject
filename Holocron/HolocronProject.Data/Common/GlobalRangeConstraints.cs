@@ -4,11 +4,7 @@
     {
         public static class AccountConstants
         {
-            public const string UserNameRegex = @"^[a-zA-Z0-9!@#$%^&*()_+=[\]\\|;:,<.>/?{}-]*$";
-
-            public const string DisplayNameRegex = @"^[a-zA-Z0-9]*$";
-
-            public const int DisplayNameMaxLength = 25;
+            public const string UserNameRegex = @"^[a-zA-Z0-9]*$";
 
             public const int UserNameMinLenght = 6;
 

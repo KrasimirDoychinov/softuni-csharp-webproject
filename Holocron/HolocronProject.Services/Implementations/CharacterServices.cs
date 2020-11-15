@@ -74,6 +74,5 @@ namespace HolocronProject.Services.Implementations
 
         public Character GetCharacterById(string characterId)
             => this.context.Characters.FirstOrDefault(x => x.Id == characterId);
-
     }
 }

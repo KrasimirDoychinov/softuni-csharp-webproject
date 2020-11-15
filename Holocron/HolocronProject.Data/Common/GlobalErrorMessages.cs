@@ -8,15 +8,11 @@ namespace HolocronProject.Data.Common
     {
         public static class AccountErrorMessages
         {
-            public const string DisplayNameLengthError = "The display name cannot be more than {1} characters long.";
-
             public const string PasswordLengthError = "The password must be between {2} and {1} characters long.";
 
             public const string UserNameLengthError = "The user name must be between {2} and {1} characters.";
-            
-            public const string DisplayNameRegexError = "The display name cannot contain special characters or spaces.";
 
-            public const string UserNameRegexError = "The username cannot contain '\" and spaces.";
+            public const string UserNameRegexError = "The display name cannot contain special characters or spaces.";
 
         }
 

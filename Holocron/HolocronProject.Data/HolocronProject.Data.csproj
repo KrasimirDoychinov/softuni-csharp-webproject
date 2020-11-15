@@ -7,6 +7,12 @@
   <ItemGroup>
     <Compile Remove="Migrations\20201106172648_FixedTheAccountClass.cs" />
     <Compile Remove="Migrations\20201106172648_FixedTheAccountClass.Designer.cs" />
+    <Compile Remove="Migrations\20201115152805_RemovedDisplayNamePropertyFromAccount.cs" />
+    <Compile Remove="Migrations\20201115152805_RemovedDisplayNamePropertyFromAccount.Designer.cs" />
+    <Compile Remove="Migrations\20201115152946_FixBug.cs" />
+    <Compile Remove="Migrations\20201115152946_FixBug.Designer.cs" />
+    <Compile Remove="Migrations\20201115153159_FixBug1.cs" />
+    <Compile Remove="Migrations\20201115153159_FixBug1.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

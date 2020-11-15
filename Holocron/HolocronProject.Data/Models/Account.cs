@@ -16,10 +16,6 @@ namespace HolocronProject.Data.Models
             this.Id = Guid.NewGuid().ToString();
         }
         
-        [Required]
-        [MaxLength(GlobalRangeConstraints.AccountConstants.DisplayNameMaxLength)]
-        public string DisplayName { get; set; }
-
         public string CreatedOn { get; set; } = DateTime.Now.ToString("MM/dd/yyyy h:mm tt");
 
         public string AvatarImagePath { get; set; } 

@@ -38,17 +38,8 @@ namespace HolocronProject.Services.Implementations
             await this.context.SaveChangesAsync();
         }
 
-        public async Task UpdateDisplayNameAsync(string accountId, string newDisplayName)
-        {
-            var account = GetAccountById(accountId);
 
-            account.DisplayName = newDisplayName;
-
-            this.context.Accounts.Update(account);
-            await this.context.SaveChangesAsync();
-        }
-
-        public async Task UpdateAccountNameAsync(string accountId, string newUserName)
+        public async Task UpdateUserNameAsync(string accountId, string newUserName)
         {
             var account = GetAccountById(accountId);
 
@@ -58,33 +49,10 @@ namespace HolocronProject.Services.Implementations
             await this.context.SaveChangesAsync();
         }
 
-        public T GetForeignAccount<T>(string accountId)
-        {
-            return this.context.Accounts
-                .Where(x => x.Id == accountId)
-                .To<T>()
-                .FirstOrDefault();
-        }
-            
-        public bool IsDisplayNameTaken(string displayName)
-            => this.context.Accounts
-            .Any(x => x.DisplayName == displayName);
-
         public Account GetAccountById(string accountId)
             => this.context.Accounts
-            .FirstOrDefault(x => x.Id == accountId);
+                .FirstOrDefault(x => x.Id == accountId);
 
-        public string GetDisplayName(string accountId)
-            => this.context.Accounts
-            .FirstOrDefault(x => x.Id == accountId)
-            .DisplayName;
 
-        public bool IsDisplayNameTakne(string displayName)
-            => this.context.Accounts
-            .Any(x => x.DisplayName == displayName);
-
-        public bool IsEmailTaken(string email)
-            => this.context.Accounts
-            .Any(x => x.Email == email);
     }
 }

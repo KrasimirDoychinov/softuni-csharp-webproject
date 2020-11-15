@@ -58,14 +58,9 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
-            [EmailAddress]
-            [Display(Name = "Email")]
-            [AccountEmailTaken]
-            public string Email { get; set; }
 
             [Required]
-            [Display(Name = "User name")]
+            [Display(Name = "Username")]
             [RegularExpression(AccountConstants.UserNameRegex, ErrorMessage = AccountErrorMessages.UserNameRegexError)]
             [StringLength(AccountConstants.UserNameMaxLenght, ErrorMessage = AccountErrorMessages.UserNameLengthError, MinimumLength = AccountConstants.UserNameMinLenght)]
             public string UserName { get; set; }
@@ -80,13 +75,6 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
-
-            [Required]
-            [Display(Name = "Display name")]
-            [RegularExpression(AccountConstants.DisplayNameRegex, ErrorMessage = AccountErrorMessages.DisplayNameRegexError)]
-            [MaxLength(AccountConstants.DisplayNameMaxLength, ErrorMessage = AccountErrorMessages.DisplayNameLengthError)]
-            [AccountDisplayNameTaken]
-            public string DisplayName { get; set; }
 
             public string AvatarImagePath { get; set; }
 
@@ -105,22 +93,22 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account
         {
             returnUrl = returnUrl ?? Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-            Input.AvatarImagePath = $"{Input.Email}.png";
+            
 
             if (ModelState.IsValid)
             {
                 if (Input.AvatarImage != null)
                 {
+                    Input.AvatarImagePath = $"{Input.UserName}.png";
+
                     using (var fs = new FileStream(
-                        this.webHostEnvironment.WebRootPath + $"/Images/AvatarImages/{Input.DisplayName}.png", FileMode.Create))
+                        this.webHostEnvironment.WebRootPath + $"/Images/AvatarImages/{Input.UserName}.png", FileMode.Create))
                     {
                         await Input.AvatarImage.CopyToAsync(fs);
                     }
                 }
                 
                 var user = new Data.Models.Account { UserName = Input.UserName,
-                    Email = Input.Email, 
-                    DisplayName = Input.DisplayName, 
                     AvatarImagePath = Input.AvatarImagePath};
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
@@ -136,18 +124,8 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account
                         values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
-
-                    if (_userManager.Options.SignIn.RequireConfirmedAccount)
-                    {
-                        return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
-                    }
-                    else
-                    {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
-                        return LocalRedirect(returnUrl);
-                    }
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    return LocalRedirect(returnUrl);
                 }
                 foreach (var error in result.Errors)
                 {

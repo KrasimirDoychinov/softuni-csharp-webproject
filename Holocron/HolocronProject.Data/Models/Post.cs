@@ -27,13 +27,11 @@ namespace HolocronProject.Data.Models
         public string CreatedOn { get; set; } = DateTime.Now.ToString("MM/dd/yyyy h:mm tt");
 
         [Required]
-
         public string AccountId { get; set; }
 
         public Account Account { get; set; }
 
         [Required]
-
         public string ThreadId { get; set; }
 
         public Thread Thread { get; set; }
