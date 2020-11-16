@@ -19,6 +19,6 @@ namespace HolocronProject.Web.ViewModels.Character
 
         public string ClassName { get; set; }
 
-        public string ImagePath { get; set; }
+        public string CharacterImagePath { get; set; }
     }
 }

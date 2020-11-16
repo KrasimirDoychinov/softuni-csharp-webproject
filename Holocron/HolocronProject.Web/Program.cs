@@ -7,7 +7,8 @@ namespace HolocronProject.Web
     // TODO: Don't forget about the character contest
 
     // TODO: Review the code each day at the beginning of the code session and at the end of the session
-
+    
+    // TODO: Add a validation attribute to the AvatarImage on Account/Manage view
     // TODO: !!!Fix the input models!!!
     // TODO: Look over the Account/Manage views again and fix the 
     // TODO: Do all views that are connected to the Account model

@@ -6,7 +6,7 @@ using System.Text;
 
 namespace HolocronProject.Data.Models
 {
-    public class PostReport
+    public class PostReport : BaseResolvableModel
     {
         // TODO: Implement services
         // TODO: Resolve service

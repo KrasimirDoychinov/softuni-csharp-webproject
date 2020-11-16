@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using HolocronProject.Data.Models;
 using HolocronProject.Services.Models;
 using HolocronProject.Services.Models.Character;
+using Microsoft.AspNetCore.Http;
 
 namespace HolocronProject.Services
 {
@@ -17,6 +18,8 @@ namespace HolocronProject.Services
         IEnumerable<T> GetCurrentUsersCharacter<T>(string accountId);
 
         T GetCharacterInfo<T>(string characterId);
+
+        Task CreateCharacterImage(string characterName, IFormFile image);
 
     }
 }

@@ -53,14 +53,6 @@ namespace HolocronProject.Web.Controllers
                 return this.View(character);
             }
 
-            using (var fs = new FileStream(
-               this.webHostEnvironment.WebRootPath + $"/Images/CharacterImages/{character.Name}.png", FileMode.Create))
-            {
-                await character.Image.CopyToAsync(fs);
-
-            }
-
-            var imagePath = $"{character.Name}.png";
             var characterInputDto = new CharacterInputDto
             {
                 Name = character.Name,
@@ -69,7 +61,6 @@ namespace HolocronProject.Web.Controllers
                 Gender = character.Gender,
                 CharacterType = character.CharacterType,
                 ForceAffiliation = character.ForceAffiliation,
-                ImagePath = imagePath,
                 ServerId = serverId,
                 RaceId = raceId,
                 ClassId = classId,
@@ -77,7 +68,7 @@ namespace HolocronProject.Web.Controllers
             };
 
             await this.characterService.CreateCharacterAsync(characterInputDto);
-
+            await this.characterService.CreateCharacterImage(character.Name, character.Image);
             return this.Redirect("/");
         }
 

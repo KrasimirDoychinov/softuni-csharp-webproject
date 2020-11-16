@@ -29,7 +29,7 @@ namespace HolocronProject.Data.Models
         [MaxLength(GlobalRangeConstraints.CharacterConstants.TitleMaxLength)]
         public string Title { get; set; }
 
-        public string ImagePath { get; set; } 
+        public string CharacterImagePath { get; set; } 
 
         [Required]
         public Gender Gender { get; set; }

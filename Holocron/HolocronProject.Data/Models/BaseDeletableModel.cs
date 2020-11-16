@@ -4,6 +4,8 @@ namespace HolocronProject.Data.Models
 {
     public abstract class BaseDeletableModel
     {
+        public string CreatedOn { get; set; } = DateTime.UtcNow.ToString("MM/dd/yyyy h:mm tt");
+
         public bool IsDeleted { get; set; } = false;
 
         public DateTime? DeletedOn { get; set; }

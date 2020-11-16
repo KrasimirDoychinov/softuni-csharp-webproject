@@ -14,8 +14,6 @@ namespace HolocronProject.Services.Models.Character
 
         public string Title { get; set; }
 
-        public string ImagePath { get; set; }
-
         public Gender Gender { get; set; }
 
         public CharacterType CharacterType { get; set; }

@@ -6,6 +6,8 @@ namespace HolocronProject.Data.Models
 {
     public class BaseResolvableModel
     {
+        public string CreatedOn { get; set; } = DateTime.UtcNow.ToString("MM/dd/yyyy h:mm tt");
+
         public bool IsResolved { get; set; } = false;
 
         public DateTime? ResolvedDate { get; set; }

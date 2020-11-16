@@ -86,25 +86,13 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account.Manage
                 return Page();
             }
 
+            
+            await this.accountService.UpdateUserNameAndAvatarImagePathAsync(user.Id, userName);
             if (avatarImage != null)
             {
-                user.AvatarImagePath = $"{user.Id}(Account).png";
-                if (user.AvatarImagePath != null)
-                {
-                    System.IO.File.Delete(webHostEnvironment.WebRootPath + $"/Images/AvatarImages/{user.AvatarImagePath}.png");
-                }
-
-                
-                using (var fs = new FileStream(
-                    this.webHostEnvironment.WebRootPath + $"/Images/AvatarImages/{user.AvatarImagePath}", FileMode.Create))
-                {
-                    
-                    await avatarImage.CopyToAsync(fs);
-                }
+                await this.accountService.UpdateAvatarImageAsync(user.Id, avatarImage);
             }
-            
-            
-            await this.accountService.UpdateUserNameAsync(user.Id, userName);
+
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";
             return RedirectToPage();

@@ -32,8 +32,6 @@ namespace HolocronProject.Data.Models
 
         public Account Account { get; set; }
 
-        public string CreatedOn { get; set; } = DateTime.Now.ToString("MM/dd/yyyy h:mm tt");
-
         public ICollection<Post> Posts { get; set; } = new List<Post>();
         
     }

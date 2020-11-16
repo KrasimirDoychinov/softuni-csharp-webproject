@@ -24,8 +24,6 @@ namespace HolocronProject.Data.Models
         [MaxLength(GlobalRangeConstraints.PostConstants.DescriptionMaxLength)]
         public string Description { get; set; }
 
-        public string CreatedOn { get; set; } = DateTime.Now.ToString("MM/dd/yyyy h:mm tt");
-
         [Required]
         public string AccountId { get; set; }
 

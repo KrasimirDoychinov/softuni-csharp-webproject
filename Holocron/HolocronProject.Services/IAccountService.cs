@@ -3,18 +3,21 @@ using System.Collections.Generic;
 
 using HolocronProject.Data.Models;
 using HolocronProject.Services.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace HolocronProject.Services
 {
     public interface IAccountService
     {
-        Task UpdateForumSignatureAsync(string accountId, string forumSignature);
+        Task UpdateForumSignatureAsync(string userId, string forumSignature);
 
-        Task UpdateAvatarImageAsync(string accountId, string avatarImage);
+        Task UpdateUserNameAndAvatarImagePathAsync(string userId, string newAccountName);
 
-        Task UpdateUserNameAsync(string accountId, string newAccountName);
+        Account GetAccountById(string userId);
 
-        Account GetAccountById(string accountId);
+        Task CreateAvatarImageAsync(string userId, IFormFile image);
+
+        Task UpdateAvatarImageAsync(string userId, IFormFile avatarImage);
 
 
     }

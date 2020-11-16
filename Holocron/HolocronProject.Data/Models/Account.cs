@@ -16,7 +16,7 @@ namespace HolocronProject.Data.Models
             this.Id = Guid.NewGuid().ToString();
         }
         
-        public string CreatedOn { get; set; } = DateTime.Now.ToString("MM/dd/yyyy h:mm tt");
+        public string CreatedOn { get; set; } = DateTime.UtcNow.ToString("MM/dd/yyyy h:mm tt");
 
         public string AvatarImagePath { get; set; } 
 

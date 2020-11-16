@@ -1,10 +1,12 @@
-﻿using System.Linq;
+﻿using System.IO;
+using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using HolocronProject.Data;
 using HolocronProject.Data.Models;
 using HolocronProject.Services.Mapper;
 using HolocronProject.Services.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace HolocronProject.Services.Implementations
 {
@@ -18,9 +20,9 @@ namespace HolocronProject.Services.Implementations
             this.context = context;
         }
 
-        public async Task UpdateForumSignatureAsync(string accountId, string forumSignature)
+        public async Task UpdateForumSignatureAsync(string userId, string forumSignature)
         {
-            var account = GetAccountById(accountId);
+            var account = GetAccountById(userId);
 
             account.ForumSignature = forumSignature;
 
@@ -28,31 +30,50 @@ namespace HolocronProject.Services.Implementations
             await this.context.SaveChangesAsync();
         }
 
-        public async Task UpdateAvatarImageAsync(string accountId, string avatarImagePath)
+        public async Task UpdateUserNameAndAvatarImagePathAsync(string userId, string newUserName)
         {
-            var account = GetAccountById(accountId);
+            var user = GetAccountById(userId);
 
-            account.AvatarImagePath = avatarImagePath;
+            user.UserName = newUserName;
+            user.NormalizedUserName = newUserName.ToUpper();
+            user.AvatarImagePath = $"{user.Id}(Account).png";
 
-            this.context.Accounts.Update(account);
+            this.context.Accounts.Update(user);
             await this.context.SaveChangesAsync();
         }
 
-
-        public async Task UpdateUserNameAsync(string accountId, string newUserName)
+        public async Task CreateAvatarImageAsync(string userId, IFormFile image)
         {
-            var account = GetAccountById(accountId);
+            var user = this.GetAccountById(userId);
 
-            account.UserName = newUserName;
+            user.AvatarImagePath = $"{user.Id}(Account).png";
+            using (var fs = new FileStream(
+                 $"wwwroot/Images/AvatarImages/{user.AvatarImagePath}", FileMode.Create))
+            {
+                await image.CopyToAsync(fs);
+            }
 
-            this.context.Accounts.Update(account);
             await this.context.SaveChangesAsync();
         }
 
-        public Account GetAccountById(string accountId)
-            => this.context.Accounts
-                .FirstOrDefault(x => x.Id == accountId);
+        public async Task UpdateAvatarImageAsync(string userId, IFormFile avatarImage)
+        {
+            var user = this.GetAccountById(userId);
 
+            File.Delete($"wwwroot/Images/AvatarImages/{user.AvatarImagePath}.png");
+            user.AvatarImagePath = $"{user.Id}(Account).png";
+            using (var fs = new FileStream(
+                $"wwwroot/Images/AvatarImages/{user.AvatarImagePath}", FileMode.Create))
+            {
+                await avatarImage.CopyToAsync(fs);
+            }
+
+            await this.context.SaveChangesAsync();
+        }
+
+        public Account GetAccountById(string userId)
+           => this.context.Accounts
+               .FirstOrDefault(x => x.Id == userId);
 
     }
 }
