@@ -50,6 +50,7 @@ namespace HolocronProject.Services.Implementations
             using (var fs = new FileStream(
                  $"wwwroot/Images/AvatarImages/{user.AvatarImagePath}", FileMode.Create))
             {
+
                 await image.CopyToAsync(fs);
             }
 
@@ -75,5 +76,11 @@ namespace HolocronProject.Services.Implementations
            => this.context.Accounts
                .FirstOrDefault(x => x.Id == userId);
 
+        public string GetAccountAvatarImagePath(string userId)
+        {
+            var user = this.GetAccountById(userId);
+
+            return user.AvatarImagePath;
+        }
     }
 }

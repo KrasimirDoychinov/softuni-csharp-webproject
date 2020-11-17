@@ -53,6 +53,7 @@ namespace HolocronProject.Web.Controllers
                 return this.View(character);
             }
 
+            
             var characterInputDto = new CharacterInputDto
             {
                 Name = character.Name,

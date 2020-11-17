@@ -7,8 +7,8 @@ namespace HolocronProject.Web
     // TODO: Don't forget about the character contest
 
     // TODO: Review the code each day at the beginning of the code session and at the end of the session
-    
-    // TODO: Add a validation attribute to the AvatarImage on Account/Manage view
+
+    // TODO: Add a default avatar feature
     // TODO: !!!Fix the input models!!!
     // TODO: Look over the Account/Manage views again and fix the 
     // TODO: Do all views that are connected to the Account model
@@ -21,10 +21,12 @@ namespace HolocronProject.Web
     // -----USEFUL-----
     // font awesome
     // var user = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+    // -----USEFUL-----
     public class Program
     {
         public static void Main(string[] args)
         {
+
             CreateHostBuilder(args).Build().Run();
         }
 

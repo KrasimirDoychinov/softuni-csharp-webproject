@@ -6,7 +6,7 @@
     
 }
 
-<h4>@ViewData["Title"]</h4>
+<h3>@ViewData["Title"]</h3>
 <partial name="_StatusMessage" model="Model.StatusMessage"/>
 <div class="row">
     <div class="col-md-6" >
@@ -14,24 +14,36 @@
             <div asp-validation-summary="All" class="text-danger"></div>
 
             <div class="form-group">
-                <label asp-for="UserName"></label>
+                <label asp-for="UserName" class="font-weight-bold"></label>
                 <input asp-for="UserName" class="form-control" />
                 <span asp-validation-for="UserName" class="text-danger"></span>
             </div>
 
-            <label>Avatar: </label>
+            <div>
+                <label class="font-weight-bold">Avatar</label>
+                <div>
+                    <label class="text-info">All images will be resized to 150x150 px.</label>
+                </div>
+
+            </div>
+
             @if (Model.AvatarImagePath == null)
             {
                 <label>None</label>
             }
             else
             {
-                <img src="~/Images/AvatarImages/@Model.AvatarImagePath" alt="None" />
+                <img src="~/Images/AvatarImages/@Model.AvatarImagePath" class="rounded-circle" height="150" width="150" alt="None" />
             }
 
-            <div class="form-group">
-                <input asp-for="AvatarImage" class="form-control" />
+            <div class="form-group mt-3">
+                <input asp-for="AvatarImage" class="form-control img-fluid" />
                 <span asp-validation-for="AvatarImage" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ForumSignature" class="font-weight-bold"></label>
+                <textarea asp-for="ForumSignature" class="form-control"></textarea>
             </div>
 
             <button id="update-profile-button" type="submit" class="btn btn-primary">Save</button>

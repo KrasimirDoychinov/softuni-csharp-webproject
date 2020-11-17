@@ -19,6 +19,8 @@ namespace HolocronProject.Services
 
         Task UpdateAvatarImageAsync(string userId, IFormFile avatarImage);
 
+        string GetAccountAvatarImagePath(string userId);
+
 
     }
 }

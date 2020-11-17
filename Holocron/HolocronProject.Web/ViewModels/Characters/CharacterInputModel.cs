@@ -21,7 +21,7 @@ namespace HolocronProject.Web.ViewModels.Character
         [CharacterNameInServer]
         [MaxLength(CharacterConstants.NameMaxLength, ErrorMessage = CharacterErrorMessages.NameMaxLengthError)]
         public string Name { get; set; }
-        [MaxLength(CharacterConstants.BackstoryMaxLength, ErrorMessage = CharacterErrorMessages.BackstoryMaxLengthError)]
+        [MaxLength(CharacterConstants.BackstoryAndDescMaxLength, ErrorMessage = CharacterErrorMessages.BackstoryMaxLengthError)]
         public string Backstory { get; set; }
 
         [MaxLength(CharacterConstants.TitleMaxLength, ErrorMessage = CharacterErrorMessages.TitleMaxLengthError)]

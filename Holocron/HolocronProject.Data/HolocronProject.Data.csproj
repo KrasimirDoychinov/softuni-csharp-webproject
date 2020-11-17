@@ -13,6 +13,8 @@
     <Compile Remove="Migrations\20201115152946_FixBug.Designer.cs" />
     <Compile Remove="Migrations\20201115153159_FixBug1.cs" />
     <Compile Remove="Migrations\20201115153159_FixBug1.Designer.cs" />
+    <Compile Remove="Migrations\20201116202442_Test2.cs" />
+    <Compile Remove="Migrations\20201116202442_Test2.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

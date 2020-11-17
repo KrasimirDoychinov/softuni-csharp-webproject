@@ -22,9 +22,11 @@ namespace HolocronProject.Data.Models
         [MaxLength(GlobalRangeConstraints.CharacterConstants.NameMaxLength)]
         public string Name { get; set; }
 
-        [Required]
-        [MaxLength(GlobalRangeConstraints.CharacterConstants.BackstoryMaxLength)]
+        [MaxLength(GlobalRangeConstraints.CharacterConstants.BackstoryAndDescMaxLength)]
         public string Backstory { get; set; } 
+
+        [MaxLength(GlobalRangeConstraints.CharacterConstants.BackstoryAndDescMaxLength)]
+        public string Description { get; set; }
 
         [MaxLength(GlobalRangeConstraints.CharacterConstants.TitleMaxLength)]
         public string Title { get; set; }

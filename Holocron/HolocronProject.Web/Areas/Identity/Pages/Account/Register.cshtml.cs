@@ -103,11 +103,6 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account
             {
                 var user = new Data.Models.Account { UserName = Input.UserName };
 
-                if (Input.AvatarImage != null)
-                {
-                    await this.accountService.CreateAvatarImageAsync(user.Id, Input.AvatarImage);
-                }
-                
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
@@ -122,13 +117,24 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account
                         protocol: Request.Scheme);
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
+
+                    if (Input.AvatarImage != null)
+                    {
+                        await this.accountService.CreateAvatarImageAsync(user.Id, Input.AvatarImage);
+                    }
                     return LocalRedirect(returnUrl);
+
+                    
                 }
                 foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
+
+                
             }
+
+            
 
             // If we got this far, something failed, redisplay form
             return Page();

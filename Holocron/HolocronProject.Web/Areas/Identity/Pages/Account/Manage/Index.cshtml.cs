@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using HolocronProject.Data.Common;
 using HolocronProject.Data.Models;
 using HolocronProject.Services;
+using HolocronProject.Web.ValidationAttributes;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -37,12 +38,16 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account.Manage
             this.webHostEnvironment = webHostEnvironment;
         }
 
+        [Display(Name = "Username")]
         [StringLength(AccountConstants.UserNameMaxLenght, MinimumLength = AccountConstants.UserNameMinLenght, ErrorMessage = AccountErrorMessages.UserNameLengthError)]
         [RegularExpression(AccountConstants.UserNameRegex, ErrorMessage = AccountErrorMessages.UserNameRegexError)]
         public string UserName { get; set; }
 
+        public string ForumSignature { get; set; }
+
         public string AvatarImagePath { get; set; }
 
+        [AccountAvatarImage]
         public IFormFile AvatarImage { get; set; }
 
         [TempData]
@@ -61,6 +66,7 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account.Manage
             
             var user = await _userManager.GetUserAsync(User);
             AvatarImagePath = user.AvatarImagePath;
+            ForumSignature = user.ForumSignature;
             if (user == null)
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
@@ -70,7 +76,7 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account.Manage
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(string userName, IFormFile avatarImage)
+        public async Task<IActionResult> OnPostAsync(string userName, string forumSignature, IFormFile avatarImage)
         {
             var user = await _userManager.GetUserAsync(User);
             
@@ -86,11 +92,15 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account.Manage
                 return Page();
             }
 
-            
             await this.accountService.UpdateUserNameAndAvatarImagePathAsync(user.Id, userName);
             if (avatarImage != null)
             {
                 await this.accountService.UpdateAvatarImageAsync(user.Id, avatarImage);
+            }
+
+            if (user.ForumSignature != forumSignature)
+            {
+                await this.accountService.UpdateForumSignatureAsync(user.Id, forumSignature);
             }
 
             await _signInManager.RefreshSignInAsync(user);

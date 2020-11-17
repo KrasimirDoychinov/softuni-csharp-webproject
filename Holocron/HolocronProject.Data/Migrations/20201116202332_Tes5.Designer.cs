@@ -4,14 +4,16 @@ using HolocronProject.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HolocronProject.Data.Migrations
 {
     [DbContext(typeof(HolocronDbContext))]
-    partial class HolocronDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201116202332_Tes5")]
+    partial class Tes5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -145,36 +147,36 @@ namespace HolocronProject.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "4326e375-7d20-4dd7-a561-09100f5ca19b",
-                            CreatedOn = "11/16/2020 8:24 PM",
+                            Id = "7e0b6a0e-ab89-437f-9b28-e843d422e72e",
+                            CreatedOn = "11/16/2020 8:23 PM",
                             IsDeleted = false,
                             Title = "PVP"
                         },
                         new
                         {
-                            Id = "94ab2771-7710-4d17-b4f6-a81444189f1a",
-                            CreatedOn = "11/16/2020 8:24 PM",
+                            Id = "a0f4458f-52bb-47a7-8cdc-657cbf1deed8",
+                            CreatedOn = "11/16/2020 8:23 PM",
                             IsDeleted = false,
                             Title = "PVE"
                         },
                         new
                         {
-                            Id = "0b55b082-5075-4d8b-9532-151f86020273",
-                            CreatedOn = "11/16/2020 8:24 PM",
+                            Id = "e5c013ec-7974-4063-889b-4e0659161a12",
+                            CreatedOn = "11/16/2020 8:23 PM",
                             IsDeleted = false,
                             Title = "RP"
                         },
                         new
                         {
-                            Id = "ebf4971d-88f9-4b6a-9a04-505ae797ea8c",
-                            CreatedOn = "11/16/2020 8:24 PM",
+                            Id = "f6866d9b-b014-42e9-8036-dd9f8dd175d5",
+                            CreatedOn = "11/16/2020 8:23 PM",
                             IsDeleted = false,
                             Title = "Guides"
                         },
                         new
                         {
-                            Id = "84603646-254e-4064-9285-5f16fdd1ace7",
-                            CreatedOn = "11/16/2020 8:24 PM",
+                            Id = "098f932a-1569-4b21-8df2-bd47d7e17ee2",
+                            CreatedOn = "11/16/2020 8:23 PM",
                             IsDeleted = false,
                             Title = "Fashion"
                         });
@@ -186,7 +188,6 @@ namespace HolocronProject.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("AccountId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("CreatedOn")
@@ -303,97 +304,97 @@ namespace HolocronProject.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "6c63fcb3-b704-4007-9ad5-145ba221a11f",
+                            Id = "b693dd69-1492-4e65-887c-9008d9a64d95",
                             Faction = 2,
                             Name = "Juggernaut"
                         },
                         new
                         {
-                            Id = "0bb90dbe-8b94-4f14-990b-3c778f40c1ab",
+                            Id = "3b4decd1-ced8-4ca9-8747-43b81e5f78a8",
                             Faction = 2,
                             Name = "Marauder"
                         },
                         new
                         {
-                            Id = "1b68d5bf-6bdd-438f-a25b-299cf593346d",
+                            Id = "0d65c8e9-842c-4f8f-af92-5c25c4362ce6",
                             Faction = 2,
                             Name = "Sorcerer"
                         },
                         new
                         {
-                            Id = "6aa60ab8-83e9-4b1f-b3dc-9155e72d72c2",
+                            Id = "2b215e75-4448-43bb-8ce6-872852031bf8",
                             Faction = 2,
                             Name = "Assassin"
                         },
                         new
                         {
-                            Id = "e0e0bf4f-8949-4515-94fe-4362a9de5b56",
+                            Id = "90da8deb-4dc2-48cc-8ab8-a0f72a66a404",
                             Faction = 2,
                             Name = "Sniper"
                         },
                         new
                         {
-                            Id = "36be12fd-6fae-4517-baa9-04c0b77bf227",
+                            Id = "510ed473-63e2-4776-a00d-6c9d75459d3c",
                             Faction = 2,
                             Name = "Operative"
                         },
                         new
                         {
-                            Id = "cd141500-8d0c-469b-81d9-6505efbac710",
+                            Id = "b8cbeb3e-b0ef-4043-94da-28b7dcd98cc3",
                             Faction = 2,
                             Name = "Powertech"
                         },
                         new
                         {
-                            Id = "885d26c8-cc32-4b35-bb30-8937e962c435",
+                            Id = "b74ed853-6136-4ea3-93fe-e95719509a2d",
                             Faction = 2,
                             Name = "Mercenary"
                         },
                         new
                         {
-                            Id = "4c6b3f26-1f13-49cd-a076-513cec8a0dae",
+                            Id = "f620d0a0-f345-4463-8681-307a1f19040a",
                             Faction = 1,
                             Name = "Gunslinger"
                         },
                         new
                         {
-                            Id = "90c5db7b-36a4-4c42-90b9-61e9cbd1e324",
+                            Id = "db8e2d8b-b330-4bad-95fd-ada87816039a",
                             Faction = 1,
                             Name = "Scoundrel"
                         },
                         new
                         {
-                            Id = "5f62630b-cb4b-4cfa-b0a9-f95987a241f0",
+                            Id = "73742e0f-a27a-4bbb-9c95-fe06b90041ba",
                             Faction = 1,
                             Name = "Vanguard"
                         },
                         new
                         {
-                            Id = "7bfa7d08-443b-48ac-9f1f-e72a6e5d6eea",
+                            Id = "2603271d-2310-45a0-bcef-513cec42ace5",
                             Faction = 1,
                             Name = "Commando"
                         },
                         new
                         {
-                            Id = "4c0355b3-c360-4d94-a21c-e84e9e0d97f1",
+                            Id = "6cc0f92f-211d-4ca3-b4c0-e5c77f3f9916",
                             Faction = 1,
                             Name = "Sage"
                         },
                         new
                         {
-                            Id = "be6e2ba3-1e63-4505-9335-c34c633eed7d",
+                            Id = "0f3603ca-d442-4374-adda-eb5d41655cad",
                             Faction = 1,
                             Name = "Shadow"
                         },
                         new
                         {
-                            Id = "c30191a1-7581-4ac7-9314-e293c3cf51eb",
+                            Id = "5c03b0d2-6e59-49fd-8773-71fcbada4697",
                             Faction = 1,
                             Name = "Sentinel"
                         },
                         new
                         {
-                            Id = "82376362-02dd-4a80-aa24-30d0a0740dff",
+                            Id = "1f2ef869-1028-4f87-b459-03607e088a0b",
                             Faction = 1,
                             Name = "Guardian"
                         });
@@ -557,62 +558,62 @@ namespace HolocronProject.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "dbabc78c-abcc-4bc0-a336-33d9d5943b17",
+                            Id = "cf4f374c-a811-4e12-be2c-fe39e9354c1c",
                             Name = "Chiss"
                         },
                         new
                         {
-                            Id = "ab8fd8e6-2035-4ef7-90c1-6d52e39c4603",
+                            Id = "641ee699-0591-4842-8d0e-8963dee84476",
                             Name = "Cyborg"
                         },
                         new
                         {
-                            Id = "b8bd8251-86da-4980-bb64-3006d497d326",
+                            Id = "50d597b9-57c8-4d36-a421-817a0a680363",
                             Name = "Human"
                         },
                         new
                         {
-                            Id = "5837cdae-9967-4cb2-93a7-f31872bb1564",
+                            Id = "f3d95e07-61bc-4d65-9945-252e12871401",
                             Name = "Miraluka"
                         },
                         new
                         {
-                            Id = "db9aaa64-ac69-4667-bcff-82b2b4e6dbcc",
+                            Id = "9e2ba48c-0272-4836-8c9b-c3251d59d007",
                             Name = "Mirialan"
                         },
                         new
                         {
-                            Id = "53884ac2-e0e3-4ee0-b8e8-fb7257ebf754",
+                            Id = "71255541-9d44-44ca-8db9-9d0f8a53654b",
                             Name = "Rattaki"
                         },
                         new
                         {
-                            Id = "a2b97f93-fc84-491b-b206-bdfe2d419d80",
+                            Id = "59b4ffaf-2c21-43f7-bbff-aa4eb002523e",
                             Name = "Sith Pureblood"
                         },
                         new
                         {
-                            Id = "d8af4819-883e-4b69-a04e-0a57046992d5",
+                            Id = "4fa7e136-b0de-4e82-be36-cef3f2cf40b0",
                             Name = "Twi'lek"
                         },
                         new
                         {
-                            Id = "55375926-fb44-4723-aca8-3434c4f0dbe8",
+                            Id = "e53b04e2-6d38-4a92-ab94-309080d70565",
                             Name = "Zabrak"
                         },
                         new
                         {
-                            Id = "4244427f-6f52-4f63-97f6-9fabf3ba8318",
+                            Id = "b38b25d5-d01b-4762-8887-c93ba9384343",
                             Name = "Cathar"
                         },
                         new
                         {
-                            Id = "20e0b5b8-2363-4d7d-a9d9-07b5d464f968",
+                            Id = "fd2075e0-1297-45f9-9c8b-f17465812137",
                             Name = "Togruta"
                         },
                         new
                         {
-                            Id = "b72f6737-e451-469c-ad0e-c89d49ab697e",
+                            Id = "1e384ed1-c3fa-4efe-99e7-51790e67e25d",
                             Name = "Nautolan"
                         });
                 });
@@ -633,27 +634,27 @@ namespace HolocronProject.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "d48dcb02-5864-4e5d-aa3b-87697cde56db",
+                            Id = "56167fbe-189b-4bb8-927c-16cc9ca39db6",
                             Name = "Darth Malgus"
                         },
                         new
                         {
-                            Id = "639fd3da-5cbd-43d4-943c-86f9031e335c",
+                            Id = "39a9e9b2-6a24-4039-a7e6-189e839842b4",
                             Name = "Star Forge"
                         },
                         new
                         {
-                            Id = "1c16d3c4-d5ec-4b2c-9db2-429755ca462b",
+                            Id = "1882e9b9-2dc9-4f8f-9a41-2dde2724b89a",
                             Name = "Satele Shan"
                         },
                         new
                         {
-                            Id = "54d3b50a-06e5-4819-800c-30927379f6d5",
+                            Id = "f03116cc-41c2-4364-8081-f8f2abf9df2c",
                             Name = "Tulak Hord"
                         },
                         new
                         {
-                            Id = "b2d0315d-5511-41e7-bdcb-251f52a3db84",
+                            Id = "9a0751da-470d-4d0d-a769-0884079d3032",
                             Name = "The Leviathan"
                         });
                 });
@@ -863,9 +864,7 @@ namespace HolocronProject.Data.Migrations
                 {
                     b.HasOne("HolocronProject.Data.Models.Account", "Account")
                         .WithMany("BugReports")
-                        .HasForeignKey("AccountId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AccountId");
                 });
 
             modelBuilder.Entity("HolocronProject.Data.Models.Character", b =>

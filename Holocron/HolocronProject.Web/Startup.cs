@@ -50,6 +50,7 @@ namespace HolocronProject.Web
             services.AddTransient<IServerService, ServerServices>();
             services.AddTransient<ITagService, TagServices>();
             services.AddTransient<IThreadService, ThreadServices>();
+            services.AddTransient(typeof(AccountServices));
 
         }
 

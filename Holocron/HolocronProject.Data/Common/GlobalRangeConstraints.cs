@@ -19,7 +19,7 @@
         {
             public const int NameMaxLength = 25;
 
-            public const int BackstoryMaxLength = 25000;
+            public const int BackstoryAndDescMaxLength = 25000;
 
             public const int TitleMaxLength = 25;
 
