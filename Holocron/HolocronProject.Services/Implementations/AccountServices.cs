@@ -61,7 +61,7 @@ namespace HolocronProject.Services.Implementations
         {
             var user = this.GetAccountById(userId);
 
-            File.Delete($"wwwroot/Images/AvatarImages/{user.AvatarImagePath}.png");
+            File.Delete($"wwwroot/Images/AvatarImages/{user.AvatarImagePath}");
             user.AvatarImagePath = $"{user.Id}(Account).png";
             using (var fs = new FileStream(
                 $"wwwroot/Images/AvatarImages/{user.AvatarImagePath}", FileMode.Create))
@@ -81,6 +81,13 @@ namespace HolocronProject.Services.Implementations
             var user = this.GetAccountById(userId);
 
             return user.AvatarImagePath;
+        }
+
+        public bool IsAvatarImageSet(string userId)
+        {
+            var user = GetAccountById(userId);
+
+            return File.Exists($"wwwroot/Images/AvatarImages/{user.AvatarImagePath}");
         }
     }
 }

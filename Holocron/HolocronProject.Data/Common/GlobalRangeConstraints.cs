@@ -13,6 +13,8 @@
             public const int PasswordMinLength = 8;
 
             public const int PasswordMaxLength = 100;
+
+            public const int ForumSignatureMaxLength = 3000;
         }
 
         public static class CharacterConstants

@@ -21,6 +21,8 @@ namespace HolocronProject.Services
 
         string GetAccountAvatarImagePath(string userId);
 
+        bool IsAvatarImageSet(string userId);
+
 
     }
 }

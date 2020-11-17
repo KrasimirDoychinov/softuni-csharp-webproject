@@ -43,9 +43,16 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account.Manage
         [RegularExpression(AccountConstants.UserNameRegex, ErrorMessage = AccountErrorMessages.UserNameRegexError)]
         public string UserName { get; set; }
 
+        [Display(Name = "Forum signature")]
+        [MaxLength(AccountConstants.ForumSignatureMaxLength, ErrorMessage = AccountErrorMessages.ForumSignatureLengthError)]
+        // TODO: Attributes
         public string ForumSignature { get; set; }
 
+        public string CreatedOn { get; set; }
+
         public string AvatarImagePath { get; set; }
+
+        public bool IsAvatarImageSet { get; set; }
 
         [AccountAvatarImage]
         public IFormFile AvatarImage { get; set; }
@@ -58,15 +65,23 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account.Manage
         {
             var userName = await _userManager.GetUserNameAsync(user);
 
+            IsAvatarImageSet = this.accountService.IsAvatarImageSet(user.Id);
+
             UserName = userName;
+            AvatarImagePath = user.AvatarImagePath;
+            ForumSignature = user.ForumSignature;
+            CreatedOn = user.CreatedOn;
         }
 
         public async Task<IActionResult> OnGetAsync()
         {
-            
             var user = await _userManager.GetUserAsync(User);
+
+            IsAvatarImageSet = this.accountService.IsAvatarImageSet(user.Id);
             AvatarImagePath = user.AvatarImagePath;
             ForumSignature = user.ForumSignature;
+            CreatedOn = user.CreatedOn;
+
             if (user == null)
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
@@ -92,6 +107,7 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account.Manage
                 return Page();
             }
 
+            
             await this.accountService.UpdateUserNameAndAvatarImagePathAsync(user.Id, userName);
             if (avatarImage != null)
             {

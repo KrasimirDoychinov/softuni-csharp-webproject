@@ -19,6 +19,8 @@ namespace HolocronProject.Web
     // TODO: Implement PM messages
 
     // -----USEFUL-----
+    // class="container"
+    // style="background-color: #1a1818;
     // font awesome
     // var user = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
     // -----USEFUL-----

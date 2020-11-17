@@ -14,6 +14,7 @@ namespace HolocronProject.Data.Common
 
             public const string UserNameRegexError = "The display name cannot contain special characters or spaces.";
 
+            public const string ForumSignatureLengthError = "The forum signature cannot be more than {0} characters long.";
         }
 
         public static class CharacterErrorMessages
