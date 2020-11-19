@@ -1,9 +1,11 @@
 ﻿using HolocronProject.Services;
 using HolocronProject.Services.Models.Character;
 using HolocronProject.Web.ViewModels.Character;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using SixLabors.ImageSharp;
+using System;
 using System.IO;
 using System.Linq;
 using System.Security.Claims;
@@ -18,12 +20,14 @@ namespace HolocronProject.Web.Controllers
         private readonly IServerService serverService;
         private readonly IRaceService raceService;
         private readonly IWebHostEnvironment webHostEnvironment;
+        private readonly Random random;
 
         public CharactersController(IClassService classService,
             ICharacterService characterService,
             IServerService serverService,
             IRaceService raceService,
-            IWebHostEnvironment webHostEnvironment
+            IWebHostEnvironment webHostEnvironment,
+            Random random
             )
         {
             this.classService = classService;
@@ -31,8 +35,10 @@ namespace HolocronProject.Web.Controllers
             this.serverService = serverService;
             this.raceService = raceService;
             this.webHostEnvironment = webHostEnvironment;
+            this.random = random;
         }
 
+        [Authorize]
         public IActionResult CreateCharacter()
         {
             var characterInputModel = new CharacterInputModel();
@@ -40,6 +46,7 @@ namespace HolocronProject.Web.Controllers
             return this.View(characterInputModel);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateCharacter(CharacterInputModel character)
         {
@@ -73,6 +80,7 @@ namespace HolocronProject.Web.Controllers
             return this.Redirect("/");
         }
 
+        [Authorize]
         public IActionResult AllCharacters()
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -81,6 +89,7 @@ namespace HolocronProject.Web.Controllers
             return this.View(charListViewModel);
         }
 
+        [Authorize]
         public IActionResult CharacterInfo(string id)
         {
             var charViewModel = this.characterService.GetCharacterInfo<CharacterUserViewModel>(id);

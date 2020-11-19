@@ -1,5 +1,5 @@
 ﻿using HolocronProject.Services;
-
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -18,11 +18,13 @@ namespace HolocronProject.Web.Controllers
             this.threadService = threadService;
         }
 
+        [Authorize]
         public IActionResult Create(string baseThreadId)
         {
             return this.View();
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Create(string baseThreadId, string title)
         {

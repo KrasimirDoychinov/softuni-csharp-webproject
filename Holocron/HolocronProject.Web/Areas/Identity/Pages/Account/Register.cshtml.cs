@@ -31,6 +31,7 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<Data.Models.Account> _signInManager;
+        private readonly RoleManager<IdentityRole> roleManager;
         private readonly UserManager<Data.Models.Account> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
@@ -40,6 +41,7 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account
         public RegisterModel(
             UserManager<Data.Models.Account> userManager,
             SignInManager<Data.Models.Account> signInManager,
+            RoleManager<IdentityRole> roleManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
             IWebHostEnvironment webHostEnvironment,
@@ -47,6 +49,7 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            this.roleManager = roleManager;
             _logger = logger;
             _emailSender = emailSender;
             this.webHostEnvironment = webHostEnvironment;
@@ -106,6 +109,18 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
+                    var adminRole = new IdentityRole() { Name = "Admin" };
+                    var userRole = new IdentityRole() { Name = "User" };
+
+                    await roleManager.CreateAsync(userRole);
+                    await roleManager.CreateAsync(adminRole);
+
+                    if (Input.UserName == "TestAdmin1" && Input.Password == "TestAdmin1.")
+                    {
+                        await _userManager.AddToRoleAsync(user, "Admin");
+                    }
+
+
                     _logger.LogInformation("User created a new account with password.");
 
                     

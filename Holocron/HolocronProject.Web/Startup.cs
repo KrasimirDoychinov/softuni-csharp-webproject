@@ -15,6 +15,7 @@ using System.Reflection;
 using SixLabors.ImageSharp.Web.DependencyInjection;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using Microsoft.AspNetCore.Identity;
 
 namespace HolocronProject.Web
 {
@@ -39,6 +40,7 @@ namespace HolocronProject.Web
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<Account>(options => options.SignIn.RequireConfirmedAccount = false)
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<HolocronDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
@@ -63,8 +65,12 @@ namespace HolocronProject.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
+            UserManager<Account> userManager,
+            RoleManager<IdentityRole> roleManager)
         {
+
+
             AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
             app.UseImageSharp();
 
@@ -86,6 +92,8 @@ namespace HolocronProject.Web
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            MyIdentityDataInitializer.SeedData(userManager, roleManager);
 
             app.UseEndpoints(endpoints =>
             {

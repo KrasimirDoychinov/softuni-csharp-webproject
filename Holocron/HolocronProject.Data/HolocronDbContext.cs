@@ -1,5 +1,6 @@
 ﻿    using HolocronProject.Data.Enums;
 using HolocronProject.Data.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -76,7 +77,6 @@ namespace HolocronProject.Data
             //    new Thread { Title = "Test thread" }
             //    );
 
-            
 
             builder.Entity<Class>()
                 .HasData(

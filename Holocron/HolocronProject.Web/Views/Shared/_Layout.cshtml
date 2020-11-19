@@ -32,7 +32,7 @@
                                 <a class="nav-link text-dark" asp-controller="Characters" asp-action="AllCharacters">Characters</a>
                             </li>
                         }
-
+                        
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
@@ -42,6 +42,10 @@
         </nav>
         <hr style="border-color: antiquewhite; border-width: 5px;" />
         <div class="container">
+            @if (this.User.IsInRole("Admin"))
+            {
+                <alert class="alert-danger">Lud si bate</alert>
+            }
             <main role="main" class="pb-3">
                 @RenderBody()
             </main>

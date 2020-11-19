@@ -1,6 +1,10 @@
 ﻿@model HolocronProject.Web.ViewModels.Character.CharacterUserViewModel
+@inject Random random
+@{ 
+    var randomImageQuery = random.NextDouble().ToString();
+} 
 
-<img src="~/Images/CharacterImages/@Model.CharacterImagePath" width="1280" height="720" />
+<img src="~/Images/CharacterImages/@Model.CharacterImagePath?random=@randomImageQuery" width="1280" height="720" />
 <h1>Name: @Model.Name</h1>
 <h1>Class name: @Model.ClassName</h1>
 <h1>Race name: @Model.RaceName</h1>
