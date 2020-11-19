@@ -13,6 +13,8 @@ using HolocronProject.Services.Mapper;
 using HolocronProject.Web.Models;
 using System.Reflection;
 using SixLabors.ImageSharp.Web.DependencyInjection;
+using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace HolocronProject.Web
 {
@@ -28,6 +30,11 @@ namespace HolocronProject.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllersWithViews(cfg =>
+            {
+                cfg.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+            });
+
             services.AddDbContext<HolocronDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
@@ -51,6 +58,7 @@ namespace HolocronProject.Web
             services.AddTransient<ITagService, TagServices>();
             services.AddTransient<IThreadService, ThreadServices>();
             services.AddTransient(typeof(AccountServices));
+            services.AddTransient(typeof(Random));
 
         }
 

@@ -8,7 +8,7 @@ namespace HolocronProject.Web
 
     // TODO: Review the code each day at the beginning of the code session and at the end of the session
 
-    // TODO: Add a default avatar feature
+    // TODO: Start working on the threads and posts
     // TODO: !!!Fix the input models!!!
     // TODO: Look over the Account/Manage views again and fix the 
     // TODO: Do all views that are connected to the Account model

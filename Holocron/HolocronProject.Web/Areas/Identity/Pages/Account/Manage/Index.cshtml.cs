@@ -24,18 +24,21 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account.Manage
         private readonly SignInManager<Data.Models.Account> _signInManager;
         private readonly IAccountService accountService;
         private readonly IWebHostEnvironment webHostEnvironment;
+        private readonly Random random;
 
         public IndexModel(
             UserManager<Data.Models.Account> userManager,
             SignInManager<Data.Models.Account> signInManager,
             IAccountService accountService,
-            IWebHostEnvironment webHostEnvironment
+            IWebHostEnvironment webHostEnvironment,
+            Random random
             )
         {
             _userManager = userManager;
             _signInManager = signInManager;
             this.accountService = accountService;
             this.webHostEnvironment = webHostEnvironment;
+            this.random = random;
         }
 
         [Display(Name = "Username")]
@@ -60,6 +63,8 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account.Manage
         [TempData]
         public string StatusMessage { get; set; }
 
+        public string RandomImageQuery { get; set; }
+
 
         private async Task LoadAsync(Data.Models.Account user)
         {
@@ -71,6 +76,7 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account.Manage
             AvatarImagePath = user.AvatarImagePath;
             ForumSignature = user.ForumSignature;
             CreatedOn = user.CreatedOn;
+            RandomImageQuery = random.NextDouble().ToString();
         }
 
         public async Task<IActionResult> OnGetAsync()

@@ -30,11 +30,11 @@
 
             @if (Model.IsAvatarImageSet == false)
             {
-                <img src="~/Images/AvatarImages/defaultAvatar.jpg" class="rounded-circle border border-warning border" height="150" width="150" alt="@Model.AvatarImagePath" />
+                <img src="~/Images/AvatarImages/defaultAvatar.jpg" class="rounded-circle border border-warning border" height="150" width="150" alt="@Model.AvatarImagePath?random=@Model.RandomImageQuery" />
             }
             else
             {
-                <img src="~/Images/AvatarImages/@Model.AvatarImagePath" class="rounded-circle border border-warning border" height="150" width="150" alt="@Model.AvatarImagePath" />
+                <img src="~/Images/AvatarImages/@Model.AvatarImagePath?random=@Model.RandomImageQuery" class="rounded-circle border border-warning border" height="150" width="150" alt="@Model.AvatarImagePath?random=@Model.RandomImageQuery" />
             }
 
             <div class="form-group mt-3">
