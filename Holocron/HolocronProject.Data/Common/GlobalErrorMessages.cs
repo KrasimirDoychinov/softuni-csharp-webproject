@@ -6,7 +6,7 @@ namespace HolocronProject.Data.Common
 {
     public class GlobalErrorMessages
     {
-        public static class AccountErrorMessages
+        public static class UserErrorMessages
         {
             public const string PasswordLengthError = "The password must be between {2} and {1} characters long.";
 
@@ -31,6 +31,18 @@ namespace HolocronProject.Data.Common
 
             public const string InvalidForceAffiliationError = "Each character must have force affiliation.";
 
+        }
+
+        public static class ThreadErrorMessages
+        {
+            public const string TitleMaxLengthError = "The title cannot conain more than {0} characters.";
+
+            public const string DescriptionMaxLengthError = "The post description cannot be more than {0} characters";
+        }
+
+        public static class PostErrorMessages
+        {
+            public const string DescriptionMaxLengthError = "The post description cannot be more than {0} characters";
         }
     }
 }

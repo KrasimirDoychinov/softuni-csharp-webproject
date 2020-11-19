@@ -10,14 +10,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HolocronProject.Data.Migrations
 {
     [DbContext(typeof(HolocronDbContext))]
-    [Migration("20201113081828_AddIsDeletedAndDeletedOnToSomeModels")]
-    partial class AddIsDeletedAndDeletedOnToSomeModels
+    [Migration("20201119152916_AddedDescriptionToThreads")]
+    partial class AddedDescriptionToThreads
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.9")
+                .HasAnnotation("ProductVersion", "3.1.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -29,7 +29,7 @@ namespace HolocronProject.Data.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<string>("AvatarImage")
+                    b.Property<string>("AvatarImagePath")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -38,10 +38,6 @@ namespace HolocronProject.Data.Migrations
 
                     b.Property<string>("CreatedOn")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DisplayName")
-                        .HasColumnType("nvarchar(25)")
-                        .HasMaxLength(25);
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(256)")
@@ -105,9 +101,11 @@ namespace HolocronProject.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("CharacterId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("CompetitionId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
@@ -129,8 +127,17 @@ namespace HolocronProject.Data.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("CreatedOn")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -146,31 +153,46 @@ namespace HolocronProject.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "7e92f21a-257a-4034-9c30-b9779204afc1",
+                            Id = "b660416c-0720-4ed5-b8bd-374f44e9e02b",
+                            CreatedOn = "11/19/2020 3:29 PM",
+                            Description = "This is the place to discuss everything PVP related. From questions about gear, stats, guides, discussions and everything else related to PVP in SWTOR. You can also post about PVP guilds, recruitment and more.",
+                            ImageUrl = "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_76.png",
                             IsDeleted = false,
                             Title = "PVP"
                         },
                         new
                         {
-                            Id = "34eef49d-7cc5-4330-90dc-e49ae80ce184",
+                            Id = "60dba601-f16c-4b58-bad4-128eaec2f13f",
+                            CreatedOn = "11/19/2020 3:29 PM",
+                            Description = "This is the place to talk about PVE. Best gear and stats for flashpoints, operations. You can post guides about PVE content here from leveling guides to FP and OP guides. You can also post about PVE guild recruitment and give information about your guild here.",
+                            ImageUrl = "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_88.png",
                             IsDeleted = false,
                             Title = "PVE"
                         },
                         new
                         {
-                            Id = "fd81915e-3f9a-4021-a12b-80ac6a835c4a",
+                            Id = "f848cbbe-8bdd-474a-b660-af8df5d0f049",
+                            CreatedOn = "11/19/2020 3:29 PM",
+                            Description = "If you want to RP on the site this is the place for you. This is the RP section of the forums where you can find all the forum RP you've ever wanted. You can also post about in-game RP and so on.",
+                            ImageUrl = "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_423.png",
                             IsDeleted = false,
                             Title = "RP"
                         },
                         new
                         {
-                            Id = "a75ef261-4c40-4c09-b58d-af5950310e33",
+                            Id = "813a08dc-a4dc-4bd9-a3e1-435d559c6b0e",
+                            CreatedOn = "11/19/2020 3:29 PM",
+                            Description = "This is where you can talk about anything you want. It doesn't need to be just SWTOR or Star Wars. You can post about other games, cars, IT discussions, politics, and everything that can't be found on the other threads.",
+                            ImageUrl = "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_8.png",
                             IsDeleted = false,
-                            Title = "Guides"
+                            Title = "Other"
                         },
                         new
                         {
-                            Id = "32070235-b2cd-4596-a397-4c60be0dedfb",
+                            Id = "b5551ff8-33db-45a4-a793-13a63e1c6abd",
+                            CreatedOn = "11/19/2020 3:29 PM",
+                            Description = "This is the place to show of your character to other people. You can post cool, more modified images of your character. Here you can ask about items and how to combine them to make a cooler character in-game.",
+                            ImageUrl = "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_245.png",
                             IsDeleted = false,
                             Title = "Fashion"
                         });
@@ -182,7 +204,11 @@ namespace HolocronProject.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("AccountId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CreatedOn")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -213,19 +239,32 @@ namespace HolocronProject.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("AccountId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Backstory")
+                        .HasColumnType("nvarchar(max)")
+                        .HasMaxLength(25000);
+
+                    b.Property<string>("CharacterImagePath")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("CharacterType")
                         .HasColumnType("int");
 
                     b.Property<string>("ClassId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CreatedOn")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)")
+                        .HasMaxLength(25000);
 
                     b.Property<int>("ForceAffiliation")
                         .HasColumnType("int");
@@ -233,23 +272,25 @@ namespace HolocronProject.Data.Migrations
                     b.Property<int>("Gender")
                         .HasColumnType("int");
 
-                    b.Property<string>("Image")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(25)")
+                        .HasMaxLength(25);
 
                     b.Property<string>("RaceId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ServerId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(25)")
+                        .HasMaxLength(25);
 
                     b.HasKey("Id");
 
@@ -262,18 +303,6 @@ namespace HolocronProject.Data.Migrations
                     b.HasIndex("ServerId");
 
                     b.ToTable("Characters");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "7b4174f7-27a3-411a-8988-40b3f927772d",
-                            Backstory = "Test backstory",
-                            CharacterType = 1,
-                            ForceAffiliation = 2,
-                            Gender = 1,
-                            IsDeleted = false,
-                            Name = "Test char"
-                        });
                 });
 
             modelBuilder.Entity("HolocronProject.Data.Models.Class", b =>
@@ -295,97 +324,97 @@ namespace HolocronProject.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "de1a81fc-42a8-4c19-88de-2e0e7d7f2187",
+                            Id = "f3e81e6b-7ecb-4653-8bfc-2e956e0ba4aa",
                             Faction = 2,
                             Name = "Juggernaut"
                         },
                         new
                         {
-                            Id = "f9dc5856-0f88-411b-b808-ca81de96ef21",
+                            Id = "d653bec2-78e7-4d6d-b734-765d73dbe53c",
                             Faction = 2,
                             Name = "Marauder"
                         },
                         new
                         {
-                            Id = "f67988b4-da6d-46df-a80e-a2d1281e97b9",
+                            Id = "fa55fe8d-7160-427a-8312-0b2536061dc8",
                             Faction = 2,
                             Name = "Sorcerer"
                         },
                         new
                         {
-                            Id = "1603b945-c583-4831-9041-5e17fb53c7b2",
+                            Id = "d8223d24-7b16-40f2-869f-c792c5b162d2",
                             Faction = 2,
                             Name = "Assassin"
                         },
                         new
                         {
-                            Id = "89f5de59-10b5-4e66-be4b-a16659b32032",
+                            Id = "66c81c20-5d89-47a9-bc66-9223057abef8",
                             Faction = 2,
                             Name = "Sniper"
                         },
                         new
                         {
-                            Id = "3cf0959b-ffd3-4f6f-b6fc-a59a2aa81b07",
+                            Id = "1629a36d-1a90-4c5b-afaa-f5d195bf5273",
                             Faction = 2,
                             Name = "Operative"
                         },
                         new
                         {
-                            Id = "b703d50a-30f6-4d71-b5ba-dee53365ee98",
+                            Id = "d6dded09-881f-4244-9a6c-22c53d8dc5d2",
                             Faction = 2,
                             Name = "Powertech"
                         },
                         new
                         {
-                            Id = "071dddcb-b338-4387-9287-cc7cba0556b3",
+                            Id = "86d77d4e-9c9a-4bdd-8555-22b73a075da9",
                             Faction = 2,
                             Name = "Mercenary"
                         },
                         new
                         {
-                            Id = "2e9c53ca-449e-4eff-aa82-59d9b7286caf",
+                            Id = "21e0dbc3-c629-4299-8c74-a202ae769ad5",
                             Faction = 1,
                             Name = "Gunslinger"
                         },
                         new
                         {
-                            Id = "3fb933d6-2669-4818-bf03-371c39288be3",
+                            Id = "19a87a48-06f9-4736-bec4-d5be18b99b1f",
                             Faction = 1,
                             Name = "Scoundrel"
                         },
                         new
                         {
-                            Id = "9cb7a143-e0d2-498c-976b-9860bbe0bcb8",
+                            Id = "3a38d2d2-29a7-493e-ad9e-9bc0387e92ef",
                             Faction = 1,
                             Name = "Vanguard"
                         },
                         new
                         {
-                            Id = "3c6892ab-a597-4192-8ca1-a659b4378c3d",
+                            Id = "039ab63f-a81f-4422-a279-ef2a40ee03b1",
                             Faction = 1,
                             Name = "Commando"
                         },
                         new
                         {
-                            Id = "d7d8f1f6-22fa-4f40-baf7-3d5071ed2957",
+                            Id = "0e722a3b-e4f4-426e-ae6c-bf724e70607e",
                             Faction = 1,
                             Name = "Sage"
                         },
                         new
                         {
-                            Id = "8220d70b-e725-4727-9211-5c5255cd949f",
+                            Id = "2719e485-5349-4b73-8a96-c4826d499f76",
                             Faction = 1,
                             Name = "Shadow"
                         },
                         new
                         {
-                            Id = "28484abb-f752-4483-83da-8301cb8ec278",
+                            Id = "15149276-574e-4493-98fc-25b91ceb87ec",
                             Faction = 1,
                             Name = "Sentinel"
                         },
                         new
                         {
-                            Id = "d6503a45-c4d3-4566-816c-030870c5826e",
+                            Id = "87587886-bef8-46ed-9861-bc20ec82a48d",
                             Faction = 1,
                             Name = "Guardian"
                         });
@@ -447,6 +476,7 @@ namespace HolocronProject.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("AccountId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("CreatedOn")
@@ -464,6 +494,7 @@ namespace HolocronProject.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("ThreadId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -481,15 +512,26 @@ namespace HolocronProject.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("AccountId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CreatedOn")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasMaxLength(10000);
 
+                    b.Property<bool>("IsResolved")
+                        .HasColumnType("bit");
+
                     b.Property<string>("PostId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("ResolvedDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -536,62 +578,62 @@ namespace HolocronProject.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "d10ac1ee-b0d5-482c-a2c0-d4a0ca72a24a",
+                            Id = "40a00763-e6de-4691-a5cf-e9eb0d68a695",
                             Name = "Chiss"
                         },
                         new
                         {
-                            Id = "d2f71210-fe18-4c15-9a2b-9409fc799c5a",
+                            Id = "57fc4dda-5ec1-415e-b5af-c19e31e3070a",
                             Name = "Cyborg"
                         },
                         new
                         {
-                            Id = "8d1c1998-47f2-45ba-b717-619b9107fc20",
+                            Id = "38742828-ab8d-491d-9141-3a94d9e742e1",
                             Name = "Human"
                         },
                         new
                         {
-                            Id = "4d615683-d5cf-44ad-b264-dcd028997410",
+                            Id = "19a8bd24-90df-4c60-afb9-9f828e022077",
                             Name = "Miraluka"
                         },
                         new
                         {
-                            Id = "72912686-7eb8-4ea6-8e94-09fa0de16873",
+                            Id = "c248ed8b-9eaf-42f0-a921-215c6a58045e",
                             Name = "Mirialan"
                         },
                         new
                         {
-                            Id = "2aa56f92-5ffc-4f43-9235-ada12bc554af",
+                            Id = "40f5aca6-f7b1-41d7-8fdd-1f60157ca9b0",
                             Name = "Rattaki"
                         },
                         new
                         {
-                            Id = "3377d51e-ae36-42fa-b9c7-c61d39ede920",
+                            Id = "0cdce0b6-873b-4ca6-b803-6c36ec25e7be",
                             Name = "Sith Pureblood"
                         },
                         new
                         {
-                            Id = "5de83227-b750-4be7-b2df-be13625c845f",
+                            Id = "b03d2dfe-3fd3-40b9-b280-e3e9251f91d8",
                             Name = "Twi'lek"
                         },
                         new
                         {
-                            Id = "51119608-ba2a-49cd-a5d7-516f668f2183",
+                            Id = "c7a775bc-f044-48f6-9c92-80f687b0d3fb",
                             Name = "Zabrak"
                         },
                         new
                         {
-                            Id = "937c1aa1-4f61-4d9e-ad02-7111661a37c3",
+                            Id = "f2b90c7f-2456-4ea8-b595-895b08055e60",
                             Name = "Cathar"
                         },
                         new
                         {
-                            Id = "8dba31e6-521d-4a10-bd41-1e1de50e91bd",
+                            Id = "ad1c376f-bad3-4596-b84d-27b347fc588c",
                             Name = "Togruta"
                         },
                         new
                         {
-                            Id = "80b3b98c-c879-45e0-89a3-82317a9f0f1c",
+                            Id = "c929c185-813c-4915-91e5-ed54028025f8",
                             Name = "Nautolan"
                         });
                 });
@@ -612,27 +654,27 @@ namespace HolocronProject.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "14e53f5f-2896-4d52-9395-023d64890b6e",
+                            Id = "2b5a0158-cebd-48bc-a025-4040ee5bc643",
                             Name = "Darth Malgus"
                         },
                         new
                         {
-                            Id = "d3e013d9-0c8c-4b61-832a-b98f93b2d68a",
+                            Id = "436aacd6-04d0-48be-8250-9bf80d3f3224",
                             Name = "Star Forge"
                         },
                         new
                         {
-                            Id = "c31ed292-4fb2-4ac5-b70c-1fb1c20269fe",
+                            Id = "f88eb029-1cef-4003-8920-da43046cbae1",
                             Name = "Satele Shan"
                         },
                         new
                         {
-                            Id = "98043cb9-d83b-4beb-ae22-154092f5e473",
+                            Id = "7c734bc1-4b8d-4bca-8138-5a08b1f4c859",
                             Name = "Tulak Hord"
                         },
                         new
                         {
-                            Id = "816ec9ad-bbfe-4fdb-9701-62416fdc2ad4",
+                            Id = "e36cabfc-3b96-4a25-befd-a6621e71d9b3",
                             Name = "The Leviathan"
                         });
                 });
@@ -658,9 +700,11 @@ namespace HolocronProject.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("AccountId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("BaseThreadId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("CreatedOn")
@@ -669,13 +713,17 @@ namespace HolocronProject.Data.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("nvarchar(150)")
-                        .HasMaxLength(150);
+                        .HasColumnType("nvarchar(500)")
+                        .HasMaxLength(500);
 
                     b.HasKey("Id");
 
@@ -684,15 +732,6 @@ namespace HolocronProject.Data.Migrations
                     b.HasIndex("BaseThreadId");
 
                     b.ToTable("Threads");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "e437852d-157d-4bea-832b-da3916ac5784",
-                            CreatedOn = "11/13/2020 10:18 AM",
-                            IsDeleted = false,
-                            Title = "Test thread"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -834,37 +873,51 @@ namespace HolocronProject.Data.Migrations
                 {
                     b.HasOne("HolocronProject.Data.Models.Character", "Character")
                         .WithMany("Achievements")
-                        .HasForeignKey("CharacterId");
+                        .HasForeignKey("CharacterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("HolocronProject.Data.Models.Competition", "Competition")
                         .WithMany("Achievements")
-                        .HasForeignKey("CompetitionId");
+                        .HasForeignKey("CompetitionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("HolocronProject.Data.Models.BugReport", b =>
                 {
                     b.HasOne("HolocronProject.Data.Models.Account", "Account")
                         .WithMany("BugReports")
-                        .HasForeignKey("AccountId");
+                        .HasForeignKey("AccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("HolocronProject.Data.Models.Character", b =>
                 {
                     b.HasOne("HolocronProject.Data.Models.Account", "Account")
                         .WithMany("Characters")
-                        .HasForeignKey("AccountId");
+                        .HasForeignKey("AccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("HolocronProject.Data.Models.Class", "Class")
                         .WithMany("Characters")
-                        .HasForeignKey("ClassId");
+                        .HasForeignKey("ClassId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("HolocronProject.Data.Models.Race", "Race")
                         .WithMany("Characters")
-                        .HasForeignKey("RaceId");
+                        .HasForeignKey("RaceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("HolocronProject.Data.Models.Server", "Server")
                         .WithMany("Characters")
-                        .HasForeignKey("ServerId");
+                        .HasForeignKey("ServerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("HolocronProject.Data.Models.CompetitionCharacter", b =>
@@ -886,22 +939,30 @@ namespace HolocronProject.Data.Migrations
                 {
                     b.HasOne("HolocronProject.Data.Models.Account", "Account")
                         .WithMany("Posts")
-                        .HasForeignKey("AccountId");
+                        .HasForeignKey("AccountId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("HolocronProject.Data.Models.Thread", "Thread")
                         .WithMany("Posts")
-                        .HasForeignKey("ThreadId");
+                        .HasForeignKey("ThreadId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("HolocronProject.Data.Models.PostReport", b =>
                 {
                     b.HasOne("HolocronProject.Data.Models.Account", "Account")
                         .WithMany("PostReports")
-                        .HasForeignKey("AccountId");
+                        .HasForeignKey("AccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("HolocronProject.Data.Models.Post", "Post")
                         .WithMany()
-                        .HasForeignKey("PostId");
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("HolocronProject.Data.Models.PostTag", b =>
@@ -924,11 +985,14 @@ namespace HolocronProject.Data.Migrations
                     b.HasOne("HolocronProject.Data.Models.Account", "Account")
                         .WithMany("Threads")
                         .HasForeignKey("AccountId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("HolocronProject.Data.Models.BaseThread", "BaseThread")
                         .WithMany("Threads")
-                        .HasForeignKey("BaseThreadId");
+                        .HasForeignKey("BaseThreadId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

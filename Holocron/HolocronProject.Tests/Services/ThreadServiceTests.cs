@@ -13,36 +13,36 @@ namespace HolocronProject.Tests.Services
     [TestFixture]
     public class ThreadServiceTests
     {
-        private HolocronDbContext context;
-        private IThreadService threadService;
+        //private HolocronDbContext context;
+        //private IThreadService threadService;
 
-        [SetUp]
-        public async Task SetUp()
-        {
-            this.context = new HolocronDbContext();
-            this.threadService = new ThreadServices(context);
+        //[SetUp]
+        //public async Task SetUp()
+        //{
+        //    this.context = new HolocronDbContext();
+        //    this.threadService = new ThreadServices(context);
 
-            await this.context.Database.EnsureDeletedAsync();
-            await this.context.Database.EnsureCreatedAsync();
-        }
+        //    await this.context.Database.EnsureDeletedAsync();
+        //    await this.context.Database.EnsureCreatedAsync();
+        //}
 
-        [Test]
-        public async Task CreateThreadCreatesThreadAndIncreaesCount()
-        {
-            var accountId = this.context.Accounts
-                .Select(x => x.Id)
-                .FirstOrDefault();
-            var baseThreadId = this.context.BaseThreads
-                .Select(x => x.Id)
-                .FirstOrDefault();
+        //[Test]
+        //public async Task CreateThreadCreatesThreadAndIncreaesCount()
+        //{
+        //    var accountId = this.context.Accounts
+        //        .Select(x => x.Id)
+        //        .FirstOrDefault();
+        //    var baseThreadId = this.context.BaseThreads
+        //        .Select(x => x.Id)
+        //        .FirstOrDefault();
 
-            await this.threadService.CreateThreadAsync("Test", baseThreadId, accountId);
+        //    //await this.threadService.CreateThreadAsync("Test", baseThreadId, accountId);
 
-            var actualResult = this.context.Threads
-                .Count();
-            var expectedResult = 2;
+        //    var actualResult = this.context.Threads
+        //        .Count();
+        //    var expectedResult = 2;
 
-            Assert.AreEqual(expectedResult, actualResult);
-        }
+        //    Assert.AreEqual(expectedResult, actualResult);
+        //}
     }
 }

@@ -131,6 +131,12 @@ namespace HolocronProject.Data.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -145,36 +151,46 @@ namespace HolocronProject.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "962ac89a-2ecf-458b-adca-82baa390d035",
-                            CreatedOn = "11/19/2020 10:50 AM",
+                            Id = "b660416c-0720-4ed5-b8bd-374f44e9e02b",
+                            CreatedOn = "11/19/2020 3:29 PM",
+                            Description = "This is the place to discuss everything PVP related. From questions about gear, stats, guides, discussions and everything else related to PVP in SWTOR. You can also post about PVP guilds, recruitment and more.",
+                            ImageUrl = "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_76.png",
                             IsDeleted = false,
                             Title = "PVP"
                         },
                         new
                         {
-                            Id = "08b03b33-f4e6-4abf-82e9-dc6dc7e1713d",
-                            CreatedOn = "11/19/2020 10:50 AM",
+                            Id = "60dba601-f16c-4b58-bad4-128eaec2f13f",
+                            CreatedOn = "11/19/2020 3:29 PM",
+                            Description = "This is the place to talk about PVE. Best gear and stats for flashpoints, operations. You can post guides about PVE content here from leveling guides to FP and OP guides. You can also post about PVE guild recruitment and give information about your guild here.",
+                            ImageUrl = "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_88.png",
                             IsDeleted = false,
                             Title = "PVE"
                         },
                         new
                         {
-                            Id = "53eac92b-3ad5-4ef4-8cd0-13cff7d7fc60",
-                            CreatedOn = "11/19/2020 10:50 AM",
+                            Id = "f848cbbe-8bdd-474a-b660-af8df5d0f049",
+                            CreatedOn = "11/19/2020 3:29 PM",
+                            Description = "If you want to RP on the site this is the place for you. This is the RP section of the forums where you can find all the forum RP you've ever wanted. You can also post about in-game RP and so on.",
+                            ImageUrl = "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_423.png",
                             IsDeleted = false,
                             Title = "RP"
                         },
                         new
                         {
-                            Id = "90862a10-3d17-41e6-b145-1cee1f34e6a6",
-                            CreatedOn = "11/19/2020 10:50 AM",
+                            Id = "813a08dc-a4dc-4bd9-a3e1-435d559c6b0e",
+                            CreatedOn = "11/19/2020 3:29 PM",
+                            Description = "This is where you can talk about anything you want. It doesn't need to be just SWTOR or Star Wars. You can post about other games, cars, IT discussions, politics, and everything that can't be found on the other threads.",
+                            ImageUrl = "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_8.png",
                             IsDeleted = false,
-                            Title = "Guides"
+                            Title = "Other"
                         },
                         new
                         {
-                            Id = "275895a5-39f8-4f2b-ba69-58b2264e7b37",
-                            CreatedOn = "11/19/2020 10:50 AM",
+                            Id = "b5551ff8-33db-45a4-a793-13a63e1c6abd",
+                            CreatedOn = "11/19/2020 3:29 PM",
+                            Description = "This is the place to show of your character to other people. You can post cool, more modified images of your character. Here you can ask about items and how to combine them to make a cooler character in-game.",
+                            ImageUrl = "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_245.png",
                             IsDeleted = false,
                             Title = "Fashion"
                         });
@@ -306,97 +322,97 @@ namespace HolocronProject.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "ab798037-520b-4e32-ad67-af1834c5b588",
+                            Id = "f3e81e6b-7ecb-4653-8bfc-2e956e0ba4aa",
                             Faction = 2,
                             Name = "Juggernaut"
                         },
                         new
                         {
-                            Id = "d6764955-973f-4942-b37f-9f22ce310f06",
+                            Id = "d653bec2-78e7-4d6d-b734-765d73dbe53c",
                             Faction = 2,
                             Name = "Marauder"
                         },
                         new
                         {
-                            Id = "84645b8d-c7b1-422c-883b-7e6142ad27ba",
+                            Id = "fa55fe8d-7160-427a-8312-0b2536061dc8",
                             Faction = 2,
                             Name = "Sorcerer"
                         },
                         new
                         {
-                            Id = "9e19aa9a-9bba-43d6-b325-2d26f3cb6091",
+                            Id = "d8223d24-7b16-40f2-869f-c792c5b162d2",
                             Faction = 2,
                             Name = "Assassin"
                         },
                         new
                         {
-                            Id = "6c8be7f6-36f4-4bfa-99f3-ddf576c7d467",
+                            Id = "66c81c20-5d89-47a9-bc66-9223057abef8",
                             Faction = 2,
                             Name = "Sniper"
                         },
                         new
                         {
-                            Id = "b8d1a94d-4a77-478f-9de7-f42d0c16e4e2",
+                            Id = "1629a36d-1a90-4c5b-afaa-f5d195bf5273",
                             Faction = 2,
                             Name = "Operative"
                         },
                         new
                         {
-                            Id = "0d72c88e-02bc-413b-aee2-01c4478ddf5b",
+                            Id = "d6dded09-881f-4244-9a6c-22c53d8dc5d2",
                             Faction = 2,
                             Name = "Powertech"
                         },
                         new
                         {
-                            Id = "fe334538-9bb7-4416-ba92-17061eafa892",
+                            Id = "86d77d4e-9c9a-4bdd-8555-22b73a075da9",
                             Faction = 2,
                             Name = "Mercenary"
                         },
                         new
                         {
-                            Id = "5a7611fe-01bb-4558-951f-c895420606f6",
+                            Id = "21e0dbc3-c629-4299-8c74-a202ae769ad5",
                             Faction = 1,
                             Name = "Gunslinger"
                         },
                         new
                         {
-                            Id = "0b5c4d27-b933-4549-8990-915a013f7df6",
+                            Id = "19a87a48-06f9-4736-bec4-d5be18b99b1f",
                             Faction = 1,
                             Name = "Scoundrel"
                         },
                         new
                         {
-                            Id = "40b06e98-9c26-477d-b3b8-a90a537305bf",
+                            Id = "3a38d2d2-29a7-493e-ad9e-9bc0387e92ef",
                             Faction = 1,
                             Name = "Vanguard"
                         },
                         new
                         {
-                            Id = "ae4921e1-6899-4b94-b906-94216055c978",
+                            Id = "039ab63f-a81f-4422-a279-ef2a40ee03b1",
                             Faction = 1,
                             Name = "Commando"
                         },
                         new
                         {
-                            Id = "41f17dba-bbaf-4312-91f9-787f0af346b5",
+                            Id = "0e722a3b-e4f4-426e-ae6c-bf724e70607e",
                             Faction = 1,
                             Name = "Sage"
                         },
                         new
                         {
-                            Id = "ec560abc-030d-496d-adc0-1049a9523c1a",
+                            Id = "2719e485-5349-4b73-8a96-c4826d499f76",
                             Faction = 1,
                             Name = "Shadow"
                         },
                         new
                         {
-                            Id = "44b7141c-4908-4ac2-aefe-664098f5c2aa",
+                            Id = "15149276-574e-4493-98fc-25b91ceb87ec",
                             Faction = 1,
                             Name = "Sentinel"
                         },
                         new
                         {
-                            Id = "02ec223f-51f8-4336-bf24-e88c00dbb7ab",
+                            Id = "87587886-bef8-46ed-9861-bc20ec82a48d",
                             Faction = 1,
                             Name = "Guardian"
                         });
@@ -560,62 +576,62 @@ namespace HolocronProject.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "cbc3307b-98ed-4188-9185-d21b918d9a37",
+                            Id = "40a00763-e6de-4691-a5cf-e9eb0d68a695",
                             Name = "Chiss"
                         },
                         new
                         {
-                            Id = "63057747-2772-4a33-bf84-706eb21fc209",
+                            Id = "57fc4dda-5ec1-415e-b5af-c19e31e3070a",
                             Name = "Cyborg"
                         },
                         new
                         {
-                            Id = "904aad6a-e507-4421-ac79-c6a349a986c1",
+                            Id = "38742828-ab8d-491d-9141-3a94d9e742e1",
                             Name = "Human"
                         },
                         new
                         {
-                            Id = "b60b2e85-5c8f-4213-8cad-7e41c0a8819e",
+                            Id = "19a8bd24-90df-4c60-afb9-9f828e022077",
                             Name = "Miraluka"
                         },
                         new
                         {
-                            Id = "409ff2e9-ae6b-43ef-8eea-c8c32acc586b",
+                            Id = "c248ed8b-9eaf-42f0-a921-215c6a58045e",
                             Name = "Mirialan"
                         },
                         new
                         {
-                            Id = "446ca2bb-c7e7-42a2-aaa9-de74ecc76760",
+                            Id = "40f5aca6-f7b1-41d7-8fdd-1f60157ca9b0",
                             Name = "Rattaki"
                         },
                         new
                         {
-                            Id = "e1537e82-bdad-4b5f-ae31-f0be4ca4bf0f",
+                            Id = "0cdce0b6-873b-4ca6-b803-6c36ec25e7be",
                             Name = "Sith Pureblood"
                         },
                         new
                         {
-                            Id = "b8b3be4f-f302-4467-b6aa-5f1f2f5df3c9",
+                            Id = "b03d2dfe-3fd3-40b9-b280-e3e9251f91d8",
                             Name = "Twi'lek"
                         },
                         new
                         {
-                            Id = "28ced486-e7a3-46d0-be4b-b135c7bdfa22",
+                            Id = "c7a775bc-f044-48f6-9c92-80f687b0d3fb",
                             Name = "Zabrak"
                         },
                         new
                         {
-                            Id = "add6477d-9248-4fc9-8b50-45a998dd653d",
+                            Id = "f2b90c7f-2456-4ea8-b595-895b08055e60",
                             Name = "Cathar"
                         },
                         new
                         {
-                            Id = "af5ddea7-8d03-43b8-abcc-311c0ba56cb9",
+                            Id = "ad1c376f-bad3-4596-b84d-27b347fc588c",
                             Name = "Togruta"
                         },
                         new
                         {
-                            Id = "6332a0e7-97d7-43c9-9e1e-2f683b063f7d",
+                            Id = "c929c185-813c-4915-91e5-ed54028025f8",
                             Name = "Nautolan"
                         });
                 });
@@ -636,27 +652,27 @@ namespace HolocronProject.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b8d8e990-9959-4d9c-b682-766a4fa963bf",
+                            Id = "2b5a0158-cebd-48bc-a025-4040ee5bc643",
                             Name = "Darth Malgus"
                         },
                         new
                         {
-                            Id = "87eb2150-52fe-43b8-b50f-e0eb9e8a0507",
+                            Id = "436aacd6-04d0-48be-8250-9bf80d3f3224",
                             Name = "Star Forge"
                         },
                         new
                         {
-                            Id = "da991a16-8d44-44e1-a93a-566b53f6df02",
+                            Id = "f88eb029-1cef-4003-8920-da43046cbae1",
                             Name = "Satele Shan"
                         },
                         new
                         {
-                            Id = "a489e5a5-cc2c-4504-95a3-ee1ea6eb7f46",
+                            Id = "7c734bc1-4b8d-4bca-8138-5a08b1f4c859",
                             Name = "Tulak Hord"
                         },
                         new
                         {
-                            Id = "a110d75a-3927-44d1-8844-02121074621a",
+                            Id = "e36cabfc-3b96-4a25-befd-a6621e71d9b3",
                             Name = "The Leviathan"
                         });
                 });
@@ -695,13 +711,17 @@ namespace HolocronProject.Data.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("nvarchar(150)")
-                        .HasMaxLength(150);
+                        .HasColumnType("nvarchar(500)")
+                        .HasMaxLength(500);
 
                     b.HasKey("Id");
 

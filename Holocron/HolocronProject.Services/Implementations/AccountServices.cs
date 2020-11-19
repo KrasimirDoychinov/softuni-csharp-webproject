@@ -20,9 +20,9 @@ namespace HolocronProject.Services.Implementations
             this.context = context;
         }
 
-        public async Task UpdateForumSignatureAsync(string userId, string forumSignature)
+        public async Task UpdateForumSignatureAsync(string accountId, string forumSignature)
         {
-            var account = GetAccountById(userId);
+            var account = GetAccountById(accountId);
 
             account.ForumSignature = forumSignature;
 
@@ -30,25 +30,25 @@ namespace HolocronProject.Services.Implementations
             await this.context.SaveChangesAsync();
         }
 
-        public async Task UpdateUserNameAndAvatarImagePathAsync(string userId, string newUserName)
+        public async Task UpdateUserNameAndAvatarImagePathAsync(string accountId, string newUserName)
         {
-            var user = GetAccountById(userId);
+            var account = GetAccountById(accountId);
 
-            user.UserName = newUserName;
-            user.NormalizedUserName = newUserName.ToUpper();
-            user.AvatarImagePath = $"{user.Id}(Account).png";
+            account.UserName = newUserName;
+            account.NormalizedUserName = newUserName.ToUpper();
+            account.AvatarImagePath = $"{account.Id}(Account).png";
 
-            this.context.Accounts.Update(user);
+            this.context.Accounts.Update(account);
             await this.context.SaveChangesAsync();
         }
 
-        public async Task CreateAvatarImageAsync(string userId, IFormFile image)
+        public async Task CreateAvatarImageAsync(string accountId, IFormFile image)
         {
-            var user = this.GetAccountById(userId);
+            var account = this.GetAccountById(accountId);
 
-            user.AvatarImagePath = $"{user.Id}(Account).png";
+            account.AvatarImagePath = $"{account.Id}(Account).png";
             using (var fs = new FileStream(
-                 $"wwwroot/Images/AvatarImages/{user.AvatarImagePath}", FileMode.Create))
+                 $"wwwroot/Images/AvatarImages/{account.AvatarImagePath}", FileMode.Create))
             {
 
                 await image.CopyToAsync(fs);
@@ -57,14 +57,14 @@ namespace HolocronProject.Services.Implementations
             await this.context.SaveChangesAsync();
         }
 
-        public async Task UpdateAvatarImageAsync(string userId, IFormFile avatarImage)
+        public async Task UpdateAvatarImageAsync(string accountId, IFormFile avatarImage)
         {
-            var user = this.GetAccountById(userId);
+            var account = this.GetAccountById(accountId);
 
-            File.Delete($"wwwroot/Images/AvatarImages/{user.AvatarImagePath}");
-            user.AvatarImagePath = $"{user.Id}(Account).png";
+            File.Delete($"wwwroot/Images/AvatarImages/{account.AvatarImagePath}");
+            account.AvatarImagePath = $"{account.Id}(Account).png";
             using (var fs = new FileStream(
-                $"wwwroot/Images/AvatarImages/{user.AvatarImagePath}", FileMode.Create))
+                $"wwwroot/Images/AvatarImages/{account.AvatarImagePath}", FileMode.Create))
             {
                 await avatarImage.CopyToAsync(fs);
             }
@@ -72,22 +72,22 @@ namespace HolocronProject.Services.Implementations
             await this.context.SaveChangesAsync();
         }
 
-        public Account GetAccountById(string userId)
+        public Account GetAccountById(string accountId)
            => this.context.Accounts
-               .FirstOrDefault(x => x.Id == userId);
+               .FirstOrDefault(x => x.Id == accountId);
 
-        public string GetAccountAvatarImagePath(string userId)
+        public string GetAccountAvatarImagePath(string accountId)
         {
-            var user = this.GetAccountById(userId);
+            var account = this.GetAccountById(accountId);
 
-            return user.AvatarImagePath;
+            return account.AvatarImagePath;
         }
 
-        public bool IsAvatarImageSet(string userId)
+        public bool IsAvatarImageSet(string accountId)
         {
-            var user = GetAccountById(userId);
+            var account = GetAccountById(accountId);
 
-            return File.Exists($"wwwroot/Images/AvatarImages/{user.AvatarImagePath}");
+            return File.Exists($"wwwroot/Images/AvatarImages/{account.AvatarImagePath}");
         }
     }
 }

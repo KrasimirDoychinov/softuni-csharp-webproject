@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using HolocronProject.Data;
 using HolocronProject.Data.Models;
 using System.Threading.Tasks;
+using HolocronProject.Services.Models.Posts;
 
 namespace HolocronProject.Services.Implementations
 {
@@ -16,13 +17,13 @@ namespace HolocronProject.Services.Implementations
             this.context = context;
         }
 
-        public async Task CreatePostAsync(string description, string accountId, string threadId)
+        public async Task CreatePostAsync(PostInputDto input)
         {
             var post = new Post
             {
-                Description = description,
-                AccountId = accountId,
-                ThreadId = threadId
+                AccountId = input.AccountId,
+                ThreadId = input.ThreadId,
+                Description = input.Description
             };
 
             await this.context.Posts.AddAsync(post);

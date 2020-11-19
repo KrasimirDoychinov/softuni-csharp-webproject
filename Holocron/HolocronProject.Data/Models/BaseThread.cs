@@ -19,7 +19,13 @@ namespace HolocronProject.Data.Models
         [Required]
         public string Title { get; set; }
 
+        public string Description { get; set; }
+
+        public string ImageUrl { get; set; }
+
         public ICollection<Thread> Threads { get; set; } = new List<Thread>();
+
+        
 
     }
 }

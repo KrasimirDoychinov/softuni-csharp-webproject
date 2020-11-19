@@ -2,7 +2,7 @@
 {
     public static class GlobalRangeConstraints
     {
-        public static class AccountConstants
+        public static class UserConstants
         {
             public const string UserNameRegex = @"^[a-zA-Z0-9]*$";
 
@@ -34,7 +34,9 @@
 
         public static class ThreadConstants
         {
-            public const int TitleMaxLength = 150;
+            public const int TitleMaxLength = 500;
+
+            public const int DescriptionMaxLength = 10000;
         }
 
         public static class TagConstants

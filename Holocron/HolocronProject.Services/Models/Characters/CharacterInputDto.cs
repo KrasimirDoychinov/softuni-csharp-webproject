@@ -12,6 +12,8 @@ namespace HolocronProject.Services.Models.Character
 
         public string Backstory { get; set; }
 
+        public string Description { get; set; }
+
         public string Title { get; set; }
 
         public Gender Gender { get; set; }

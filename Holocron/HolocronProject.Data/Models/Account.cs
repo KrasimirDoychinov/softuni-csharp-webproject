@@ -10,7 +10,7 @@ namespace HolocronProject.Data.Models
 
     public class Account : IdentityUser
     {
-        // TODO: Editting account info
+        // TODO: Editting user info
         public Account()
         {
             this.Id = Guid.NewGuid().ToString();

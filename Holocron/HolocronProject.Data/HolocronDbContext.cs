@@ -120,16 +120,26 @@ namespace HolocronProject.Data
                 new Server { Name = "Star Forge" },
                 new Server { Name = "Satele Shan" },
                 new Server { Name = "Tulak Hord" },
-                new Server { Name = "The Leviathan" }
+                new Server { Name = "The Leviathan"}
                 );
 
             builder.Entity<BaseThread>()
                 .HasData(
-                new BaseThread { Title = "PVP" },
-                new BaseThread { Title = "PVE" },
-                new BaseThread { Title = "RP" },
-                new BaseThread { Title = "Guides" },
-                new BaseThread { Title = "Fashion" }
+                new BaseThread { Title = "PVP", 
+                    ImageUrl = "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_76.png", 
+                    Description = "This is the place to discuss everything PVP related. From questions about gear, stats, guides, discussions and everything else related to PVP in SWTOR. You can also post about PVP guilds, recruitment and more." },
+                new BaseThread { Title = "PVE", 
+                    ImageUrl = "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_88.png",
+                    Description = "This is the place to talk about PVE. Best gear and stats for flashpoints, operations. You can post guides about PVE content here from leveling guides to FP and OP guides. You can also post about PVE guild recruitment and give information about your guild here." },
+                new BaseThread { Title = "RP", 
+                    ImageUrl = "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_423.png",
+                    Description = "If you want to RP on the site this is the place for you. This is the RP section of the forums where you can find all the forum RP you've ever wanted. You can also post about in-game RP and so on." },
+                new BaseThread { Title = "Other", 
+                    ImageUrl = "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_8.png",
+                    Description = "This is where you can talk about anything you want. It doesn't need to be just SWTOR or Star Wars. You can post about other games, cars, IT discussions, politics, and everything that can't be found on the other threads." },
+                new BaseThread { Title = "Fashion", 
+                    ImageUrl = "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_245.png",
+                    Description = "This is the place to show of your character to other people. You can post cool, more modified images of your character. Here you can ask about items and how to combine them to make a cooler character in-game." }
                 );
 
             builder.Entity<PostTag>()

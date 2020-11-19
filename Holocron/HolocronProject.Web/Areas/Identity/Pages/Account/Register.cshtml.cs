@@ -36,7 +36,7 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
         private readonly IWebHostEnvironment webHostEnvironment;
-        private readonly IAccountService accountService;
+        private readonly IAccountService userService;
 
         public RegisterModel(
             UserManager<Data.Models.Account> userManager,
@@ -45,7 +45,7 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
             IWebHostEnvironment webHostEnvironment,
-            IAccountService accountService)
+            IAccountService userService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -53,7 +53,7 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account
             _logger = logger;
             _emailSender = emailSender;
             this.webHostEnvironment = webHostEnvironment;
-            this.accountService = accountService;
+            this.userService = userService;
         }
 
         [BindProperty]
@@ -68,12 +68,12 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account
 
             [Required]
             [Display(Name = "Username")]
-            [RegularExpression(AccountConstants.UserNameRegex, ErrorMessage = AccountErrorMessages.UserNameRegexError)]
-            [StringLength(AccountConstants.UserNameMaxLenght, ErrorMessage = AccountErrorMessages.UserNameLengthError, MinimumLength = AccountConstants.UserNameMinLenght)]
+            [RegularExpression(UserConstants.UserNameRegex, ErrorMessage = UserErrorMessages.UserNameRegexError)]
+            [StringLength(UserConstants.UserNameMaxLenght, ErrorMessage = UserErrorMessages.UserNameLengthError, MinimumLength = UserConstants.UserNameMinLenght)]
             public string UserName { get; set; }
 
             [Required]
-            [StringLength(AccountConstants.PasswordMaxLength, ErrorMessage = AccountErrorMessages.PasswordLengthError, MinimumLength = AccountConstants.PasswordMinLength)]
+            [StringLength(UserConstants.PasswordMaxLength, ErrorMessage = UserErrorMessages.PasswordLengthError, MinimumLength = UserConstants.PasswordMinLength)]
             [DataType(DataType.Password)]
             [Display(Name = "Password")]
             public string Password { get; set; }
@@ -110,7 +110,7 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     var adminRole = new IdentityRole() { Name = "Admin" };
-                    var userRole = new IdentityRole() { Name = "User" };
+                    var userRole = new IdentityRole() { Name = "Account" };
 
                     await roleManager.CreateAsync(userRole);
                     await roleManager.CreateAsync(adminRole);
@@ -121,7 +121,7 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account
                     }
 
 
-                    _logger.LogInformation("User created a new account with password.");
+                    _logger.LogInformation("Account created a new account with password.");
 
                     
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -136,7 +136,7 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account
 
                     if (Input.AvatarImage != null)
                     {
-                        await this.accountService.CreateAvatarImageAsync(user.Id, Input.AvatarImage);
+                        await this.userService.CreateAvatarImageAsync(user.Id, Input.AvatarImage);
                     }
                     return LocalRedirect(returnUrl);
 

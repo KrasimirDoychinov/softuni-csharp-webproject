@@ -16,6 +16,14 @@ namespace HolocronProject.Web.ViewModels.BaseThreads
 
         public int ThreadsCount { get; set; }
 
+        public int ThreadsPostsCount { get; set; }
+
+        public string ImageUrl { get; set; }
+
+        public string Description { get; set; }
+        
         public ICollection<ThreadViewModel> Threads { get; set; }
+
+        
     }
 }

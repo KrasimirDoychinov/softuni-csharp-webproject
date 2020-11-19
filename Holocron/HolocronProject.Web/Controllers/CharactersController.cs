@@ -50,7 +50,7 @@ namespace HolocronProject.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateCharacter(CharacterInputModel character)
         {
-            var accountId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var classId = this.classService.GetClassIdByName(character.Class);
             var serverId = this.serverService.GetServerIdByName(character.Server);
             var raceId = this.raceService.GetRaceIdByName(character.Race);
@@ -60,11 +60,12 @@ namespace HolocronProject.Web.Controllers
                 return this.View(character);
             }
 
-            
+
             var characterInputDto = new CharacterInputDto
             {
                 Name = character.Name,
                 Backstory = character.Backstory,
+                Description = character.Description,
                 Title = character.Title,
                 Gender = character.Gender,
                 CharacterType = character.CharacterType,
@@ -72,7 +73,7 @@ namespace HolocronProject.Web.Controllers
                 ServerId = serverId,
                 RaceId = raceId,
                 ClassId = classId,
-                AccountId = accountId
+                AccountId = userId
             };
 
             await this.characterService.CreateCharacterAsync(characterInputDto);
@@ -84,7 +85,7 @@ namespace HolocronProject.Web.Controllers
         public IActionResult AllCharacters()
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var charListViewModel = this.characterService.GetCurrentUsersCharacter<CharacterUserViewModel>(userId);
+            var charListViewModel = this.characterService.GetCurrentAccountCharacter<CharacterUserViewModel>(userId);
 
             return this.View(charListViewModel);
         }
@@ -93,7 +94,7 @@ namespace HolocronProject.Web.Controllers
         public IActionResult CharacterInfo(string id)
         {
             var charViewModel = this.characterService.GetCharacterInfo<CharacterUserViewModel>(id);
-            
+            charViewModel.RandomImageQuery = random.NextDouble().ToString();
             return this.View(charViewModel);
         }
 

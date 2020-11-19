@@ -15,7 +15,7 @@ namespace HolocronProject.Services
 
         Character GetCharacterById(string characterId);
 
-        IEnumerable<T> GetCurrentUsersCharacter<T>(string accountId);
+        IEnumerable<T> GetCurrentAccountCharacter<T>(string userId);
 
         T GetCharacterInfo<T>(string characterId);
 

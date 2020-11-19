@@ -22,7 +22,7 @@ namespace HolocronProject.Web
     // class="container"
     // style="background-color: #1a1818;
     // font awesome
-    // var user = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+    // var user = this.Account.FindFirstValue(ClaimTypes.NameIdentifier);
     // -----USEFUL-----
     public class Program
     {

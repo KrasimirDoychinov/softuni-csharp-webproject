@@ -9,19 +9,19 @@ namespace HolocronProject.Services
 {
     public interface IAccountService
     {
-        Task UpdateForumSignatureAsync(string userId, string forumSignature);
+        Task UpdateForumSignatureAsync(string accountId, string forumSignature);
 
-        Task UpdateUserNameAndAvatarImagePathAsync(string userId, string newAccountName);
+        Task UpdateUserNameAndAvatarImagePathAsync(string accountId, string newAccountName);
 
-        Account GetAccountById(string userId);
+        Account GetAccountById(string accountId);
 
-        Task CreateAvatarImageAsync(string userId, IFormFile image);
+        Task CreateAvatarImageAsync(string accountId, IFormFile image);
 
-        Task UpdateAvatarImageAsync(string userId, IFormFile avatarImage);
+        Task UpdateAvatarImageAsync(string accountId, IFormFile avatarImage);
 
-        string GetAccountAvatarImagePath(string userId);
+        string GetAccountAvatarImagePath(string accountId);
 
-        bool IsAvatarImageSet(string userId);
+        bool IsAvatarImageSet(string accountId);
 
 
     }

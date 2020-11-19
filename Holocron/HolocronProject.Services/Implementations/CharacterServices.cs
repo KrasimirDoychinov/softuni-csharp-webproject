@@ -31,6 +31,7 @@ namespace HolocronProject.Services.Implementations
                 AccountId = input.AccountId,
                 Name = input.Name,
                 Backstory = input.Backstory,
+                Description = input.Description,
                 Title = input.Title,
                 Gender = input.Gender,
                 CharacterType = input.CharacterType,
@@ -55,7 +56,7 @@ namespace HolocronProject.Services.Implementations
         }
 
 
-        public IEnumerable<T> GetCurrentUsersCharacter<T>(string accountId)
+        public IEnumerable<T> GetCurrentAccountCharacter<T>(string accountId)
         {
             var charList = this.context.Characters
                 .Where(x => x.AccountId == accountId)

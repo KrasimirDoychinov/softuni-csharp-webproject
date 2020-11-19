@@ -9,10 +9,15 @@ namespace HolocronProject.Web.ViewModels.Threads
 {
     public class ThreadViewModel : IMapFrom<Thread>
     {
+        public string Id { get; set; }
+
         public string Title { get; set; }
 
         public string CreatedOn { get; set; }
 
         public int PostsCount { get; set; }
+
+        public string Description { get; set; }
+
     }
 }

@@ -28,7 +28,7 @@ namespace HolocronProject.Web
 
                 if (result.Succeeded)
                 {
-                    userManager.AddToRoleAsync(testUser, "User").Wait();
+                    userManager.AddToRoleAsync(testUser, "Account").Wait();
                 }
             }
 
@@ -50,9 +50,9 @@ namespace HolocronProject.Web
 
         public static void SeedRoles(RoleManager<IdentityRole> roleManager)
         {
-            if (!roleManager.RoleExistsAsync("User").Result)
+            if (!roleManager.RoleExistsAsync("Account").Result)
             {
-                var roleUser = new IdentityRole() { Name = "User" };
+                var roleUser = new IdentityRole() { Name = "Account" };
                 roleManager.CreateAsync(roleUser).Wait();
             }
 

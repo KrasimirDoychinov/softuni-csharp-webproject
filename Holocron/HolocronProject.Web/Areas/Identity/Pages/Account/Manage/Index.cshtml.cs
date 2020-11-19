@@ -42,12 +42,12 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account.Manage
         }
 
         [Display(Name = "Username")]
-        [StringLength(AccountConstants.UserNameMaxLenght, MinimumLength = AccountConstants.UserNameMinLenght, ErrorMessage = AccountErrorMessages.UserNameLengthError)]
-        [RegularExpression(AccountConstants.UserNameRegex, ErrorMessage = AccountErrorMessages.UserNameRegexError)]
+        [StringLength(UserConstants.UserNameMaxLenght, MinimumLength = UserConstants.UserNameMinLenght, ErrorMessage = UserErrorMessages.UserNameLengthError)]
+        [RegularExpression(UserConstants.UserNameRegex, ErrorMessage = UserErrorMessages.UserNameRegexError)]
         public string UserName { get; set; }
 
         [Display(Name = "Forum signature")]
-        [MaxLength(AccountConstants.ForumSignatureMaxLength, ErrorMessage = AccountErrorMessages.ForumSignatureLengthError)]
+        [MaxLength(UserConstants.ForumSignatureMaxLength, ErrorMessage = UserErrorMessages.ForumSignatureLengthError)]
         // TODO: Attributes
         public string ForumSignature { get; set; }
 
