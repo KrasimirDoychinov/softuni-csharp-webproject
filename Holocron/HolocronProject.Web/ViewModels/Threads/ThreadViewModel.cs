@@ -11,6 +11,8 @@ namespace HolocronProject.Web.ViewModels.Threads
     {
         public string Id { get; set; }
 
+        public string AccountUserName { get; set; }
+
         public string Title { get; set; }
 
         public string CreatedOn { get; set; }

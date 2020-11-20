@@ -10,6 +10,7 @@ namespace HolocronProject.Web.ViewModels.BaseThreads
 {
     public class BaseThreadViewModel : IMapFrom<BaseThread>
     {
+
         public string Id { get; set; }
 
         public string Title { get; set; }

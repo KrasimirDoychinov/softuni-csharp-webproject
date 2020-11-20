@@ -3,13 +3,23 @@
 @{
     ViewData["Title"] = "Profile";
     ViewData["ActivePage"] = ManageNavPages.Index;
-    
+
 }
 
+<script src="/lib/tinymce/tinymce.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    tinymce.init({
+        selector: "textarea",
+        plugins: [
+            "image paste table link code media"
+        ]
+    });
+</script>
+
 <h4>@ViewData["Title"]</h4>
-<partial name="_StatusMessage" model="Model.StatusMessage"/>
+<partial name="_StatusMessage" model="Model.StatusMessage" />
 <div class="row">
-    <div class="col-md-6" >
+    <div class="col-md-6">
         <form id="profile-form" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="All" class="text-danger"></div>
             <label><span class="font-weight-bold">Created on:</span> @Model.CreatedOn</label>

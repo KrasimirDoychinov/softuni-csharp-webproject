@@ -8,9 +8,12 @@ namespace HolocronProject.Web
 
     // TODO: Review the code each day at the beginning of the code session and at the end of the session
 
-    // TODO: Start working on the threads and posts
+    // TODO: Fix the DateTime make another column to the BaseModel (NormalizedCreatedOn)
+    // TODO: Move logic from controllers to services
+    // TODO: Add some default avatars that can be picked
+    // TODO: See how to make good posts and replies
+    // TODO: Finish the threads and posts
     // TODO: !!!Fix the input models!!!
-    // TODO: Look over the Account/Manage views again and fix the 
     // TODO: Do all views that are connected to the Account model
     // TODO: Fix the ViewModel attributes
     // TODO: Start working on the services that will display data
