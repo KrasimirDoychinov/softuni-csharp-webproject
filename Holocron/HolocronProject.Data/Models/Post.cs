@@ -36,7 +36,5 @@ namespace HolocronProject.Data.Models
 
         public ICollection<PostTag> Tags { get; set; } = new List<PostTag>();
 
-        public ICollection<VoteThread> Votes { get; set; } = new List<VoteThread>();
-
     }
 }

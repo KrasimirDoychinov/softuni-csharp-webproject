@@ -60,13 +60,14 @@ namespace HolocronProject.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateCharacter(CharacterInputModel input)
         {
+            var userId = this.userManager.GetUserAsync(this.User).Result.Id;
 
             if (!ModelState.IsValid)
             {
                 return this.View(input);
             }
 
-            var userId = this.userManager.GetUserAsync(this.User).Result.Id;
+
             var characterInputDto = new CharacterInputDto
             {
                 Name = input.Name,

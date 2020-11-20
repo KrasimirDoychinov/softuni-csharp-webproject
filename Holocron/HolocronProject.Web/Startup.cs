@@ -36,11 +36,6 @@ namespace HolocronProject.Web
                 cfg.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
             });
 
-            services.AddAntiforgery(options =>
-            {
-                options.HeaderName = "X-CSRF-TOKEN";
-            });
-
             services.AddDbContext<HolocronDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
@@ -64,7 +59,6 @@ namespace HolocronProject.Web
             services.AddTransient<IServerService, ServerServices>();
             services.AddTransient<ITagService, TagServices>();
             services.AddTransient<IThreadService, ThreadServices>();
-            services.AddTransient<IVoteThreadsService, VoteThreadsService>();
             services.AddTransient(typeof(AccountServices));
             services.AddTransient(typeof(Random));
 

@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using HolocronProject.Data.Models;
+﻿using HolocronProject.Data.Models;
 using HolocronProject.Services.Mapper;
 using System;
 using System.Collections.Generic;
@@ -8,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HolocronProject.Web.ViewModels.Threads
 {
-    public class ThreadViewModel : IMapFrom<Thread>, IHaveCustomMappings
+    public class ThreadViewModel : IMapFrom<Thread>
     {
         public string Id { get; set; }
 
@@ -22,15 +21,5 @@ namespace HolocronProject.Web.ViewModels.Threads
 
         public string Description { get; set; }
 
-        public int VotesCount { get; set; }
-
-        public void CreateMappings(IProfileExpression configuration)
-        {
-            configuration.CreateMap<Thread, ThreadViewModel>()
-               .ForMember(x => x.VotesCount, options =>
-               {
-                   options.MapFrom(p => p.Votes.Sum(v => (int)v.Type));
-               });
-        }
     }
 }
