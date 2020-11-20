@@ -13,7 +13,7 @@ namespace HolocronProject.Web.ValidationAttributes
             // Useful code
             object instance = validationContext.ObjectInstance;
             var type = instance.GetType();
-            var property = type.GetProperty("Server");
+            var property = type.GetProperty("ServerId");
             object serverName = property.GetValue(instance);
 
             var context = new HolocronDbContext();

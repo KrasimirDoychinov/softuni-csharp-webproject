@@ -1,8 +1,13 @@
-﻿using HolocronProject.Services;
+﻿using HolocronProject.Data.Models;
+using HolocronProject.Services;
 using HolocronProject.Services.Models.Character;
 using HolocronProject.Web.ViewModels.Character;
+using HolocronProject.Web.ViewModels.Classes;
+using HolocronProject.Web.ViewModels.Races;
+using HolocronProject.Web.ViewModels.Servers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SixLabors.ImageSharp;
 using System;
@@ -21,13 +26,15 @@ namespace HolocronProject.Web.Controllers
         private readonly IRaceService raceService;
         private readonly IWebHostEnvironment webHostEnvironment;
         private readonly Random random;
+        private readonly UserManager<Account> userManager;
 
         public CharactersController(IClassService classService,
             ICharacterService characterService,
             IServerService serverService,
             IRaceService raceService,
             IWebHostEnvironment webHostEnvironment,
-            Random random
+            Random random,
+            UserManager<Account> userManager
             )
         {
             this.classService = classService;
@@ -36,48 +43,48 @@ namespace HolocronProject.Web.Controllers
             this.raceService = raceService;
             this.webHostEnvironment = webHostEnvironment;
             this.random = random;
+            this.userManager = userManager;
         }
 
         [Authorize]
         public IActionResult CreateCharacter()
         {
             var characterInputModel = new CharacterInputModel();
-
+            characterInputModel.Classes = this.classService.GetAll<ClassViewModel>();
+            characterInputModel.Races = this.raceService.GetAll<RaceViewModel>();
+            characterInputModel.Servers = this.serverService.GetAll<ServerViewModel>();
             return this.View(characterInputModel);
         }
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> CreateCharacter(CharacterInputModel character)
+        public async Task<IActionResult> CreateCharacter(CharacterInputModel input)
         {
-            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var classId = this.classService.GetClassIdByName(character.Class);
-            var serverId = this.serverService.GetServerIdByName(character.Server);
-            var raceId = this.raceService.GetRaceIdByName(character.Race);
+            var userId = this.userManager.GetUserAsync(this.User).Result.Id;
 
             if (!ModelState.IsValid)
             {
-                return this.View(character);
+                return this.View(input);
             }
 
 
             var characterInputDto = new CharacterInputDto
             {
-                Name = character.Name,
-                Backstory = character.Backstory,
-                Description = character.Description,
-                Title = character.Title,
-                Gender = character.Gender,
-                CharacterType = character.CharacterType,
-                ForceAffiliation = character.ForceAffiliation,
-                ServerId = serverId,
-                RaceId = raceId,
-                ClassId = classId,
+                Name = input.Name,
+                Backstory = input.Backstory,
+                Description = input.Description,
+                Title = input.Title,
+                Gender = input.Gender,
+                CharacterType = input.CharacterType,
+                ForceAffiliation = input.ForceAffiliation,
+                ServerId = input.ServerId,
+                RaceId = input.RaceId,
+                ClassId = input.ClassId,
                 AccountId = userId
             };
 
             await this.characterService.CreateCharacterAsync(characterInputDto);
-            await this.characterService.CreateCharacterImage(character.Name, character.Image);
+            await this.characterService.CreateCharacterImage(input.Name, input.Image);
             return this.Redirect("/");
         }
 

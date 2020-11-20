@@ -9,7 +9,7 @@ namespace HolocronProject.Services
     {
         Task CreateRaceAsync(string name);
 
-        string GetRaceIdByName(string name);
+        IEnumerable<T> GetAll<T>();
         
     }
 }

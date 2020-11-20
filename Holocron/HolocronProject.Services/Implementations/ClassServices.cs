@@ -3,6 +3,7 @@ using System.Linq;
 
 using HolocronProject.Data;
 using HolocronProject.Data.Models;
+using HolocronProject.Services.Mapper;
 
 namespace HolocronProject.Services.Implementations
 {
@@ -15,15 +16,14 @@ namespace HolocronProject.Services.Implementations
             this.context = context;
         }
 
-        public IEnumerable<Class> GetAll()
+        public IEnumerable<T> GetAll<T>()
             => this.context.Classes
+            .OrderBy(x => x.Name)
+            .To<T>()
             .ToList();
 
         public Class GetClassById(string classId)
             => this.context.Classes.FirstOrDefault(x => x.Id == classId);
 
-        public string GetClassIdByName(string className)
-            => this.context.Classes
-            .FirstOrDefault(x => x.Name == className).Id;
     }
 }

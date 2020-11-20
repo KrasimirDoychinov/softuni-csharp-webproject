@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using HolocronProject.Data;
 using HolocronProject.Data.Models;
 using System.Security.Cryptography.X509Certificates;
+using HolocronProject.Services.Mapper;
 
 namespace HolocronProject.Services
 {
@@ -28,7 +29,11 @@ namespace HolocronProject.Services
             await this.context.SaveChangesAsync();
         }
 
-        public string GetRaceIdByName(string name)
-            => this.context.Races.FirstOrDefault(x => x.Name == name).Id;
+        public IEnumerable<T> GetAll<T>()
+            => this.context.Races
+            .OrderBy(x => x.Name)
+            .To<T>()
+            .ToList();
+
     }
 }
