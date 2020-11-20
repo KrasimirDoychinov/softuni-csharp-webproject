@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Ganss.XSS;
 using HolocronProject.Data.Common;
 using HolocronProject.Data.Models;
 using HolocronProject.Services;
@@ -48,8 +49,9 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account.Manage
 
         [Display(Name = "Forum signature")]
         [MaxLength(UserConstants.ForumSignatureMaxLength, ErrorMessage = UserErrorMessages.ForumSignatureLengthError)]
-        // TODO: Attributes
         public string ForumSignature { get; set; }
+
+        public string SanitizedForumSignature => new HtmlSanitizer().Sanitize(this.ForumSignature);
 
         public string CreatedOn { get; set; }
 
