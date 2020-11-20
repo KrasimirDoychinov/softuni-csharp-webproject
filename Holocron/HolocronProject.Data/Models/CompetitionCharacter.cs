@@ -19,6 +19,5 @@ namespace HolocronProject.Data.Models
 
         public Character Character { get; set; }
 
-        public int Votes { get; set; }
     }
 }

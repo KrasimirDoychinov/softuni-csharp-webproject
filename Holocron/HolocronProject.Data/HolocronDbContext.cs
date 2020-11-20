@@ -47,6 +47,8 @@ namespace HolocronProject.Data
 
         public DbSet<Competition> Competitions { get; set; }
 
+        public DbSet<VoteThread> VotesThreads { get; set; }
+
         public DbSet<CompetitionCharacter> CompetitionsCharacters { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

@@ -1,7 +1,7 @@
 ﻿namespace HolocronProject.Services.Mapper
 {
     // ReSharper disable once UnusedTypeParameter
-    public interface IMapTo<T>
+    public interface IHaveCustomMappings<T>
     {
     }
 }

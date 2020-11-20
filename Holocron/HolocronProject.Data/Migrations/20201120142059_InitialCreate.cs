@@ -270,6 +270,7 @@ namespace HolocronProject.Data.Migrations
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
                     Title = table.Column<string>(maxLength: 500, nullable: false),
+                    Description = table.Column<string>(nullable: false),
                     BaseThreadId = table.Column<string>(nullable: false),
                     AccountId = table.Column<string>(nullable: false)
                 },
@@ -400,8 +401,7 @@ namespace HolocronProject.Data.Migrations
                 columns: table => new
                 {
                     CompetitionId = table.Column<string>(nullable: false),
-                    CharacterId = table.Column<string>(nullable: false),
-                    Votes = table.Column<int>(nullable: false)
+                    CharacterId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -474,16 +474,49 @@ namespace HolocronProject.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "VotesThreads",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    ThreadId = table.Column<string>(nullable: true),
+                    AccountId = table.Column<string>(nullable: false),
+                    Type = table.Column<int>(nullable: false),
+                    PostId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_VotesThreads", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_VotesThreads_AspNetUsers_AccountId",
+                        column: x => x.AccountId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_VotesThreads_Posts_PostId",
+                        column: x => x.PostId,
+                        principalTable: "Posts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_VotesThreads_Threads_ThreadId",
+                        column: x => x.ThreadId,
+                        principalTable: "Threads",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.InsertData(
                 table: "BaseThreads",
                 columns: new[] { "Id", "CreatedOn", "DeletedOn", "Description", "ImageUrl", "IsDeleted", "Title" },
                 values: new object[,]
                 {
-                    { "24d7d960-58b2-43d2-bc20-7fad6c35ced8", "11/19/2020 2:57 PM", null, "This is the place to discuss everything PVP related. From questions about gear, stats, guides, discussions and everything else related to PVP in SWTOR. You can also post about PVP guilds, recruitment and more.", "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_76.png", false, "PVP" },
-                    { "7bf9c37f-b85d-4db2-9329-b75011a43b64", "11/19/2020 2:57 PM", null, "This is the place to talk about PVE. Best gear and stats for flashpoints, operations. You can post guides about PVE content here from leveling guides to FP and OP guides. You can also post about PVE guild recruitment and give information about your guild here.", "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_88.png", false, "PVE" },
-                    { "1a32c4c5-40f4-4d6c-b784-a9d45f1a0f20", "11/19/2020 2:57 PM", null, "If you want to RP on the site this is the place for you. This is the RP section of the forums where you can find all the forum RP you've ever wanted. You can also post about in-game RP and so on.", "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_423.png", false, "RP" },
-                    { "719d09cb-4859-454b-9099-cab85d66651d", "11/19/2020 2:57 PM", null, "This is where you can talk about anything you want. It doesn't need to be just SWTOR or Star Wars. You can post about other games, cars, IT discussions, politics, and everything that can't be found on the other threads.", "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_8.png", false, "Other" },
-                    { "3565b29d-cf1a-43ad-a3b5-132ab8b5fbb5", "11/19/2020 2:57 PM", null, "This is the place to show of your character to other people. You can post cool, more modified images of your character. Here you can ask about items and how to combine them to make a cooler character in-game.", "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_245.png", false, "Fashion" }
+                    { "c78432fc-40dc-488d-8caa-d8c962616354", "11/20/2020 2:20 PM", null, "This is the place to discuss everything PVP related. From questions about gear, stats, guides, discussions and everything else related to PVP in SWTOR. You can also post about PVP guilds, recruitment and more.", "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_76.png", false, "PVP" },
+                    { "39b7cfaf-8d7e-4e7b-9243-5c39ddc2af07", "11/20/2020 2:20 PM", null, "This is the place to talk about PVE. Best gear and stats for flashpoints, operations. You can post guides about PVE content here from leveling guides to FP and OP guides. You can also post about PVE guild recruitment and give information about your guild here.", "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_88.png", false, "PVE" },
+                    { "ae337158-eda3-4250-a280-e50a6bae3fa0", "11/20/2020 2:20 PM", null, "If you want to RP on the site this is the place for you. This is the RP section of the forums where you can find all the forum RP you've ever wanted. You can also post about in-game RP and so on.", "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_423.png", false, "RP" },
+                    { "49aa7733-a525-4f36-a18b-a85aa2d90d57", "11/20/2020 2:20 PM", null, "This is where you can talk about anything you want. It doesn't need to be just SWTOR or Star Wars. You can post about other games, cars, IT discussions, politics, and everything that can't be found on the other threads.", "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_8.png", false, "Other" },
+                    { "9c091e8e-6c79-45c7-beaa-156ddabebf4e", "11/20/2020 2:20 PM", null, "This is the place to show of your character to other people. You can post cool, more modified images of your character. Here you can ask about items and how to combine them to make a cooler character in-game.", "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_245.png", false, "Fashion" }
                 });
 
             migrationBuilder.InsertData(
@@ -491,22 +524,22 @@ namespace HolocronProject.Data.Migrations
                 columns: new[] { "Id", "Faction", "Name" },
                 values: new object[,]
                 {
-                    { "8c32c965-6ea1-41a7-ac66-b8d7c0a440ac", 1, "Guardian" },
-                    { "ee9c8830-eaf4-406f-a56b-5ea78a7f7791", 1, "Sentinel" },
-                    { "7506dc33-e27f-41c7-b161-d50d2346239f", 1, "Sage" },
-                    { "6bb06be8-dbc0-401f-9813-337cce552eed", 1, "Commando" },
-                    { "61a77c2f-c7f8-4d87-9e15-4d9d26a1e8cf", 1, "Vanguard" },
-                    { "ded8d615-21ba-4fe4-a0be-e2cd59500f39", 1, "Scoundrel" },
-                    { "f3f04f7c-e827-4be7-9bf8-25a1523ebf84", 1, "Gunslinger" },
-                    { "71b3d863-e5fe-4dfb-82f5-2079ef5e51bc", 1, "Shadow" },
-                    { "6eabb4f4-960e-4c59-bfb7-677d6cd08287", 2, "Powertech" },
-                    { "032f1541-a2cf-4a02-9ce5-2670ecd11d51", 2, "Operative" },
-                    { "7da05a93-5458-4ac9-a14b-925e604f2a48", 2, "Sniper" },
-                    { "3a17297b-21e2-4d12-becf-d91b959cdf1c", 2, "Assassin" },
-                    { "ef4fc7b8-f20e-4346-a18d-1750ae6dc79a", 2, "Sorcerer" },
-                    { "b8d2c672-d4c9-403b-8986-d14d2fb9ae91", 2, "Marauder" },
-                    { "ee93bba9-3fcd-48f8-8bef-33cf32967f12", 2, "Juggernaut" },
-                    { "6f1dc2c8-f6b7-4d62-8e83-396724f43cf6", 2, "Mercenary" }
+                    { "01446ed6-7986-45b4-8e64-63a4edd6799b", 1, "Guardian" },
+                    { "551d93b4-b114-408a-85d7-b07307980093", 1, "Sentinel" },
+                    { "ce1602d3-e7af-46b8-a9dd-fbfdd24b2a54", 1, "Sage" },
+                    { "6bbd6a9b-c993-482e-b9a8-fe28e89ac43d", 1, "Commando" },
+                    { "015eb789-9da6-4147-922e-50b32d336c4b", 1, "Vanguard" },
+                    { "58adf420-65cc-4d1d-95e9-34ace93c41ce", 1, "Scoundrel" },
+                    { "31909643-3924-4ea7-b6ee-f86bf7c9a22c", 1, "Gunslinger" },
+                    { "b8849972-a468-42d3-9abb-50edd0ee18c4", 1, "Shadow" },
+                    { "12e81eba-97dd-4fff-93ce-31066f3fec0b", 2, "Powertech" },
+                    { "691ae70e-3781-46db-a989-377eebc85100", 2, "Operative" },
+                    { "34dc3c90-c210-4e77-91c2-4d2abbf56e5d", 2, "Sniper" },
+                    { "709544d9-3402-4939-9305-30fa5b6825dd", 2, "Assassin" },
+                    { "b36fa159-5ed9-43d9-96aa-4174b0a47e33", 2, "Sorcerer" },
+                    { "8d88a95a-f7e5-47b5-b8d9-e601adee7364", 2, "Marauder" },
+                    { "ef0ed37d-3e28-4cf5-8b2d-12e478a717c6", 2, "Juggernaut" },
+                    { "50127afb-8541-495a-a05d-a9e70fd74550", 2, "Mercenary" }
                 });
 
             migrationBuilder.InsertData(
@@ -514,18 +547,18 @@ namespace HolocronProject.Data.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { "7e7da782-c017-4dea-9220-5233dc8c5967", "Nautolan" },
-                    { "11b0fe63-177a-48db-874a-c7df8cde58ed", "Togruta" },
-                    { "66d623fe-15ac-4c93-92c7-6c7048a01c07", "Cathar" },
-                    { "5490c65c-8588-4d08-88ed-707594eed42a", "Zabrak" },
-                    { "56ee7c0b-a496-4372-b969-2aa358520ee9", "Twi'lek" },
-                    { "f9028041-8c6e-4137-8df5-f8b11ff68de6", "Sith Pureblood" },
-                    { "bb6bb564-1025-4125-b201-86b7da7bd625", "Mirialan" },
-                    { "55aef3e6-2b33-4138-ae83-c0ce9503036b", "Miraluka" },
-                    { "37756e15-962a-416a-b99c-b1840c11799f", "Human" },
-                    { "71dbff3a-e69e-4de6-8f6c-2cc2692df436", "Cyborg" },
-                    { "f25428d0-6c29-4d35-8551-375e1a192303", "Chiss" },
-                    { "42b7027b-4d61-4021-86ed-ce13d0f46aa6", "Rattaki" }
+                    { "26578ffa-d48e-4718-9fbd-7c70852bb39e", "Nautolan" },
+                    { "09933a58-89e7-429f-8101-669e456a9cc6", "Togruta" },
+                    { "ca5afed3-8e20-4df6-a8ae-5e1d5de1db97", "Cathar" },
+                    { "1e04766f-b2c4-4020-8dbf-52eceaaaa160", "Zabrak" },
+                    { "f502b8b6-c28f-44d3-b1ad-dc74d35485d1", "Twi'lek" },
+                    { "563b802d-e3a0-4e04-a7ed-1c43ccbd41e4", "Sith Pureblood" },
+                    { "2657246b-5ab4-4f41-9809-6fb5f1a2257c", "Mirialan" },
+                    { "3abdffac-e7a8-48ec-b687-7634d4e817a1", "Miraluka" },
+                    { "19a5e254-72d2-4b7d-83b1-c13d9424b4f2", "Human" },
+                    { "a331ac08-4072-40e1-bfc8-91870ca6b69a", "Cyborg" },
+                    { "467f7519-714a-45fa-94e3-1582b20f752a", "Chiss" },
+                    { "9391b5ff-fa50-43af-9466-37caeabbf49e", "Rattaki" }
                 });
 
             migrationBuilder.InsertData(
@@ -533,11 +566,11 @@ namespace HolocronProject.Data.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { "9eb2aa39-b112-42a7-9975-3d025fc06db2", "Tulak Hord" },
-                    { "04b3975c-0900-4331-9f07-cf6ef93591a3", "Darth Malgus" },
-                    { "c2cf7640-ce86-4e80-b5c4-5e76e753948e", "Star Forge" },
-                    { "4a0c4bc0-04d5-4579-a7ff-ca2b09e64b41", "Satele Shan" },
-                    { "707c6577-2889-4776-b3ea-5ea8d3ffb06f", "The Leviathan" }
+                    { "1c8a1e67-c202-40f0-9b62-1f31c2c750a4", "Tulak Hord" },
+                    { "fd323884-46c3-4aee-b87f-daaf941c211a", "Darth Malgus" },
+                    { "9390bfb5-b1d5-4192-b31e-205e811d92ec", "Star Forge" },
+                    { "ffee5432-fb35-459d-8074-f60ae49c5c0a", "Satele Shan" },
+                    { "6fbd0ee6-dd8a-46d4-8e08-1e36e6902e06", "The Leviathan" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -653,6 +686,21 @@ namespace HolocronProject.Data.Migrations
                 name: "IX_Threads_BaseThreadId",
                 table: "Threads",
                 column: "BaseThreadId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_VotesThreads_AccountId",
+                table: "VotesThreads",
+                column: "AccountId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_VotesThreads_PostId",
+                table: "VotesThreads",
+                column: "PostId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_VotesThreads_ThreadId",
+                table: "VotesThreads",
+                column: "ThreadId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -688,6 +736,9 @@ namespace HolocronProject.Data.Migrations
                 name: "PostsTags");
 
             migrationBuilder.DropTable(
+                name: "VotesThreads");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
@@ -697,10 +748,10 @@ namespace HolocronProject.Data.Migrations
                 name: "Competitions");
 
             migrationBuilder.DropTable(
-                name: "Posts");
+                name: "Tags");
 
             migrationBuilder.DropTable(
-                name: "Tags");
+                name: "Posts");
 
             migrationBuilder.DropTable(
                 name: "Classes");
