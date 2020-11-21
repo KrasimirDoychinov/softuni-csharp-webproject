@@ -21,5 +21,9 @@ namespace HolocronProject.Web.ViewModels.Threads
 
         public string Description { get; set; }
 
+        public string AccountAvatarImagePath { get; set; }
+
+        public string RandomImageQuery { get; set; }
+
     }
 }

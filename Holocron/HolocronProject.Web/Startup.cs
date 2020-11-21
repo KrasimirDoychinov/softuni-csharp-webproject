@@ -69,8 +69,6 @@ namespace HolocronProject.Web
             UserManager<Account> userManager,
             RoleManager<IdentityRole> roleManager)
         {
-
-
             AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
             app.UseImageSharp();
 

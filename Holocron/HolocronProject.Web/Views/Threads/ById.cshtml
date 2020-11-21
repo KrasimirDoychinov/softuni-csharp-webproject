@@ -1,7 +1,52 @@
 ﻿@model ThreadViewModel
 
-<h1>Title: @Model.Title</h1>
-<h1>Description: @Model.Description</h1>
-<h1>Created on: @Model.CreatedOn</h1>
-<h1>Posts count: @Model.PostsCount</h1>
-<h1>Id: @Model.Id</h1>
+
+<div class="container-fluid mt-100">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card mb-4 bg-dark">
+                <div class="card-header">
+                    <div class="media flex-wrap w-100 align-items-center">
+                        <img src="/Images/AvatarImages/@Model.AccountAvatarImagePath?id=@Model.RandomImageQuery" class="d-block ui-w-40 rounded-circle border border-warning" height="100" width="100" alt="">
+                        <div class="media-body ml-3">
+                            <a asp-area="Identity" asp-page="/Account/Manage/Index" class="text-decoration-none text-warning" data-abc="true">@Model.AccountUserName</a>
+                            <div class="text-muted small">13 days ago</div>
+                        </div>
+                        <div class="text-info small ml-3">
+                            <div>Created on<strong>@Model.CreatedOn</strong></div>
+                            <div><strong>@Model.PostsCount</strong> posts</div>
+                        </div>
+                    </div>
+                    <div>
+                        <form>
+                            <a href="#" id="test" onclick="sendVote()">Qj hui</a>
+                        </form>
+
+                    </div>
+
+                </div>
+                <div class="card-body" style="background-color: #384047;">
+                    @Model.Description
+                </div>
+                <div class="card-footer d-flex flex-wrap justify-content-between align-items-center px-0 pt-0 pb-3">
+                    <div class="px-4 pt-3"> <a href="javascript:void(0)" class="text-muted d-inline-flex align-items-center align-middle" data-abc="true"> <i class="fa fa-heart text-danger"></i>&nbsp; <span class="align-middle">445</span> </a> <span class="text-muted d-inline-flex align-items-center align-middle ml-4"> <i class="fa fa-eye text-muted fsize-3"></i>&nbsp; <span class="align-middle">14532</span> </span> </div>
+                    <div class="px-4 pt-3"> <button type="button" class="btn btn-primary"><i class="ion ion-md-create"></i>&nbsp; Reply</button> </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function sendVote() {
+            $.ajax({
+                url: "/Votes/Post",
+                type: "POST",
+                success: function () {
+
+                }
+            });
+        }
+    </script>
+}

@@ -42,7 +42,7 @@
         "plugins/media/plugin.min.js",
         "icons/default/icons.js",
         "icons/default/icons.min.js",
-        "icons/default/index.min.js"
+        "icons/default/index.min.js",
       ]
     },
     {

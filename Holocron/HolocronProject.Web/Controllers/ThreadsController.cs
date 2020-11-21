@@ -18,12 +18,15 @@ namespace HolocronProject.Web.Controllers
     {
         private readonly IThreadService threadService;
         private readonly UserManager<Account> userManager;
+        private readonly Random random;
 
         public ThreadsController(IThreadService threadService,
-            UserManager<Account> userManager)
+            UserManager<Account> userManager,
+            Random random)
         {
             this.threadService = threadService;
             this.userManager = userManager;
+            this.random = random;
         }
 
         [Authorize]
@@ -58,6 +61,8 @@ namespace HolocronProject.Web.Controllers
         public IActionResult ById(string threadId)
         {
             var threadViewModel = this.threadService.GetThreadById<ThreadViewModel>(threadId);
+
+            threadViewModel.RandomImageQuery = random.NextDouble().ToString();
 
             return this.View(threadViewModel);
         }
