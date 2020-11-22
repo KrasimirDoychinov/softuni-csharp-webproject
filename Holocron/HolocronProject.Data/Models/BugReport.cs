@@ -25,6 +25,8 @@ namespace HolocronProject.Data.Models
         [MaxLength(GlobalRangeConstraints.ReportConstants.DescriptionMaxLength)]
         public string Description { get; set; }
 
+        public string Notes { get; set; }
+
         [Required]
         public string AccountId { get; set; }
 

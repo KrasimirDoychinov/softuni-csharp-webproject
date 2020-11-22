@@ -8,6 +8,6 @@ namespace HolocronProject.Data.Models
 
         public bool IsDeleted { get; set; } = false;
 
-        public DateTime? DeletedOn { get; set; }
+        public string DeletedOn { get; set; }
     }
 }

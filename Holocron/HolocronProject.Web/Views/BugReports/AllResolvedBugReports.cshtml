@@ -1,0 +1,38 @@
+﻿
+
+@model List<BugReportListViewModel>
+
+<table class="table table-dark table-striped table-hover text-white">
+    <thead>
+        <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Status</th>
+            <th scope="col">Created on</th>
+            <th scope="col">Resolved on</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            if (this.User.IsInRole("Admin"))
+            {
+                <tr>
+                    <td class="text-warning">@item.Title<span class="text-info float-right">@item.AccountUserName</span><br /><span class="text-white">@item.ShortDescription</span></td>
+                    <td>@item.IsResolvedString</td>
+                    <td>@item.CreatedOn</td>
+                    <td>@item.ResolvedOn</td>
+                </tr>
+            }
+            else
+            {
+                <tr>
+                    <td class="text-warning">@item.Title<br /><span class="text-white">@item.ShortDescription</span></td>
+                    <td>@item.IsResolvedString</td>
+                    <td>@item.CreatedOn</td>
+                    <td>@item.ResolvedOn</td>
+                </tr>
+            }
+
+        }
+    </tbody>
+</table>

@@ -44,5 +44,14 @@ namespace HolocronProject.Data.Common
         {
             public const string DescriptionMaxLengthError = "The post description cannot be more than {0} characters";
         }
+
+        public static class ReportErrorMessages
+        {
+            public const string TitleMaxLengthError = "The title cannot be more than {0} characters long.";
+
+            public const string DescriptionMaxLengthError = "The description cannot be more than {0} characters long.";
+
+            public const string NotesMaxLengthError = "The notes cannot be more than {0} characters long.";
+        }
     }
 }

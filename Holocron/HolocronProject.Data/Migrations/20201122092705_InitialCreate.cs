@@ -56,7 +56,7 @@ namespace HolocronProject.Data.Migrations
                     Id = table.Column<string>(nullable: false),
                     CreatedOn = table.Column<string>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
-                    DeletedOn = table.Column<DateTime>(nullable: true),
+                    DeletedOn = table.Column<string>(nullable: true),
                     Title = table.Column<string>(nullable: false),
                     Description = table.Column<string>(nullable: true),
                     ImageUrl = table.Column<string>(nullable: true)
@@ -245,9 +245,10 @@ namespace HolocronProject.Data.Migrations
                     Id = table.Column<string>(nullable: false),
                     CreatedOn = table.Column<string>(nullable: true),
                     IsResolved = table.Column<bool>(nullable: false),
-                    ResolvedDate = table.Column<DateTime>(nullable: true),
-                    Title = table.Column<string>(maxLength: 50, nullable: false),
-                    Description = table.Column<string>(maxLength: 10000, nullable: false),
+                    ResolvedOn = table.Column<string>(nullable: true),
+                    Title = table.Column<string>(maxLength: 200, nullable: false),
+                    Description = table.Column<string>(maxLength: 20000, nullable: false),
+                    Notes = table.Column<string>(nullable: true),
                     AccountId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
@@ -268,8 +269,9 @@ namespace HolocronProject.Data.Migrations
                     Id = table.Column<string>(nullable: false),
                     CreatedOn = table.Column<string>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
-                    DeletedOn = table.Column<DateTime>(nullable: true),
+                    DeletedOn = table.Column<string>(nullable: true),
                     Title = table.Column<string>(maxLength: 500, nullable: false),
+                    Description = table.Column<string>(nullable: false),
                     BaseThreadId = table.Column<string>(nullable: false),
                     AccountId = table.Column<string>(nullable: false)
                 },
@@ -297,7 +299,7 @@ namespace HolocronProject.Data.Migrations
                     Id = table.Column<string>(nullable: false),
                     CreatedOn = table.Column<string>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
-                    DeletedOn = table.Column<DateTime>(nullable: true),
+                    DeletedOn = table.Column<string>(nullable: true),
                     Name = table.Column<string>(maxLength: 25, nullable: false),
                     Backstory = table.Column<string>(maxLength: 25000, nullable: true),
                     Description = table.Column<string>(maxLength: 25000, nullable: true),
@@ -347,7 +349,7 @@ namespace HolocronProject.Data.Migrations
                     Id = table.Column<string>(nullable: false),
                     CreatedOn = table.Column<string>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
-                    DeletedOn = table.Column<DateTime>(nullable: true),
+                    DeletedOn = table.Column<string>(nullable: true),
                     Description = table.Column<string>(maxLength: 10000, nullable: false),
                     AccountId = table.Column<string>(nullable: false),
                     ThreadId = table.Column<string>(nullable: false)
@@ -427,9 +429,9 @@ namespace HolocronProject.Data.Migrations
                     Id = table.Column<string>(nullable: false),
                     CreatedOn = table.Column<string>(nullable: true),
                     IsResolved = table.Column<bool>(nullable: false),
-                    ResolvedDate = table.Column<DateTime>(nullable: true),
-                    Title = table.Column<string>(maxLength: 50, nullable: false),
-                    Description = table.Column<string>(maxLength: 10000, nullable: false),
+                    ResolvedOn = table.Column<string>(nullable: true),
+                    Title = table.Column<string>(maxLength: 200, nullable: false),
+                    Description = table.Column<string>(maxLength: 20000, nullable: false),
                     AccountId = table.Column<string>(nullable: false),
                     PostId = table.Column<string>(nullable: false)
                 },
@@ -479,11 +481,11 @@ namespace HolocronProject.Data.Migrations
                 columns: new[] { "Id", "CreatedOn", "DeletedOn", "Description", "ImageUrl", "IsDeleted", "Title" },
                 values: new object[,]
                 {
-                    { "24d7d960-58b2-43d2-bc20-7fad6c35ced8", "11/19/2020 2:57 PM", null, "This is the place to discuss everything PVP related. From questions about gear, stats, guides, discussions and everything else related to PVP in SWTOR. You can also post about PVP guilds, recruitment and more.", "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_76.png", false, "PVP" },
-                    { "7bf9c37f-b85d-4db2-9329-b75011a43b64", "11/19/2020 2:57 PM", null, "This is the place to talk about PVE. Best gear and stats for flashpoints, operations. You can post guides about PVE content here from leveling guides to FP and OP guides. You can also post about PVE guild recruitment and give information about your guild here.", "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_88.png", false, "PVE" },
-                    { "1a32c4c5-40f4-4d6c-b784-a9d45f1a0f20", "11/19/2020 2:57 PM", null, "If you want to RP on the site this is the place for you. This is the RP section of the forums where you can find all the forum RP you've ever wanted. You can also post about in-game RP and so on.", "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_423.png", false, "RP" },
-                    { "719d09cb-4859-454b-9099-cab85d66651d", "11/19/2020 2:57 PM", null, "This is where you can talk about anything you want. It doesn't need to be just SWTOR or Star Wars. You can post about other games, cars, IT discussions, politics, and everything that can't be found on the other threads.", "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_8.png", false, "Other" },
-                    { "3565b29d-cf1a-43ad-a3b5-132ab8b5fbb5", "11/19/2020 2:57 PM", null, "This is the place to show of your character to other people. You can post cool, more modified images of your character. Here you can ask about items and how to combine them to make a cooler character in-game.", "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_245.png", false, "Fashion" }
+                    { "1e6e57ee-287f-417f-ba86-5597720f5640", "11/22/2020 9:27 AM", null, "This is the place to discuss everything PVP related. From questions about gear, stats, guides, discussions and everything else related to PVP in SWTOR. You can also post about PVP guilds, recruitment and more.", "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_76.png", false, "PVP" },
+                    { "731f38f8-7ed0-429a-a786-01d35867eb2c", "11/22/2020 9:27 AM", null, "This is the place to talk about PVE. Best gear and stats for flashpoints, operations. You can post guides about PVE content here from leveling guides to FP and OP guides. You can also post about PVE guild recruitment and give information about your guild here.", "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_88.png", false, "PVE" },
+                    { "7b64b17d-fe5e-45e9-ba06-f530d1cc0355", "11/22/2020 9:27 AM", null, "If you want to RP on the site this is the place for you. This is the RP section of the forums where you can find all the forum RP you've ever wanted. You can also post about in-game RP and so on.", "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_423.png", false, "RP" },
+                    { "b7a8a9c7-9d91-4ba3-ba09-316f0b9649ac", "11/22/2020 9:27 AM", null, "This is where you can talk about anything you want. It doesn't need to be just SWTOR or Star Wars. You can post about other games, cars, IT discussions, politics, and everything that can't be found on the other threads.", "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_8.png", false, "Other" },
+                    { "f0409092-7374-458a-9844-5f840a83398a", "11/22/2020 9:27 AM", null, "This is the place to show of your character to other people. You can post cool, more modified images of your character. Here you can ask about items and how to combine them to make a cooler character in-game.", "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_245.png", false, "Fashion" }
                 });
 
             migrationBuilder.InsertData(
@@ -491,22 +493,22 @@ namespace HolocronProject.Data.Migrations
                 columns: new[] { "Id", "Faction", "Name" },
                 values: new object[,]
                 {
-                    { "8c32c965-6ea1-41a7-ac66-b8d7c0a440ac", 1, "Guardian" },
-                    { "ee9c8830-eaf4-406f-a56b-5ea78a7f7791", 1, "Sentinel" },
-                    { "7506dc33-e27f-41c7-b161-d50d2346239f", 1, "Sage" },
-                    { "6bb06be8-dbc0-401f-9813-337cce552eed", 1, "Commando" },
-                    { "61a77c2f-c7f8-4d87-9e15-4d9d26a1e8cf", 1, "Vanguard" },
-                    { "ded8d615-21ba-4fe4-a0be-e2cd59500f39", 1, "Scoundrel" },
-                    { "f3f04f7c-e827-4be7-9bf8-25a1523ebf84", 1, "Gunslinger" },
-                    { "71b3d863-e5fe-4dfb-82f5-2079ef5e51bc", 1, "Shadow" },
-                    { "6eabb4f4-960e-4c59-bfb7-677d6cd08287", 2, "Powertech" },
-                    { "032f1541-a2cf-4a02-9ce5-2670ecd11d51", 2, "Operative" },
-                    { "7da05a93-5458-4ac9-a14b-925e604f2a48", 2, "Sniper" },
-                    { "3a17297b-21e2-4d12-becf-d91b959cdf1c", 2, "Assassin" },
-                    { "ef4fc7b8-f20e-4346-a18d-1750ae6dc79a", 2, "Sorcerer" },
-                    { "b8d2c672-d4c9-403b-8986-d14d2fb9ae91", 2, "Marauder" },
-                    { "ee93bba9-3fcd-48f8-8bef-33cf32967f12", 2, "Juggernaut" },
-                    { "6f1dc2c8-f6b7-4d62-8e83-396724f43cf6", 2, "Mercenary" }
+                    { "493962e8-167e-4fb3-b9bb-13308fef7975", 1, "Guardian" },
+                    { "3a34f860-d93f-492e-8baa-f185b44e1e4c", 1, "Sentinel" },
+                    { "96a22580-233e-47c2-a1b3-cd0c906e98de", 1, "Sage" },
+                    { "f82b963f-6872-4dcd-96b3-8b2f7143cf5d", 1, "Commando" },
+                    { "3d693f68-4f70-4919-9a02-1af32df255fb", 1, "Vanguard" },
+                    { "a24c0212-4e4b-402e-85be-1e32483d967e", 1, "Scoundrel" },
+                    { "5781bb99-510b-4cd1-b884-a110bf8c1c39", 1, "Gunslinger" },
+                    { "774e3547-3725-4e66-87b4-eaef3df3e0ed", 1, "Shadow" },
+                    { "4c1518b6-5f58-4d21-b65b-2d2a66d8ad96", 2, "Powertech" },
+                    { "eb40b308-15af-46f6-9c94-5f6a75f65a3c", 2, "Operative" },
+                    { "b55fd1a8-960d-4a66-85a4-58e749b9cbc3", 2, "Sniper" },
+                    { "f7c2cb02-f119-4300-b085-53992726b7d8", 2, "Assassin" },
+                    { "e8223368-98bf-4483-8f61-4ab5c97ddf12", 2, "Sorcerer" },
+                    { "183894d1-4cbb-4f1f-aa86-3f86782c9528", 2, "Marauder" },
+                    { "ead9fb23-c7c9-4187-981a-9395be39dec0", 2, "Juggernaut" },
+                    { "38880812-3a62-4d9b-aad1-a4f31c8912fc", 2, "Mercenary" }
                 });
 
             migrationBuilder.InsertData(
@@ -514,18 +516,18 @@ namespace HolocronProject.Data.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { "7e7da782-c017-4dea-9220-5233dc8c5967", "Nautolan" },
-                    { "11b0fe63-177a-48db-874a-c7df8cde58ed", "Togruta" },
-                    { "66d623fe-15ac-4c93-92c7-6c7048a01c07", "Cathar" },
-                    { "5490c65c-8588-4d08-88ed-707594eed42a", "Zabrak" },
-                    { "56ee7c0b-a496-4372-b969-2aa358520ee9", "Twi'lek" },
-                    { "f9028041-8c6e-4137-8df5-f8b11ff68de6", "Sith Pureblood" },
-                    { "bb6bb564-1025-4125-b201-86b7da7bd625", "Mirialan" },
-                    { "55aef3e6-2b33-4138-ae83-c0ce9503036b", "Miraluka" },
-                    { "37756e15-962a-416a-b99c-b1840c11799f", "Human" },
-                    { "71dbff3a-e69e-4de6-8f6c-2cc2692df436", "Cyborg" },
-                    { "f25428d0-6c29-4d35-8551-375e1a192303", "Chiss" },
-                    { "42b7027b-4d61-4021-86ed-ce13d0f46aa6", "Rattaki" }
+                    { "f32bbfe4-e2e9-43bf-9dda-b97c6c30a78d", "Nautolan" },
+                    { "3fbacbe0-0138-4fa0-b80a-abb1d1066bb0", "Togruta" },
+                    { "c90bf771-e319-4026-87a9-2e652e386048", "Cathar" },
+                    { "e8351712-6de5-447d-9750-28165d2f8624", "Zabrak" },
+                    { "b0242dfc-a6ab-4526-8594-134b43d48291", "Twi'lek" },
+                    { "dafb0bd2-db1b-4ffe-8acd-5055baedba3f", "Sith Pureblood" },
+                    { "179f7504-08e5-479a-b3a4-031f04025df4", "Mirialan" },
+                    { "4ff52aff-d1c3-4bbf-b6b2-28a699ca5b00", "Miraluka" },
+                    { "1b3d1f18-6f2a-4c34-b233-799da702832c", "Human" },
+                    { "1b0374d9-f3cd-4927-ae61-379c33431605", "Cyborg" },
+                    { "c971e413-c3ad-48a4-82ca-2dbad013b537", "Chiss" },
+                    { "ee2be35c-5283-4e01-a35a-9b5c8b72f6c2", "Rattaki" }
                 });
 
             migrationBuilder.InsertData(
@@ -533,11 +535,11 @@ namespace HolocronProject.Data.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { "9eb2aa39-b112-42a7-9975-3d025fc06db2", "Tulak Hord" },
-                    { "04b3975c-0900-4331-9f07-cf6ef93591a3", "Darth Malgus" },
-                    { "c2cf7640-ce86-4e80-b5c4-5e76e753948e", "Star Forge" },
-                    { "4a0c4bc0-04d5-4579-a7ff-ca2b09e64b41", "Satele Shan" },
-                    { "707c6577-2889-4776-b3ea-5ea8d3ffb06f", "The Leviathan" }
+                    { "dc1680bc-9c88-4d50-9a1e-05e2f51cd23d", "Tulak Hord" },
+                    { "ee1a8488-34f7-42af-ae54-a545f356dfda", "Darth Malgus" },
+                    { "32328f5e-7a25-403e-bd52-7a8a32227892", "Star Forge" },
+                    { "80ec2205-5657-43f9-9cad-8e7b3a55375c", "Satele Shan" },
+                    { "a6a00e56-8149-4ed7-b429-f776cfd28276", "The Leviathan" }
                 });
 
             migrationBuilder.CreateIndex(

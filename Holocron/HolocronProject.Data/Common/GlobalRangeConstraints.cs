@@ -46,9 +46,11 @@
 
         public static class ReportConstants
         {
-            public const int TitleMaxLength = 50;
+            public const int TitleMaxLength = 200;
 
-            public const int DescriptionMaxLength = 10000;
+            public const int DescriptionMaxLength = 20000;
+
+            public const int NotesMaxLength = 20000;
         }
 
         public static class AchievementConstants

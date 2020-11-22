@@ -10,6 +10,6 @@ namespace HolocronProject.Data.Models
 
         public bool IsResolved { get; set; } = false;
 
-        public DateTime? ResolvedDate { get; set; }
+        public string ResolvedOn { get; set; }
     }
 }
