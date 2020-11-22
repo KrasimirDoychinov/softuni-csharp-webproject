@@ -23,12 +23,12 @@ namespace HolocronProject.Data.Models
         [Required]
         public string CharacterId { get; set; }
 
-        public Character Character { get; set; }
+        public virtual Character Character { get; set; }
 
         [Required]
         public string CompetitionId { get; set; }
 
-        public Competition Competition { get; set; }
+        public virtual Competition Competition { get; set; }
 
     }
 }

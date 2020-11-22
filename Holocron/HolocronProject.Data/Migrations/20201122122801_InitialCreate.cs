@@ -481,11 +481,11 @@ namespace HolocronProject.Data.Migrations
                 columns: new[] { "Id", "CreatedOn", "DeletedOn", "Description", "ImageUrl", "IsDeleted", "Title" },
                 values: new object[,]
                 {
-                    { "1e6e57ee-287f-417f-ba86-5597720f5640", "11/22/2020 9:27 AM", null, "This is the place to discuss everything PVP related. From questions about gear, stats, guides, discussions and everything else related to PVP in SWTOR. You can also post about PVP guilds, recruitment and more.", "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_76.png", false, "PVP" },
-                    { "731f38f8-7ed0-429a-a786-01d35867eb2c", "11/22/2020 9:27 AM", null, "This is the place to talk about PVE. Best gear and stats for flashpoints, operations. You can post guides about PVE content here from leveling guides to FP and OP guides. You can also post about PVE guild recruitment and give information about your guild here.", "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_88.png", false, "PVE" },
-                    { "7b64b17d-fe5e-45e9-ba06-f530d1cc0355", "11/22/2020 9:27 AM", null, "If you want to RP on the site this is the place for you. This is the RP section of the forums where you can find all the forum RP you've ever wanted. You can also post about in-game RP and so on.", "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_423.png", false, "RP" },
-                    { "b7a8a9c7-9d91-4ba3-ba09-316f0b9649ac", "11/22/2020 9:27 AM", null, "This is where you can talk about anything you want. It doesn't need to be just SWTOR or Star Wars. You can post about other games, cars, IT discussions, politics, and everything that can't be found on the other threads.", "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_8.png", false, "Other" },
-                    { "f0409092-7374-458a-9844-5f840a83398a", "11/22/2020 9:27 AM", null, "This is the place to show of your character to other people. You can post cool, more modified images of your character. Here you can ask about items and how to combine them to make a cooler character in-game.", "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_245.png", false, "Fashion" }
+                    { "149f3bd0-c094-4dc3-a622-c92ca544f2c1", "11/22/2020 12:28 PM", null, "This is the place to discuss everything PVP related. From questions about gear, stats, guides, discussions and everything else related to PVP in SWTOR. You can also post about PVP guilds, recruitment and more.", "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_76.png", false, "PVP" },
+                    { "99f08859-2221-4a37-822a-5cb528610403", "11/22/2020 12:28 PM", null, "This is the place to talk about PVE. Best gear and stats for flashpoints, operations. You can post guides about PVE content here from leveling guides to FP and OP guides. You can also post about PVE guild recruitment and give information about your guild here.", "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_88.png", false, "PVE" },
+                    { "5712760f-9a02-46c6-adba-84e62f8aa5cd", "11/22/2020 12:28 PM", null, "If you want to RP on the site this is the place for you. This is the RP section of the forums where you can find all the forum RP you've ever wanted. You can also post about in-game RP and so on.", "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_423.png", false, "RP" },
+                    { "5098cd2d-165a-43cb-a858-7781ad9797a8", "11/22/2020 12:28 PM", null, "This is where you can talk about anything you want. It doesn't need to be just SWTOR or Star Wars. You can post about other games, cars, IT discussions, politics, and everything that can't be found on the other threads.", "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_8.png", false, "Other" },
+                    { "fd51d450-36c4-46c2-81c3-2d044a160d94", "11/22/2020 12:28 PM", null, "This is the place to show of your character to other people. You can post cool, more modified images of your character. Here you can ask about items and how to combine them to make a cooler character in-game.", "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_245.png", false, "Fashion" }
                 });
 
             migrationBuilder.InsertData(
@@ -493,22 +493,22 @@ namespace HolocronProject.Data.Migrations
                 columns: new[] { "Id", "Faction", "Name" },
                 values: new object[,]
                 {
-                    { "493962e8-167e-4fb3-b9bb-13308fef7975", 1, "Guardian" },
-                    { "3a34f860-d93f-492e-8baa-f185b44e1e4c", 1, "Sentinel" },
-                    { "96a22580-233e-47c2-a1b3-cd0c906e98de", 1, "Sage" },
-                    { "f82b963f-6872-4dcd-96b3-8b2f7143cf5d", 1, "Commando" },
-                    { "3d693f68-4f70-4919-9a02-1af32df255fb", 1, "Vanguard" },
-                    { "a24c0212-4e4b-402e-85be-1e32483d967e", 1, "Scoundrel" },
-                    { "5781bb99-510b-4cd1-b884-a110bf8c1c39", 1, "Gunslinger" },
-                    { "774e3547-3725-4e66-87b4-eaef3df3e0ed", 1, "Shadow" },
-                    { "4c1518b6-5f58-4d21-b65b-2d2a66d8ad96", 2, "Powertech" },
-                    { "eb40b308-15af-46f6-9c94-5f6a75f65a3c", 2, "Operative" },
-                    { "b55fd1a8-960d-4a66-85a4-58e749b9cbc3", 2, "Sniper" },
-                    { "f7c2cb02-f119-4300-b085-53992726b7d8", 2, "Assassin" },
-                    { "e8223368-98bf-4483-8f61-4ab5c97ddf12", 2, "Sorcerer" },
-                    { "183894d1-4cbb-4f1f-aa86-3f86782c9528", 2, "Marauder" },
-                    { "ead9fb23-c7c9-4187-981a-9395be39dec0", 2, "Juggernaut" },
-                    { "38880812-3a62-4d9b-aad1-a4f31c8912fc", 2, "Mercenary" }
+                    { "14e03ad8-44ba-4530-bed7-d906c07eaa7a", 1, "Guardian" },
+                    { "d6f7a363-e226-4cf8-8b54-7f00a9a3ba28", 1, "Sentinel" },
+                    { "d5275934-ca79-4299-9fa6-5d40d07b9e62", 1, "Sage" },
+                    { "01b539cd-bb74-45c2-b40d-2e47db954e73", 1, "Commando" },
+                    { "3b62525c-3089-4b61-a0f4-8a8f7a3caa6b", 1, "Vanguard" },
+                    { "ce28fcd1-1305-4fa3-8b08-75ca6e935bd9", 1, "Scoundrel" },
+                    { "35af7850-1f48-4f07-aea3-96b38d33e75f", 1, "Gunslinger" },
+                    { "ef4d46dd-0c5e-4d02-b304-54b200f43058", 1, "Shadow" },
+                    { "6d5e0752-1e2a-4a5b-8f04-702de7d0da11", 2, "Powertech" },
+                    { "44631fc2-312b-40cb-b8f8-fd454cc1d18d", 2, "Operative" },
+                    { "467df484-b9b4-49ce-bdb7-dc2489af7b80", 2, "Sniper" },
+                    { "b1f4258c-fa80-4670-a5a1-d4181c92d7bc", 2, "Assassin" },
+                    { "7974f0f8-77d9-4cd8-be9e-fb5e7f0e035d", 2, "Sorcerer" },
+                    { "dff9b4ab-d43d-4cf9-862b-ccdfa59b1a27", 2, "Marauder" },
+                    { "60f14b42-a311-4c80-b0bb-0915cd655be7", 2, "Juggernaut" },
+                    { "63333857-827a-4386-b772-62d0a56321c3", 2, "Mercenary" }
                 });
 
             migrationBuilder.InsertData(
@@ -516,18 +516,18 @@ namespace HolocronProject.Data.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { "f32bbfe4-e2e9-43bf-9dda-b97c6c30a78d", "Nautolan" },
-                    { "3fbacbe0-0138-4fa0-b80a-abb1d1066bb0", "Togruta" },
-                    { "c90bf771-e319-4026-87a9-2e652e386048", "Cathar" },
-                    { "e8351712-6de5-447d-9750-28165d2f8624", "Zabrak" },
-                    { "b0242dfc-a6ab-4526-8594-134b43d48291", "Twi'lek" },
-                    { "dafb0bd2-db1b-4ffe-8acd-5055baedba3f", "Sith Pureblood" },
-                    { "179f7504-08e5-479a-b3a4-031f04025df4", "Mirialan" },
-                    { "4ff52aff-d1c3-4bbf-b6b2-28a699ca5b00", "Miraluka" },
-                    { "1b3d1f18-6f2a-4c34-b233-799da702832c", "Human" },
-                    { "1b0374d9-f3cd-4927-ae61-379c33431605", "Cyborg" },
-                    { "c971e413-c3ad-48a4-82ca-2dbad013b537", "Chiss" },
-                    { "ee2be35c-5283-4e01-a35a-9b5c8b72f6c2", "Rattaki" }
+                    { "3df9ef62-368d-41ad-9275-92e9d6b9f505", "Nautolan" },
+                    { "7a7e2e9f-478d-4969-976f-f9470ae01ad3", "Togruta" },
+                    { "9026fc27-3c63-4b99-b172-f967c51239b6", "Cathar" },
+                    { "7acad395-86c5-40ba-b604-e371242f7f8b", "Zabrak" },
+                    { "d2077b6f-0ee7-41ab-8b7b-80756ae27534", "Twi'lek" },
+                    { "1c63cfed-39ed-40dd-ba5a-6f19155d7bd7", "Sith Pureblood" },
+                    { "abe478c7-ea48-408b-bcc6-31aa4f4a01b4", "Mirialan" },
+                    { "7dc2cc5f-7c20-44d8-822d-ec8b41cae241", "Miraluka" },
+                    { "9999c081-88be-41d5-a755-25d5ee64cacb", "Human" },
+                    { "ce514b09-9af8-4065-999f-2cb6e8fee77c", "Cyborg" },
+                    { "e401940d-ffd7-49b8-820a-7c43070d4d2f", "Chiss" },
+                    { "c59c0ee2-dbc0-4519-9367-ea92db444b3d", "Rattaki" }
                 });
 
             migrationBuilder.InsertData(
@@ -535,11 +535,11 @@ namespace HolocronProject.Data.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { "dc1680bc-9c88-4d50-9a1e-05e2f51cd23d", "Tulak Hord" },
-                    { "ee1a8488-34f7-42af-ae54-a545f356dfda", "Darth Malgus" },
-                    { "32328f5e-7a25-403e-bd52-7a8a32227892", "Star Forge" },
-                    { "80ec2205-5657-43f9-9cad-8e7b3a55375c", "Satele Shan" },
-                    { "a6a00e56-8149-4ed7-b429-f776cfd28276", "The Leviathan" }
+                    { "d2a7d706-a89d-47dc-b63b-2695f65c6398", "Tulak Hord" },
+                    { "8dbd6195-7645-4807-84f7-0a31e83a58e7", "Darth Malgus" },
+                    { "37d51507-5f1e-4026-aa44-28b62bf424e4", "Star Forge" },
+                    { "fee908c6-4cb9-4a86-8ae2-b9a9e0128c90", "Satele Shan" },
+                    { "0531b280-3a24-4e71-816e-5872363b66d0", "The Leviathan" }
                 });
 
             migrationBuilder.CreateIndex(

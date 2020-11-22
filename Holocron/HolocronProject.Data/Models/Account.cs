@@ -24,15 +24,15 @@ namespace HolocronProject.Data.Models
         // ?TODA?: Add max length (add a common) 
         public string ForumSignature { get; set; } = "Placeholder forum signature";
 
-        public ICollection<Character> Characters { get; set; } = new List<Character>();
+        public virtual ICollection<Character> Characters { get; set; } = new List<Character>();
 
-        public ICollection<Post> Posts { get; set; } = new List<Post>();
+        public virtual ICollection<Post> Posts { get; set; } = new List<Post>();
 
-        public ICollection<Thread> Threads { get; set; } = new List<Thread>();
+        public virtual ICollection<Thread> Threads { get; set; } = new List<Thread>();
 
-        public ICollection<BugReport> BugReports { get; set; } = new List<BugReport>();
+        public virtual ICollection<BugReport> BugReports { get; set; } = new List<BugReport>();
 
-        public ICollection<PostReport> PostReports { get; set; } = new List<PostReport>();
+        public virtual ICollection<PostReport> PostReports { get; set; } = new List<PostReport>();
 
     }
 }

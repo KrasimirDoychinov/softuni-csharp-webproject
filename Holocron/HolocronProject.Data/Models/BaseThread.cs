@@ -23,7 +23,7 @@ namespace HolocronProject.Data.Models
 
         public string ImageUrl { get; set; }
 
-        public ICollection<Thread> Threads { get; set; } = new List<Thread>();
+        public virtual ICollection<Thread> Threads { get; set; } = new List<Thread>();
 
         
 

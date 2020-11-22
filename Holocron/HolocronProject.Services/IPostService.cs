@@ -7,6 +7,6 @@ namespace HolocronProject.Services
 {
     public interface IPostService
     {
-        Task CreatePostAsync(PostInputDto input);
+        Task CreatePostAsync(string description, string threadId, string accountId);
     }
 }

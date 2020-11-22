@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace HolocronProject.Web.Controllers
 {
@@ -62,6 +63,7 @@ namespace HolocronProject.Web.Controllers
         {
             var threadViewModel = this.threadService.GetThreadById<ThreadViewModel>(threadId);
 
+            threadViewModel.Posts = threadViewModel.Posts.OrderBy(x => x.CreatedOn);
             threadViewModel.RandomImageQuery = random.NextDouble().ToString();
 
             return this.View(threadViewModel);

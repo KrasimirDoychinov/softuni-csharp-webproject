@@ -1,13 +1,17 @@
 ﻿@model List<BaseThreadViewModel>
-@{ ViewData["Title"] = "Home Page"; }
+@{ 
+    ViewData["Title"] = "Home Page"; 
+    }
 
 <div >
     @foreach (var item in Model)
     {
+        ViewData["ThreadsPostsCount"] = item.Threads.Select(x => x.PostsCount).Sum();
+
         <div class="media text-white">
             <img class="mr-3" src="@item.ImageUrl" alt="Generic placeholder image" width="100" height="100">
             <div class="media-body mb-2">
-                <h6 class="float-right">@item.ThreadsPostsCount <span class="text-warning">Total posts</span></h6>
+                <h6 class="float-right">@ViewData["ThreadsPostsCount"] <span class="text-warning">Total posts</span></h6>
                 <h6 class="float-right mr-2">@item.ThreadsCount <span class="text-warning">Total threads</span>,</h6>
 
                 <h2 class="mt-0 "><a class="text-decoration-none text-warning" href="/BaseThreads/ById/?id=@item.Id">@item.Title</a></h2>

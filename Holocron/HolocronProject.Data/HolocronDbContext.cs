@@ -55,6 +55,8 @@ namespace HolocronProject.Data
             {
                 optionsBuilder.UseSqlServer("Server=.;Database=Holocron;Integrated Security=true;");
             }
+
+            optionsBuilder.UseLazyLoadingProxies();
         }
 
         protected override void OnModelCreating(ModelBuilder builder)

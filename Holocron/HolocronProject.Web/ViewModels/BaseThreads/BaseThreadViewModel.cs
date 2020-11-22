@@ -1,4 +1,5 @@
-﻿using HolocronProject.Data.Models;
+﻿using AutoMapper;
+using HolocronProject.Data.Models;
 using HolocronProject.Services.Mapper;
 using HolocronProject.Web.ViewModels.Threads;
 using System;
@@ -25,6 +26,5 @@ namespace HolocronProject.Web.ViewModels.BaseThreads
         
         public ICollection<ThreadViewModel> Threads { get; set; }
 
-        
     }
 }

@@ -18,7 +18,7 @@ namespace HolocronProject.Data.Models
         [Required]
         public string Name { get; set; }
 
-        public ICollection<Character> Characters { get; set; } = new List<Character>();
+        public virtual ICollection<Character> Characters { get; set; } = new List<Character>();
 
         public Faction Faction { get; set; }
     }

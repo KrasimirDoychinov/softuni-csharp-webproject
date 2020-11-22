@@ -40,9 +40,11 @@ namespace HolocronProject.Services.Implementations
         }
 
         public IEnumerable<T> GetAll<T>()
-            => this.context.BaseThreads
+            =>this.context.BaseThreads
+            .OrderBy(x => x.Title)
             .To<T>()
             .ToList();
+
         public T GetById<T>(string id)
             => this.context.BaseThreads
                 .Where(x => x.Id == id)
@@ -51,6 +53,7 @@ namespace HolocronProject.Services.Implementations
 
         public BaseThread GetBaseThreadById(string baseThreadId)
             => this.context.BaseThreads
+                .OrderByDescending(x => x.Threads.Select(x => x.CreatedOn))
                 .FirstOrDefault(x => x.Id == baseThreadId);
 
         

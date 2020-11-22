@@ -17,13 +17,13 @@ namespace HolocronProject.Services.Implementations
             this.context = context;
         }
 
-        public async Task CreatePostAsync(PostInputDto input)
+        public async Task CreatePostAsync(string description, string threadId, string accountId)
         {
             var post = new Post
             {
-                AccountId = input.AccountId,
-                ThreadId = input.ThreadId,
-                Description = input.Description
+                AccountId = accountId,
+                ThreadId = threadId,
+                Description = description
             };
 
             await this.context.Posts.AddAsync(post);

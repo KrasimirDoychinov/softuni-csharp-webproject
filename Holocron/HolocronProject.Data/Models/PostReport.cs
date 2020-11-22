@@ -30,13 +30,13 @@ namespace HolocronProject.Data.Models
 
         public string AccountId { get; set; }
 
-        public Account Account { get; set; }
+        public virtual Account Account { get; set; }
 
         [Required]
 
         public string PostId { get; set; }
 
-        public Post Post { get; set; }
+        public virtual Post Post { get; set; }
 
         
 

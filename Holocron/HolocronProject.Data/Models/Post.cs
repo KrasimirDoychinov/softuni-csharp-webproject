@@ -27,14 +27,14 @@ namespace HolocronProject.Data.Models
         [Required]
         public string AccountId { get; set; }
 
-        public Account Account { get; set; }
+        public virtual Account Account { get; set; }
 
         [Required]
         public string ThreadId { get; set; }
 
-        public Thread Thread { get; set; }
+        public virtual Thread Thread { get; set; }
 
-        public ICollection<PostTag> Tags { get; set; } = new List<PostTag>();
+        public virtual ICollection<PostTag> Tags { get; set; } = new List<PostTag>();
 
     }
 }

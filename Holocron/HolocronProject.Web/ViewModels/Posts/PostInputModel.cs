@@ -14,11 +14,5 @@ namespace HolocronProject.Web.ViewModels.Posts
         [MaxLength(PostConstants.DescriptionMaxLength, ErrorMessage = PostErrorMessages.DescriptionMaxLengthError)]
         public string Description { get; set; }
 
-        [Required]
-        public string AccountId { get; set; }
-
-        [Required]
-        public string ThreadId { get; set; }
-
     }
 }

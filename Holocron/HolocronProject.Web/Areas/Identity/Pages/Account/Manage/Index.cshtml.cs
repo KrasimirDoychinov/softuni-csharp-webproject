@@ -73,7 +73,6 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account.Manage
         {
             var userName = await _userManager.GetUserNameAsync(user);
 
-            IsAvatarImageSet = this.accountService.IsAvatarImageSet(user.Id);
 
             UserName = userName;
             AvatarImagePath = user.AvatarImagePath;
@@ -86,7 +85,6 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account.Manage
         {
             var user = await _userManager.GetUserAsync(User);
 
-            IsAvatarImageSet = this.accountService.IsAvatarImageSet(user.Id);
             AvatarImagePath = user.AvatarImagePath;
             ForumSignature = user.ForumSignature;
             CreatedOn = user.CreatedOn;

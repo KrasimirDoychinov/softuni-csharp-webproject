@@ -32,9 +32,9 @@ namespace HolocronProject.Data.Models
 
         public DateTime EndDate { get; set; }
 
-        public ICollection<CompetitionCharacter> Characters { get; set; } = new List<CompetitionCharacter>();
+        public virtual ICollection<CompetitionCharacter> Characters { get; set; } = new List<CompetitionCharacter>();
 
-        public ICollection<Achievement> Achievements { get; set; } = new List<Achievement>();
+        public virtual ICollection<Achievement> Achievements { get; set; } = new List<Achievement>();
 
         public bool IsFinished { get; set; } = false;
 

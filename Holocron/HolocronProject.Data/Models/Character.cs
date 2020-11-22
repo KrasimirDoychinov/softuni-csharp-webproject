@@ -45,27 +45,27 @@ namespace HolocronProject.Data.Models
         [Required]
         public string ClassId { get; set; }
 
-        public Class Class { get; set; }
+        public virtual Class Class { get; set; }
 
         [Required]
         public string RaceId { get; set; }
 
         [Required]
-        public Race Race { get; set; }
+        public virtual Race Race { get; set; }
 
         [Required]
         public string ServerId { get; set; }
 
-        public Server Server { get; set; }
+        public virtual Server Server { get; set; }
 
         [Required]
         public string AccountId { get; set; }
 
-        public Account Account { get; set; }
+        public virtual Account Account { get; set; }
 
-        public ICollection<Achievement> Achievements { get; set; } = new List<Achievement>();
+        public virtual ICollection<Achievement> Achievements { get; set; } = new List<Achievement>();
 
-        public ICollection<CompetitionCharacter> Competitions { get; set;  } = new List<CompetitionCharacter>();
+        public virtual ICollection<CompetitionCharacter> Competitions { get; set;  } = new List<CompetitionCharacter>();
 
     }
 }
