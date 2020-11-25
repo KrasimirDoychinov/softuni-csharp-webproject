@@ -1,4 +1,5 @@
-﻿using HolocronProject.Data.Models;
+﻿using Ganss.XSS;
+using HolocronProject.Data.Models;
 using HolocronProject.Services.Mapper;
 using HolocronProject.Web.ViewModels.Posts;
 using System;
@@ -17,6 +18,10 @@ namespace HolocronProject.Web.ViewModels.Threads
         public string AccountUserName { get; set; }
 
         public string AccountAvatarImagePath { get; set; }
+
+        public string AccountForumSignature { get; set; }
+
+        public string SanitizedForumSignature => new HtmlSanitizer().Sanitize(this.AccountForumSignature);
 
         public string Title { get; set; }
 

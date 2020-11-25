@@ -15,7 +15,7 @@
             if (this.User.IsInRole("Admin"))
             {
                 <tr>
-                    <td><a href="/BugReports/ById?id=@item.Id" class="text-decoration-none text-warning" role="button">@item.Title</a><br />@item.ShortDescription</td>
+                    <td><a href="/BugReports/ById?id=@item.Id" class="text-decoration-none text-warning" role="button">@item.Title<span class="text-info float-right">@item.AccountUserName</span></a><br />@item.ShortDescription</td>
                     <td>@item.IsResolvedString</td>
                     <td>@item.CreatedOn</td>
                 </tr>

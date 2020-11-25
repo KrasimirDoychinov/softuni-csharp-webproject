@@ -16,12 +16,16 @@ namespace HolocronProject.Web.ViewModels.Posts
 
         public string Description { get; set; }
 
-        public string SanitizedDescription => new HtmlSanitizer().Sanitize(Description);
+        public string SanitizedDescription => new HtmlSanitizer().Sanitize(this.Description);
 
         public string AccountId { get; set; }
 
         public string AccountUserName { get; set; }
 
         public string AccountAvatarImagePath { get; set; }
+
+        public string AccountForumSignature { get; set; }
+
+        public string SanitizedForumSignature => new HtmlSanitizer().Sanitize(this.AccountForumSignature);
     }
 }
