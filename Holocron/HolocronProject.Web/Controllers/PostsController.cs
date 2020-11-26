@@ -13,10 +13,10 @@ namespace HolocronProject.Web.Controllers
 {
     public class PostsController : Controller
     {
-        private readonly IPostService postService;
+        private readonly IPostsService postService;
         private readonly UserManager<Account> userManager;
 
-        public PostsController(IPostService postService,
+        public PostsController(IPostsService postService,
 
             UserManager<Account> userManager)
         {

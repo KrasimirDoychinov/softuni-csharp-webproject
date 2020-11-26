@@ -13,10 +13,10 @@ namespace HolocronProject.Web.Controllers
 {
     public class BugReportsController : Controller
     {
-        private readonly IBugReportService bugReportService;
+        private readonly IBugReportsService bugReportService;
         private readonly UserManager<Account> userManager;
 
-        public BugReportsController(IBugReportService bugReportService,
+        public BugReportsController(IBugReportsService bugReportService,
             UserManager<Account> userManager)
         {
             this.bugReportService = bugReportService;

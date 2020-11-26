@@ -1,6 +1,6 @@
 ﻿@model ThreadViewModel
 @inject UserManager<Account> UserManager
-@inject AccountServices accountService
+@inject AccountsService accountService
 @inject Random random
 @{
     var account = UserManager.GetUserAsync(this.User);
@@ -23,13 +23,35 @@
                         }
                         <div class="media-body ml-3">
                             <a asp-area="Identity" asp-page="/Account/Manage/Index" class="text-decoration-none text-warning" data-abc="true">@Model.AccountUserName</a>
+                            <div class="text-info small">Created on <strong>@Model.CreatedOn</strong></div>
+                            <div class="text-info small">
+                                <strong>@Model.PostsCount</strong>@if (Model.PostsCount == 1)
+                                {
+                                    <span>post</span>
+                                }
+                                else
+                                {
+                                    <span>posts</span>
+                                }
+                            </div>
                         </div>
-                        <div class="text-info small ml-3">
-                            <div>Created on <strong>@Model.CreatedOn</strong></div>
-                            <div><strong>@Model.PostsCount</strong> posts</div>
+                        <div>
+                            <form id="votesForm" method="post">
+                                <div>
+                                    <a href="#" onclick="sendVote('@Model.Id', true)">
+                                        <i class="fas fa-chevron-up"></i>
+                                    </a>
+
+                                </div>
+                                <div id="votesCount">@Model.VotesCount</div>
+                                <div>
+                                    <a href="#" onclick="sendVote('@Model.Id', false)">
+                                        <i class="fas fa-chevron-down"></i>
+                                    </a>
+                                </div>
+                            </form>
                         </div>
                     </div>
-
                 </div>
                 <div class="card-body" style="background-color: #384047;">
                     @Model.Description
@@ -55,12 +77,10 @@
                                     }
                                     <div class="media-body ml-3">
                                         <a asp-area="Identity" asp-page="/Account/Manage/Index" class="text-decoration-none text-warning" data-abc="true">@item.AccountUserName</a>
+                                        <div class="text-info small">Created on <strong>@item.CreatedOn</strong></div>
                                     </div>
-                                    <div class="text-info small ml-3">
-                                        <div>Created on <strong>@item.CreatedOn</strong></div>
-                                    </div>
-                                </div>
 
+                                </div>
                             </div>
                             <div class="card-body" style="background-color: #384047;">
                                 @Html.Raw(item.SanitizedDescription)
@@ -83,12 +103,18 @@
 
 @section Scripts {
     <script>
-        function sendVote() {
+        function sendVote(threadId, isUpVote) {
+            var json = { threadId: threadId, isUpVote: isUpVote };
+            var token = $("#votesForm input[name=__RequestVerificationToken]").val();
             $.ajax({
-                url: "/Votes/Post",
+                url: "/api/votes",
                 type: "POST",
-                success: function () {
-
+                data: JSON.stringify(json),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                headers: { 'X-CSRF-TOKEN': token },
+                success: function (data) {
+                    $("#votesCount").html(data.votesCount);
                 }
             });
         }

@@ -8,11 +8,11 @@ using HolocronProject.Services.Models.Posts;
 
 namespace HolocronProject.Services.Implementations
 {
-    public class PostServices : IPostService
+    public class PostsService : IPostsService
     {
         private HolocronDbContext context;
 
-        public PostServices(HolocronDbContext context)
+        public PostsService(HolocronDbContext context)
         {
             this.context = context;
         }

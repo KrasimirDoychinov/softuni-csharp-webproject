@@ -14,13 +14,13 @@ namespace HolocronProject.Tests.Services
     public class ClassServiceTests
     {
         private HolocronDbContext context;
-        private IClassService classService;
+        private IClassesService classService;
 
         [SetUp]
         public async Task SetUp()
         {
             this.context = new HolocronDbContext();
-            this.classService = new ClassServices(context);
+            this.classService = new ClassesService(context);
 
             await this.context.Database.EnsureDeletedAsync();
             await this.context.Database.EnsureCreatedAsync();

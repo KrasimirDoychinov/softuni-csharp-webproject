@@ -17,11 +17,11 @@ namespace HolocronProject.Web.Controllers
 {
     public class ThreadsController : Controller
     {
-        private readonly IThreadService threadService;
+        private readonly IThreadsService threadService;
         private readonly UserManager<Account> userManager;
         private readonly Random random;
 
-        public ThreadsController(IThreadService threadService,
+        public ThreadsController(IThreadsService threadService,
             UserManager<Account> userManager,
             Random random)
         {

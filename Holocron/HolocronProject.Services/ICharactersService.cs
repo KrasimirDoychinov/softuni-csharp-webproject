@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace HolocronProject.Services
 {
-    public interface ICharacterService
+    public interface ICharactersService
     {
         Task CreateCharacterAsync(CharacterInputDto input);
 

@@ -10,9 +10,9 @@ namespace HolocronProject.Web.Controllers
 {
     public class BaseThreadsController : Controller
     {
-        private readonly IBaseThreadService baseThreadService;
+        private readonly IBaseThreadsService baseThreadService;
 
-        public BaseThreadsController(IBaseThreadService baseThreadService)
+        public BaseThreadsController(IBaseThreadsService baseThreadService)
         {
             this.baseThreadService = baseThreadService;
         }

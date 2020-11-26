@@ -5,7 +5,7 @@ using HolocronProject.Services.Models.Threads;
 
 namespace HolocronProject.Services
 {
-    public interface IThreadService
+    public interface IThreadsService
     {
         Task CreateThreadAsync(ThreadInputDto input);
 

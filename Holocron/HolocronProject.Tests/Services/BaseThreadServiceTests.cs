@@ -12,13 +12,13 @@ namespace HolocronProject.Tests.Services
     public class BaseThreadServiceTests
     {
         private HolocronDbContext context;
-        private IBaseThreadService baseThreadService;
+        private IBaseThreadsService baseThreadService;
 
         [SetUp]
         public async Task SetUp()
         {
             this.context = new HolocronDbContext();
-            this.baseThreadService = new BaseThreadServices(context);
+            this.baseThreadService = new BaseThreadsService(context);
 
             await this.context.Database.EnsureDeletedAsync();
             await this.context.Database.EnsureCreatedAsync();

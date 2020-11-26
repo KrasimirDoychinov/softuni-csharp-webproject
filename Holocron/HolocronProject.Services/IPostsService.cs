@@ -5,7 +5,7 @@ using HolocronProject.Services.Models.Posts;
 
 namespace HolocronProject.Services
 {
-    public interface IPostService
+    public interface IPostsService
     {
         Task CreatePostAsync(string description, string threadId, string accountId);
     }

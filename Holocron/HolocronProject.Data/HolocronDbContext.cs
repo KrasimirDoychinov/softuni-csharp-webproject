@@ -29,13 +29,9 @@ namespace HolocronProject.Data
 
         public DbSet<Post> Posts { get; set; }
 
-        public DbSet<PostTag> PostsTags { get; set; }
-
         public DbSet<Race> Races { get; set; }
 
         public DbSet<Server> Servers { get; set; }
-
-        public DbSet<Tag> Tags { get; set; }
 
         public DbSet<Class> Classes { get; set; }
 
@@ -48,6 +44,8 @@ namespace HolocronProject.Data
         public DbSet<Competition> Competitions { get; set; }
 
         public DbSet<CompetitionCharacter> CompetitionsCharacters { get; set; }
+
+        public DbSet<Vote> Votes { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -145,9 +143,6 @@ namespace HolocronProject.Data
                     Description = "This is the place to show of your character to other people. You can post cool, more modified images of your character. Here you can ask about items and how to combine them to make a cooler character in-game." }
                 );
 
-            builder.Entity<PostTag>()
-                .HasKey(x => new { x.PostId, x.TagId });
-
             builder.Entity<CompetitionCharacter>()
                 .HasKey(x => new { x.CharacterId, x.CompetitionId });
 
@@ -162,6 +157,9 @@ namespace HolocronProject.Data
                 .WithMany(x => x.Posts)
                 .HasForeignKey(x => x.AccountId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Vote>()
+                .HasKey(x => new { x.ThreadId, x.AccountId });
         }
     }
 }

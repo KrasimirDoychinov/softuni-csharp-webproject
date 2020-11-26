@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HolocronProject.Services
 {
-    public interface IBugReportService
+    public interface IBugReportsService
     {
         Task CreateBugReportAsync(string accountId, string title, string description, string notes);
 

@@ -4,7 +4,7 @@ using HolocronProject.Data.Models;
 
 namespace HolocronProject.Services
 {
-    public interface IClassService
+    public interface IClassesService
     {
         Class GetClassById(string classId);
 

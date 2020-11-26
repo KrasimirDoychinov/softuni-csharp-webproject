@@ -23,7 +23,7 @@ namespace HolocronProject.Tests.Services
         //public async Task SetUp()
         //{
         //    this.context = new HolocronDbContext();
-        //    this.accountService = new AccountServices(context);
+        //    this.accountService = new AccountsService(context);
 
         //    await this.context.Database.EnsureDeletedAsync();
         //    await this.context.Database.EnsureCreatedAsync();
@@ -84,7 +84,7 @@ namespace HolocronProject.Tests.Services
         [TestCase("Test AccountName3")]
         public async Task UpdateAccountNameChangesAccountName(string newUserName)
         {
-            await this.accountService.UpdateUserNameAndAvatarImagePathAsync(testAccount.Id, newUserName);
+            await this.accountService.UpdateUserNameAsync(testAccount.Id, newUserName);
 
             var actualResult = testAccount.UserName;
             var expectedResult = newUserName;

@@ -2,6 +2,12 @@
 
 @model List<BugReportListViewModel>
 
+@if (Model.Count() <= 0)
+{
+    <h1 class="text-center">There are currently no resolved bug reports.</h1>
+}
+else
+{ 
 <table class="table table-dark table-striped table-hover text-white">
     <thead>
         <tr>
@@ -12,6 +18,7 @@
         </tr>
     </thead>
     <tbody>
+
         @foreach (var item in Model)
         {
             if (this.User.IsInRole("Admin"))
@@ -19,8 +26,8 @@
                 <tr>
                     <td class="text-warning">@item.Title<span class="text-info float-right">@item.AccountUserName</span><br /><span class="text-white">@item.ShortDescription</span></td>
                     <td>@item.IsResolvedString</td>
-                    <td>@item.CreatedOn</td>
-                    <td>@item.ResolvedOn</td>
+                    <td>@item.NormalizedCreatedOn</td>
+                    <td>@item.NormalizedResolvedOn</td>
                 </tr>
             }
             else
@@ -28,11 +35,13 @@
                 <tr>
                     <td class="text-warning">@item.Title<br /><span class="text-white">@item.ShortDescription</span></td>
                     <td>@item.IsResolvedString</td>
-                    <td>@item.CreatedOn</td>
-                    <td>@item.ResolvedOn</td>
+                    <td>@item.NormalizedCreatedOn</td>
+                    <td>@item.NormalizedResolvedOn</td>
                 </tr>
             }
 
         }
     </tbody>
 </table>
+}
+

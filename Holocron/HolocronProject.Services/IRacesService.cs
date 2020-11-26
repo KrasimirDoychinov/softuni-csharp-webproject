@@ -5,7 +5,7 @@ using HolocronProject.Data.Models;
 
 namespace HolocronProject.Services
 {
-    public interface IRaceService
+    public interface IRacesService
     {
         Task CreateRaceAsync(string name);
 

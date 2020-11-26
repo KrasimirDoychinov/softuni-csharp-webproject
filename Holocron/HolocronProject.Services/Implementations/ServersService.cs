@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 
@@ -7,30 +8,30 @@ using HolocronProject.Data.Models;
 using System.Security.Cryptography.X509Certificates;
 using HolocronProject.Services.Mapper;
 
-namespace HolocronProject.Services
+namespace HolocronProject.Services.Implementations
 {
-    public class RaceServices : IRaceService
+    public class ServersService : IServersService
     {
         private HolocronDbContext context;
 
-        public RaceServices(HolocronDbContext context)
+        public ServersService(HolocronDbContext context)
         {
             this.context = context;
         }
 
-        public async Task CreateRaceAsync(string name)
+        public async Task CreateServerAsync(string name)
         {
-            var race = new Race
+            var server = new Server
             {
                 Name = name
             };
 
-            await this.context.Races.AddAsync(race);
+            await this.context.Servers.AddAsync(server);
             await this.context.SaveChangesAsync();
         }
 
         public IEnumerable<T> GetAll<T>()
-            => this.context.Races
+            => this.context.Servers
             .OrderBy(x => x.Name)
             .To<T>()
             .ToList();

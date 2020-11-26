@@ -10,14 +10,16 @@
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 </head>
-<body class="container background">
-    <div class="container " style="background-color: #0d0d0d;">
+<body class="background container">
+    <div class="container" style="background-color: #0d0d0d;">
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm mb-3 ">
             <div class="container">
                 <a class="navbar-brand text-warning" asp-area="" asp-controller="Home" asp-action="Index">Holocron</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon">
+                        <i class="fas fa-bars" style="color:#f0ad4e; font-size:28px;"></i>
+                    </span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <partial name="_LoginPartial" />

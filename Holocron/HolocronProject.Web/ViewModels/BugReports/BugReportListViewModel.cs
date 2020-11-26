@@ -17,11 +17,15 @@ namespace HolocronProject.Web.ViewModels.BugReports
 
         public string CreatedOn { get; set; }
 
+        public string NormalizedCreatedOn { get; set; }
+
         public string ResolvedOn { get; set; }
+
+        public string NormalizedResolvedOn { get; set; }
 
         public string Description { get; set; }
 
-        public string ShortDescription => this.Description.Length > 200 ? this.Description.Substring(200) + "..." : this.Description;
+        public string ShortDescription => this.Description.Length > 65 ? this.Description.Substring(0, 65) + "..." : this.Description;
 
         public bool IsResolved { get; set; }
 

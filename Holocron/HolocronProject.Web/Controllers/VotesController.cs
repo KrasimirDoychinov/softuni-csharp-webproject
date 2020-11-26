@@ -1,5 +1,9 @@
-﻿using HolocronProject.Services;
-
+﻿using HolocronProject.Data.Models;
+using HolocronProject.Services;
+using HolocronProject.Web.ViewModels.Votes;
+using HolocronProject.Web.Views.Votes;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -8,20 +12,34 @@ using System.Threading.Tasks;
 
 namespace HolocronProject.Web.Controllers
 {
-    public class VotesController : Controller
+    [ApiController]
+    [Route("api/[controller]")]
+    public class VotesController : ControllerBase
     {
-        private readonly IServerService serverService;
+        private readonly IVotesService votesService;
+        private readonly UserManager<Account> userManager;
 
-        public VotesController(IServerService serverService)
+        public VotesController(IVotesService votesService,
+            UserManager<Account> userManager)
         {
-            this.serverService = serverService;
+            this.votesService = votesService;
+            this.userManager = userManager;
         }
 
+        // POST: /api/votes
+        //  {"postId": 1, "isUpVote": true}
+        //  {"votesCount": 16}
+        [Authorize]
         [HttpPost]
-        public IActionResult Post()
+        public async Task<ActionResult<VoteResponseModel>> Post(VoteInputModel input)
         {
-            var json = new JsonResult("GOSHO");
-            return new JsonResult(json);
+            var accountId = this.userManager.GetUserAsync(this.User).Result.Id;
+
+            await this.votesService.VoteAsync(input.ThreadId, accountId, input.IsUpVote);
+
+            var votesCount = this.votesService.GetVotes(input.ThreadId);
+
+            return new VoteResponseModel { VotesCount = votesCount };
         }
     }
 }

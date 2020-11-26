@@ -15,13 +15,13 @@ namespace HolocronProject.Tests.Services
     public class AchievementServiceTests
     {
         private HolocronDbContext context;
-        private IAchievementService achievementService;
+        private IAchievementsService achievementService;
 
         [SetUp]
         public async Task SetUp()
         {
             this.context = new HolocronDbContext();
-            this.achievementService = new AchievementServices(context);
+            this.achievementService = new AchievementsService(context);
 
             await this.context.Database.EnsureDeletedAsync();
             await this.context.Database.EnsureCreatedAsync();

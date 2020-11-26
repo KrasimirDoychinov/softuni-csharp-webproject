@@ -11,7 +11,9 @@ namespace HolocronProject.Services
     {
         Task UpdateForumSignatureAsync(string accountId, string forumSignature);
 
-        Task UpdateUserNameAndAvatarImagePathAsync(string accountId, string newAccountName);
+        Task UpdateUserNameAsync(string accountId, string newAccountName);
+
+        Task UpdateAvatarImagePathAsync(string accountId);
 
         Account GetAccountById(string accountId);
 

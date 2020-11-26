@@ -14,13 +14,13 @@ namespace HolocronProject.Tests.Services
     public class ThreadServiceTests
     {
         //private HolocronDbContext context;
-        //private IThreadService threadService;
+        //private IThreadsService threadService;
 
         //[SetUp]
         //public async Task SetUp()
         //{
         //    this.context = new HolocronDbContext();
-        //    this.threadService = new ThreadServices(context);
+        //    this.threadService = new ThreadsService(context);
 
         //    await this.context.Database.EnsureDeletedAsync();
         //    await this.context.Database.EnsureCreatedAsync();

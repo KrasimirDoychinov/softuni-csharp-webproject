@@ -15,11 +15,11 @@ using System.IO;
 namespace HolocronProject.Services.Implementations
 {
     // TODO: Add more character services
-    public class CharacterServices : ICharacterService
+    public class CharactersService : ICharactersService
     {
         private readonly HolocronDbContext context;
 
-        public CharacterServices(HolocronDbContext context)
+        public CharactersService(HolocronDbContext context)
         {
             this.context = context;
         }

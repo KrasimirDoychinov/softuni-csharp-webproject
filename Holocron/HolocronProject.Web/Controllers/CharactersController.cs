@@ -20,18 +20,18 @@ namespace HolocronProject.Web.Controllers
 {
     public class CharactersController : Controller
     {
-        private readonly IClassService classService;
-        private readonly ICharacterService characterService;
-        private readonly IServerService serverService;
-        private readonly IRaceService raceService;
+        private readonly IClassesService classService;
+        private readonly ICharactersService characterService;
+        private readonly IServersService serverService;
+        private readonly IRacesService raceService;
         private readonly IWebHostEnvironment webHostEnvironment;
         private readonly Random random;
         private readonly UserManager<Account> userManager;
 
-        public CharactersController(IClassService classService,
-            ICharacterService characterService,
-            IServerService serverService,
-            IRaceService raceService,
+        public CharactersController(IClassesService classService,
+            ICharactersService characterService,
+            IServersService serverService,
+            IRacesService raceService,
             IWebHostEnvironment webHostEnvironment,
             Random random,
             UserManager<Account> userManager

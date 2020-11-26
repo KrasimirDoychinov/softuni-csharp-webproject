@@ -17,10 +17,10 @@ namespace HolocronProject.Web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IBaseThreadService baseThreadService;
+        private readonly IBaseThreadsService baseThreadService;
 
         public HomeController(ILogger<HomeController> logger,
-            IBaseThreadService baseThreadService)
+            IBaseThreadsService baseThreadService)
         {
             _logger = logger;
             this.baseThreadService = baseThreadService;

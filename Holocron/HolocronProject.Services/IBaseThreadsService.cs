@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace HolocronProject.Services
 {
-    public interface IBaseThreadService 
+    public interface IBaseThreadsService 
     {
         Task CreateBaseThreadAsync(string title);
 

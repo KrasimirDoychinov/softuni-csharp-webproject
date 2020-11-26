@@ -9,11 +9,11 @@ using HolocronProject.Services.Mapper;
 
 namespace HolocronProject.Services.Implementations
 {
-    public class BaseThreadServices : IBaseThreadService
+    public class BaseThreadsService : IBaseThreadsService
     {
         private HolocronDbContext context;
 
-        public BaseThreadServices(HolocronDbContext context)
+        public BaseThreadsService(HolocronDbContext context)
         {
             this.context = context;
         }

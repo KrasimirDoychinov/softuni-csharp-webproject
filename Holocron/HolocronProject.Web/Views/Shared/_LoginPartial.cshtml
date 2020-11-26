@@ -2,7 +2,7 @@
 @using HolocronProject.Data.Models 
 @inject SignInManager<Account> SignInManager
 @inject UserManager<Account> UserManager
-@inject AccountServices accountService
+@inject AccountsService accountService
 @inject Random random
 @{ 
     var account = UserManager.GetUserAsync(this.User);

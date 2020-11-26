@@ -1,25 +1,35 @@
 ﻿@model List<HolocronProject.Web.ViewModels.Character.CharacterUserViewModel>
 
-<table class="table text-white">
-    <thead>
-        <tr>
-            <th scope="col">Character name</th>
-            <th scope="col">Class name</th>
-            <th scope="col">Race name</th>
-            <th scope="col">Server name</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+@if (Model.Count() <= 0)
+{
+    <div class="text-center">
+        <h1>You currently have now characters.</h1>
+        <h3><a asp-controller="Characters" asp-action="CreateCharacter" class="text-decoration-none">Create one?</a></h3>
+    </div>
+}
+else
+{
+    <table class="table table-dark table-striped table-hover text-white">
+        <thead>
             <tr>
-                <td>@item.Name</td>
-                <td>@item.ClassName</td>
-                <td>@item.RaceName</td>
-                <td>@item.ServerName</td>
-                <td><a href="/Characters/CharacterInfo?id=@item.Id" class="btn btn-info" role="button">Link Button</a></td>
+                <th scope="col">Character name</th>
+                <th scope="col">Class name</th>
+                <th scope="col">Race name</th>
+                <th scope="col">Server name</th>
             </tr>
-            
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.ClassName</td>
+                    <td>@item.RaceName</td>
+                    <td>@item.ServerName</td>
+                    <td><a href="/Characters/CharacterInfo?id=@item.Id" class="btn btn-info" role="button">Link Button</a></td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+}

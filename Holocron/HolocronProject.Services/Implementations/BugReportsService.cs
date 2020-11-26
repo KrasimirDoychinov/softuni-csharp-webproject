@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace HolocronProject.Services.Implementations
 {
-    public class BugReportServices : IBugReportService
+    public class BugReportsService : IBugReportsService
     {
         private readonly HolocronDbContext context;
 
-        public BugReportServices(HolocronDbContext context)
+        public BugReportsService(HolocronDbContext context)
         {
             this.context = context;
         }
@@ -38,6 +38,7 @@ namespace HolocronProject.Services.Implementations
 
             bugReport.IsResolved = true;
             bugReport.ResolvedOn = DateTime.UtcNow.ToString("MM/dd/yyyy h:mm tt");
+            bugReport.NormalizedResolvedOn = DateTime.Now.ToString("MM/dd/yyyy h:mm tt");
 
             this.context.BugReports.Update(bugReport);
             await this.context.SaveChangesAsync();
@@ -59,7 +60,7 @@ namespace HolocronProject.Services.Implementations
         public IEnumerable<T> GetAllByAccountResolved<T>(string accountId)
             => this.context.BugReports
             .Where(x => x.AccountId == accountId && x.IsResolved == true)
-            .OrderBy(x => x.CreatedOn)
+            .OrderBy(x => x.ResolvedOn)
             .To<T>()
             .ToList();
 
@@ -73,16 +74,12 @@ namespace HolocronProject.Services.Implementations
         public IEnumerable<T> GetAllAdminResolved<T>()
             => this.context.BugReports
             .Where(x => x.IsResolved == true)
-            .OrderBy(x => x.CreatedOn)
+            .OrderBy(x => x.ResolvedOn)
             .To<T>()
             .ToList();
 
         public BugReport GetReportById(string bugReportId)
             => this.context.BugReports
             .FirstOrDefault(x => x.Id == bugReportId);
-
-        
-
-        
     }
 }

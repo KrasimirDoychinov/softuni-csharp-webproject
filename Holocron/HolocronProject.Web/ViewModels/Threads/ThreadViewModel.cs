@@ -1,4 +1,5 @@
-﻿using Ganss.XSS;
+﻿using AutoMapper;
+using Ganss.XSS;
 using HolocronProject.Data.Models;
 using HolocronProject.Services.Mapper;
 using HolocronProject.Web.ViewModels.Posts;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace HolocronProject.Web.ViewModels.Threads
 {
-    public class ThreadViewModel : IMapFrom<Thread>
+    public class ThreadViewModel : IMapFrom<Thread>, IHaveCustomMappings
     {
         public string Id { get; set; }
 
@@ -31,10 +32,19 @@ namespace HolocronProject.Web.ViewModels.Threads
 
         public string Description { get; set; }
 
-
         public string RandomImageQuery { get; set; }
 
         public IEnumerable<PostViewModel> Posts { get; set; }
 
+        public int VotesCount { get; set; }
+
+        public void CreateMappings(IProfileExpression configuration)
+        {
+            configuration.CreateMap<Thread, ThreadViewModel>()
+               .ForMember(x => x.VotesCount, options =>
+               {
+                   options.MapFrom(p => p.Votes.Sum(v => (int)v.Type));
+               });
+        }
     }
 }

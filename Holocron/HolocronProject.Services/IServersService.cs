@@ -5,7 +5,7 @@ using HolocronProject.Data.Models;
 
 namespace HolocronProject.Services
 {
-    public interface IServerService
+    public interface IServersService
     {
         Task CreateServerAsync(string name);
 

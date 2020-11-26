@@ -1,4 +1,5 @@
-﻿using Ganss.XSS;
+﻿using AutoMapper;
+using Ganss.XSS;
 using HolocronProject.Data.Models;
 using HolocronProject.Services.Mapper;
 using System;
@@ -27,5 +28,6 @@ namespace HolocronProject.Web.ViewModels.Posts
         public string AccountForumSignature { get; set; }
 
         public string SanitizedForumSignature => new HtmlSanitizer().Sanitize(this.AccountForumSignature);
+
     }
 }

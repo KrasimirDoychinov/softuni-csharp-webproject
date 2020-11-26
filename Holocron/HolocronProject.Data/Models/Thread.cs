@@ -37,6 +37,8 @@ namespace HolocronProject.Data.Models
         public virtual Account Account { get; set; }
 
         public virtual ICollection<Post> Posts { get; set; } = new List<Post>();
-        
+
+        public virtual ICollection<Vote> Votes { get; set; } = new List<Vote>();
+
     }
 }

@@ -17,7 +17,7 @@ namespace HolocronProject.Tests.Services
     public class BugReportServiceTests
     {
         private HolocronDbContext context;
-        private IBugReportService bugReportService;
+        private IBugReportsService bugReportService;
         private IAccountService userService;
         private MapperConfiguration config;
         private Account testUser;
@@ -27,8 +27,8 @@ namespace HolocronProject.Tests.Services
         //{
 
         //    this.context = new HolocronDbContext();
-        //    this.bugReportService = new BugReportServices(context);
-        //    this.accountService = new AccountServices(context);
+        //    this.bugReportService = new BugReportsService(context);
+        //    this.accountService = new AccountsService(context);
 
         //    await this.context.Database.EnsureDeletedAsync();
         //    await this.context.Database.EnsureCreatedAsync();

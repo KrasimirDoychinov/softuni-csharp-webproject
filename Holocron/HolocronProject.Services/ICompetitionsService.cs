@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HolocronProject.Services
 {
-    public interface ICompetitionService
+    public interface ICompetitionsService
     {
         Task CreateCompetitionAsync(string title, string description, DateTime startDate, DateTime endDate);
 

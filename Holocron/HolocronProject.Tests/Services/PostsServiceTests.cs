@@ -16,15 +16,15 @@ namespace HolocronProject.Tests.Services
     public class PostsServiceTests
     {
         private HolocronDbContext context;
-        private IPostService postService;
-        private IThreadService threadService;
+        private IPostsService postService;
+        private IThreadsService threadService;
 
         [SetUp]
         public async Task SetUp()
         {
             this.context = new HolocronDbContext();
-            this.postService = new PostServices(context);
-            this.threadService = new ThreadServices(context);
+            this.postService = new PostsService(context);
+            this.threadService = new ThreadsService(context);
 
             await this.context.Database.EnsureDeletedAsync();
             await this.context.Database.EnsureCreatedAsync();

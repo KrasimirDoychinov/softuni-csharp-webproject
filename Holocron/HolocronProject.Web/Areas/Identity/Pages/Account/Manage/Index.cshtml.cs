@@ -115,7 +115,7 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account.Manage
             }
 
             
-            await this.accountService.UpdateUserNameAndAvatarImagePathAsync(user.Id, userName);
+            await this.accountService.UpdateUserNameAsync(user.Id, userName);
             if (avatarImage != null)
             {
                 await this.accountService.UpdateAvatarImageAsync(user.Id, avatarImage);

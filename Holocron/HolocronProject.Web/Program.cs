@@ -8,10 +8,10 @@ namespace HolocronProject.Web
 
     // TODO: Review the code each day at the beginning of the code session and at the end of the session
 
-    // TODO: !!!Fix the input models!!!
-    // TODO: Fix the AccountService method that uptades AvatarImagePath and UserName
     // TODO: Fix the voting system
-    // TODO: Fix the DateTime make another column to the BaseModel (NormalizedCreatedOn)
+    // TODO: Add foreign account view
+    // TODO: Make a js script that opens the edit menu for the forum signature
+    // TODO: !!!Fix the input models!!!
     // TODO: Move logic from controllers to services
     // TODO: Add some default avatars that can be picked
     // TODO: See how to make good posts and replies

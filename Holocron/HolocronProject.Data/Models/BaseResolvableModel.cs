@@ -8,8 +8,12 @@ namespace HolocronProject.Data.Models
     {
         public string CreatedOn { get; set; } = DateTime.UtcNow.ToString("MM/dd/yyyy h:mm tt");
 
+        public string NormalizedCreatedOn { get; set; } = DateTime.Now.ToString("MM/dd/yyyy h:mm tt");
+
         public bool IsResolved { get; set; } = false;
 
         public string ResolvedOn { get; set; }
+
+        public string NormalizedResolvedOn { get; set; }
     }
 }

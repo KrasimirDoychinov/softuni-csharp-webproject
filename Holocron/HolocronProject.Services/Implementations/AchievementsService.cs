@@ -7,11 +7,11 @@ using System.Text;
 using System.Threading.Tasks;
 namespace HolocronProject.Services.Implementations
 {
-    public class AchievementServices : IAchievementService
+    public class AchievementsService : IAchievementsService
     {
         private readonly HolocronDbContext context;
 
-        public AchievementServices(HolocronDbContext context)
+        public AchievementsService(HolocronDbContext context)
         {
             this.context = context;
         }

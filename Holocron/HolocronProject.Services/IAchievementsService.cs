@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HolocronProject.Services
 {
-    public interface IAchievementService
+    public interface IAchievementsService
     {
         IEnumerable<Achievement> CreateAchievement(string competitionId);
     }

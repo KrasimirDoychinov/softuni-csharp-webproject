@@ -1,21 +1,18 @@
 ﻿using System.IO;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using HolocronProject.Data;
 using HolocronProject.Data.Models;
-using HolocronProject.Services.Mapper;
-using HolocronProject.Services.Models;
 using Microsoft.AspNetCore.Http;
 
 namespace HolocronProject.Services.Implementations
 {
 
-    public class AccountServices : IAccountService
+    public class AccountsService : IAccountService
     {
         private HolocronDbContext context;
 
-        public AccountServices(HolocronDbContext context)
+        public AccountsService(HolocronDbContext context)
         {
             this.context = context;
         }
@@ -30,12 +27,22 @@ namespace HolocronProject.Services.Implementations
             await this.context.SaveChangesAsync();
         }
 
-        public async Task UpdateUserNameAndAvatarImagePathAsync(string accountId, string newUserName)
+        public async Task UpdateUserNameAsync(string accountId, string newUserName)
         {
             var account = GetAccountById(accountId);
 
             account.UserName = newUserName;
             account.NormalizedUserName = newUserName.ToUpper();
+            await UpdateAvatarImagePathAsync(accountId);
+
+            this.context.Accounts.Update(account);
+            await this.context.SaveChangesAsync();
+        }
+
+        public async Task UpdateAvatarImagePathAsync(string accountId)
+        {
+            var account = GetAccountById(accountId);
+
             account.AvatarImagePath = $"{account.Id}(Account).png";
 
             this.context.Accounts.Update(account);

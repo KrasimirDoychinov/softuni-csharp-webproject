@@ -34,7 +34,6 @@ namespace HolocronProject.Data.Models
 
         public virtual Thread Thread { get; set; }
 
-        public virtual ICollection<PostTag> Tags { get; set; } = new List<PostTag>();
 
     }
 }

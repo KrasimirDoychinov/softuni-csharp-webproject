@@ -36,6 +36,11 @@ namespace HolocronProject.Web
                 cfg.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
             });
 
+            services.AddAntiforgery(options =>
+            {
+                options.HeaderName = "X-CSRF-TOKEN";
+            });
+
             services.AddDbContext<HolocronDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
@@ -47,19 +52,19 @@ namespace HolocronProject.Web
 
 
             services.AddImageSharp();
-            services.AddTransient<IAccountService, AccountServices>();
-            services.AddTransient<IAchievementService, AchievementServices>();
-            services.AddTransient<IBaseThreadService, BaseThreadServices>();
-            services.AddTransient<IBugReportService, BugReportServices>();
-            services.AddTransient<ICharacterService, CharacterServices>();
-            services.AddTransient<IClassService, ClassServices>();
-            services.AddTransient<ICompetitionService, CompetitionServices>();
-            services.AddTransient<IPostService, PostServices>();
-            services.AddTransient<IRaceService, RaceServices>();
-            services.AddTransient<IServerService, ServerServices>();
-            services.AddTransient<ITagService, TagServices>();
-            services.AddTransient<IThreadService, ThreadServices>();
-            services.AddTransient(typeof(AccountServices));
+            services.AddTransient<IAccountService, AccountsService>();
+            services.AddTransient<IAchievementsService, AchievementsService>();
+            services.AddTransient<IBaseThreadsService, BaseThreadsService>();
+            services.AddTransient<IBugReportsService, BugReportsService>();
+            services.AddTransient<ICharactersService, CharactersService>();
+            services.AddTransient<IClassesService, ClassesService>();
+            services.AddTransient<ICompetitionsService, CompetitionsService>();
+            services.AddTransient<IPostsService, PostsService>();
+            services.AddTransient<IRacesService, RacesService>();
+            services.AddTransient<IServersService, ServersService>();
+            services.AddTransient<IThreadsService, ThreadsService>();
+            services.AddTransient<IVotesService, VotesService>();
+            services.AddTransient(typeof(AccountsService));
             services.AddTransient(typeof(Random));
 
         }

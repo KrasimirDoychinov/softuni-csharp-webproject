@@ -7,11 +7,11 @@ using HolocronProject.Services.Mapper;
 
 namespace HolocronProject.Services.Implementations
 {
-    public class ClassServices : IClassService
+    public class ClassesService : IClassesService
     {
         private readonly HolocronDbContext context;
 
-        public ClassServices(HolocronDbContext context)
+        public ClassesService(HolocronDbContext context)
         {
             this.context = context;
         }
