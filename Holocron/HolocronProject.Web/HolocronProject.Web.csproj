@@ -29,7 +29,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ViewModels\Accounts\" />
     <Folder Include="wwwroot\Images\CharacterImages\" />
     <Folder Include="wwwroot\Images\AvatarImages\" />
   </ItemGroup>

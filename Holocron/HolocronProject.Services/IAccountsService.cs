@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace HolocronProject.Services
 {
-    public interface IAccountService
+    public interface IAccountsService
     {
         Task UpdateForumSignatureAsync(string accountId, string forumSignature);
 
@@ -22,6 +22,8 @@ namespace HolocronProject.Services
         Task UpdateAvatarImageAsync(string accountId, IFormFile avatarImage);
 
         string GetAccountAvatarImagePath(string accountId);
+
+        T GetAccountByIdGeneric<T>(string accountId);
 
         bool IsAvatarImageSet(string accountId);
 

@@ -1,0 +1,43 @@
+﻿@model ForeignAccountViewModel
+@inject UserManager<Account> userManager
+@inject AccountsService accountService
+
+@{
+    var user = this.accountService.GetAccountById(Model.Id);
+}
+<div class="text-center">
+    <h3 class="text-warning">
+        @if (this.userManager.IsInRoleAsync(user, "Admin").GetAwaiter().GetResult())
+        {
+            <i class="fas fa-user-cog"></i>
+        }
+        else
+        {
+            <i class="fas fa-user"></i>
+        }
+        @Model.UserName
+    </h2>
+    @if (Model.AvatarImagePath != null)
+    {
+        <img src="~/Images/AvatarImages/@Model.AvatarImagePath?random=@Model.RandomImageQuery" class="rounded-circle border border-warning border" height="150" width="150" alt="" />
+    }
+    else
+    {
+        <img src="~/Images/AvatarImages/defaultAvatar.jpg" class="rounded-circle border border-warning border" height="150" width="150" />
+    }
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="float-left">
+            <ul class="nav nav-pills flex-column">
+                <li class="nav-item"><a class="nav-link btn btn-info text-white mb-1" href="/Characters/ForeignCharacters?accountId=@Model.Id">Characters</a></li>
+                <li class="nav-item"><a class="nav-link btn btn-info text-white mb-1 " asp-controller="BugReports" asp-action="AllBugReports">Bug reports</a></li>
+            </ul>
+        </div>
+
+        <div class="float-right">
+
+        </div>
+    </div>
+</div>

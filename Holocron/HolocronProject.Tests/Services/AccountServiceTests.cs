@@ -17,7 +17,7 @@ namespace HolocronProject.Tests.Services
     {
         private Account testAccount;
         private HolocronDbContext context;
-        private IAccountService accountService;
+        private IAccountsService accountService;
 
         //[SetUp]
         //public async Task SetUp()

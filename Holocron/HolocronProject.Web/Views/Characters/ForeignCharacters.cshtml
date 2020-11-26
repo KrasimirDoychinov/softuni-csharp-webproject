@@ -1,0 +1,14 @@
+﻿
+@model List<ForeignCharactersViewModel>
+
+@foreach (var item in Model)
+{
+    <div class="row text-center">
+        <div class="col-md-12 ">
+            <img src="~/Images/CharacterImages/@item.CharacterImagePath" class="m-2" width="300" height="400" />
+            <h4><span class="font-weight-bold">Name: </span>@item.Name</h4>
+            <h5><span class="font-weight-bold">Title: </span>@item.Title</h5>
+        </div>
+    </div>
+}
+

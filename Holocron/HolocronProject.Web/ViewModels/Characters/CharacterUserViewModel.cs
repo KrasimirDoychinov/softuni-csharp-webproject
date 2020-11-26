@@ -5,11 +5,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace HolocronProject.Web.ViewModels.Character
+namespace HolocronProject.Web.ViewModels.Characters
 {
     public class CharacterUserViewModel : IMapFrom<Data.Models.Character>
     {
         public string Id { get; set; }
+
+        public string AccountUserName { get; set; }
 
         public string Name { get; set; }
 

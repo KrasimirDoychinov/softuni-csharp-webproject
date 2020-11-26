@@ -1,9 +1,9 @@
-﻿@model List<HolocronProject.Web.ViewModels.Character.CharacterUserViewModel>
+﻿@model List<CharacterUserViewModel>
 
 @if (Model.Count() <= 0)
 {
     <div class="text-center">
-        <h1>You currently have now characters.</h1>
+        <h1>You currently have no characters.</h1>
         <h3><a asp-controller="Characters" asp-action="CreateCharacter" class="text-decoration-none">Create one?</a></h3>
     </div>
 }

@@ -1,7 +1,6 @@
 ﻿@using HolocronProject.Data.Enums
-@using HolocronProject.Services.Implementations
 
-@model HolocronProject.Web.ViewModels.Character.CharacterInputModel
+@model CharacterInputModel
 
 @{ 
     var classes = Model.Classes.Select(x => new SelectListItem(x.Name, x.Id));

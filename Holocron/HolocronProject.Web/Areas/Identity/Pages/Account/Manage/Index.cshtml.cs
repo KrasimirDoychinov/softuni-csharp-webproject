@@ -23,14 +23,14 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account.Manage
     {
         private readonly UserManager<Data.Models.Account> _userManager;
         private readonly SignInManager<Data.Models.Account> _signInManager;
-        private readonly IAccountService accountService;
+        private readonly IAccountsService accountService;
         private readonly IWebHostEnvironment webHostEnvironment;
         private readonly Random random;
 
         public IndexModel(
             UserManager<Data.Models.Account> userManager,
             SignInManager<Data.Models.Account> signInManager,
-            IAccountService accountService,
+            IAccountsService accountService,
             IWebHostEnvironment webHostEnvironment,
             Random random
             )

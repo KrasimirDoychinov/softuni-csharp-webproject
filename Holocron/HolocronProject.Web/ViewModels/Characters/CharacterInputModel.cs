@@ -14,7 +14,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace HolocronProject.Web.ViewModels.Character
+namespace HolocronProject.Web.ViewModels.Characters
 {
     using static GlobalErrorMessages;
     using static GlobalRangeConstraints;

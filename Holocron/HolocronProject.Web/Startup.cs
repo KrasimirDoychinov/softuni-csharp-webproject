@@ -52,7 +52,7 @@ namespace HolocronProject.Web
 
 
             services.AddImageSharp();
-            services.AddTransient<IAccountService, AccountsService>();
+            services.AddTransient<IAccountsService, AccountsService>();
             services.AddTransient<IAchievementsService, AchievementsService>();
             services.AddTransient<IBaseThreadsService, BaseThreadsService>();
             services.AddTransient<IBugReportsService, BugReportsService>();

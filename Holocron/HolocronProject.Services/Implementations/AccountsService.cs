@@ -3,12 +3,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using HolocronProject.Data;
 using HolocronProject.Data.Models;
+using HolocronProject.Services.Mapper;
 using Microsoft.AspNetCore.Http;
 
 namespace HolocronProject.Services.Implementations
 {
 
-    public class AccountsService : IAccountService
+    public class AccountsService : IAccountsService
     {
         private HolocronDbContext context;
 
@@ -89,6 +90,11 @@ namespace HolocronProject.Services.Implementations
 
             return account.AvatarImagePath;
         }
+        public T GetAccountByIdGeneric<T>(string accountId)
+            => this.context.Accounts
+            .Where(x => x.Id == accountId)
+            .To<T>()
+            .FirstOrDefault();
 
         public bool IsAvatarImageSet(string accountId)
         {
@@ -96,5 +102,7 @@ namespace HolocronProject.Services.Implementations
 
             return File.Exists($"wwwroot/Images/AvatarImages/{account.AvatarImagePath}");
         }
+
+        
     }
 }

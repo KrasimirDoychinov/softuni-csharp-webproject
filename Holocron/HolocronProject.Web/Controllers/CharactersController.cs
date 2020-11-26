@@ -1,7 +1,7 @@
 ﻿using HolocronProject.Data.Models;
 using HolocronProject.Services;
 using HolocronProject.Services.Models.Character;
-using HolocronProject.Web.ViewModels.Character;
+using HolocronProject.Web.ViewModels.Characters;
 using HolocronProject.Web.ViewModels.Classes;
 using HolocronProject.Web.ViewModels.Races;
 using HolocronProject.Web.ViewModels.Servers;
@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SixLabors.ImageSharp;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security.Claims;
@@ -60,13 +61,12 @@ namespace HolocronProject.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateCharacter(CharacterInputModel input)
         {
-            var userId = this.userManager.GetUserAsync(this.User).Result.Id;
+            var accountId = this.userManager.GetUserAsync(this.User).Result.Id;
 
             if (!ModelState.IsValid)
             {
                 return this.View(input);
             }
-
 
             var characterInputDto = new CharacterInputDto
             {
@@ -80,19 +80,18 @@ namespace HolocronProject.Web.Controllers
                 ServerId = input.ServerId,
                 RaceId = input.RaceId,
                 ClassId = input.ClassId,
-                AccountId = userId
+                AccountId = accountId
             };
 
             await this.characterService.CreateCharacterAsync(characterInputDto);
             await this.characterService.CreateCharacterImage(input.Name, input.Image);
-            return this.Redirect("/");
+            return this.Redirect($"/Characters/AllCharacters?accountId={accountId}");
         }
 
         [Authorize]
-        public IActionResult AllCharacters()
+        public IActionResult AllCharacters(string accountId)
         {
-            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var charListViewModel = this.characterService.GetCurrentAccountCharacter<CharacterUserViewModel>(userId);
+            var charListViewModel = this.characterService.GetCurrentAccountCharacter<CharacterUserViewModel>(accountId);
 
             return this.View(charListViewModel);
         }
@@ -103,6 +102,14 @@ namespace HolocronProject.Web.Controllers
             var charViewModel = this.characterService.GetCharacterInfo<CharacterUserViewModel>(id);
             charViewModel.RandomImageQuery = random.NextDouble().ToString();
             return this.View(charViewModel);
+        }
+
+        [Authorize]
+        public IActionResult ForeignCharacters(string accountId)
+        {
+            var charactersViewModel = this.characterService.GetCurrentAccountCharacter<ForeignCharactersViewModel>(accountId);
+            
+            return this.View(charactersViewModel);
         }
 
     }

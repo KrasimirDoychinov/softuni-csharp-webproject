@@ -17,23 +17,30 @@ namespace HolocronProject.Services.Implementations
 
             StringBuilder fullResult = new StringBuilder();
 
-            foreach (var item in nodes)
+            if (nodes != null)
             {
-                var match = Regex.Match(item.OuterHtml,
-                "width=\\\"([0-9]|[1-9][0-9]|[1-9][0-9][0-9])\\\" height=\\\"([0-9]|[1-9][0-9]|[1-9][0-9][0-9])\\\"");
-
-                if (!match.Success)
+                foreach (var item in nodes)
                 {
-                    var result = Regex.Replace(item.OuterHtml,
-                    "width=\\\"([0-9]{1,})\\\" height=\\\"([0-9]{1,})\\\"",
-                    $"width=\"{widthInPercent}%\" height=\"{heightInPercent}%\"");
+                    var match = Regex.Match(item.OuterHtml,
+                    "width=\\\"([0-9]|[1-9][0-9]|[1-9][0-9][0-9])\\\" height=\\\"([0-9]|[1-9][0-9]|[1-9][0-9][0-9])\\\"");
 
-                    fullResult.AppendLine(result);
+                    if (!match.Success)
+                    {
+                        var result = Regex.Replace(item.OuterHtml,
+                        "width=\\\"([0-9]{1,})\\\" height=\\\"([0-9]{1,})\\\"",
+                        $"width=\"{widthInPercent}%\" height=\"{heightInPercent}%\"");
+
+                        fullResult.AppendLine(result);
+                    }
+                    else
+                    {
+                        fullResult.AppendLine(item.OuterHtml);
+                    }
                 }
-                else
-                {
-                    fullResult.AppendLine(item.OuterHtml);
-                }
+            }
+            else
+            {
+                return input; 
             }
 
             if (fullResult.ToString() == string.Empty)

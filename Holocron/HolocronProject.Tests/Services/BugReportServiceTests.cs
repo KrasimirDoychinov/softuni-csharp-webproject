@@ -18,7 +18,7 @@ namespace HolocronProject.Tests.Services
     {
         private HolocronDbContext context;
         private IBugReportsService bugReportService;
-        private IAccountService userService;
+        private IAccountsService userService;
         private MapperConfiguration config;
         private Account testUser;
 

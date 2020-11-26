@@ -36,7 +36,7 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
         private readonly IWebHostEnvironment webHostEnvironment;
-        private readonly IAccountService userService;
+        private readonly IAccountsService userService;
 
         public RegisterModel(
             UserManager<Data.Models.Account> userManager,
@@ -45,7 +45,7 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
             IWebHostEnvironment webHostEnvironment,
-            IAccountService userService)
+            IAccountsService userService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
