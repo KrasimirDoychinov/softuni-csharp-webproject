@@ -74,14 +74,14 @@ namespace HolocronProject.Web.Controllers
             sanitizer.AllowedTags.Add("iframe");
 
             threadViewModel.SanitizedDescription = sanitizer.Sanitize(threadViewModel.Description);
-            threadViewModel.Posts = threadViewModel.Posts.OrderBy(x => x.CreatedOn);
-
             threadViewModel.SanitizedDescription = this.htmlSizeParser.Parse(threadViewModel.SanitizedDescription, 100, 50);
+
+            threadViewModel.Posts = threadViewModel.Posts.OrderBy(x => x.CreatedOn);
             threadViewModel.Posts.AsParallel().ForAll(x => x.SanitizedDescription = sanitizer.Sanitize(x.Description));
             threadViewModel.Posts.AsParallel().ForAll(x => x.SanitizedDescription = this.htmlSizeParser.Parse(x.SanitizedDescription, 100, 50));
 
             threadViewModel.RandomImageQuery = random.NextDouble().ToString();
-
+            
             return this.View(threadViewModel);
         }
     }
