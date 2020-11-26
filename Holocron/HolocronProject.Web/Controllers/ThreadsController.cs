@@ -12,6 +12,9 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Threading;
+using Ganss.XSS;
+using System.Text.RegularExpressions;
+using HtmlAgilityPack;
 
 namespace HolocronProject.Web.Controllers
 {
@@ -20,14 +23,17 @@ namespace HolocronProject.Web.Controllers
         private readonly IThreadsService threadService;
         private readonly UserManager<Account> userManager;
         private readonly Random random;
+        private readonly IHtmlSizeParser htmlSizeParser;
 
         public ThreadsController(IThreadsService threadService,
             UserManager<Account> userManager,
-            Random random)
+            Random random,
+            IHtmlSizeParser htmlSizeParser)
         {
             this.threadService = threadService;
             this.userManager = userManager;
             this.random = random;
+            this.htmlSizeParser = htmlSizeParser;
         }
 
         [Authorize]
@@ -63,7 +69,17 @@ namespace HolocronProject.Web.Controllers
         {
             var threadViewModel = this.threadService.GetThreadById<ThreadViewModel>(threadId);
 
+            var sanitizer = new HtmlSanitizer();
+
+            sanitizer.AllowedTags.Add("iframe");
+
+            threadViewModel.SanitizedDescription = sanitizer.Sanitize(threadViewModel.Description);
             threadViewModel.Posts = threadViewModel.Posts.OrderBy(x => x.CreatedOn);
+
+            threadViewModel.SanitizedDescription = this.htmlSizeParser.Parse(threadViewModel.SanitizedDescription, 100, 50);
+            threadViewModel.Posts.AsParallel().ForAll(x => x.SanitizedDescription = sanitizer.Sanitize(x.Description));
+            threadViewModel.Posts.AsParallel().ForAll(x => x.SanitizedDescription = this.htmlSizeParser.Parse(x.SanitizedDescription, 100, 50));
+
             threadViewModel.RandomImageQuery = random.NextDouble().ToString();
 
             return this.View(threadViewModel);

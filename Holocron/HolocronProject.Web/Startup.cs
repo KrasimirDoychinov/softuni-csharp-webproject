@@ -64,6 +64,7 @@ namespace HolocronProject.Web
             services.AddTransient<IServersService, ServersService>();
             services.AddTransient<IThreadsService, ThreadsService>();
             services.AddTransient<IVotesService, VotesService>();
+            services.AddTransient<IHtmlSizeParser, HtmlSizeParser>();
             services.AddTransient(typeof(AccountsService));
             services.AddTransient(typeof(Random));
 

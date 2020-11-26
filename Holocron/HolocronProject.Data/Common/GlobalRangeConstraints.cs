@@ -34,7 +34,7 @@
 
         public static class ThreadConstants
         {
-            public const int TitleMaxLength = 500;
+            public const int TitleMaxLength = 100;
 
             public const int DescriptionMaxLength = 10000;
         }

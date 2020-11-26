@@ -17,7 +17,7 @@ namespace HolocronProject.Web.ViewModels.Posts
 
         public string Description { get; set; }
 
-        public string SanitizedDescription => new HtmlSanitizer().Sanitize(this.Description);
+        public string SanitizedDescription { get; set; }
 
         public string AccountId { get; set; }
 

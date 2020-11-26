@@ -1,11 +1,4 @@
 ﻿@model ThreadViewModel
-@inject UserManager<Account> UserManager
-@inject AccountsService accountService
-@inject Random random
-@{
-    var account = UserManager.GetUserAsync(this.User);
-    var randomImageQuery = random.NextDouble().ToString();
-}
 
 <div class="container-fluid mt-100">
     <div class="row">
@@ -38,14 +31,14 @@
                         <div>
                             <form id="votesForm" method="post">
                                 <div>
-                                    <a href="#" onclick="sendVote('@Model.Id', true)">
+                                    <a href="#" class="text-decoration-none text-warning" onclick="sendVote('@Model.Id', true)">
                                         <i class="fas fa-chevron-up"></i>
                                     </a>
 
                                 </div>
-                                <div id="votesCount">@Model.VotesCount</div>
+                                <div id="votesCount" class="text-center">@Model.VotesCount</div>
                                 <div>
-                                    <a href="#" onclick="sendVote('@Model.Id', false)">
+                                    <a href="#" class="text-decoration-none text-warning" onclick="sendVote('@Model.Id', false)">
                                         <i class="fas fa-chevron-down"></i>
                                     </a>
                                 </div>
@@ -54,7 +47,7 @@
                     </div>
                 </div>
                 <div class="card-body" style="background-color: #384047;">
-                    @Model.Description
+                    @Html.Raw(Model.SanitizedDescription)
                 </div>
                 <div class="card-footer">
                     @Html.Raw(Model.SanitizedForumSignature)

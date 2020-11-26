@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Ganss.XSS;
 using HolocronProject.Data.Models;
 using HolocronProject.Services.Mapper;
 using HolocronProject.Web.ViewModels.Threads;
@@ -23,7 +24,7 @@ namespace HolocronProject.Web.ViewModels.BaseThreads
         public string ImageUrl { get; set; }
 
         public string Description { get; set; }
-        
+
         public ICollection<ThreadViewModel> Threads { get; set; }
 
     }

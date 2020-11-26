@@ -8,6 +8,7 @@
                 <th scope="col" class="col">Thread title</th>
                 <th scope="col" >Created on</th>
                 <th scope="col" >Replies</th>
+                <th scope="col" >Votes</th>
             </tr>
         </thead>
         <tbody>
@@ -17,6 +18,7 @@
                     <td><a href="/Threads/ById?threadId=@item.Id" class="text-decoration-none text-warning" role="button">@item.Title</a><br />@item.AccountUserName</td>
                     <td>@item.CreatedOn</td>
                     <td>@item.PostsCount</td>
+                    <td>@item.VotesCount</td>
                 </tr>
 
             }

@@ -22,6 +22,7 @@ namespace HolocronProject.Web
     // style="background-color: #1a1818;
     // font awesome
     // var user = this.Account.FindFirstValue(ClaimTypes.NameIdentifier);
+    // .AsParallel().ForAll() -- applies to every single element inside the array
     // -----USEFUL-----
     public class Program
     {
