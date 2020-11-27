@@ -19,14 +19,7 @@
                             <img src="/Images/AvatarImages/defaultAvatar.jpg?id=@Model.RandomImageQuery" class="d-block ui-w-40 rounded-circle border border-warning" height="100" width="100" alt="">
                         }
                         <div class="media-body ml-3">
-                            @if (Model.AccountId == currAccountId)
-                            {
-                                <a asp-area="Identity" asp-page="/Account/Manage/Index" class="text-decoration-none text-warning" data-abc="true">@Model.AccountUserName</a>
-                            }
-                            else
-                            {
-                                <a href="/Accounts/ForeignAccount?accountId=@Model.AccountId" class="text-decoration-none text-warning" data-abc="true">@Model.AccountUserName</a>
-                            }
+                            <a href="/Accounts/ForeignAccount?accountId=@Model.AccountId" class="text-decoration-none text-warning" data-abc="true">@Model.AccountUserName</a>
                             <div class="text-info small">Created on <strong>@Model.CreatedOn</strong></div>
                             <div class="text-info small">
                                 <strong>@Model.PostsCount</strong>@if (Model.PostsCount == 1)

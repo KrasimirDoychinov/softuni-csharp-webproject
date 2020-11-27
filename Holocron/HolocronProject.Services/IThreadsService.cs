@@ -9,7 +9,9 @@ namespace HolocronProject.Services
     {
         Task CreateThreadAsync(ThreadInputDto input);
 
-        T GetThreadById<T>(string threadId);
+        T GetThreadsById<T>(string threadId);
+
+        IEnumerable<T> GetLast10ThreadsByAccountId<T>(string accountId);
 
     }
 }

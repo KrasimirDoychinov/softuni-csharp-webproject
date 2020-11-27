@@ -1,6 +1,14 @@
 ﻿
 @model List<LastPostsViewModel>
 
+@if (Model.Count <= 0)
+{
+    <div class="text-center">
+        <h2>
+            The user has no posts.
+        </h2>
+    </div>
+}
 @foreach (var item in Model)
 {
     <div class="row">
@@ -22,7 +30,6 @@
                             </div>
                             <label class="text-warning">@item.AccountUserName</label>
                             <div class="text-info small">Created on <strong>@item.CreatedOn</strong></div>
-
                         </div>
                     </div>
                 </div>

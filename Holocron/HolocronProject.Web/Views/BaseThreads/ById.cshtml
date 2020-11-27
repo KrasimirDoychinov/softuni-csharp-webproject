@@ -15,7 +15,7 @@
             @foreach (var item in Model.Threads)
             {
                 <tr>
-                    <td><a href="/Threads/ById?threadId=@item.Id" class="text-decoration-none text-warning" role="button">@item.Title</a><br />@item.AccountUserName</td>
+                    <td><a href="/Threads/ById?threadId=@item.Id" class="text-decoration-none text-warning" role="button">@item.ShortenedTitle</a><br />@item.AccountUserName</td>
                     <td>@item.CreatedOn</td>
                     <td>@item.PostsCount</td>
                     <td>@item.VotesCount</td>

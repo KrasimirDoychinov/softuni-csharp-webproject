@@ -67,7 +67,7 @@ namespace HolocronProject.Web.Controllers
 
         public IActionResult ById(string threadId)
         {
-            var threadViewModel = this.threadService.GetThreadById<ThreadViewModel>(threadId);
+            var threadViewModel = this.threadService.GetThreadsById<ThreadViewModel>(threadId);
 
             var sanitizer = new HtmlSanitizer();
 
@@ -83,6 +83,22 @@ namespace HolocronProject.Web.Controllers
             threadViewModel.RandomImageQuery = random.NextDouble().ToString();
             
             return this.View(threadViewModel);
+        }
+
+        [Authorize]
+        public IActionResult LastThreads(string accountId)
+        {
+            var lastThreads = this.threadService.GetLast10ThreadsByAccountId<ThreadViewModel>(accountId);
+            var sanitizer = new HtmlSanitizer();
+
+            sanitizer.AllowedTags.Add("iframe");
+
+            lastThreads.AsParallel().ForAll(x => x.SanitizedDescription = sanitizer.Sanitize(x.Description));
+            lastThreads.AsParallel().ForAll(x => x.SanitizedDescription = this.htmlSizeParser.Parse(x.SanitizedDescription, 100, 50));
+
+            lastThreads.AsParallel().ForAll(x => x.RandomImageQuery = random.NextDouble().ToString());
+
+            return this.View(lastThreads);
         }
     }
 }

@@ -32,7 +32,15 @@ namespace HolocronProject.Services.Implementations
             await this.context.SaveChangesAsync();
         }
 
-        public T GetThreadById<T>(string threadId)
+        public IEnumerable<T> GetLast10ThreadsByAccountId<T>(string accountId)
+            => this.context.Threads
+            .Where(x => x.AccountId == accountId)
+            .OrderByDescending(x => x.CreatedOn)
+            .Take(10)
+            .To<T>()
+            .ToList();
+
+        public T GetThreadsById<T>(string threadId)
             => this.context.Threads
             .Where(x => x.Id == threadId)
             .To<T>()

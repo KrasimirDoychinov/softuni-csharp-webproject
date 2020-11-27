@@ -26,6 +26,8 @@ namespace HolocronProject.Web.ViewModels.Threads
 
         public string Title { get; set; }
 
+        public string ShortenedTitle => this.Title.Length <= 50 ? this.Title : this.Title.Substring(0, 50) + "...";
+
         public string CreatedOn { get; set; }
 
         public int PostsCount { get; set; }
