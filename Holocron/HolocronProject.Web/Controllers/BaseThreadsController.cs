@@ -1,5 +1,6 @@
 ﻿using HolocronProject.Services;
 using HolocronProject.Web.ViewModels.BaseThreads;
+using HolocronProject.Web.ViewModels.Pager;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -17,9 +18,14 @@ namespace HolocronProject.Web.Controllers
             this.baseThreadService = baseThreadService;
         }
 
-        public IActionResult ById(string id)
+        public IActionResult ById(string id, int? page)
         {
             var baseThread = this.baseThreadService.GetById<BaseThreadViewModel>(id);
+
+            var pager = new Pager(baseThread.ThreadsCount, page);
+            baseThread.Threads = baseThread.Threads.OrderByDescending(x => x.CreatedOn);
+            baseThread.Threads = baseThread.Threads.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize);
+            baseThread.Pager = pager;
 
             return this.View(baseThread);
         }

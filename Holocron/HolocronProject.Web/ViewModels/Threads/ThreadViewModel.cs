@@ -42,6 +42,8 @@ namespace HolocronProject.Web.ViewModels.Threads
 
         public int VotesCount { get; set; }
 
+        public Pager.Pager Pager { get; set; }
+
 
         public void CreateMappings(IProfileExpression configuration)
         {

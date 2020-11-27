@@ -15,6 +15,7 @@ using System.Threading;
 using Ganss.XSS;
 using System.Text.RegularExpressions;
 using HtmlAgilityPack;
+using HolocronProject.Web.ViewModels.Pager;
 
 namespace HolocronProject.Web.Controllers
 {
@@ -65,9 +66,13 @@ namespace HolocronProject.Web.Controllers
             return this.Redirect($"/BaseThreads/ById/?id={baseThreadId}");
         }
 
-        public IActionResult ById(string threadId)
+        public IActionResult ById(string threadId, int? page)
         {
             var threadViewModel = this.threadService.GetThreadsById<ThreadViewModel>(threadId);
+
+            var pager = new Pager(threadViewModel.PostsCount, page);
+            threadViewModel.Posts = threadViewModel.Posts.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize);
+            threadViewModel.Pager = pager;
 
             var sanitizer = new HtmlSanitizer();
 
@@ -84,6 +89,7 @@ namespace HolocronProject.Web.Controllers
             
             return this.View(threadViewModel);
         }
+
 
         [Authorize]
         public IActionResult LastThreads(string accountId)
