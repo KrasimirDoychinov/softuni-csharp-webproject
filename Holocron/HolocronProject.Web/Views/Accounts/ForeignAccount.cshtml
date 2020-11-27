@@ -16,7 +16,7 @@
             <i class="fas fa-user"></i>
         }
         @Model.UserName
-    </h2>
+    </h3>
     @if (Model.AvatarImagePath != null)
     {
         <img src="~/Images/AvatarImages/@Model.AvatarImagePath?random=@Model.RandomImageQuery" class="rounded-circle border border-warning border" height="150" width="150" alt="" />
@@ -32,12 +32,18 @@
         <div class="float-left">
             <ul class="nav nav-pills flex-column">
                 <li class="nav-item"><a class="nav-link btn btn-info text-white mb-1" href="/Characters/ForeignCharacters?accountId=@Model.Id">Characters</a></li>
-                <li class="nav-item"><a class="nav-link btn btn-info text-white mb-1 " asp-controller="BugReports" asp-action="AllBugReports">Bug reports</a></li>
+                <li class="nav-item"><a class="nav-link btn btn-info text-white mb-1" href="/Posts/LastPosts?accountId=@Model.Id">Last post</a></li>
+                <li class="nav-item"><a class="nav-link btn btn-info text-white mb-1" href="/Threads/LastPosts?accountId=@Model.Id">Last thread</a></li>
             </ul>
         </div>
 
-        <div class="float-right">
-
+        <div class="float-left col-md-6">
+            <div><label><span class="font-weight-bold">Username: </span>@Model.UserName</label></div>
+            <div><label><span class="font-weight-bold">Created on: </span>@Model.CreatedOn</label></div>
+            <div><label><span class="font-weight-bold">Threads: </span>@Model.ThreadsCount</label></div>
+            <div><label><span class="font-weight-bold">Posts: </span>@Model.PostsCount</label></div>
+            <div><label><span class="font-weight-bold">Bug reports: </span>@Model.BugReportsCount</label></div>
+            <div><label><span class="font-weight-bold">Post reports: </span>@Model.PostReportsCount</label></div>
         </div>
     </div>
 </div>

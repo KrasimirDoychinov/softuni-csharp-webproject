@@ -1,4 +1,5 @@
-﻿using HolocronProject.Data.Models;
+﻿using Ganss.XSS;
+using HolocronProject.Data.Models;
 using HolocronProject.Services;
 using HolocronProject.Web.ViewModels.Posts;
 using Microsoft.AspNetCore.Authorization;
@@ -15,13 +16,18 @@ namespace HolocronProject.Web.Controllers
     {
         private readonly IPostsService postService;
         private readonly UserManager<Account> userManager;
+        private readonly IHtmlSizeParser htmlSizeParser;
+        private readonly Random random;
 
         public PostsController(IPostsService postService,
-
-            UserManager<Account> userManager)
+            UserManager<Account> userManager,
+            IHtmlSizeParser htmlSizeParser,
+            Random random)
         {
             this.postService = postService;
             this.userManager = userManager;
+            this.htmlSizeParser = htmlSizeParser;
+            this.random = random;
         }
 
         [Authorize]
@@ -44,6 +50,20 @@ namespace HolocronProject.Web.Controllers
 
             return this.Redirect($"/Threads/ById?threadId={threadId}");
         } 
+
+        [Authorize]
+        public IActionResult LastPosts(string accountId)
+        {
+            var lastPost = this.postService.GetLast10PostsByAccountId<LastPostsViewModel>(accountId);
+            var sanitizer = new HtmlSanitizer();
+
+            sanitizer.AllowedTags.Add("iframe");
+
+            lastPost.AsParallel().ForAll(x => x.SanitizedDescription = sanitizer.Sanitize(x.Description));
+            lastPost.AsParallel().ForAll(x => x.SanitizedDescription = this.htmlSizeParser.Parse(x.SanitizedDescription, 100, 50));
+
+            return this.View(lastPost);
+        }
         
     }
 }

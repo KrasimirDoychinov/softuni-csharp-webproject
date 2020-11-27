@@ -5,6 +5,7 @@ using HolocronProject.Data;
 using HolocronProject.Data.Models;
 using System.Threading.Tasks;
 using HolocronProject.Services.Models.Posts;
+using HolocronProject.Services.Mapper;
 
 namespace HolocronProject.Services.Implementations
 {
@@ -28,6 +29,14 @@ namespace HolocronProject.Services.Implementations
 
             await this.context.Posts.AddAsync(post);
             await this.context.SaveChangesAsync();
-        } 
+        }
+
+        public IEnumerable<T> GetLast10PostsByAccountId<T>(string accountId)
+            => this.context.Posts
+            .Where(x => x.AccountId == accountId)
+            .OrderByDescending(x => x.CreatedOn)
+            .Take(10)
+            .To<T>()
+            .ToList();
     }
 }

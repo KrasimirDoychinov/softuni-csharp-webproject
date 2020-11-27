@@ -8,7 +8,7 @@ namespace HolocronProject.Web
 
     // TODO: Review the code each day at the beginning of the code session and at the end of the session
 
-    // TODO: Fix the voting system
+    // TODO: !!!Tmmrw finish the foreign account and all of it's features!!!
     // TODO: Add foreign account view
     // TODO: Make a js script that opens the edit menu for the forum signature
     // TODO: !!!Fix the input models!!!
