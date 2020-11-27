@@ -29,5 +29,11 @@ namespace HolocronProject.Web.ViewModels.BaseThreads
 
         public Pager.Pager Pager { get; set; }
 
+        public string ControllerName => "BaseThreads";
+
+        public string ActionName => "ById";
+
+        public string QueryId => "threadId";
+
     }
 }

@@ -26,37 +26,5 @@
         
     </table>
     <a href="/Threads/Create/?baseThreadId=@Model.Id" class="btn btn-primary">Create new thread</a>
-    @if (Model.Pager.EndPage > 1)
-    {
-        <div class="float-right">
-            <ul class="pagination">
-                @if (Model.Pager.CurrentPage > 1)
-                {
-                    <li class="float-left mr-1">
-                        <a href="/BaseThreads/ById?id=@Model.Id" class="btn btn-info">First</a>
-                    </li>
-                    <li class="float-left mr-1">
-                        <a href="/BaseThreads/ById?id=@Model.Id&page=@(Model.Pager.CurrentPage - 1)" class="btn btn-info">Previous</a>
-                    </li>
-                }
-
-                @for (var page = Model.Pager.StartPage; page <= Model.Pager.EndPage; page++)
-                {
-                    <li class="@(page == Model.Pager.CurrentPage ? "active" : "") float-right mr-1">
-                        <a href="/BaseThreads/ById?id=@Model.Id&page=@(page)" class="btn btn-info">@(page)</a>
-                    </li>
-                }
-
-                @if (Model.Pager.CurrentPage < Model.Pager.TotalPages)
-                {
-                    <li class="float-right mr-1">
-                        <a href="/BaseThreads/ById?id=@Model.Id&page=@(Model.Pager.CurrentPage + 1)" class="btn btn-info">Next</a>
-                    </li>
-                    <li class="float-right mr-1">
-                        <a href="/BaseThreads/ById?id=@Model.Id&page=@(Model.Pager.TotalPages)" class="btn btn-info">Last</a>
-                    </li>
-                }
-            </ul>
-        </div>
-    }
+    <partial name="PaginationView" model="Model" />
 </div>

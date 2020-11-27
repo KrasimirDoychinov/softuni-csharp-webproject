@@ -1,6 +1,7 @@
 ﻿using HolocronProject.Data.Models;
 using HolocronProject.Services;
 using HolocronProject.Web.ViewModels.BugReports;
+using HolocronProject.Web.ViewModels.Pager;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -45,7 +46,7 @@ namespace HolocronProject.Web.Controllers
         }
 
         [Authorize]
-        public IActionResult AllBugReports()
+        public IActionResult AllBugReports(int? page)
         {
             IEnumerable<BugReportListViewModel> bugReportsViewModel;
             if (this.User.IsInRole("Admin"))
@@ -59,11 +60,18 @@ namespace HolocronProject.Web.Controllers
 
             }
 
-            return this.View(bugReportsViewModel);
+            if (bugReportsViewModel.Count() > 0)
+            {
+                var pager = new Pager(bugReportsViewModel.Count(), page);
+                bugReportsViewModel = bugReportsViewModel.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize);
+                bugReportsViewModel.FirstOrDefault().Pager = pager;
+            }
+
+            return this.View(bugReportsViewModel.ToList());
         }
 
         [Authorize]
-        public IActionResult AllResolvedBugReports()
+        public IActionResult AllResolvedBugReports(int? page)
         {
             IEnumerable<BugReportListViewModel> bugReportsViewModel;
             if (this.User.IsInRole("Admin"))
@@ -76,7 +84,11 @@ namespace HolocronProject.Web.Controllers
                 bugReportsViewModel = this.bugReportService.GetAllByAccountResolved<BugReportListViewModel>(accountId);
             }
 
-            return this.View(bugReportsViewModel);
+            var pager = new Pager(bugReportsViewModel.Count(), page);
+            bugReportsViewModel = bugReportsViewModel.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize);
+            bugReportsViewModel.FirstOrDefault().Pager = pager;
+
+            return this.View(bugReportsViewModel.ToList());
         }
 
         [Authorize(Roles = "Admin")]

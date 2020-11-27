@@ -71,6 +71,7 @@ namespace HolocronProject.Web.Controllers
             var threadViewModel = this.threadService.GetThreadsById<ThreadViewModel>(threadId);
 
             var pager = new Pager(threadViewModel.PostsCount, page);
+            threadViewModel.Posts = threadViewModel.Posts.OrderBy(x => x.CreatedOn);
             threadViewModel.Posts = threadViewModel.Posts.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize);
             threadViewModel.Pager = pager;
 
@@ -81,7 +82,6 @@ namespace HolocronProject.Web.Controllers
             threadViewModel.SanitizedDescription = sanitizer.Sanitize(threadViewModel.Description);
             threadViewModel.SanitizedDescription = this.htmlSizeParser.Parse(threadViewModel.SanitizedDescription, 100, 50);
 
-            threadViewModel.Posts = threadViewModel.Posts.OrderBy(x => x.CreatedOn);
             threadViewModel.Posts.AsParallel().ForAll(x => x.SanitizedDescription = sanitizer.Sanitize(x.Description));
             threadViewModel.Posts.AsParallel().ForAll(x => x.SanitizedDescription = this.htmlSizeParser.Parse(x.SanitizedDescription, 100, 50));
 

@@ -18,9 +18,9 @@ namespace HolocronProject.Web.Controllers
             this.baseThreadService = baseThreadService;
         }
 
-        public IActionResult ById(string id, int? page)
+        public IActionResult ById(string threadId, int? page)
         {
-            var baseThread = this.baseThreadService.GetById<BaseThreadViewModel>(id);
+            var baseThread = this.baseThreadService.GetById<BaseThreadViewModel>(threadId);
 
             var pager = new Pager(baseThread.ThreadsCount, page);
             baseThread.Threads = baseThread.Threads.OrderByDescending(x => x.CreatedOn);

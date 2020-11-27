@@ -30,5 +30,13 @@ namespace HolocronProject.Web.ViewModels.BugReports
         public bool IsResolved { get; set; }
 
         public string IsResolvedString => this.IsResolved == true ? "Resolved" : "Pending";
+
+        public string ControllerName => "BugReports";
+
+        public string ActionName => "ById";
+
+        public string QueryId => "id";
+
+        public Pager.Pager Pager { get; set; }
     }
 }

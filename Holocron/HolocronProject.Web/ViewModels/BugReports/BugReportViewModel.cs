@@ -22,5 +22,6 @@ namespace HolocronProject.Web.ViewModels.BugReports
         public string Description { get; set; }
 
         public string Notes { get; set; }
+
     }
 }
