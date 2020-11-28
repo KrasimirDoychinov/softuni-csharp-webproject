@@ -9,6 +9,6 @@ namespace HolocronProject.Services
     {
         Task CreatePostAsync(string description, string threadId, string accountId);
 
-        IEnumerable<T> GetLast10PostsByAccountId<T>(string accountId);
+        IEnumerable<T> GetLastPostsByAccountId<T>(string accountId);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Ganss.XSS;
 using HolocronProject.Data.Models;
 using HolocronProject.Services;
+using HolocronProject.Web.ViewModels.Pager;
 using HolocronProject.Web.ViewModels.Posts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -52,17 +53,23 @@ namespace HolocronProject.Web.Controllers
         } 
 
         [Authorize]
-        public IActionResult LastPosts(string accountId)
+        public IActionResult LastPosts(string accountId, int? page)
         {
-            var lastPost = this.postService.GetLast10PostsByAccountId<LastPostsViewModel>(accountId);
+            var lastPosts = this.postService.GetLastPostsByAccountId<LastPostsViewModel>(accountId);
             var sanitizer = new HtmlSanitizer();
+
+            var pager = new Pager(lastPosts.Count(), page);
+            lastPosts = lastPosts.OrderByDescending(x => x.CreatedOn);
+            lastPosts = lastPosts.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize);
+
+            lastPosts.FirstOrDefault().Pager = pager;
 
             sanitizer.AllowedTags.Add("iframe");
 
-            lastPost.AsParallel().ForAll(x => x.SanitizedDescription = sanitizer.Sanitize(x.Description));
-            lastPost.AsParallel().ForAll(x => x.SanitizedDescription = this.htmlSizeParser.Parse(x.SanitizedDescription, 100, 50));
+            lastPosts.AsParallel().ForAll(x => x.SanitizedDescription = sanitizer.Sanitize(x.Description));
+            lastPosts.AsParallel().ForAll(x => x.SanitizedDescription = this.htmlSizeParser.Parse(x.SanitizedDescription, 100, 50));
 
-            return this.View(lastPost);
+            return this.View(lastPosts.ToList());
         }
         
     }

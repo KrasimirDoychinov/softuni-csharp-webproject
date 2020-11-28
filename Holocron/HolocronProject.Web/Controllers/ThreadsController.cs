@@ -63,7 +63,7 @@ namespace HolocronProject.Web.Controllers
             };
 
             await this.threadService.CreateThreadAsync(threadInputModel);
-            return this.Redirect($"/BaseThreads/ById/?id={baseThreadId}");
+            return this.Redirect($"/BaseThreads/ById/?threadId={baseThreadId}");
         }
 
         public IActionResult ById(string threadId, int? page)
@@ -92,10 +92,16 @@ namespace HolocronProject.Web.Controllers
 
 
         [Authorize]
-        public IActionResult LastThreads(string accountId)
+        public IActionResult LastThreads(string accountId, int? page)
         {
-            var lastThreads = this.threadService.GetLast10ThreadsByAccountId<ThreadViewModel>(accountId);
+            var lastThreads = this.threadService.GetLastThreadsByAccountId<ThreadViewModel>(accountId);
             var sanitizer = new HtmlSanitizer();
+
+            var pager = new Pager(lastThreads.Count(), page);
+            lastThreads = lastThreads.OrderByDescending(x => x.CreatedOn);
+            lastThreads = lastThreads.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize);
+
+            lastThreads.FirstOrDefault().Pager = pager;
 
             sanitizer.AllowedTags.Add("iframe");
 
@@ -104,7 +110,7 @@ namespace HolocronProject.Web.Controllers
 
             lastThreads.AsParallel().ForAll(x => x.RandomImageQuery = random.NextDouble().ToString());
 
-            return this.View(lastThreads);
+            return this.View(lastThreads.ToList());
         }
     }
 }
