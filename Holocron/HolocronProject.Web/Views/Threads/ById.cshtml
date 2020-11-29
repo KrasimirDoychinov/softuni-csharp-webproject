@@ -63,7 +63,9 @@
                     <div class="col-md-12">
                         <div class="card mb-4 bg-dark">
                             <div class="card-header">
+
                                 <div class="media flex-wrap w-100 align-items-center">
+
                                     @if (item.AccountAvatarImagePath != null)
                                     {
                                         <img src="/Images/AvatarImages/@item.AccountAvatarImagePath?id=@Model.RandomImageQuery" class="d-block ui-w-40 rounded-circle border border-warning" height="100" width="100" alt="">
@@ -73,6 +75,7 @@
                                         <img src="/Images/AvatarImages/defaultAvatar.jpg?id=@Model.RandomImageQuery" class="d-block ui-w-40 rounded-circle border border-warning" height="100" width="100" alt="">
                                     }
                                     <div class="media-body ml-3">
+
                                         @if (item.AccountId == currAccountId)
                                         {
                                             <a asp-area="Identity" asp-page="/Account/Manage/Index" class="text-decoration-none text-warning" data-abc="true">@item.AccountUserName</a>
@@ -81,7 +84,9 @@
                                         {
                                             <a href="/Accounts/ForeignAccount?accountId=@item.AccountId" class="text-decoration-none text-warning" data-abc="true">@item.AccountUserName</a>
                                         }
+                                        <a href="/PostReports/Create?postId=@item.Id" class="btn btn-danger btn-sm float-right">Report post</a>
                                         <div class="text-info small">Created on <strong>@item.CreatedOn</strong></div>
+
                                     </div>
 
                                 </div>
@@ -98,7 +103,7 @@
             }
             <a href="/Posts/Create?threadId=@Model.Id" class="btn btn-primary">Reply</a>
             <partial name="PaginationView" model="Model" />
-            
+
         </div>
     </div>
 </div>

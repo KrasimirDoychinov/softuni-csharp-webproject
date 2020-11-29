@@ -15,11 +15,7 @@ namespace HolocronProject.Web.ViewModels.BugReports
 
         public string Title { get; set; }
 
-        public string CreatedOn { get; set; }
-
         public string NormalizedCreatedOn { get; set; }
-
-        public string ResolvedOn { get; set; }
 
         public string NormalizedResolvedOn { get; set; }
 

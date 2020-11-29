@@ -38,6 +38,8 @@ namespace HolocronProject.Data.Models
 
         public virtual Post Post { get; set; }
 
+        public string Notes { get; set; }
+
         
 
     }

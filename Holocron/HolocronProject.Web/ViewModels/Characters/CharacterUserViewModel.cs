@@ -1,4 +1,5 @@
-﻿using HolocronProject.Services.Mapper;
+﻿using HolocronProject.Data.Enums;
+using HolocronProject.Services.Mapper;
 
 using System;
 using System.Collections.Generic;
@@ -11,9 +12,21 @@ namespace HolocronProject.Web.ViewModels.Characters
     {
         public string Id { get; set; }
 
-        public string AccountUserName { get; set; }
+        public string Title { get; set; }
 
         public string Name { get; set; }
+
+        public string Gender { get; set; }
+
+        public string CharacterType { get; set; }
+
+        public ForceAffiliation ForceAffiliation { get; set; }
+
+        public string ForceAffiliationString { get; set; }
+
+        public string AchievementsCount { get; set; }
+
+        public string CompetitionsCount { get; set; }
 
         public string RaceName { get; set; }
 
@@ -21,8 +34,16 @@ namespace HolocronProject.Web.ViewModels.Characters
 
         public string ClassName { get; set; }
 
+        public string ClassFaction { get; set; }
+
+        public string Description { get; set; }
+
+        public string Backstory { get; set; }
+
         public string CharacterImagePath { get; set; }
 
         public string RandomImageQuery { get; set; }
+
+        public string AccountUserName { get; set; }
     }
 }

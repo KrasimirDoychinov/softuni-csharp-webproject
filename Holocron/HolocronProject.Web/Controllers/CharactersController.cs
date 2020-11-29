@@ -1,4 +1,5 @@
-﻿using HolocronProject.Data.Models;
+﻿using HolocronProject.Data.Enums;
+using HolocronProject.Data.Models;
 using HolocronProject.Services;
 using HolocronProject.Services.Models.Character;
 using HolocronProject.Web.ViewModels.Characters;
@@ -102,6 +103,24 @@ namespace HolocronProject.Web.Controllers
         {
             var charViewModel = this.characterService.GetCharacterInfo<CharacterUserViewModel>(characterId);
             charViewModel.RandomImageQuery = random.NextDouble().ToString();
+
+            if (charViewModel.ForceAffiliation == ForceAffiliation.LightSide)
+            {
+                charViewModel.ForceAffiliationString = "Light side";
+            }
+            else if (charViewModel.ForceAffiliation == ForceAffiliation.DarkSide)
+            {
+                charViewModel.ForceAffiliationString = "Dark side";
+            }
+            else if (charViewModel.ForceAffiliation == ForceAffiliation.None)
+            {
+                charViewModel.ForceAffiliationString = "None";
+            }
+            else
+            {
+                charViewModel.ForceAffiliationString = "Unknown";
+            }
+
             return this.View(charViewModel);
         }
 

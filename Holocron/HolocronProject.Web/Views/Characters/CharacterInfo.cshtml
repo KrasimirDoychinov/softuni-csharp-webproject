@@ -4,8 +4,26 @@
     var randomImageQuery = random.NextDouble().ToString();
 } 
 
-<img src="~/Images/CharacterImages/@Model.CharacterImagePath?random=@Model.RandomImageQuery" width="1280" height="720" />
-<h1>Name: @Model.Name</h1>
-<h1>Class name: @Model.ClassName</h1>
-<h1>Race name: @Model.RaceName</h1>
-<h1>Server mame: @Model.ServerName</h1>
+<div class="text-center">
+    <div class="col-md-12 ">
+        <img src="~/Images/CharacterImages/@Model.CharacterImagePath?random=@Model.RandomImageQuery" style="width: 50%; height: 50%;" />
+        <div class="col-md-12 text-left mt-5 background-color">
+            <div class="text-center">
+                <h4><span class="font-weight-bold">Name: </span>@Model.Name</h4>
+                <h4><span class="font-weight-bold">Title: </span>@Model.Title</h4>
+                <h5><span class="font-weight-bold">Gender: </span>@Model.Gender</h5>
+                <h5><span class="font-weight-bold">Type: </span>@Model.CharacterType</h5>
+                <h5><span class="font-weight-bold">Force affiliation: </span>@Model.ForceAffiliationString</h5>
+                <h5><span class="font-weight-bold">Faction: </span>@Model.ClassFaction</h5>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="text-break ">
+    <h5 class="font-weight-bold">Description</h5>
+    <p>@Model.Description</p>
+    <h5 class="font-weight-bold">Backstory</h5>
+    <p>@Model.Backstory</p>
+</div>
+
