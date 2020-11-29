@@ -52,29 +52,29 @@ namespace HolocronProject.Services.Implementations
 
         public IEnumerable<T> GetAllByAccountUnresolved<T>(string accountId)
             => this.context.BugReports
-            .Where(x => x.AccountId == accountId && x.IsResolved == false)
-            .OrderBy(x => x.CreatedOn)
+            .Where(x => x.AccountId == accountId && !x.IsResolved)
+            .OrderByDescending(x => x.CreatedOn)
             .To<T>()
             .ToList();
 
         public IEnumerable<T> GetAllByAccountResolved<T>(string accountId)
             => this.context.BugReports
-            .Where(x => x.AccountId == accountId && x.IsResolved == true)
-            .OrderBy(x => x.ResolvedOn)
+            .Where(x => x.AccountId == accountId && x.IsResolved)
+            .OrderByDescending(x => x.ResolvedOn)
             .To<T>()
             .ToList();
 
         public IEnumerable<T> GetAllAdminUnresolved<T>()
             => this.context.BugReports
-            .Where(x => x.IsResolved == false)
-            .OrderBy(x => x.CreatedOn)
+            .Where(x => !x.IsResolved)
+            .OrderByDescending(x => x.CreatedOn)
             .To<T>()
             .ToList();
 
         public IEnumerable<T> GetAllAdminResolved<T>()
             => this.context.BugReports
-            .Where(x => x.IsResolved == true)
-            .OrderBy(x => x.ResolvedOn)
+            .Where(x => x.IsResolved)
+            .OrderByDescending(x => x.ResolvedOn)
             .To<T>()
             .ToList();
 

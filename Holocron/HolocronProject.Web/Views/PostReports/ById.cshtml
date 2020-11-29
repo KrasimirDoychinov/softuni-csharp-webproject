@@ -1,0 +1,61 @@
+﻿@model PostReportViewModel
+
+@inject UserManager<Account> userManager
+
+@{
+    var currAccountId = this.userManager.GetUserAsync(this.User).Result.Id;
+}
+
+<div class="mb-3">
+    <h5 class="text-center"><span class="font-weight-bold">Title: </span>@Model.Title</h5>
+    <h5 class="text-center"><span class="font-weight-bold">Created on: </span>@Model.NormalizedCreatedOn</h5>
+    <h5 class="text-center"><span class="font-weight-bold">Reported account: </span>@Model.AccountUserName</h5>
+    <h6 class="font-weight-bold">Description</h6>
+    <p class="text-break">@Model.Description</p>
+    @if (Model.Notes != null)
+    {
+        <h6 class="font-weight-bold text-break">Notes</h6>
+        <p class="text-break">@Model.Notes</p>
+    }
+
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card mb-4 bg-dark">
+            <div class="card-header">
+                <div class="media flex-wrap w-100 align-items-center">
+                    @if (Model.Post.AccountAvatarImagePath != null)
+                    {
+                        <img src="/Images/AvatarImages/@Model.Post.AccountAvatarImagePath?id=@Model.Post.RandomImageQuery" class="d-block ui-w-40 rounded-circle border border-warning" height="100" width="100" alt="">
+                    }
+                    else
+                    {
+                        <img src="/Images/AvatarImages/defaultAvatar.jpg?id=@Model.Post.RandomImageQuery" class="d-block ui-w-40 rounded-circle border border-warning" height="100" width="100" alt="">
+                    }
+                    <div class="media-body ml-3">
+                        @if (Model.Post.AccountId == currAccountId)
+                        {
+                            <a asp-area="Identity" asp-page="/Account/Manage/Index" class="text-decoration-none text-warning" data-abc="true">@Model.Post.AccountUserName</a>
+                        }
+                        else
+                        {
+                            <a href="/Accounts/ForeignAccount?accountId=@Model.Post.AccountId" class="text-decoration-none text-warning" data-abc="true">@Model.Post.AccountUserName</a>
+                        }
+                        <div class="text-info small">Created on <strong>@Model.Post.CreatedOn</strong></div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body" style="background-color: #384047;">
+                @Html.Raw(Model.Post.SanitizedDescription)
+            </div>
+            <div class="card-footer">
+                @Html.Raw(Model.Post.SanitizedForumSignature)
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    
+</div>

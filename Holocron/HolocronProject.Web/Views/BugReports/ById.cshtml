@@ -1,37 +1,15 @@
 ﻿@model BugReportViewModel
 
 
-<div class="container-fluid mt-100" >
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card mb-4 bg-dark">
-                <div class="card-header">
-                    <div class="media flex-wrap w-100 align-items-center">
-                        <div class="media-body ml-3">
-                        </div>
-                        <div class="text-info small ml-3">
-                            <div>Created on <strong>@Model.NormalizedCreatedOn</strong></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body" style="background-color: #384047;">
-                    <label class="text-white font-weight-bold">Description</label>
-                    <p>
-                        @Model.Description
-                    </p>
-                </div>
-                <div class="card-body" style="background-color: #384047;">
-                    <label class="text-white font-weight-bold">Notes</label>
-                    <p>@Model.Notes</p>
-                   
-                </div>
-                <div class="card-footer">
-                    <a href="/BugReports/Resolve?id=@Model.Id">
-                        <label class="btn btn-primary float-right">Resolve</label>
-                    </a>
-                    
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="mb-3">
+    <h5 class="text-center"><span class="font-weight-bold">Title: </span>@Model.Title</h5>
+    <h5 class="text-center"><span class="font-weight-bold">Created on: </span>@Model.NormalizedCreatedOn</h5>
+    <h5 class="text-center text-warning"><span class="font-weight-bold">Reported account: </span>@Model.AccountUserName</h5>
+    <h6 class="font-weight-bold">Description</h6>
+    <p class="text-break">@Model.Description</p>
+    @if (Model.Notes != null)
+    {
+        <h6 class="font-weight-bold text-break">Notes</h6>
+        <p class="text-break">@Model.Notes</p>
+    }
 </div>

@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace HolocronProject.Web.ViewModels.BugReports
+namespace HolocronProject.Web.ViewModels.PostReports
 {
-    public class BugReportListViewModel : IMapFrom<BugReport>
+    public class PostReportListViewModel : IMapFrom<PostReport>
     {
         public string Id { get; set; }
 

@@ -62,6 +62,7 @@ namespace HolocronProject.Web.Controllers
 
             if (bugReportsViewModel.Count() > 0)
             {
+                bugReportsViewModel = bugReportsViewModel.OrderByDescending(x => x.NormalizedCreatedOn);
                 var pager = new Pager(bugReportsViewModel.Count(), page);
                 bugReportsViewModel = bugReportsViewModel.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize);
                 bugReportsViewModel.FirstOrDefault().Pager = pager;
@@ -83,10 +84,13 @@ namespace HolocronProject.Web.Controllers
                 var accountId = this.userManager.GetUserAsync(this.User).Result.Id;
                 bugReportsViewModel = this.bugReportService.GetAllByAccountResolved<BugReportListViewModel>(accountId);
             }
-
-            var pager = new Pager(bugReportsViewModel.Count(), page);
-            bugReportsViewModel = bugReportsViewModel.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize);
-            bugReportsViewModel.FirstOrDefault().Pager = pager;
+            if (bugReportsViewModel.Count() > 0)
+            {
+                bugReportsViewModel = bugReportsViewModel.OrderByDescending(x => x.NormalizedCreatedOn);
+                var pager = new Pager(bugReportsViewModel.Count(), page);
+                bugReportsViewModel = bugReportsViewModel.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize);
+                bugReportsViewModel.FirstOrDefault().Pager = pager;
+            }
 
             return this.View(bugReportsViewModel.ToList());
         }

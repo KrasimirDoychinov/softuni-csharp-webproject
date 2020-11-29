@@ -60,6 +60,7 @@ namespace HolocronProject.Web
             services.AddTransient<IClassesService, ClassesService>();
             services.AddTransient<ICompetitionsService, CompetitionsService>();
             services.AddTransient<IPostsService, PostsService>();
+            services.AddTransient<IPostReportsService, PostReportsService>();
             services.AddTransient<IRacesService, RacesService>();
             services.AddTransient<IServersService, ServersService>();
             services.AddTransient<IThreadsService, ThreadsService>();
