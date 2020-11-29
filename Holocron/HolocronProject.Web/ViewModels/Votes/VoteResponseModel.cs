@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace HolocronProject.Web.Views.Votes
+namespace HolocronProject.Web.ViewModels.Votes
 {
     public class VoteResponseModel
     {

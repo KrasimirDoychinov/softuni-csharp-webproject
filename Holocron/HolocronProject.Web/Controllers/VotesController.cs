@@ -1,7 +1,6 @@
 ﻿using HolocronProject.Data.Models;
 using HolocronProject.Services;
 using HolocronProject.Web.ViewModels.Votes;
-using HolocronProject.Web.Views.Votes;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

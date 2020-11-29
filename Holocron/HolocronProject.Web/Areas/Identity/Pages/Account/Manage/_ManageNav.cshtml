@@ -6,7 +6,7 @@
 }
 <ul class="nav nav-pills flex-column">
     <li class="nav-item"><a class="nav-link btn btn-info mb-1 @ManageNavPages.IndexNavClass(ViewContext)" id="profile" asp-page="./Index">Profile</a></li>
-    <li class="nav-item"><a class="nav-link btn btn-info text-white mb-1" asp-controller="Characters" asp-action="AllCharacters">Characters</a></li>
+    <li class="nav-item"><a class="nav-link btn btn-info text-white mb-1" href="/Characters/AllCharacters?accountId=@accountId">Characters</a></li>
     <li class="nav-item"><a class="nav-link btn btn-info mb-1 text-white" href="/Posts/LastPosts?accountId=@accountId">Last threads</a></li>
     <li class="nav-item"><a class="nav-link btn btn-info mb-1 text-white" href="/Threads/LastThreads?accountId=@accountId">Last threads</a></li>
     <li class="nav-item"><a class="nav-link btn btn-info mb-1 text-white" asp-controller="BugReports" asp-action="AllBugReports">Bug reports</a></li>

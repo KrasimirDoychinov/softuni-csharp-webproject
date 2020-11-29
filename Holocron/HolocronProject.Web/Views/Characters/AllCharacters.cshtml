@@ -1,35 +1,51 @@
-﻿@model List<CharacterUserViewModel>
+﻿
+@model List<CharactersViewModel>
 
+@inject UserManager<Account> userManager
+@{
+    var loggedInAccountId = this.userManager.GetUserAsync(this.User).Result.Id;
+}
 @if (Model.Count() <= 0)
 {
     <div class="text-center">
-        <h1>You currently have no characters.</h1>
-        <h3><a asp-controller="Characters" asp-action="CreateCharacter" class="text-decoration-none">Create one?</a></h3>
+        @if (ViewData["charactersAccountId"].ToString() == loggedInAccountId)
+        {
+            <h1>You currently have no characters.</h1>
+            <h3><a asp-controller="Characters" asp-action="CreateCharacter" class="text-decoration-none">Create one?</a></h3>
+        }
+        else
+        {
+            <h1>The account currently has no characters.</h1>
+        }
     </div>
 }
 else
 {
-    <table class="table table-dark table-striped table-hover text-white">
-        <thead>
-            <tr>
-                <th scope="col">Character name</th>
-                <th scope="col">Class name</th>
-                <th scope="col">Race name</th>
-                <th scope="col">Server name</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
+    <div class="row text-center">
+        <div class="col-md-12 ">
+            @if (Model.Count <= 0)
             {
-                <tr>
-                    <td>@item.Name</td>
-                    <td>@item.ClassName</td>
-                    <td>@item.RaceName</td>
-                    <td>@item.ServerName</td>
-                    <td><a href="/Characters/CharacterInfo?id=@item.Id" class="btn btn-info" role="button">Link Button</a></td>
-                </tr>
-
+                <div class="text-center">
+                    <h3>
+                        The user has no characters.
+                    </h3>
+                </div>
             }
-        </tbody>
-    </table>
+            else
+            {
+                @foreach (var item in Model)
+                {
+                    <div class="d-inline-block grid">
+                        <a href="/Characters/CharacterInfo?characterId=@item.Id"><img src="~/Images/CharacterImages/@item.CharacterImagePath" class="ml-3" style="width: 325px; height:300px" /></a>
+                        <h4><span class="font-weight-bold">Name: </span>@item.Name</h4>
+                        <h5><span class="font-weight-bold">Title: </span>@item.Title</h5>
+                        <h5><span class="font-weight-bold">Gender: </span>@item.Gender</h5>
+                        <h5><span class="font-weight-bold">Class: </span>@item.ClassName</h5>
+                    </div>
+                }
+            }
+        </div>
+    </div>
 }
+
+

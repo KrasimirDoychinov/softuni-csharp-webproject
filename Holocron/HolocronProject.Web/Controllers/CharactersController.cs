@@ -91,15 +91,16 @@ namespace HolocronProject.Web.Controllers
         [Authorize]
         public IActionResult AllCharacters(string accountId)
         {
-            var charListViewModel = this.characterService.GetCurrentAccountCharacter<CharacterUserViewModel>(accountId);
+            var charListViewModel = this.characterService.GetCurrentAccountCharacter<CharactersViewModel>(accountId);
+            ViewData["charactersAccountId"] = accountId;
 
             return this.View(charListViewModel);
         }
 
         [Authorize]
-        public IActionResult CharacterInfo(string id)
+        public IActionResult CharacterInfo(string characterId)
         {
-            var charViewModel = this.characterService.GetCharacterInfo<CharacterUserViewModel>(id);
+            var charViewModel = this.characterService.GetCharacterInfo<CharacterUserViewModel>(characterId);
             charViewModel.RandomImageQuery = random.NextDouble().ToString();
             return this.View(charViewModel);
         }
@@ -107,7 +108,7 @@ namespace HolocronProject.Web.Controllers
         [Authorize]
         public IActionResult ForeignCharacters(string accountId)
         {
-            var charactersViewModel = this.characterService.GetCurrentAccountCharacter<ForeignCharactersViewModel>(accountId);
+            var charactersViewModel = this.characterService.GetCurrentAccountCharacter<CharactersViewModel>(accountId);
             
             return this.View(charactersViewModel);
         }
