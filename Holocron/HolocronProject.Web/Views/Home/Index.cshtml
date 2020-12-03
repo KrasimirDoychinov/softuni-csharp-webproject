@@ -1,9 +1,10 @@
 ﻿@model List<BaseThreadViewModel>
-@{ 
-    ViewData["Title"] = "Home Page"; 
-    }
+@{
+    ViewData["Title"] = "Home Page";
+}
 
-<div >
+
+<div>
     @foreach (var item in Model)
     {
         ViewData["ThreadsPostsCount"] = item.Threads.Select(x => x.PostsCount).Sum();

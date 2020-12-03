@@ -4,7 +4,7 @@ using HolocronProject.Web.ViewModels.Accounts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-
+using System.Threading.Tasks;
 
 namespace HolocronProject.Web.Controllers
 {
@@ -31,6 +31,14 @@ namespace HolocronProject.Web.Controllers
             var foreignAccount = this.accountService.GetAccountByIdGeneric<ForeignAccountViewModel>(accountId);
 
             return this.View(foreignAccount);
+        }
+
+        [Authorize]
+        public async Task<IActionResult> RemoveNotification(string accountId)
+        {
+            await this.accountService.RemoveNotification(accountId);
+
+            return this.Redirect("/");
         }
     }
 }
