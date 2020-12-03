@@ -15,6 +15,8 @@ namespace HolocronProject.Web.ViewModels.Posts
 
         public string CreatedOn { get; set; }
 
+        public string NormalizedCreatedOn { get; set; }
+
         public string Description { get; set; }
 
         public string SanitizedDescription { get; set; }

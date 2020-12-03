@@ -36,7 +36,7 @@
                                     <a href="/Threads/ById?threadId=@item.ThreadId" class="text-decoration-none text-warning">@item.ShortedThreadTitle</a>
                                 </div>
                                 <label class="text-warning">@item.AccountUserName</label>
-                                <div class="text-info small">Created on <strong>@item.CreatedOn</strong></div>
+                                <div class="text-info small">Created on <strong>@item.NormalizedCreatedOn</strong></div>
                             </div>
                         </div>
                     </div>
@@ -50,7 +50,7 @@
             }
             @if (pager.EndPage > 1)
             {
-                <div class="float-right clearfix">
+                <div class="float-left">
                     <ul class="pagination">
                         @if (pager.CurrentPage > 1)
                         {

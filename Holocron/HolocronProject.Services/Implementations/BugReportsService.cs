@@ -37,7 +37,7 @@ namespace HolocronProject.Services.Implementations
             var bugReport = GetReportById(bugReportId);
 
             bugReport.IsResolved = true;
-            bugReport.ResolvedOn = DateTime.UtcNow.ToString("MM/dd/yyyy h:mm tt");
+            bugReport.ResolvedOn = DateTime.UtcNow;
             bugReport.NormalizedResolvedOn = DateTime.Now.ToString("MM/dd/yyyy h:mm tt");
 
             this.context.BugReports.Update(bugReport);

@@ -23,7 +23,8 @@ namespace HolocronProject.Services.Implementations
             .ToList();
 
         public Class GetClassById(string classId)
-            => this.context.Classes.FirstOrDefault(x => x.Id == classId);
+            => this.context.Classes
+            .FirstOrDefault(x => x.Id == classId);
 
     }
 }

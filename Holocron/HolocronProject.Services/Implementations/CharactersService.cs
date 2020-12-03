@@ -57,21 +57,15 @@ namespace HolocronProject.Services.Implementations
 
 
         public IEnumerable<T> GetCurrentAccountCharacter<T>(string accountId)
-        {
-            var charList = this.context.Characters
+            => this.context.Characters
                 .Where(x => x.AccountId == accountId)
                 .To<T>()
                 .ToList();
-
-            return charList;
-        }
         
         public T GetCharacterInfo<T>(string characterId)
-        {
-            return this.context.Characters
+            => this.context.Characters
                 .Where(x => x.Id == characterId)
                 .To<T>().FirstOrDefault();
-        }
 
         public async Task CreateCharacterImage(string characterName, IFormFile image)
         {

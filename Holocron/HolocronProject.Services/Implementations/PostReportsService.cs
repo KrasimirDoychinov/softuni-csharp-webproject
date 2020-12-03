@@ -37,7 +37,7 @@ namespace HolocronProject.Services.Implementations
             var postReport = this.GetReportById(postReportId);
 
             postReport.IsResolved = true;
-            postReport.ResolvedOn = DateTime.UtcNow.ToString("MM/dd/yyyy h:mm tt");
+            postReport.ResolvedOn = DateTime.UtcNow;
             postReport.NormalizedResolvedOn = DateTime.Now.ToString("MM/dd/yyyy h:mm tt");
 
             this.context.PostReports.Update(postReport);

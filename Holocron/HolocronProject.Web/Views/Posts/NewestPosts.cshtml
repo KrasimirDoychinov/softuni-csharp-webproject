@@ -36,7 +36,7 @@
                                     <a href="/Threads/ById?threadId=@item.ThreadId" class="text-decoration-none text-warning">@item.ShortedThreadTitle</a>
                                 </div>
                                 <label class="text-warning">@item.AccountUserName</label>
-                                <div class="text-info small">Created on <strong>@item.CreatedOn</strong></div>
+                                <div class="text-info small">Created on <strong>@item.NormalizedCreatedOn</strong></div>
                             </div>
                         </div>
                     </div>
@@ -50,32 +50,32 @@
             }
             @if (pager.EndPage > 1)
             {
-                <div class="float-right clearfix">
+                <div class="float-left">
                     <ul class="pagination">
                         @if (pager.CurrentPage > 1)
                         {
                             <li class="float-left mr-1">
-                                <a href="/Posts/AllLastPosts" class="btn btn-info">First</a>
+                                <a href="/Posts/NewestPosts" class="btn btn-info">First</a>
                             </li>
                             <li class="float-left mr-1">
-                                <a href="/Posts/AllLastPosts?page=@(pager.CurrentPage - 1)" class="btn btn-info">Previous</a>
+                                <a href="/Posts/NewestPosts?page=@(pager.CurrentPage - 1)" class="btn btn-info">Previous</a>
                             </li>
                         }
 
                         @for (var page = pager.StartPage; page <= pager.EndPage; page++)
                         {
                             <li class="@(page == pager.CurrentPage ? "active" : "") float-right mr-1">
-                                <a href="/Posts/AllLastPosts?page=@(page)" class="btn btn-info">@(page)</a>
+                                <a href="/Posts/NewestPosts?page=@(page)" class="btn btn-info">@(page)</a>
                             </li>
                         }
 
                         @if (pager.CurrentPage < pager.TotalPages)
                         {
                             <li class="float-right mr-1">
-                                <a href="/Posts/AllLastPosts?page=@(pager.CurrentPage + 1)" class="btn btn-info">Next</a>
+                                <a href="/Posts/NewestPosts?page=@(pager.CurrentPage + 1)" class="btn btn-info">Next</a>
                             </li>
                             <li class="float-right mr-1">
-                                <a href="/Posts/AllLastPosts?page=@(pager.TotalPages)" class="btn btn-info">Last</a>
+                                <a href="/Posts/NewestPosts?page=@(pager.TotalPages)" class="btn btn-info">Last</a>
                             </li>
                         }
                     </ul>

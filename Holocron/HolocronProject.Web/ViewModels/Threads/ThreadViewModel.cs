@@ -30,6 +30,8 @@ namespace HolocronProject.Web.ViewModels.Threads
 
         public string CreatedOn { get; set; }
 
+        public string NormalizedCreatedOn { get; set; }
+
         public int PostsCount { get; set; }
 
         public string Description { get; set; }

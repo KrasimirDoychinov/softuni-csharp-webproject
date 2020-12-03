@@ -16,7 +16,7 @@
             {
                 <tr>
                     <td><a href="/Threads/ById?threadId=@item.Id" class="text-decoration-none text-warning" role="button">@item.ShortenedTitle</a><br />@item.AccountUserName</td>
-                    <td>@item.CreatedOn</td>
+                    <td>@item.NormalizedCreatedOn</td>
                     <td>@item.PostsCount</td>
                     <td>@item.VotesCount</td>
                 </tr>
@@ -25,6 +25,12 @@
         </tbody>
         
     </table>
-    <a href="/Threads/Create/?baseThreadId=@Model.Id" class="btn btn-primary">Create new thread</a>
-    <partial name="PaginationView" model="Model" />
+    <div class="d-flex justify-content-between">
+        <div>
+            <partial name="PaginationView" model="Model" />
+        </div>
+        <div>
+            <a href="/Threads/Create/?baseThreadId=@Model.Id" class="btn btn-primary float-right">Create new thread</a>
+        </div>
+    </div>
 </div>

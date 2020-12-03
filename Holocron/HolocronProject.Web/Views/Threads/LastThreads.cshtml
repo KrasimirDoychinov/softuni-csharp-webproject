@@ -36,7 +36,7 @@
                                     <a href="/Threads/ById?threadId=@item.Id" class="text-decoration-none text-warning">@item.ShortenedTitle</a>
                                 </div>
                                 <label class="text-warning">@item.AccountUserName</label>
-                                <div class="text-info small">Created on <strong>@item.CreatedOn</strong></div>
+                                <div class="text-info small">Created on <strong>@item.NormalizedCreatedOn</strong></div>
                                 <label class="text-info small">@item.PostsCount <span class="font-weight-bold">posts</span></label>
                             </div>
                         </div>
@@ -51,7 +51,7 @@
             }
             @if (pager.EndPage > 1)
             {
-                <div class="float-right">
+                <div class="float-left">
                     <ul class="pagination">
                         @if (pager.CurrentPage > 1)
                         {
