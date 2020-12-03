@@ -44,6 +44,7 @@ namespace HolocronProject.Web.Controllers
             panelViewModel.TotalThreads = this.threadsService.TotalThreads();
             panelViewModel.TotalUnresolvedBugReports = this.bugReportsService.TotalUnresolvedBugReports();
             panelViewModel.TotalUnresolvedPostReports = this.postReportsService.TotalUnresolvedPostReports();
+            panelViewModel.TotalPendingCharacters = this.charactersService.TotalPendingCharacters();
 
             return this.View(panelViewModel);
         }

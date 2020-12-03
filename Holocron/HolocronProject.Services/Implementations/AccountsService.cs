@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using HolocronProject.Data;
+using HolocronProject.Data.Enums;
 using HolocronProject.Data.Models;
 using HolocronProject.Services.Mapper;
 using Microsoft.AspNetCore.Http;
@@ -106,5 +107,41 @@ namespace HolocronProject.Services.Implementations
         public int TotalAccounts()
             => this.context.Accounts
             .Count();
+
+        public async Task NotifyAccountOfApprovedCharacters(string accountId)
+        {
+            var account = this.GetAccountById(accountId);
+
+            account.NotificationStatus = NotificationStatus.HasApprovedCharacters;
+
+            this.context.Accounts.Update(account);
+            await this.context.SaveChangesAsync();
+        }
+
+        public async Task NotifyAccountOfPendingCharacters(string accountId)
+        {
+            var account = this.GetAccountById(accountId);
+
+            account.NotificationStatus = NotificationStatus.HasPendingCharacters;
+
+            this.context.Accounts.Update(account);
+            await this.context.SaveChangesAsync();
+        }
+
+        public NotificationStatus IsUserNotified(string accountId)
+            => this.context.Accounts
+            .Where(x => x.Id == accountId)
+            .FirstOrDefault()
+            .NotificationStatus;
+
+        public async Task RemoveNotification(string accountId)
+        {
+            var account = this.GetAccountById(accountId);
+
+            account.NotificationStatus = NotificationStatus.HasNoPendingOrApprovedCharacters;
+
+            this.context.Accounts.Update(account);
+            await this.context.SaveChangesAsync();
+        }
     }
 }

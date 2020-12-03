@@ -18,10 +18,13 @@ namespace HolocronProject.Services.Implementations
     public class CharactersService : ICharactersService
     {
         private readonly HolocronDbContext context;
+        private readonly IAccountsService accountsService;
 
-        public CharactersService(HolocronDbContext context)
+        public CharactersService(HolocronDbContext context,
+            IAccountsService accountsService)
         {
             this.context = context;
+            this.accountsService = accountsService;
         }
 
         public async Task CreateCharacterAsync(CharacterInputDto input)
@@ -58,7 +61,7 @@ namespace HolocronProject.Services.Implementations
 
         public IEnumerable<T> GetCurrentAccountCharacter<T>(string accountId)
             => this.context.Characters
-                .Where(x => x.AccountId == accountId)
+                .Where(x => x.AccountId == accountId && x.IsApproved)
                 .To<T>()
                 .ToList();
         
@@ -84,16 +87,47 @@ namespace HolocronProject.Services.Implementations
         }
 
         public Character GetCharacterById(string characterId)
-            => this.context.Characters.FirstOrDefault(x => x.Id == characterId);
+            => this.context.Characters
+            .FirstOrDefault(x => x.Id == characterId);
 
         public int TotalCharacters()
             => this.context.Characters
+            .Where(x => x.IsApproved)
             .Count();
 
         public IEnumerable<T> GetNewestCharacters<T>()
             => this.context.Characters
+            .Where(x => x.IsApproved)
             .OrderByDescending(x => x.CreatedOn)
             .To<T>()
             .ToList();
+
+        public async Task ApproveCharacter(string characterId, string accountId)
+        {
+            var character = this.GetCharacterById(characterId);
+            
+            character.IsApproved = true;
+            await this.accountsService.NotifyAccountOfApprovedCharacters(accountId);
+
+            this.context.Characters.Update(character);
+            await this.context.SaveChangesAsync();
+        }
+
+        public IEnumerable<T> GetPendingCharacters<T>(string accountId)
+            => this.context.Characters
+            .Where(x => x.AccountId == accountId && !x.IsApproved)
+            .To<T>()
+            .ToList();
+
+        public IEnumerable<T> GetAllPendingCharacters<T>()
+            => this.context.Characters
+            .Where(x => !x.IsApproved)
+            .To<T>()
+            .ToList();
+
+        public int TotalPendingCharacters()
+            => this.context.Characters
+            .Where(x => !x.IsApproved)
+            .Count();
     }
 }

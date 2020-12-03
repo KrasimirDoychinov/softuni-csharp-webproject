@@ -30,5 +30,6 @@ namespace HolocronProject.Web.ViewModels.Characters
 
         public string NormalizedCreatedOn { get; set; }
 
+
     }
 }

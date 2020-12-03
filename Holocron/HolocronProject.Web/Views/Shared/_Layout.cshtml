@@ -1,5 +1,10 @@
 ﻿@using System.Security.Claims
-
+@inject AccountsService accountService
+@inject UserManager<Account> userManager
+@{
+    var accountId = this.userManager.GetUserAsync(this.User).Result.Id;
+    var isUserNotified = this.accountService.IsUserNotified(accountId);
+}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,6 +56,19 @@
         <hr class="border-warning" style="border-width: 5px;" />
         <div class="container text-white p-3">
             <main role="main" class="pb-3">
+                @if (isUserNotified == HolocronProject.Data.Enums.NotificationStatus.HasApprovedCharacters)
+                {
+                    <div class="alert alert-success" role="alert">
+                        You have one or more characters that have been approved!
+                        Click <span><a href="/Characters/AllCharacters?accountId=@accountId" class="text-info text-decoration-none">here</a></span> to view your characters.
+                    </div>
+                }
+                else if (isUserNotified == HolocronProject.Data.Enums.NotificationStatus.HasPendingCharacters)
+                {
+                    <div class="alert alert-info" role="alert">
+                        You have one or more characters that are pending.
+                    </div>
+                }
                 @RenderBody()
             </main>
         </div>

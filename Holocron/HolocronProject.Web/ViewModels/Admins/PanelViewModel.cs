@@ -18,5 +18,7 @@ namespace HolocronProject.Web.ViewModels.Admins
         public int TotalUnresolvedBugReports { get; set; }
 
         public int TotalUnresolvedPostReports { get; set; }
+
+        public int TotalPendingCharacters { get; set; }
     }
 }

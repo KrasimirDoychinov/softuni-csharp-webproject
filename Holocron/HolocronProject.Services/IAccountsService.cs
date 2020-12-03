@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using HolocronProject.Data.Models;
 using HolocronProject.Services.Models;
 using Microsoft.AspNetCore.Http;
+using HolocronProject.Data.Enums;
 
 namespace HolocronProject.Services
 {
@@ -29,6 +30,13 @@ namespace HolocronProject.Services
 
         int TotalAccounts();
 
+        Task NotifyAccountOfApprovedCharacters(string accountId);
+
+        Task NotifyAccountOfPendingCharacters(string accountId);
+
+        Task RemoveNotification(string accountId);
+
+        NotificationStatus IsUserNotified(string accountId);
 
     }
 }

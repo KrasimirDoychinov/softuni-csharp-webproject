@@ -28,6 +28,7 @@ namespace HolocronProject.Web.Controllers
         private readonly IServersService serverService;
         private readonly IRacesService raceService;
         private readonly IWebHostEnvironment webHostEnvironment;
+        private readonly IAccountsService accountsService;
         private readonly Random random;
         private readonly UserManager<Account> userManager;
 
@@ -36,6 +37,7 @@ namespace HolocronProject.Web.Controllers
             IServersService serverService,
             IRacesService raceService,
             IWebHostEnvironment webHostEnvironment,
+            IAccountsService accountsService,
             Random random,
             UserManager<Account> userManager
             )
@@ -45,6 +47,7 @@ namespace HolocronProject.Web.Controllers
             this.serverService = serverService;
             this.raceService = raceService;
             this.webHostEnvironment = webHostEnvironment;
+            this.accountsService = accountsService;
             this.random = random;
             this.userManager = userManager;
         }
@@ -87,28 +90,26 @@ namespace HolocronProject.Web.Controllers
 
             await this.characterService.CreateCharacterAsync(characterInputDto);
             await this.characterService.CreateCharacterImage(input.Name, input.Image);
-            return this.Redirect($"/Characters/AllCharacters?accountId={accountId}");
+            await this.accountsService.NotifyAccountOfPendingCharacters(accountId);
+            return this.Redirect($"/");
         }
 
         [Authorize]
-        public IActionResult AllCharacters(string accountId, int? page)
+        public async Task<IActionResult> AllCharacters(string accountId, int? page)
         {
             var charListViewModel = this.characterService.GetCurrentAccountCharacter<CharactersViewModel>(accountId);
 
-            
             if (charListViewModel.Count() > 0)
             {
-                charListViewModel = charListViewModel.OrderByDescending(x => x.NormalizedCreatedOn);
-                var pager = new Pager(charListViewModel.Count(), page);
-                charListViewModel = charListViewModel.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize);
-                charListViewModel.FirstOrDefault().Pager = pager;
+                charListViewModel = CharListParserAndSanitizer(page, charListViewModel);
             }
-            
-
+            await this.accountsService.RemoveNotification(accountId);
             ViewData["charactersAccountId"] = accountId;
 
             return this.View(charListViewModel.ToList());
         }
+
+        
 
         [Authorize(Roles = "Admin")]
         public IActionResult NewestCharacters(int? page)
@@ -117,12 +118,23 @@ namespace HolocronProject.Web.Controllers
 
             if (charListViewModel.Count() > 0)
             {
-                charListViewModel = charListViewModel.OrderByDescending(x => x.NormalizedCreatedOn);
-                var pager = new Pager(charListViewModel.Count(), page);
-                charListViewModel = charListViewModel.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize);
-                charListViewModel.FirstOrDefault().Pager = pager;
+                charListViewModel = CharListParserAndSanitizer(page, charListViewModel);
             }
 
+            return this.View(charListViewModel.ToList());
+        }
+
+        [Authorize(Roles = "Admin")]
+        public IActionResult AllPendingCharacters(int? page)
+        {
+            var charListViewModel = this.characterService.GetAllPendingCharacters<CharactersViewModel>();
+
+            if (charListViewModel.Count() > 0)
+            {
+                charListViewModel = CharListParserAndSanitizer(page, charListViewModel);
+            }
+
+            
             return this.View(charListViewModel.ToList());
         }
 
@@ -153,12 +165,32 @@ namespace HolocronProject.Web.Controllers
         }
 
         [Authorize]
-        public IActionResult ForeignCharacters(string accountId)
+        public IActionResult PendingCharacters(string accountId, int? page)
         {
-            var charactersViewModel = this.characterService.GetCurrentAccountCharacter<CharactersViewModel>(accountId);
-            
-            return this.View(charactersViewModel);
+            var pendingCharacters = this.characterService.GetPendingCharacters<CharactersViewModel>(accountId);
+
+            if (pendingCharacters.Count() > 0)
+            {
+                pendingCharacters = CharListParserAndSanitizer(page, pendingCharacters);
+            }
+
+            return this.View(pendingCharacters.ToList());
         }
 
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> ApproveCharacter(string characterId, string accountId)
+        {
+            await this.characterService.ApproveCharacter(characterId, accountId);
+
+            return this.Redirect("/");
+        }
+        private static IEnumerable<CharactersViewModel> CharListParserAndSanitizer(int? page, IEnumerable<CharactersViewModel> charListViewModel)
+        {
+            charListViewModel = charListViewModel.OrderByDescending(x => x.NormalizedCreatedOn);
+            var pager = new Pager(charListViewModel.Count(), page);
+            charListViewModel = charListViewModel.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize);
+            charListViewModel.FirstOrDefault().Pager = pager;
+            return charListViewModel;
+        }
     }
 }

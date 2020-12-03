@@ -27,3 +27,8 @@
     <p>@Model.Backstory</p>
 </div>
 
+@if (this.User.IsInRole("Admin") && !Model.IsApproved)
+{
+    <a class="btn btn-primary" href="/Characters/ApproveCharacter/?characterId=@Model.Id&accountId=@Model.AccountId">Approve</a>
+}
+

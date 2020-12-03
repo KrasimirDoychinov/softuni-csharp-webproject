@@ -19,12 +19,14 @@
             <h5>Total threads: @Model.TotalThreads</h5>
             <h5>Total unresolved bug reports: @Model.TotalUnresolvedBugReports</h5>
             <h5>Total unresolved post reports: @Model.TotalUnresolvedPostReports</h5>
+            <h5>Total pending characters: @Model.TotalPendingCharacters</h5>
         </div>
         <div class="col-md col-md-3">
             <ul class="nav nav-pills flex-column">
                 <li class="nav-item"><a class="nav-link btn btn-info mb-1" asp-controller="Posts" asp-action="NewestPosts">Newest posts</a></li>
                 <li class="nav-item"><a class="nav-link btn btn-info mb-1" asp-controller="Threads" asp-action="NewestThreads">Newest threads</a></li>
                 <li class="nav-item"><a class="nav-link btn btn-info mb-1" asp-controller="Characters" asp-action="NewestCharacters">Newest characters</a></li>
+                <li class="nav-item"><a class="nav-link btn btn-info mb-1" asp-controller="Characters" asp-action="AllPendingCharacters">Pending characters</a></li>
             </ul>
         </div>
     </div>

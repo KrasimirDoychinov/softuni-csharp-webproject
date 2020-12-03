@@ -25,6 +25,14 @@ namespace HolocronProject.Services
 
         int TotalCharacters();
 
+        int TotalPendingCharacters();
+
+        Task ApproveCharacter(string characterId, string accountId);
+
+        IEnumerable<T> GetPendingCharacters<T>(string accountId);
+
+        IEnumerable<T> GetAllPendingCharacters<T>();
+
         
 
     }

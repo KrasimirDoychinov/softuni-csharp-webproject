@@ -67,5 +67,7 @@ namespace HolocronProject.Data.Models
 
         public virtual ICollection<CompetitionCharacter> Competitions { get; set;  } = new List<CompetitionCharacter>();
 
+        public bool IsApproved { get; set; } = false;
+
     }
 }
