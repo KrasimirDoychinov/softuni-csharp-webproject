@@ -70,6 +70,9 @@ namespace HolocronProject.Web.Controllers
 
             if (!ModelState.IsValid)
             {
+                input.Classes = this.classService.GetAll<ClassViewModel>();
+                input.Races = this.raceService.GetAll<RaceViewModel>();
+                input.Servers = this.serverService.GetAll<ServerViewModel>();
                 return this.View(input);
             }
 
@@ -173,7 +176,7 @@ namespace HolocronProject.Web.Controllers
             {
                 pendingCharacters = CharListParserAndSanitizer(page, pendingCharacters);
             }
-
+            ViewData["charactersAccountId"] = accountId;
             return this.View(pendingCharacters.ToList());
         }
 

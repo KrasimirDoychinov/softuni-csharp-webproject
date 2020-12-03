@@ -2,9 +2,16 @@
 @inject AccountsService accountService
 @inject UserManager<Account> userManager
 @{
-    var accountId = this.userManager.GetUserAsync(this.User).Result.Id;
-    var isUserNotified = this.accountService.IsUserNotified(accountId);
+    string accountId = string.Empty; ;
+    NotificationStatus isUserNotified = NotificationStatus.HasNoPendingOrApprovedCharacters;
+
+    if (this.User.Identity.IsAuthenticated)
+    {
+        accountId = this.userManager.GetUserAsync(this.User).Result.Id;
+        isUserNotified = this.accountService.IsUserNotified(accountId);
+    }
 }
+    
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -56,26 +63,30 @@
         <hr class="border-warning" style="border-width: 5px;" />
         <div class="container text-white p-3">
             <main role="main" class="pb-3">
-                @if (isUserNotified == HolocronProject.Data.Enums.NotificationStatus.HasApprovedCharacters)
+                @if (this.User.Identity.IsAuthenticated)
                 {
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        You have one or more characters that have been approved!
-                        Click <span><a href="/Characters/AllCharacters?accountId=@accountId" class="text-dark text-decoration-none font-weight-bold">here</a></span> to view your characters.
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
+                    @if (isUserNotified == HolocronProject.Data.Enums.NotificationStatus.HasApprovedCharacters)
+                    {
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            You have one or more characters that have been approved!
+                            Click <span><a href="/Characters/AllCharacters?accountId=@accountId" class="text-dark text-decoration-none font-weight-bold">here</a></span> to view your characters.
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    }
+                    else if (isUserNotified == HolocronProject.Data.Enums.NotificationStatus.HasPendingCharacters)
+                    {
+                        <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                            You have one or more characters that are pending.
+                            <span><a href="/Accounts/RemoveNotification?accountId=@accountId" class="text-dark text-decoration-none font-weight-bold">Don't show again</a></span>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    }
                 }
-                else if (isUserNotified == HolocronProject.Data.Enums.NotificationStatus.HasPendingCharacters)
-                {
-                    <div class="alert alert-primary alert-dismissible fade show" role="alert">
-                        You have one or more characters that are pending.
-                        <span><a href="/Accounts/RemoveNotification?accountId=@accountId" class="text-dark text-decoration-none font-weight-bold">Don't show again</a></span>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                }
+
                 @RenderBody()
             </main>
         </div>
