@@ -4,7 +4,6 @@ using HolocronProject.Services.Mapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace HolocronProject.Services.Implementations
@@ -79,6 +78,10 @@ namespace HolocronProject.Services.Implementations
             => this.context.PostReports
             .FirstOrDefault(x => x.Id == postReportId);
 
-
+        public int TotalUnresolvedPostReports()
+            => this.context.PostReports
+            .Where(x => !x.IsResolved)
+            .OrderByDescending(x => x.CreatedOn)
+            .Count();
     }
 }

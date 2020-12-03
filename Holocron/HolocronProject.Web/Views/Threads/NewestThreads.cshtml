@@ -11,7 +11,7 @@
         {
             <div class="text-center">
                 <h2>
-                    The user has no threads.
+                    The are currently no threads on the server.
                 </h2>
             </div>
         }
@@ -56,27 +56,27 @@
                         @if (pager.CurrentPage > 1)
                         {
                             <li class="float-left mr-1">
-                                <a href="/Threads/LastThreads?accountId=@accountId" class="btn btn-info">First</a>
+                                <a href="/Threads/AllLastThreads" class="btn btn-info">First</a>
                             </li>
                             <li class="float-left mr-1">
-                                <a href="/Threads/LastThreads?accountId=@accountId&page=@(pager.CurrentPage - 1)" class="btn btn-info">Previous</a>
+                                <a href="/Threads/AllLastThreads?page=@(pager.CurrentPage - 1)" class="btn btn-info">Previous</a>
                             </li>
                         }
 
                         @for (var page = pager.StartPage; page <= pager.EndPage; page++)
                         {
                             <li class="@(page == pager.CurrentPage ? "active" : "") float-right mr-1">
-                                <a href="/Threads/LastThreads?accountId=@accountId&page=@(page)" class="btn btn-info">@(page)</a>
+                                <a href="/Threads/AllLastThreads?page=@(page)" class="btn btn-info">@(page)</a>
                             </li>
                         }
 
                         @if (pager.CurrentPage < pager.TotalPages)
                         {
                             <li class="float-right mr-1">
-                                <a href="/Threads/LastThreads?accountId=@accountId&page=@(pager.CurrentPage + 1)" class="btn btn-info">Next</a>
+                                <a href="/Threads/AllLastThreads?page=@(pager.CurrentPage + 1)" class="btn btn-info">Next</a>
                             </li>
                             <li class="float-right mr-1">
-                                <a href="/Threads/LastThreads?accountId=@accountId&page=@(pager.TotalPages)" class="btn btn-info">Last</a>
+                                <a href="/Threads/AllLastThreads?page=@(pager.TotalPages)" class="btn btn-info">Last</a>
                             </li>
                         }
                     </ul>

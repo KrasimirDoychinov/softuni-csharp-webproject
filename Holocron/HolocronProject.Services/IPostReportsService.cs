@@ -23,5 +23,7 @@ namespace HolocronProject.Services
         IEnumerable<T> GetAllAdminUnresolved<T>();
 
         IEnumerable<T> GetAllAdminResolved<T>();
+
+        int TotalUnresolvedPostReports();
     }
 }

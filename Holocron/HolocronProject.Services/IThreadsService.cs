@@ -13,5 +13,9 @@ namespace HolocronProject.Services
 
         IEnumerable<T> GetLastThreadsByAccountId<T>(string accountId);
 
+        IEnumerable<T> GetAllLastThreads<T>();
+
+        int TotalThreads();
+
     }
 }

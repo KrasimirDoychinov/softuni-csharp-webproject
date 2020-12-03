@@ -1,5 +1,6 @@
 ﻿
-@model List<ThreadViewModel>
+@model List<LastPostsViewModel>
+
 @{
     var pager = Model.Select(x => x.Pager).FirstOrDefault();
     var accountId = Model.Select(x => x.AccountId).FirstOrDefault();
@@ -11,7 +12,7 @@
         {
             <div class="text-center">
                 <h2>
-                    The user has no threads.
+                    The are currently no posts on the forum.
                 </h2>
             </div>
         }
@@ -19,7 +20,6 @@
         {
             @foreach (var item in Model)
             {
-
                 <div class="card mb-4 bg-dark">
                     <div class="card-header">
                         <div class="media flex-wrap w-100 align-items-center">
@@ -33,11 +33,10 @@
                             }
                             <div class="media-body ml-3">
                                 <div class="float-right">
-                                    <a href="/Threads/ById?threadId=@item.Id" class="text-decoration-none text-warning">@item.ShortenedTitle</a>
+                                    <a href="/Threads/ById?threadId=@item.ThreadId" class="text-decoration-none text-warning">@item.ShortedThreadTitle</a>
                                 </div>
                                 <label class="text-warning">@item.AccountUserName</label>
                                 <div class="text-info small">Created on <strong>@item.CreatedOn</strong></div>
-                                <label class="text-info small">@item.PostsCount <span class="font-weight-bold">posts</span></label>
                             </div>
                         </div>
                     </div>
@@ -51,32 +50,32 @@
             }
             @if (pager.EndPage > 1)
             {
-                <div class="float-right">
+                <div class="float-right clearfix">
                     <ul class="pagination">
                         @if (pager.CurrentPage > 1)
                         {
                             <li class="float-left mr-1">
-                                <a href="/Threads/LastThreads?accountId=@accountId" class="btn btn-info">First</a>
+                                <a href="/Posts/AllLastPosts" class="btn btn-info">First</a>
                             </li>
                             <li class="float-left mr-1">
-                                <a href="/Threads/LastThreads?accountId=@accountId&page=@(pager.CurrentPage - 1)" class="btn btn-info">Previous</a>
+                                <a href="/Posts/AllLastPosts?page=@(pager.CurrentPage - 1)" class="btn btn-info">Previous</a>
                             </li>
                         }
 
                         @for (var page = pager.StartPage; page <= pager.EndPage; page++)
                         {
                             <li class="@(page == pager.CurrentPage ? "active" : "") float-right mr-1">
-                                <a href="/Threads/LastThreads?accountId=@accountId&page=@(page)" class="btn btn-info">@(page)</a>
+                                <a href="/Posts/AllLastPosts?page=@(page)" class="btn btn-info">@(page)</a>
                             </li>
                         }
 
                         @if (pager.CurrentPage < pager.TotalPages)
                         {
                             <li class="float-right mr-1">
-                                <a href="/Threads/LastThreads?accountId=@accountId&page=@(pager.CurrentPage + 1)" class="btn btn-info">Next</a>
+                                <a href="/Posts/AllLastPosts?page=@(pager.CurrentPage + 1)" class="btn btn-info">Next</a>
                             </li>
                             <li class="float-right mr-1">
-                                <a href="/Threads/LastThreads?accountId=@accountId&page=@(pager.TotalPages)" class="btn btn-info">Last</a>
+                                <a href="/Posts/AllLastPosts?page=@(pager.TotalPages)" class="btn btn-info">Last</a>
                             </li>
                         }
                     </ul>

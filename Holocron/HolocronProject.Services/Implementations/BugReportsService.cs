@@ -81,5 +81,11 @@ namespace HolocronProject.Services.Implementations
         public BugReport GetReportById(string bugReportId)
             => this.context.BugReports
             .FirstOrDefault(x => x.Id == bugReportId);
+
+        public int TotalUnresolvedBugReports()
+            => this.context.BugReports
+            .Where(x => !x.IsResolved)
+            .OrderByDescending(x => x.CreatedOn)
+            .Count();
     }
 }

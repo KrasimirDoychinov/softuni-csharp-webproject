@@ -27,6 +27,8 @@ namespace HolocronProject.Services
 
         bool IsAvatarImageSet(string accountId);
 
+        int TotalAccounts();
+
 
     }
 }

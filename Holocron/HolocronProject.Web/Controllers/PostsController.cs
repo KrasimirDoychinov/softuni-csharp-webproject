@@ -50,12 +50,38 @@ namespace HolocronProject.Web.Controllers
             await this.postService.CreatePostAsync(input.Description, threadId, accountId);
 
             return this.Redirect($"/Threads/ById?threadId={threadId}");
-        } 
+        }
 
         [Authorize]
         public IActionResult LastPosts(string accountId, int? page)
         {
             var lastPosts = this.postService.GetLastPostsByAccountId<LastPostsViewModel>(accountId);
+
+            if (lastPosts.Count() > 0)
+            {
+                lastPosts = PostParserAndSanitizer(page, lastPosts);
+            }
+            
+
+            return this.View(lastPosts.ToList());
+        }
+
+        [Authorize(Roles = "Admin")]
+        public IActionResult NewestPosts(int? page)
+        {
+            var lastPosts = this.postService.GetAllLastPosts<LastPostsViewModel>();
+
+            if (lastPosts.Count() > 0)
+            {
+                lastPosts = PostParserAndSanitizer(page, lastPosts);
+            }
+
+
+            return this.View(lastPosts.ToList());
+        }
+
+        private IEnumerable<LastPostsViewModel> PostParserAndSanitizer(int? page, IEnumerable<LastPostsViewModel> lastPosts)
+        {
             var sanitizer = new HtmlSanitizer();
 
             var pager = new Pager(lastPosts.Count(), page);
@@ -68,9 +94,7 @@ namespace HolocronProject.Web.Controllers
 
             lastPosts.AsParallel().ForAll(x => x.SanitizedDescription = sanitizer.Sanitize(x.Description));
             lastPosts.AsParallel().ForAll(x => x.SanitizedDescription = this.htmlSizeParser.Parse(x.SanitizedDescription, 100, 50));
-
-            return this.View(lastPosts.ToList());
+            return lastPosts;
         }
-        
     }
 }

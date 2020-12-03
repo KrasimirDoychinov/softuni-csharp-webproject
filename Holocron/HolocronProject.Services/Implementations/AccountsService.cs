@@ -103,6 +103,8 @@ namespace HolocronProject.Services.Implementations
             return File.Exists($"wwwroot/Images/AvatarImages/{account.AvatarImagePath}");
         }
 
-        
+        public int TotalAccounts()
+            => this.context.Accounts
+            .Count();
     }
 }

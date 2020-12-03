@@ -31,11 +31,21 @@ namespace HolocronProject.Services.Implementations
             await this.context.SaveChangesAsync();
         }
 
+        public IEnumerable<T> GetAllLastPosts<T>()
+            => this.context.Posts
+            .OrderByDescending(x => x.CreatedOn)
+            .To<T>()
+            .ToList();
+
         public IEnumerable<T> GetLastPostsByAccountId<T>(string accountId)
             => this.context.Posts
             .Where(x => x.AccountId == accountId)
             .OrderByDescending(x => x.CreatedOn)
             .To<T>()
             .ToList();
+
+        public int TotalPosts()
+            => this.context.Posts
+            .Count();
     }
 }

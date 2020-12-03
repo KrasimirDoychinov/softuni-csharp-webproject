@@ -32,6 +32,12 @@ namespace HolocronProject.Services.Implementations
             await this.context.SaveChangesAsync();
         }
 
+        public IEnumerable<T> GetAllLastThreads<T>()
+            => this.context.Threads
+            .OrderByDescending(x => x.CreatedOn)
+            .To<T>()
+            .ToList();
+
         public IEnumerable<T> GetLastThreadsByAccountId<T>(string accountId)
             => this.context.Threads
             .Where(x => x.AccountId == accountId)
@@ -44,5 +50,9 @@ namespace HolocronProject.Services.Implementations
             .Where(x => x.Id == threadId)
             .To<T>()
             .FirstOrDefault();
+
+        public int TotalThreads()
+            => this.context.Threads
+            .Count();
     }
 }

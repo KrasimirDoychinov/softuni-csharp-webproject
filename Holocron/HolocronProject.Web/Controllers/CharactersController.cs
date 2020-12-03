@@ -4,6 +4,7 @@ using HolocronProject.Services;
 using HolocronProject.Services.Models.Character;
 using HolocronProject.Web.ViewModels.Characters;
 using HolocronProject.Web.ViewModels.Classes;
+using HolocronProject.Web.ViewModels.Pager;
 using HolocronProject.Web.ViewModels.Races;
 using HolocronProject.Web.ViewModels.Servers;
 using Microsoft.AspNetCore.Authorization;
@@ -90,12 +91,39 @@ namespace HolocronProject.Web.Controllers
         }
 
         [Authorize]
-        public IActionResult AllCharacters(string accountId)
+        public IActionResult AllCharacters(string accountId, int? page)
         {
             var charListViewModel = this.characterService.GetCurrentAccountCharacter<CharactersViewModel>(accountId);
+
+            
+            if (charListViewModel.Count() > 0)
+            {
+                charListViewModel = charListViewModel.OrderByDescending(x => x.NormalizedCreatedOn);
+                var pager = new Pager(charListViewModel.Count(), page);
+                charListViewModel = charListViewModel.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize);
+                charListViewModel.FirstOrDefault().Pager = pager;
+            }
+            
+
             ViewData["charactersAccountId"] = accountId;
 
-            return this.View(charListViewModel);
+            return this.View(charListViewModel.ToList());
+        }
+
+        [Authorize(Roles = "Admin")]
+        public IActionResult NewestCharacters(int? page)
+        {
+            var charListViewModel = this.characterService.GetNewestCharacters<CharactersViewModel>();
+
+            if (charListViewModel.Count() > 0)
+            {
+                charListViewModel = charListViewModel.OrderByDescending(x => x.NormalizedCreatedOn);
+                var pager = new Pager(charListViewModel.Count(), page);
+                charListViewModel = charListViewModel.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize);
+                charListViewModel.FirstOrDefault().Pager = pager;
+            }
+
+            return this.View(charListViewModel.ToList());
         }
 
         [Authorize]

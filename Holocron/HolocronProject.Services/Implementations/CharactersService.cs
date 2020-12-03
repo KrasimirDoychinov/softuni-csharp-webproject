@@ -92,6 +92,14 @@ namespace HolocronProject.Services.Implementations
         public Character GetCharacterById(string characterId)
             => this.context.Characters.FirstOrDefault(x => x.Id == characterId);
 
-        
+        public int TotalCharacters()
+            => this.context.Characters
+            .Count();
+
+        public IEnumerable<T> GetNewestCharacters<T>()
+            => this.context.Characters
+            .OrderByDescending(x => x.CreatedOn)
+            .To<T>()
+            .ToList();
     }
 }

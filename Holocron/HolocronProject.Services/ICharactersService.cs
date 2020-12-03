@@ -17,9 +17,15 @@ namespace HolocronProject.Services
 
         IEnumerable<T> GetCurrentAccountCharacter<T>(string userId);
 
+        IEnumerable<T> GetNewestCharacters<T>();
+
         T GetCharacterInfo<T>(string characterId);
 
         Task CreateCharacterImage(string characterName, IFormFile image);
+
+        int TotalCharacters();
+
+        
 
     }
 }
