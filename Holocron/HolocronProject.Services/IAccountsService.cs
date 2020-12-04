@@ -34,6 +34,8 @@ namespace HolocronProject.Services
 
         Task NotifyAccountOfPendingCharacters(string accountId);
 
+        Task NotifyAccountOfDeletedCharacters(string accountId);
+
         Task RemoveNotification(string accountId);
 
         NotificationStatus IsUserNotified(string accountId);

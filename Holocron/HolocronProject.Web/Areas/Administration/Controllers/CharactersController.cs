@@ -85,6 +85,13 @@ namespace HolocronProject.Web.Areas.Administration.Controllers
 
             return this.Redirect("/");
         }
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> DeleteCharacter(string characterId, string accountId)
+        {
+            await this.characterService.DeleteCharacter(characterId, accountId);
+
+            return this.Redirect("/");
+        }
 
         private static IEnumerable<CharactersViewModel> CharListParserAndSanitizer(int? page, IEnumerable<CharactersViewModel> charListViewModel)
         {

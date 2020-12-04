@@ -1,6 +1,10 @@
 ﻿@model CharacterUserViewModel
 
-
+@inject UserManager<Account> userManager
+@{
+    var loggedInAccountId = this.userManager.GetUserAsync(this.User).Result.Id;
+    var currAccountId = ViewData["charactersAccountId"].ToString();
+}
 <div class="text-center">
     <div class="col-md-12 ">
         <img src="~/Images/CharacterImages/@Model.CharacterImagePath?random=@ViewData["random"].ToString()" style="width: 50%; height: 50%;" />
@@ -24,8 +28,12 @@
     <p>@Model.Backstory</p>
 </div>
 
-<div class="d-flex justify-content-between">
-    <a href="/Characters/Edit?characterId=@Model.Id" class="btn btn-primary btn float-right">Edit</a>
-</div>
+@if (currAccountId == loggedInAccountId)
+{
+    <div class="d-flex justify-content-between">
+        <a href="/Characters/Edit?characterId=@Model.Id" class="btn btn-primary btn float-right">Edit</a>
+    </div>
+}
+
 
 

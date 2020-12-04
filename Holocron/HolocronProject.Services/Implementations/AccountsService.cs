@@ -128,6 +128,16 @@ namespace HolocronProject.Services.Implementations
             await this.context.SaveChangesAsync();
         }
 
+        public async Task NotifyAccountOfDeletedCharacters(string accountId)
+        {
+            var account = this.GetAccountById(accountId);
+
+            account.NotificationStatus = NotificationStatus.HasDeletedCharacters;
+
+            this.context.Accounts.Update(account);
+            await this.context.SaveChangesAsync();
+        }
+
         public NotificationStatus IsUserNotified(string accountId)
             => this.context.Accounts
             .Where(x => x.Id == accountId)

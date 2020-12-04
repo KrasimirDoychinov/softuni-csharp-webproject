@@ -111,9 +111,10 @@ namespace HolocronProject.Web.Controllers
         }
 
         [Authorize]
-        public IActionResult CharacterInfo(string characterId)
+        public IActionResult CharacterInfo(string characterId, string accountId)
         {
             var charViewModel = this.characterService.GetCharacterByIdGeneric<CharacterUserViewModel>(characterId);
+            ViewData["charactersAccountId"] = accountId;
 
             if (charViewModel.ForceAffiliation == ForceAffiliation.LightSide)
             {

@@ -8,6 +8,7 @@ namespace HolocronProject.Data.Enums
     {
         HasNoPendingOrApprovedCharacters = 0,
         HasPendingCharacters = 1,
-        HasApprovedCharacters = 2
+        HasApprovedCharacters = 2,
+        HasDeletedCharacters = 3
     }
 }

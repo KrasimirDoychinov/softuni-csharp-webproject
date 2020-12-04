@@ -1,4 +1,5 @@
 ﻿using HolocronProject.Data;
+using HolocronProject.Data.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
@@ -18,7 +19,9 @@ namespace HolocronProject.Web.ValidationAttributes
 
             var context = new HolocronDbContext();
 
-            if (context.Characters.Any(x => x.Name == name && x.Server.Name == serverName))
+            if (context.Characters
+                .Where(x => x.CharacterStatus == CharacterStatus.Approved)
+                .Any(x => x.Name == name && x.Server.Name == serverName))
             {
                 return new ValidationResult($"The character name: {name} is already taken on: {serverName}.");
             }

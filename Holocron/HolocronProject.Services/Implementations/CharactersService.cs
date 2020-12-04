@@ -12,6 +12,7 @@ using HolocronProject.Services.Mapper;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using HolocronProject.Services.Models.Characters;
+using HolocronProject.Data.Enums;
 
 namespace HolocronProject.Services.Implementations
 {
@@ -49,20 +50,9 @@ namespace HolocronProject.Services.Implementations
             await this.context.SaveChangesAsync();
         }
 
-        public async Task DeleteCharacterAsync(string characterId)
-        {
-            var character = GetCharacterById(characterId);
-
-            character.IsDeleted = true;
-
-            this.context.Characters.Update(character);
-            await this.context.SaveChangesAsync();
-        }
-
-
         public IEnumerable<T> GetCurrentAccountCharacter<T>(string accountId)
             => this.context.Characters
-                .Where(x => x.AccountId == accountId && x.IsApproved)
+                .Where(x => x.AccountId == accountId && x.CharacterStatus == CharacterStatus.Approved)
                 .To<T>()
                 .ToList();
         
@@ -98,14 +88,14 @@ namespace HolocronProject.Services.Implementations
             => this.context.Characters
             .FirstOrDefault(x => x.Id == characterId);
 
-        public int TotalCharacters()
+        public int TotalApprovedCharacters()
             => this.context.Characters
-            .Where(x => x.IsApproved)
+            .Where(x => x.CharacterStatus == CharacterStatus.Approved)
             .Count();
 
         public IEnumerable<T> GetNewestCharacters<T>()
             => this.context.Characters
-            .Where(x => x.IsApproved)
+            .Where(x => x.CharacterStatus == CharacterStatus.Approved)
             .OrderByDescending(x => x.CreatedOn)
             .To<T>()
             .ToList();
@@ -114,7 +104,7 @@ namespace HolocronProject.Services.Implementations
         {
             var character = this.GetCharacterById(characterId);
             
-            character.IsApproved = true;
+            character.CharacterStatus = CharacterStatus.Approved;
             await this.accountsService.NotifyAccountOfApprovedCharacters(accountId);
 
             this.context.Characters.Update(character);
@@ -123,19 +113,19 @@ namespace HolocronProject.Services.Implementations
 
         public IEnumerable<T> GetPendingCharacters<T>(string accountId)
             => this.context.Characters
-            .Where(x => x.AccountId == accountId && !x.IsApproved)
+            .Where(x => x.AccountId == accountId && x.CharacterStatus  == CharacterStatus.Pending)
             .To<T>()
             .ToList();
 
         public IEnumerable<T> GetAllPendingCharacters<T>()
             => this.context.Characters
-            .Where(x => !x.IsApproved)
+            .Where(x => x.CharacterStatus == CharacterStatus.Pending)
             .To<T>()
             .ToList();
 
         public int TotalPendingCharacters()
             => this.context.Characters
-            .Where(x => !x.IsApproved)
+            .Where(x => x.CharacterStatus == CharacterStatus.Pending)
             .Count();
 
         public async Task EditCharacterAsync(CharacterEditDto input)
@@ -154,6 +144,21 @@ namespace HolocronProject.Services.Implementations
             character.ServerId = input.ServerId;
             character.Title = input.Title;
             
+            await this.context.SaveChangesAsync();
+        }
+
+        public async Task DeleteCharacter(string characterId, string accountId)
+        {
+            var character = this.GetCharacterById(characterId);
+
+            character.CharacterStatus = CharacterStatus.Deleted;
+            character.IsDeleted = true;
+            character.DeletedOn = DateTime.UtcNow;
+            character.NormalizedDeletedOn = DateTime.UtcNow.ToString("MM/dd/yyyy HH:mm:ss");
+
+            await this.accountsService.NotifyAccountOfDeletedCharacters(accountId);
+
+            this.context.Characters.Update(character);
             await this.context.SaveChangesAsync();
         }
     }
