@@ -29,6 +29,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\Administration\Data\" />
+    <Folder Include="Areas\Administration\Models\" />
     <Folder Include="wwwroot\Images\CharacterImages\" />
     <Folder Include="wwwroot\Images\AvatarImages\" />
   </ItemGroup>

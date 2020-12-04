@@ -107,18 +107,6 @@ namespace HolocronProject.Web.Controllers
             return this.View(lastThreads.ToList());
         }
 
-        [Authorize(Roles = "Admin")]
-        public IActionResult NewestThreads(int? page)
-        {
-            var lastThreads = this.threadService.GetAllLastThreads<ThreadViewModel>();
-
-            if (lastThreads.Count() > 0)
-            {
-                lastThreads = ThreadListParserAndSanitizer(page, lastThreads);
-            }
-
-            return this.View(lastThreads.ToList());
-        }
 
         private IEnumerable<ThreadViewModel> ThreadListParserAndSanitizer(int? page, IEnumerable<ThreadViewModel> lastThreads)
         {

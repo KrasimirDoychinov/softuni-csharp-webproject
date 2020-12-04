@@ -11,10 +11,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace HolocronProject.Web.Controllers
+namespace HolocronProject.Web.Areas.Administration.Controllers
 {
+    [Area("Administration")]
     public class PostsController : Controller
     {
+
         private readonly IPostsService postService;
         private readonly UserManager<Account> userManager;
         private readonly IHtmlSizeParser htmlSizeParser;
@@ -31,37 +33,16 @@ namespace HolocronProject.Web.Controllers
             this.random = random;
         }
 
-        [Authorize]
-        public IActionResult Create()
+        [Authorize(Roles = "Admin")]
+        public IActionResult NewestPosts(int? page)
         {
-            return this.View();
-        }
-
-        [Authorize]
-        [HttpPost]
-        public async Task<IActionResult> Create(PostInputModel input, string threadId)
-        {
-            if (!ModelState.IsValid)
-            {
-                return this.View(input);
-            }
-
-            var accountId = this.userManager.GetUserAsync(this.User).Result.Id;
-            await this.postService.CreatePostAsync(input.Description, threadId, accountId);
-
-            return this.Redirect($"/Threads/ById?threadId={threadId}");
-        }
-
-        [Authorize]
-        public IActionResult LastPosts(string accountId, int? page)
-        {
-            var lastPosts = this.postService.GetLastPostsByAccountId<LastPostsViewModel>(accountId);
+            var lastPosts = this.postService.GetAllLastPosts<LastPostsViewModel>();
 
             if (lastPosts.Count() > 0)
             {
                 lastPosts = PostParserAndSanitizer(page, lastPosts);
             }
-            
+
 
             return this.View(lastPosts.ToList());
         }

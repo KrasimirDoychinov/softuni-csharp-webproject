@@ -10,49 +10,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace HolocronProject.Web.Controllers
+namespace HolocronProject.Web.Areas.Administration.Controllers
 {
+    [Area("Administration")]
     public class BugReportsController : Controller
     {
         private readonly IBugReportsService bugReportService;
         private readonly UserManager<Account> userManager;
 
         public BugReportsController(IBugReportsService bugReportService,
-            UserManager<Account> userManager)
+           UserManager<Account> userManager)
         {
             this.bugReportService = bugReportService;
             this.userManager = userManager;
         }
 
-        [Authorize]
-        public IActionResult Create()
-        {
-            return this.View();
-        }
-
-        [Authorize]
-        [HttpPost]
-        public async Task<IActionResult> Create(BugReportInputModel input)
-        {
-            if (!ModelState.IsValid)
-            {
-                return this.View(input);
-            }
-
-            var accountId = this.userManager.GetUserAsync(this.User).Result.Id;
-            await this.bugReportService.CreateBugReportAsync(accountId, input.Title, input.Description, input.Notes);
-
-            return this.RedirectToAction(nameof(AllBugReports));
-        }
-
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public IActionResult AllBugReports(int? page)
         {
             IEnumerable<BugReportListViewModel> bugReportsViewModel;
 
-            var accountId = this.userManager.GetUserAsync(this.User).Result.Id;
-            bugReportsViewModel = this.bugReportService.GetAllByAccountUnresolved<BugReportListViewModel>(accountId);
-
+            bugReportsViewModel = this.bugReportService.GetAllAdminUnresolved<BugReportListViewModel>();
 
             if (bugReportsViewModel.Count() > 0)
             {
@@ -65,13 +43,12 @@ namespace HolocronProject.Web.Controllers
             return this.View(bugReportsViewModel.ToList());
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public IActionResult AllResolvedBugReports(int? page)
         {
             IEnumerable<BugReportListViewModel> bugReportsViewModel;
 
-            var accountId = this.userManager.GetUserAsync(this.User).Result.Id;
-            bugReportsViewModel = this.bugReportService.GetAllByAccountResolved<BugReportListViewModel>(accountId);
+            bugReportsViewModel = this.bugReportService.GetAllAdminResolved<BugReportListViewModel>();
 
             if (bugReportsViewModel.Count() > 0)
             {
@@ -82,6 +59,22 @@ namespace HolocronProject.Web.Controllers
             }
 
             return this.View(bugReportsViewModel.ToList());
+        }
+
+        [Authorize(Roles = "Admin")]
+        public IActionResult ById(string id)
+        {
+            var bugReportViewModel = this.bugReportService.GetBugReportByIdGeneric<BugReportViewModel>(id);
+
+            return this.View(bugReportViewModel);
+        }
+
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Resolve(string id)
+        {
+            await this.bugReportService.ResolveBugReportAsync(id);
+
+            return this.Redirect("/BugReports/AllBugReports");
         }
     }
 }

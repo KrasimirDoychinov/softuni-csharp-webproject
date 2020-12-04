@@ -112,35 +112,6 @@ namespace HolocronProject.Web.Controllers
             return this.View(charListViewModel.ToList());
         }
 
-        
-
-        [Authorize(Roles = "Admin")]
-        public IActionResult NewestCharacters(int? page)
-        {
-            var charListViewModel = this.characterService.GetNewestCharacters<CharactersViewModel>();
-
-            if (charListViewModel.Count() > 0)
-            {
-                charListViewModel = CharListParserAndSanitizer(page, charListViewModel);
-            }
-
-            return this.View(charListViewModel.ToList());
-        }
-
-        [Authorize(Roles = "Admin")]
-        public IActionResult AllPendingCharacters(int? page)
-        {
-            var charListViewModel = this.characterService.GetAllPendingCharacters<CharactersViewModel>();
-
-            if (charListViewModel.Count() > 0)
-            {
-                charListViewModel = CharListParserAndSanitizer(page, charListViewModel);
-            }
-
-            
-            return this.View(charListViewModel.ToList());
-        }
-
         [Authorize]
         public IActionResult CharacterInfo(string characterId)
         {
@@ -178,14 +149,6 @@ namespace HolocronProject.Web.Controllers
             }
             ViewData["charactersAccountId"] = accountId;
             return this.View(pendingCharacters.ToList());
-        }
-
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> ApproveCharacter(string characterId, string accountId)
-        {
-            await this.characterService.ApproveCharacter(characterId, accountId);
-
-            return this.Redirect("/");
         }
         private static IEnumerable<CharactersViewModel> CharListParserAndSanitizer(int? page, IEnumerable<CharactersViewModel> charListViewModel)
         {
