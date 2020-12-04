@@ -1,0 +1,32 @@
+﻿
+@model PostEditViewModel
+
+<script src="/lib/tinymce/tinymce.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    tinymce.init({
+        selector: "textarea",
+        plugins: [
+            "image table link media"
+        ]
+    });
+</script>
+
+<form method="post" class="">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <label class="text-info">All fields marked with <span class="text-danger">*</span> are required.</label>
+    <hr class="bg-warning" />
+
+    <div class="form-group ">
+        <label asp-for="Description" class="font-weight-bold"></label>
+        <label class="text-danger">*</label>
+        <textarea asp-for="Description" class="form-control" rows="15"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <input type="submit" class="btn btn-primary" value="Save" />
+</form>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

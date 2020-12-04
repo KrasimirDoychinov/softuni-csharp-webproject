@@ -79,12 +79,13 @@
                                         @if (item.AccountId == currAccountId)
                                         {
                                             <a asp-area="Identity" asp-page="/Account/Manage/Index" class="text-decoration-none text-warning" data-abc="true">@item.AccountUserName</a>
+                                            <a href="/Posts/Edit?postId=@item.Id&threadId=@Model.Id" class="btn btn-primary btn-sm float-right">Edit post</a>
                                         }
                                         else
                                         {
                                             <a href="/Accounts/ForeignAccount?accountId=@item.AccountId" class="text-decoration-none text-warning" data-abc="true">@item.AccountUserName</a>
+                                            <a href="/PostReports/Create?postId=@item.Id" class="btn btn-danger btn-sm float-right">Report post</a>
                                         }
-                                        <a href="/PostReports/Create?postId=@item.Id" class="btn btn-danger btn-sm float-right">Report post</a>
                                         <div class="text-info small">Created on <strong>@item.NormalizedCreatedOn</strong></div>
 
                                     </div>
@@ -103,7 +104,7 @@
             }
             <div class="d-flex justify-content-between">
                 <div><partial name="PaginationView" model="Model" /></div>
-                <div><a href="/Posts/Create?threadId=@Model.Id" class="btn btn-primary float-right">Reply</a></div>
+                <div><a href="/Posts/Create?threadId=@Model.Id" class="btn btn-primary">Reply</a></div>
             </div>
 
         </div>

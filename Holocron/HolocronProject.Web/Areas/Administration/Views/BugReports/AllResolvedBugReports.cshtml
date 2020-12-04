@@ -25,25 +25,12 @@ else
 
             @foreach (var item in Model)
             {
-                if (this.User.IsInRole("Admin"))
-                {
-                    <tr>
-                        <td class="text-warning">@item.Title<span class="text-info float-right">@item.AccountUserName</span><br /><span class="text-white">@item.ShortDescription</span></td>
-                        <td>@item.IsResolvedString</td>
-                        <td>@item.NormalizedCreatedOn</td>
-                        <td>@item.NormalizedResolvedOn</td>
-                    </tr>
-                }
-                else
-                {
-                    <tr>
-                        <td class="text-warning">@item.Title<br /><span class="text-white">@item.ShortDescription</span></td>
-                        <td>@item.IsResolvedString</td>
-                        <td>@item.NormalizedCreatedOn</td>
-                        <td>@item.NormalizedResolvedOn</td>
-                    </tr>
-                }
-
+                <tr>
+                    <td class="text-warning">@item.Title<span class="text-info float-right">@item.AccountUserName</span><br /><span class="text-white">@item.ShortDescription</span></td>
+                    <td>@item.IsResolvedString</td>
+                    <td>@item.NormalizedCreatedOn</td>
+                    <td>@item.NormalizedResolvedOn</td>
+                </tr>
             }
         </tbody>
     </table>
@@ -51,7 +38,7 @@ else
         <div>
             @if (pager.EndPage > 1)
             {
-                <div class="float-left">
+                <div >
                     <ul class="pagination">
                         @if (pager.CurrentPage > 1)
                         {
@@ -84,7 +71,7 @@ else
             }
         </div>
         <div>
-            <a asp-controller="BugReports" asp-action="AllBugReports" class="btn btn-primary float-right">Unresolved</a>
+            <a asp-controller="BugReports" asp-action="AllBugReports" class="btn btn-primary">Unresolved</a>
         </div>
     </div>
 

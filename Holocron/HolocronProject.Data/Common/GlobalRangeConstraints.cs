@@ -29,14 +29,14 @@
 
         public static class PostConstants
         {
-            public const int DescriptionMaxLength = 10000;
+            public const int DescriptionMaxLength = 20000;
         }
 
         public static class ThreadConstants
         {
             public const int TitleMaxLength = 100;
 
-            public const int DescriptionMaxLength = 10000;
+            public const int DescriptionMaxLength = 20000;
         }
 
         public static class TagConstants
@@ -62,7 +62,7 @@
         {
             public const int TitleMaxLength = 50;
 
-            public const int DescriptionMaxLength = 10000;
+            public const int DescriptionMaxLength = 20000;
         }
 
     }

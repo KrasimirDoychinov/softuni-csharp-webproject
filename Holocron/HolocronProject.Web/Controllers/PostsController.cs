@@ -66,6 +66,24 @@ namespace HolocronProject.Web.Controllers
             return this.View(lastPosts.ToList());
         }
 
+        [Authorize]
+        public IActionResult Edit(string postId)
+        {
+            var postViewModel = this.postService.GetPostById<PostEditViewModel>(postId);
+
+            return this.View(postViewModel);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> Edit(PostEditViewModel input)
+        {
+            await this.postService.EditPostById(input.PostId, input.Description);
+
+            return this.Redirect($"/Threads/ById?threadId={input.ThreadId}");
+        }
+
+
         private IEnumerable<LastPostsViewModel> PostParserAndSanitizer(int? page, IEnumerable<LastPostsViewModel> lastPosts)
         {
             var sanitizer = new HtmlSanitizer();
@@ -82,5 +100,6 @@ namespace HolocronProject.Web.Controllers
             lastPosts.AsParallel().ForAll(x => x.SanitizedDescription = this.htmlSizeParser.Parse(x.SanitizedDescription, 100, 50));
             return lastPosts;
         }
+
     }
 }

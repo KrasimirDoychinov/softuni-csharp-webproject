@@ -31,6 +31,16 @@ namespace HolocronProject.Services.Implementations
             await this.context.SaveChangesAsync();
         }
 
+        public async Task EditPostById(string postId, string description)
+        {
+            var post = this.context.Posts.FirstOrDefault(x => x.Id == postId);
+
+            post.Description = description;
+
+            this.context.Posts.Update(post);
+            await this.context.SaveChangesAsync();
+        }
+
         public IEnumerable<T> GetAllLastPosts<T>()
             => this.context.Posts
             .OrderByDescending(x => x.CreatedOn)
@@ -43,6 +53,12 @@ namespace HolocronProject.Services.Implementations
             .OrderByDescending(x => x.CreatedOn)
             .To<T>()
             .ToList();
+
+        public T GetPostById<T>(string postId)
+            => this.context.Posts
+            .Where(x => x.Id == postId)
+            .To<T>()
+            .FirstOrDefault();
 
         public int TotalPosts()
             => this.context.Posts

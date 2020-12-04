@@ -13,6 +13,10 @@ namespace HolocronProject.Services
 
         IEnumerable<T> GetAllLastPosts<T>();
 
+        T GetPostById<T>(string postId);
+
+        Task EditPostById(string postId, string description);
+
         int TotalPosts();
     }
 }

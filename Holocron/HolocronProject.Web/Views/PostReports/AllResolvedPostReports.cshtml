@@ -26,25 +26,12 @@ else
 
             @foreach (var item in Model)
             {
-                if (this.User.IsInRole("Admin"))
-                {
-                    <tr>
-                        <td class="text-warning">@item.Title<span class="text-info float-right">@item.AccountUserName</span><br /><span class="text-white">@item.ShortDescription</span></td>
-                        <td>@item.IsResolvedString</td>
-                        <td>@item.NormalizedCreatedOn</td>
-                        <td>@item.NormalizedResolvedOn</td>
-                    </tr>
-                }
-                else
-                {
-                    <tr>
-                        <td class="text-warning">@item.Title<br /><span class="text-white">@item.ShortDescription</span></td>
-                        <td>@item.IsResolvedString</td>
-                        <td>@item.NormalizedCreatedOn</td>
-                        <td>@item.NormalizedResolvedOn</td>
-                    </tr>
-                }
-
+                <tr>
+                    <td class="text-warning">@item.Title<br /><span class="text-white">@item.ShortDescription</span></td>
+                    <td>@item.IsResolvedString</td>
+                    <td>@item.NormalizedCreatedOn</td>
+                    <td>@item.NormalizedResolvedOn</td>
+                </tr>
             }
         </tbody>
     </table>

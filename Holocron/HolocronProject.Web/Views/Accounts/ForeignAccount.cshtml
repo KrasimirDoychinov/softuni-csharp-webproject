@@ -1,13 +1,9 @@
 ﻿@model ForeignAccountViewModel
-@inject UserManager<Account> userManager
-@inject AccountsService accountService
 
-@{
-    var user = this.accountService.GetAccountById(Model.Id);
-}
+
 <div class="text-center ">
     <h3 class="text-warning">
-        @if (this.userManager.IsInRoleAsync(user, "Admin").GetAwaiter().GetResult())
+        @if (this.User.IsInRole("Admin"))
         {
             <i class="fas fa-user-cog"></i>
         }

@@ -23,22 +23,11 @@ else
         <tbody>
             @foreach (var item in Model)
             {
-                if (this.User.IsInRole("Admin"))
-                {
-                    <tr>
-                        <td><a href="/BugReports/ById?id=@item.Id" class="text-decoration-none text-warning" role="button">@item.Title<span class="text-info float-right">@item.AccountUserName</span></a><br />@item.ShortDescription</td>
-                        <td>@item.IsResolvedString</td>
-                        <td>@item.NormalizedCreatedOn</td>
-                    </tr>
-                }
-                else
-                {
-                    <tr>
-                        <td class="text-warning">@item.Title<br /><span class="text-white">@item.ShortDescription</span></td>
-                        <td>@item.IsResolvedString</td>
-                        <td>@item.NormalizedCreatedOn</td>
-                    </tr>
-                }
+                <tr>
+                    <td class="text-warning">@item.Title<br /><span class="text-white">@item.ShortDescription</span></td>
+                    <td>@item.IsResolvedString</td>
+                    <td>@item.NormalizedCreatedOn</td>
+                </tr>
             }
         </tbody>
     </table>
@@ -79,7 +68,7 @@ else
             }
         </div>
         <div>
-            <a asp-controller="BugReports" asp-action="AllResolvedBugReports" class="btn btn-primary float-right">Resolved</a>
+            <a asp-controller="BugReports" asp-action="AllResolvedBugReports" class="btn btn-primary">Resolved</a>
         </div>
     </div>
 

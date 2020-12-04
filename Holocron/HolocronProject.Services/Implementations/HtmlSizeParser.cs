@@ -17,6 +17,8 @@ namespace HolocronProject.Services.Implementations
 
             StringBuilder fullResult = new StringBuilder();
 
+            var haveChangesOccured = false;
+            var temp = string.Empty;
             if (nodes != null)
             {
                 foreach (var item in nodes)
@@ -30,11 +32,9 @@ namespace HolocronProject.Services.Implementations
                         "width=\\\"([0-9]{1,})\\\" height=\\\"([0-9]{1,})\\\"",
                         $"width=\"{widthInPercent}%\" height=\"{heightInPercent}%\"");
 
+                        temp = input.Replace(item.OuterHtml, result);
                         fullResult.AppendLine(result);
-                    }
-                    else
-                    {
-                        fullResult.AppendLine(item.OuterHtml);
+                        haveChangesOccured = true;
                     }
                 }
             }
@@ -43,13 +43,13 @@ namespace HolocronProject.Services.Implementations
                 return input; 
             }
 
-            if (fullResult.ToString() == string.Empty)
+            if (!haveChangesOccured)
             {
                 return input;
             }
             else
             {
-                return fullResult.ToString();
+                return temp;
             }
 
 
