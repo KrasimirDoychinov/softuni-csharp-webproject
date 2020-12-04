@@ -1,21 +1,17 @@
-﻿@using HolocronProject.Data.Enums
+﻿
+@model CharacterEditViewModel
 
-@model CharacterInputModel
-
-@{ 
+@{
     var classes = Model.Classes.Select(x => new SelectListItem(x.Name, x.Id));
     var races = Model.Races.Select(x => new SelectListItem(x.Name, x.Id));
     var servers = Model.Servers.Select(x => new SelectListItem(x.Name, x.Id));
 }
 
-<form method="post" class="col-md-6" enctype="multipart/form-data">
+<form method="post" class="col-md-12" enctype="multipart/form-data">
     <div asp-validation-summary="All" class="text-danger"></div>
-    <label class="text-info">All fields marked with <span class="text-danger">*</span> are required.</label>
-    <hr class="bg-warning"/>
 
     <div class="form-group ">
         <label asp-for="Name" class="font-weight-bold"></label>
-        <label class="text-danger">*</label>
         <input asp-for="Name" class="form-control" />
         <span asp-validation-for="Name" class="text-danger"></span>
     </div>
@@ -41,7 +37,6 @@
 
     <div class="form-group">
         <label asp-for="Gender" class="font-weight-bold"></label>
-        <label class="text-danger">*</label>
         <select asp-for="Gender" class="form-control"
                 asp-items="@Html.GetEnumSelectList<Gender>()">
         </select>
@@ -50,7 +45,6 @@
 
     <div class="form-group">
         <label asp-for="CharacterType" class="font-weight-bold"></label>
-        <label class="text-danger">*</label>
         <select asp-for="CharacterType" class="form-control"
                 asp-items="@Html.GetEnumSelectList<CharacterType>()">
         </select>
@@ -59,7 +53,6 @@
 
     <div class="form-group">
         <label asp-for="ForceAffiliation" class="font-weight-bold"></label>
-        <label class="text-danger">*</label>
         <select asp-for="ForceAffiliation" class="form-control"
                 asp-items="@Html.GetEnumSelectList<ForceAffiliation>()">
         </select>
@@ -68,7 +61,6 @@
 
     <div class="form-group">
         <label asp-for="ClassId" class="font-weight-bold"></label>
-        <label class="text-danger">*</label>
         <select asp-for="ClassId" class="form-control"
                 asp-items="classes">
         </select>
@@ -77,7 +69,6 @@
 
     <div class="form-group">
         <label asp-for="RaceId" class="font-weight-bold"></label>
-        <label class="text-danger">*</label>
         <select asp-for="RaceId" class="form-control"
                 asp-items="races">
         </select>
@@ -86,7 +77,6 @@
 
     <div class="form-group">
         <label asp-for="ServerId" class="font-weight-bold"></label>
-        <label class="text-danger">*</label>
         <select asp-for="ServerId" class="form-control"
                 asp-items="servers">
         </select>
@@ -95,12 +85,11 @@
 
     <div class="form-group">
         <label asp-for="Image" class="font-weight-bold"></label>
-        <label class="text-danger">*</label>
         <input asp-for="Image" class="form-control" />
         <span asp-validation-for="Image" class="text-danger"></span>
     </div>
 
-    <input type="submit" class="btn btn-primary" value="Create character" />
+    <input type="submit" class="btn btn-primary" value="Save" />
 
 </form>
 

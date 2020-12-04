@@ -66,24 +66,24 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account.Manage
         [TempData]
         public string StatusMessage { get; set; }
 
-        public string RandomImageQuery { get; set; }
 
 
         private async Task LoadAsync(Data.Models.Account user)
         {
             var userName = await _userManager.GetUserNameAsync(user);
 
+            ViewData["random"] = random.NextDouble().ToString();
 
             UserName = userName;
             AvatarImagePath = user.AvatarImagePath;
             ForumSignature = user.ForumSignature;
             CreatedOn = user.CreatedOn;
-            RandomImageQuery = random.NextDouble().ToString();
         }
 
         public async Task<IActionResult> OnGetAsync()
         {
             var user = await _userManager.GetUserAsync(User);
+            ViewData["random"] = random.NextDouble().ToString();
 
             AvatarImagePath = user.AvatarImagePath;
             ForumSignature = user.ForumSignature;
@@ -102,7 +102,6 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account.Manage
         {
             var user = await _userManager.GetUserAsync(User);
             
-
             if (user == null)
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");

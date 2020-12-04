@@ -25,11 +25,11 @@
                         <div class="media flex-wrap w-100 align-items-center">
                             @if (item.AccountAvatarImagePath != null)
                             {
-                                <img src="/Images/AvatarImages/@item.AccountAvatarImagePath?id=@item.RandomImageQuery" class="d-block ui-w-40 rounded-circle border border-warning" height="100" width="100" alt="">
+                                <img src="/Images/AvatarImages/@item.AccountAvatarImagePath?random=@ViewData["random"].ToString()" class="d-block ui-w-40 rounded-circle border border-warning" height="100" width="100" alt="">
                             }
                             else
                             {
-                                <img src="/Images/AvatarImages/defaultAvatar.jpg?id=@item.RandomImageQuery" class="d-block ui-w-40 rounded-circle border border-warning" height="100" width="100" alt="">
+                                <img src="/Images/AvatarImages/defaultAvatar.jpg?random=@ViewData["random"].ToString()" class="d-block ui-w-40 rounded-circle border border-warning" height="100" width="100" alt="">
                             }
                             <div class="media-body ml-3">
                                 <div class="float-right">

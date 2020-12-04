@@ -1,6 +1,7 @@
 ﻿using HolocronProject.Data.Enums;
 using HolocronProject.Data.Models;
 using HolocronProject.Services;
+using HolocronProject.Web.Controllers;
 using HolocronProject.Web.ViewModels.Characters;
 using HolocronProject.Web.ViewModels.Pager;
 using Microsoft.AspNetCore.Authorization;
@@ -17,23 +18,19 @@ using System.Threading.Tasks;
 namespace HolocronProject.Web.Areas.Administration.Controllers
 {
     [Area("Administration")]
-    public class CharactersController : Controller
+    public class CharactersController : BaseController
     {
         private readonly ICharactersService characterService;
-        private readonly Random random;
 
-        public CharactersController( ICharactersService characterService,
-            Random random)
+        public CharactersController( ICharactersService characterService)
         {
             this.characterService = characterService;
-            this.random = random;
         }
 
         [Authorize(Roles = "Admin")]
         public IActionResult CharacterInfo(string characterId)
         {
-            var charViewModel = this.characterService.GetCharacterInfo<CharacterUserViewModel>(characterId);
-            charViewModel.RandomImageQuery = random.NextDouble().ToString();
+            var charViewModel = this.characterService.GetCharacterByIdGeneric<CharacterUserViewModel>(characterId);
 
             if (charViewModel.ForceAffiliation == ForceAffiliation.LightSide)
             {

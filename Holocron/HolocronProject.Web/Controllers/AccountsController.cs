@@ -4,11 +4,12 @@ using HolocronProject.Web.ViewModels.Accounts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 
 namespace HolocronProject.Web.Controllers
 {
-    public class AccountsController : Controller
+    public class AccountsController : BaseController
     {
         private readonly IAccountsService accountService;
         private readonly UserManager<Account> userManager;

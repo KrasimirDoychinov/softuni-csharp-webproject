@@ -1,5 +1,6 @@
 ﻿using HolocronProject.Data.Models;
 using HolocronProject.Services;
+using HolocronProject.Web.Controllers;
 using HolocronProject.Web.ViewModels.BugReports;
 using HolocronProject.Web.ViewModels.Pager;
 using Microsoft.AspNetCore.Authorization;
@@ -13,7 +14,7 @@ using System.Threading.Tasks;
 namespace HolocronProject.Web.Areas.Administration.Controllers
 {
     [Area("Administration")]
-    public class BugReportsController : Controller
+    public class BugReportsController : BaseController
     {
         private readonly IBugReportsService bugReportService;
         private readonly UserManager<Account> userManager;

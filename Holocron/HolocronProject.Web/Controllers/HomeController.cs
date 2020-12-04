@@ -14,7 +14,7 @@ using HolocronProject.Web.ViewModels.BaseThreads;
 
 namespace HolocronProject.Web.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IBaseThreadsService baseThreadService;

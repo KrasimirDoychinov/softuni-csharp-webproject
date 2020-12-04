@@ -13,22 +13,19 @@ using System.Threading.Tasks;
 
 namespace HolocronProject.Web.Controllers
 {
-    public class PostReportsController : Controller
+    public class PostReportsController : BaseController
     {
         private readonly IPostReportsService postReportsService;
         private readonly UserManager<Account> userManager;
         private readonly IHtmlSizeParser htmlSizeParser;
-        private readonly Random random;
 
         public PostReportsController(IPostReportsService postReportsService,
             UserManager<Account> userManager,
-            IHtmlSizeParser htmlSizeParser,
-            Random random)
+            IHtmlSizeParser htmlSizeParser)
         {
             this.postReportsService = postReportsService;
             this.userManager = userManager;
             this.htmlSizeParser = htmlSizeParser;
-            this.random = random;
         }
 
         [Authorize]

@@ -2,6 +2,7 @@
 using HolocronProject.Data.Models;
 using HolocronProject.Services;
 using HolocronProject.Services.Models.Character;
+using HolocronProject.Services.Models.Characters;
 using HolocronProject.Web.ViewModels.Characters;
 using HolocronProject.Web.ViewModels.Classes;
 using HolocronProject.Web.ViewModels.Pager;
@@ -21,7 +22,7 @@ using System.Threading.Tasks;
 
 namespace HolocronProject.Web.Controllers
 {
-    public class CharactersController : Controller
+    public class CharactersController : BaseController
     {
         private readonly IClassesService classService;
         private readonly ICharactersService characterService;
@@ -29,7 +30,6 @@ namespace HolocronProject.Web.Controllers
         private readonly IRacesService raceService;
         private readonly IWebHostEnvironment webHostEnvironment;
         private readonly IAccountsService accountsService;
-        private readonly Random random;
         private readonly UserManager<Account> userManager;
 
         public CharactersController(IClassesService classService,
@@ -38,7 +38,6 @@ namespace HolocronProject.Web.Controllers
             IRacesService raceService,
             IWebHostEnvironment webHostEnvironment,
             IAccountsService accountsService,
-            Random random,
             UserManager<Account> userManager
             )
         {
@@ -48,7 +47,6 @@ namespace HolocronProject.Web.Controllers
             this.raceService = raceService;
             this.webHostEnvironment = webHostEnvironment;
             this.accountsService = accountsService;
-            this.random = random;
             this.userManager = userManager;
         }
 
@@ -92,7 +90,7 @@ namespace HolocronProject.Web.Controllers
             };
 
             await this.characterService.CreateCharacterAsync(characterInputDto);
-            await this.characterService.CreateCharacterImage(input.Name, input.Image);
+            await this.characterService.UpdateCharacterImage(input.Name, input.Image);
             await this.accountsService.NotifyAccountOfPendingCharacters(accountId);
             return this.Redirect($"/");
         }
@@ -115,8 +113,7 @@ namespace HolocronProject.Web.Controllers
         [Authorize]
         public IActionResult CharacterInfo(string characterId)
         {
-            var charViewModel = this.characterService.GetCharacterInfo<CharacterUserViewModel>(characterId);
-            charViewModel.RandomImageQuery = random.NextDouble().ToString();
+            var charViewModel = this.characterService.GetCharacterByIdGeneric<CharacterUserViewModel>(characterId);
 
             if (charViewModel.ForceAffiliation == ForceAffiliation.LightSide)
             {
@@ -149,6 +146,54 @@ namespace HolocronProject.Web.Controllers
             }
             ViewData["charactersAccountId"] = accountId;
             return this.View(pendingCharacters.ToList());
+        }
+
+        [Authorize]
+        public IActionResult Edit(string characterId)
+        {
+            var characterEditModel = this.characterService.GetCharacterByIdGeneric<CharacterEditViewModel>(characterId);
+
+            characterEditModel.Classes = this.classService.GetAll<ClassViewModel>();
+            characterEditModel.Races = this.raceService.GetAll<RaceViewModel>();
+            characterEditModel.Servers = this.serverService.GetAll<ServerViewModel>();
+
+            return this.View(characterEditModel);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> Edit(CharacterEditViewModel input)
+        {
+            if (!ModelState.IsValid)
+            {
+                input.Classes = this.classService.GetAll<ClassViewModel>();
+                input.Races = this.raceService.GetAll<RaceViewModel>();
+                input.Servers = this.serverService.GetAll<ServerViewModel>();
+
+                return this.View(input);
+            }
+
+            var accountId = this.userManager.GetUserAsync(this.User).Result.Id;
+
+            var characterInputDto = new CharacterEditDto
+            {
+                Id = input.CharacterId,
+                Name = input.Name,
+                Backstory = input.Backstory,
+                Description = input.Description,
+                Title = input.Title,
+                Gender = input.Gender,
+                CharacterType = input.CharacterType,
+                ForceAffiliation = input.ForceAffiliation,
+                ServerId = input.ServerId,
+                RaceId = input.RaceId,
+                ClassId = input.ClassId,
+                AccountId = accountId
+            };
+
+            await this.characterService.EditCharacterAsync(characterInputDto);
+            await this.characterService.UpdateCharacterImage(input.Name, input.Image);
+            return this.Redirect($"/Characters/AllCharacters?accountId={accountId}");
         }
         private static IEnumerable<CharactersViewModel> CharListParserAndSanitizer(int? page, IEnumerable<CharactersViewModel> charListViewModel)
         {

@@ -3,10 +3,8 @@
 @inject SignInManager<Account> SignInManager
 @inject UserManager<Account> UserManager
 @inject AccountsService accountService
-@inject Random random
 @{ 
     var account = UserManager.GetUserAsync(this.User);
-    var randomImageQuery = random.NextDouble().ToString();
 }
 
 
@@ -18,13 +16,13 @@
     if (accountService.IsAvatarImageSet(account.Result.Id))
     {
         <li class="nav-item">
-            <a asp-area="Identity" asp-page="/Account/Manage/Index"><img src="~/Images/AvatarImages/@accountService.GetAccountAvatarImagePath(account.Result.Id)?random=@randomImageQuery" class="rounded-circle border border-warning " height="50" width="50" /></a>
+            <a asp-area="Identity" asp-page="/Account/Manage/Index"><img src="~/Images/AvatarImages/@accountService.GetAccountAvatarImagePath(account.Result.Id)?random=@ViewData["random"].ToString()" class="rounded-circle border border-warning " height="50" width="50" /></a>
         </li>
     }
     else
     {
         <li class="nav-item">
-            <a asp-area="Identity" asp-page="/Account/Manage/Index"><img src="~/Images/AvatarImages/defaultAvatar.jpg?random=@randomImageQuery" class="rounded-circle border border-warning" height="50" width="50" /></a>
+            <a asp-area="Identity" asp-page="/Account/Manage/Index"><img src="~/Images/AvatarImages/defaultAvatar.jpg?random=@ViewData["random"].ToString()" class="rounded-circle border border-warning" height="50" width="50" /></a>
         </li>
     }
 

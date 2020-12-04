@@ -27,7 +27,6 @@ namespace HolocronProject.Web.ViewModels.Posts
 
         public string AccountAvatarImagePath { get; set; }
 
-        public string RandomImageQuery { get; set; }
 
         public string AccountForumSignature { get; set; }
 

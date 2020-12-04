@@ -1,6 +1,7 @@
 ﻿using Ganss.XSS;
 using HolocronProject.Data.Models;
 using HolocronProject.Services;
+using HolocronProject.Web.Controllers;
 using HolocronProject.Web.ViewModels.Pager;
 using HolocronProject.Web.ViewModels.PostReports;
 using Microsoft.AspNetCore.Authorization;
@@ -14,22 +15,19 @@ using System.Threading.Tasks;
 namespace HolocronProject.Web.Areas.Administration.Controllers
 {
     [Area("Administration")]
-    public class PostReportsController : Controller
+    public class PostReportsController : BaseController
     {
         private readonly IPostReportsService postReportsService;
         private readonly UserManager<Account> userManager;
         private readonly IHtmlSizeParser htmlSizeParser;
-        private readonly Random random;
 
         public PostReportsController(IPostReportsService postReportsService,
             UserManager<Account> userManager,
-            IHtmlSizeParser htmlSizeParser,
-            Random random)
+            IHtmlSizeParser htmlSizeParser)
         {
             this.postReportsService = postReportsService;
             this.userManager = userManager;
             this.htmlSizeParser = htmlSizeParser;
-            this.random = random;
         }
 
         [Authorize(Roles = "Admin")]
@@ -37,7 +35,7 @@ namespace HolocronProject.Web.Areas.Administration.Controllers
         {
             IEnumerable<PostReportListViewModel> postListViewModel;
 
-                postListViewModel = this.postReportsService.GetAllAdminUnresolved<PostReportListViewModel>();
+            postListViewModel = this.postReportsService.GetAllAdminUnresolved<PostReportListViewModel>();
 
             if (postListViewModel.Count() > 0)
             {
@@ -56,7 +54,7 @@ namespace HolocronProject.Web.Areas.Administration.Controllers
         {
             IEnumerable<PostReportListViewModel> postListViewModel;
 
-                postListViewModel = this.postReportsService.GetAllAdminResolved<PostReportListViewModel>();
+            postListViewModel = this.postReportsService.GetAllAdminResolved<PostReportListViewModel>();
 
             if (postListViewModel.Count() > 0)
             {
@@ -82,7 +80,6 @@ namespace HolocronProject.Web.Areas.Administration.Controllers
             bugReportViewModel.Post.SanitizedDescription = sanitizer.Sanitize(bugReportViewModel.Post.Description);
             bugReportViewModel.Post.SanitizedDescription = this.htmlSizeParser.Parse(bugReportViewModel.Post.SanitizedDescription, 100, 50);
 
-            bugReportViewModel.Post.RandomImageQuery = random.NextDouble().ToString();
 
             return this.View(bugReportViewModel);
         }

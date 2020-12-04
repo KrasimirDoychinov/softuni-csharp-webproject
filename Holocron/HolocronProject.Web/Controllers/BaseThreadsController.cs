@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace HolocronProject.Web.Controllers
 {
-    public class BaseThreadsController : Controller
+    public class BaseThreadsController : BaseController
     {
         private readonly IBaseThreadsService baseThreadService;
 

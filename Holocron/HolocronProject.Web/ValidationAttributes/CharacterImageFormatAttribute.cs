@@ -18,7 +18,7 @@ namespace HolocronProject.Web.ValidationAttributes
 
             if (image == null)
             {
-                return new ValidationResult("The image field is required.");
+                return ValidationResult.Success;
             }
 
             var format = Image.DetectFormat(image.OpenReadStream());

@@ -19,21 +19,18 @@ using HolocronProject.Web.ViewModels.Pager;
 
 namespace HolocronProject.Web.Controllers
 {
-    public class ThreadsController : Controller
+    public class ThreadsController : BaseController
     {
         private readonly IThreadsService threadService;
         private readonly UserManager<Account> userManager;
-        private readonly Random random;
         private readonly IHtmlSizeParser htmlSizeParser;
 
         public ThreadsController(IThreadsService threadService,
             UserManager<Account> userManager,
-            Random random,
             IHtmlSizeParser htmlSizeParser)
         {
             this.threadService = threadService;
             this.userManager = userManager;
-            this.random = random;
             this.htmlSizeParser = htmlSizeParser;
         }
 
@@ -69,9 +66,23 @@ namespace HolocronProject.Web.Controllers
         public IActionResult ById(string threadId, int? page)
         {
             var threadViewModel = this.threadService.GetThreadsById<ThreadViewModel>(threadId);
+
             ThreadByIdParserAndSanitizer(page, threadViewModel);
 
             return this.View(threadViewModel);
+        }
+
+        [Authorize]
+        public IActionResult LastThreads(string accountId, int? page)
+        {
+            var lastThreads = this.threadService.GetLastThreadsByAccountId<ThreadViewModel>(accountId);
+
+            if (lastThreads.Count() > 0)
+            {
+                lastThreads = ThreadListParserAndSanitizer(page, lastThreads);
+            }
+
+            return this.View(lastThreads.ToList());
         }
 
         private void ThreadByIdParserAndSanitizer(int? page, ThreadViewModel threadViewModel)
@@ -91,22 +102,7 @@ namespace HolocronProject.Web.Controllers
             threadViewModel.Posts.AsParallel().ForAll(x => x.SanitizedDescription = sanitizer.Sanitize(x.Description));
             threadViewModel.Posts.AsParallel().ForAll(x => x.SanitizedDescription = this.htmlSizeParser.Parse(x.SanitizedDescription, 100, 50));
 
-            threadViewModel.RandomImageQuery = random.NextDouble().ToString();
         }
-
-        [Authorize]
-        public IActionResult LastThreads(string accountId, int? page)
-        {
-            var lastThreads = this.threadService.GetLastThreadsByAccountId<ThreadViewModel>(accountId);
-
-            if (lastThreads.Count() > 0)
-            {
-                lastThreads = ThreadListParserAndSanitizer(page, lastThreads);
-            }
-
-            return this.View(lastThreads.ToList());
-        }
-
 
         private IEnumerable<ThreadViewModel> ThreadListParserAndSanitizer(int? page, IEnumerable<ThreadViewModel> lastThreads)
         {
@@ -123,7 +119,6 @@ namespace HolocronProject.Web.Controllers
             lastThreads.AsParallel().ForAll(x => x.SanitizedDescription = sanitizer.Sanitize(x.Description));
             lastThreads.AsParallel().ForAll(x => x.SanitizedDescription = this.htmlSizeParser.Parse(x.SanitizedDescription, 100, 50));
 
-            lastThreads.AsParallel().ForAll(x => x.RandomImageQuery = random.NextDouble().ToString());
             return lastThreads;
         }
     }

@@ -7,20 +7,20 @@ using HolocronProject.Web.ViewModels.Classes;
 using HolocronProject.Web.ViewModels.Races;
 using HolocronProject.Web.ViewModels.Servers;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using static HolocronProject.Data.Common.GlobalErrorMessages;
+using static HolocronProject.Data.Common.GlobalRangeConstraints;
 
 namespace HolocronProject.Web.ViewModels.Characters
 {
-    using static GlobalErrorMessages;
-    using static GlobalRangeConstraints;
-
-    public class CharacterInputModel : IMapFrom<Data.Models.Character>
+    public class CharacterEditViewModel : IMapFrom<Character>
     {
+        public string CharacterId { get; set; }
+
         [CharacterNameInServer]
         [MaxLength(CharacterConstants.NameMaxLength, ErrorMessage = CharacterErrorMessages.NameMaxLengthError)]
         public string Name { get; set; }
@@ -34,23 +34,22 @@ namespace HolocronProject.Web.ViewModels.Characters
         [MaxLength(CharacterConstants.TitleMaxLength, ErrorMessage = CharacterErrorMessages.TitleMaxLengthError)]
         public string Title { get; set; }
 
-        [Required]
         [Display(Name = "Character image")]
         [CharacterImageFormat]
         public IFormFile Image { get; set; }
 
         [Required]
-        [Range(1,3, ErrorMessage = CharacterErrorMessages.InvalidGenderError)]
+        [Range(1, 3, ErrorMessage = CharacterErrorMessages.InvalidGenderError)]
         public Gender Gender { get; set; }
 
         [Required]
         [Display(Name = "Character type")]
-        [Range(1,4, ErrorMessage = CharacterErrorMessages.InvalidCharacterTypeError)]
+        [Range(1, 4, ErrorMessage = CharacterErrorMessages.InvalidCharacterTypeError)]
         public CharacterType CharacterType { get; set; }
 
         [Required]
         [Display(Name = "Force affiliation")]
-        [Range(1,3, ErrorMessage = CharacterErrorMessages.InvalidForceAffiliationError)]
+        [Range(1, 3, ErrorMessage = CharacterErrorMessages.InvalidForceAffiliationError)]
         public ForceAffiliation ForceAffiliation { get; set; }
 
         [Required]
@@ -71,6 +70,5 @@ namespace HolocronProject.Web.ViewModels.Characters
         public string ServerId { get; set; }
 
         public IEnumerable<ServerViewModel> Servers { get; set; }
-
     }
 }

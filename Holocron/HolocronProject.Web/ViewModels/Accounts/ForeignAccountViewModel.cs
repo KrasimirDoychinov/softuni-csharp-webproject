@@ -18,7 +18,6 @@ namespace HolocronProject.Web.ViewModels.Accounts
 
         public string AvatarImagePath { get; set; }
 
-        public string RandomImageQuery { get; set; }
 
         public int PostsCount { get; set; }
 

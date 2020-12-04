@@ -16,25 +16,23 @@ using Ganss.XSS;
 using System.Text.RegularExpressions;
 using HtmlAgilityPack;
 using HolocronProject.Web.ViewModels.Pager;
+using HolocronProject.Web.Controllers;
 
 namespace HolocronProject.Web.Areas.Administration.Controllers
 {
     [Area("Administration")]
-    public class ThreadsController : Controller
+    public class ThreadsController : BaseController
     {
         private readonly IThreadsService threadService;
         private readonly UserManager<Account> userManager;
-        private readonly Random random;
         private readonly IHtmlSizeParser htmlSizeParser;
 
         public ThreadsController(IThreadsService threadService,
             UserManager<Account> userManager,
-            Random random,
             IHtmlSizeParser htmlSizeParser)
         {
             this.threadService = threadService;
             this.userManager = userManager;
-            this.random = random;
             this.htmlSizeParser = htmlSizeParser;
         }
 
@@ -66,7 +64,6 @@ namespace HolocronProject.Web.Areas.Administration.Controllers
             lastThreads.AsParallel().ForAll(x => x.SanitizedDescription = sanitizer.Sanitize(x.Description));
             lastThreads.AsParallel().ForAll(x => x.SanitizedDescription = this.htmlSizeParser.Parse(x.SanitizedDescription, 100, 50));
 
-            lastThreads.AsParallel().ForAll(x => x.RandomImageQuery = random.NextDouble().ToString());
             return lastThreads;
         }
     }

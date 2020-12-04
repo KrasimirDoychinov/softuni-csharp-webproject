@@ -1,6 +1,7 @@
 ﻿using Ganss.XSS;
 using HolocronProject.Data.Models;
 using HolocronProject.Services;
+using HolocronProject.Web.Controllers;
 using HolocronProject.Web.ViewModels.Pager;
 using HolocronProject.Web.ViewModels.Posts;
 using Microsoft.AspNetCore.Authorization;
@@ -14,23 +15,20 @@ using System.Threading.Tasks;
 namespace HolocronProject.Web.Areas.Administration.Controllers
 {
     [Area("Administration")]
-    public class PostsController : Controller
+    public class PostsController : BaseController
     {
 
         private readonly IPostsService postService;
         private readonly UserManager<Account> userManager;
         private readonly IHtmlSizeParser htmlSizeParser;
-        private readonly Random random;
 
         public PostsController(IPostsService postService,
             UserManager<Account> userManager,
-            IHtmlSizeParser htmlSizeParser,
-            Random random)
+            IHtmlSizeParser htmlSizeParser)
         {
             this.postService = postService;
             this.userManager = userManager;
             this.htmlSizeParser = htmlSizeParser;
-            this.random = random;
         }
 
         [Authorize(Roles = "Admin")]

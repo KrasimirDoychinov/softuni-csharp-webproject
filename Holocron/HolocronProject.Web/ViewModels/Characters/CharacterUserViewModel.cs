@@ -42,7 +42,6 @@ namespace HolocronProject.Web.ViewModels.Characters
 
         public string CharacterImagePath { get; set; }
 
-        public string RandomImageQuery { get; set; }
 
         public string AccountUserName { get; set; }
 

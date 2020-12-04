@@ -13,22 +13,19 @@ using System.Threading.Tasks;
 
 namespace HolocronProject.Web.Controllers
 {
-    public class PostsController : Controller
+    public class PostsController : BaseController
     {
         private readonly IPostsService postService;
         private readonly UserManager<Account> userManager;
         private readonly IHtmlSizeParser htmlSizeParser;
-        private readonly Random random;
 
         public PostsController(IPostsService postService,
             UserManager<Account> userManager,
-            IHtmlSizeParser htmlSizeParser,
-            Random random)
+            IHtmlSizeParser htmlSizeParser)
         {
             this.postService = postService;
             this.userManager = userManager;
             this.htmlSizeParser = htmlSizeParser;
-            this.random = random;
         }
 
         [Authorize]
@@ -62,7 +59,6 @@ namespace HolocronProject.Web.Controllers
                 lastPosts = PostParserAndSanitizer(page, lastPosts);
             }
             
-
             return this.View(lastPosts.ToList());
         }
 

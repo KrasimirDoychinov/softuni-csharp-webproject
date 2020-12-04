@@ -11,6 +11,7 @@ using HolocronProject.Services.Models.Character;
 using HolocronProject.Services.Mapper;
 using Microsoft.AspNetCore.Http;
 using System.IO;
+using HolocronProject.Services.Models.Characters;
 
 namespace HolocronProject.Services.Implementations
 {
@@ -65,25 +66,32 @@ namespace HolocronProject.Services.Implementations
                 .To<T>()
                 .ToList();
         
-        public T GetCharacterInfo<T>(string characterId)
+        public T GetCharacterByIdGeneric<T>(string characterId)
             => this.context.Characters
                 .Where(x => x.Id == characterId)
                 .To<T>().FirstOrDefault();
 
-        public async Task CreateCharacterImage(string characterName, IFormFile image)
+        public async Task UpdateCharacterImage(string characterName, IFormFile image)
         {
-            var character = this.context.Characters
+            if (image == null)
+            {
+                return;
+            }
+            else
+            {
+                var character = this.context.Characters
                 .OrderByDescending(x => x.CreatedOn)
                 .FirstOrDefault();
 
-            using (var fs = new FileStream(
-               $"wwwroot/Images/CharacterImages/{character.Id}(Character).png", FileMode.Create))
-            {
-                await image.CopyToAsync(fs);
-            }
+                using (var fs = new FileStream(
+                   $"wwwroot/Images/CharacterImages/{character.Id}(Character).png", FileMode.Create))
+                {
+                    await image.CopyToAsync(fs);
+                }
 
-            character.CharacterImagePath = $"{character.Id}(Character).png";
-            await this.context.SaveChangesAsync();
+                character.CharacterImagePath = $"{character.Id}(Character).png";
+                await this.context.SaveChangesAsync();
+            }
         }
 
         public Character GetCharacterById(string characterId)
@@ -129,5 +137,24 @@ namespace HolocronProject.Services.Implementations
             => this.context.Characters
             .Where(x => !x.IsApproved)
             .Count();
+
+        public async Task EditCharacterAsync(CharacterEditDto input)
+        {
+            var character = this.GetCharacterById(input.Id);
+
+            character.AccountId = input.AccountId;
+            character.Backstory = input.Backstory;
+            character.Description = input.Description;
+            character.CharacterType = input.CharacterType;
+            character.ClassId = input.ClassId;
+            character.ForceAffiliation = input.ForceAffiliation;
+            character.Gender = input.Gender;
+            character.Name = input.Name;
+            character.RaceId = input.RaceId;
+            character.ServerId = input.ServerId;
+            character.Title = input.Title;
+            
+            await this.context.SaveChangesAsync();
+        }
     }
 }

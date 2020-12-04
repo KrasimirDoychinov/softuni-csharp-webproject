@@ -1,10 +1,11 @@
 ﻿@using System.Security.Claims
 @inject AccountsService accountService
 @inject UserManager<Account> userManager
+@inject Random random 
 @{
     string accountId = string.Empty; ;
     NotificationStatus isUserNotified = NotificationStatus.HasNoPendingOrApprovedCharacters;
-
+    ViewData["random"] = random.NextDouble().ToString();
     if (this.User.Identity.IsAuthenticated)
     {
         accountId = this.userManager.GetUserAsync(this.User).Result.Id;

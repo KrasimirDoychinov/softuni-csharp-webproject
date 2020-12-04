@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace HolocronProject.Web.Controllers
 {
     [Area("Administration")]
-    public class AdminsController : Controller
+    public class AdminsController : BaseController
     {
         private readonly ICharactersService charactersService;
         private readonly IAccountsService accountsService;

@@ -15,7 +15,7 @@
     </h3>
     @if (Model.AvatarImagePath != null)
     {
-        <img src="~/Images/AvatarImages/@Model.AvatarImagePath?random=@Model.RandomImageQuery" class="rounded-circle border border-warning border" height="150" width="150" alt="" />
+        <img src="~/Images/AvatarImages/@Model.AvatarImagePath?random=@ViewData["random"].ToString()" class="rounded-circle border border-warning border" height="150" width="150" alt="" />
     }
     else
     {

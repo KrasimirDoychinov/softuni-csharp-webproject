@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace HolocronProject.Web.Controllers
 {
-    public class BugReportsController : Controller
+    public class BugReportsController : BaseController
     {
         private readonly IBugReportsService bugReportService;
         private readonly UserManager<Account> userManager;

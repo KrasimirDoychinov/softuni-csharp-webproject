@@ -63,5 +63,6 @@ namespace HolocronProject.Services.Implementations
         public int TotalPosts()
             => this.context.Posts
             .Count();
+
     }
 }
