@@ -55,7 +55,7 @@
 
         public static class AchievementConstants
         {
-            public const int NameMaxLength = 50;
+            public const int NameMaxLength = 100;
         }
 
         public static class CompetitionConstants

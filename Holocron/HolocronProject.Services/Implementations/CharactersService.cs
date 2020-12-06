@@ -55,7 +55,15 @@ namespace HolocronProject.Services.Implementations
                 .Where(x => x.AccountId == accountId && x.CharacterStatus == CharacterStatus.Approved)
                 .To<T>()
                 .ToList();
-        
+
+        public IEnumerable<T> GetCurrentAccountCharacterForCompetition<T>(string accountId, string competitionId) 
+            => this.context.Characters
+                .Where(x => x.AccountId == accountId 
+                && x.CharacterStatus == CharacterStatus.Approved
+                && !x.Competitions.Any(x => x.CompetitionId == competitionId))
+                .To<T>()
+                .ToList();
+
         public T GetCharacterByIdGeneric<T>(string characterId)
             => this.context.Characters
                 .Where(x => x.Id == characterId)
@@ -161,5 +169,9 @@ namespace HolocronProject.Services.Implementations
             this.context.Characters.Update(character);
             await this.context.SaveChangesAsync();
         }
+
+        
+
+        
     }
 }

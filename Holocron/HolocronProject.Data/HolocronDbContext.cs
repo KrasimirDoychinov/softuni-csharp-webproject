@@ -45,6 +45,8 @@ namespace HolocronProject.Data
 
         public DbSet<CompetitionCharacter> CompetitionsCharacters { get; set; }
 
+        public DbSet<CompetitionVote> CompetitionVotes { get; set; }
+
         public DbSet<Vote> Votes { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -160,6 +162,9 @@ namespace HolocronProject.Data
 
             builder.Entity<Vote>()
                 .HasKey(x => new { x.ThreadId, x.AccountId });
+
+            builder.Entity<CompetitionVote>()
+                .HasKey(x => new { x.AccountId, x.CompetitionCharacterId });
         }
     }
 }

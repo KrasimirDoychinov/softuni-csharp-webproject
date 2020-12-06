@@ -1,0 +1,47 @@
+﻿
+@model CompetitionViewModel
+
+@inject UserManager<Account> userManager
+@{
+    var loggedInAccountId = this.userManager.GetUserAsync(this.User).Result.Id;
+    if (Model.Characters.Count() > 0)
+    {
+        var currAccountId = Model.Characters.FirstOrDefault().Character.AccountId;
+    }
+}
+<div class="text-center">
+    <h2><span class="text-warning">Title: </span>@Model.Title</h2>
+    <h4><span class="text-warning">Start date: </span>@Model.NormalizedStartDate</h4>
+    <h4><span class="text-warning">End date: </span>@Model.NormalizedEndDate</h4>
+    <h5 class="text-warning">Description</h5>
+    <p class="text-break">@Model.Description</p>
+</div>
+
+<hr class="bg-warning" />
+<div class="row text-center">
+    <div class="col-md-12 ">
+        @foreach (var item in Model.Characters)
+        {
+        <div class="d-inline-block grid">
+            <a href="/Characters/CharacterInfo?characterId=@item.Character.Id&accountId=@item.Character.AccountId"><img src="~/Images/CharacterImages/@item.Character.CharacterImagePath?random=@ViewData["random"].ToString()" class="ml-3" style="width: 325px; height:300px" /></a>
+            <h4><span class="font-weight-bold">Name: </span>@item.Character.Name</h4>
+            <h5><span class="font-weight-bold">Title: </span>@item.Character.Title</h5>
+            <h5><span class="font-weight-bold">Gender: </span>@item.Character.Gender</h5>
+            <h5><span class="font-weight-bold">Class: </span>@item.Character.ClassName</h5>
+            <h5><span class="font-weight-bold">Votes: </span>@item.VotesCount</h5>
+            @if (!Model.HasAccountVoted)
+            {
+                <a href="/Competitions/Vote?characterId=@item.Character.Id&competitionId=@Model.Id&accountId=@loggedInAccountId" class="btn btn-primary btn-sm">Vote</a>
+            }
+        </div>
+        }
+    </div>
+</div>
+<div class="d-flex justify-content-between">
+    <div>
+        <a href="/Characters/CharactersToPick?accountId=@loggedInAccountId&competitionId=@Model.Id" class="btn btn-primary">Add character</a>
+    </div>
+    <div>
+        <partial name="PaginationView" model="Model" />
+    </div>
+</div>

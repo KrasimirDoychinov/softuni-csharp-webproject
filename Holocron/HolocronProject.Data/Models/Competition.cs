@@ -20,16 +20,17 @@ namespace HolocronProject.Data.Models
         public string Id { get; set; }
 
         [Required]
-        [MaxLength(GlobalRangeConstraints.CompetitionConstants.TitleMaxLength)]
+        [MaxLength(GlobalRangeConstraints.CompetitionConstants.TitleMaxLength, ErrorMessage = GlobalErrorMessages.CompetitionErrorMessages.TitleMaxLengthError)]
         public string Title { get; set; }
 
         [Required]
-        [MaxLength(GlobalRangeConstraints.CompetitionConstants.DescriptionMaxLength)]
+        [MaxLength(GlobalRangeConstraints.CompetitionConstants.DescriptionMaxLength, ErrorMessage = GlobalErrorMessages.CompetitionErrorMessages.DescriptionMaxLengthError)]
         public string Description { get; set; }
 
         [Required]
         public DateTime StartDate { get; set; }
 
+        [Required]
         public DateTime EndDate { get; set; }
 
         public virtual ICollection<CompetitionCharacter> Characters { get; set; } = new List<CompetitionCharacter>();

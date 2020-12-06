@@ -42,11 +42,12 @@ namespace HolocronProject.Web.ViewModels.Characters
 
         public string CharacterImagePath { get; set; }
 
-
         public string AccountUserName { get; set; }
 
         public string AccountId { get; set; }
 
         public bool IsApproved { get; set; }
+
+        public string CreatedOn { get; set; }
     }
 }

@@ -33,6 +33,13 @@ namespace HolocronProject.Data.Common
 
         }
 
+        public static class CompetitionErrorMessages
+        {
+            public const string TitleMaxLengthError = "The competition title cannot contain more than {0} characters";
+
+            public const string DescriptionMaxLengthError = "The competition description cannot contain more than {0} characters";
+        }
+
         public static class ThreadErrorMessages
         {
             public const string TitleMaxLengthError = "The title cannot conain more than {0} characters.";

@@ -27,10 +27,10 @@
     </table>
     <div class="d-flex justify-content-between">
         <div>
-            <partial name="PaginationView" model="Model" />
+            <a href="/Threads/Create/?baseThreadId=@Model.Id" class="btn btn-primary float-right">Create new thread</a>
         </div>
         <div>
-            <a href="/Threads/Create/?baseThreadId=@Model.Id" class="btn btn-primary float-right">Create new thread</a>
+            <partial name="PaginationView" model="Model" />
         </div>
     </div>
 </div>

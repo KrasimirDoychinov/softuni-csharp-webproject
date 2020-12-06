@@ -14,8 +14,7 @@ using System.Threading.Tasks;
 
 namespace HolocronProject.Web.Areas.Administration.Controllers
 {
-    [Area("Administration")]
-    public class PostReportsController : BaseController
+    public class PostReportsController : BaseAdminController
     {
         private readonly IPostReportsService postReportsService;
         private readonly UserManager<Account> userManager;

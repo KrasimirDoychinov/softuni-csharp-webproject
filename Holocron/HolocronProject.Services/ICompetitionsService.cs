@@ -12,6 +12,12 @@ namespace HolocronProject.Services
 
         Task FinishCompetitionAsync(string competitionId);
 
+
         Competition GetCompetitionById(string competitionId);
+
+        IEnumerable<T> GetAll<T>();
+
+        T GetCompetitionByIdGeneric<T>(string competitionId);
+
     }
 }

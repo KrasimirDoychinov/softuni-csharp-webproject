@@ -1,0 +1,83 @@
+﻿
+@model List<CharacterToPickViewModel>
+
+@inject UserManager<Account> userManager
+@{
+    var loggedInAccountId = this.userManager.GetUserAsync(this.User).Result.Id;
+    var currAccountId = ViewData["charactersAccountId"].ToString();
+    var pager = Model.Select(x => x.Pager).FirstOrDefault();
+}
+@if (Model.Count() <= 0)
+{
+    <div class="text-center">
+        @if (currAccountId == loggedInAccountId)
+        {
+            <h1>You currently have no approved characters.</h1>
+            <h3><a asp-controller="Characters" asp-action="CreateCharacter" class="text-decoration-none">Create one?</a></h3>
+            <a class="btn btn-primary" href="/Characters/PendingCharacters?accountId=@currAccountId">Pending characters</a>
+        }
+        else
+        {
+            <h1>The account currently has no characters.</h1>
+        }
+    </div>
+}
+else
+{
+
+    <div class="row text-center">
+        <div class="col-md-12 ">
+            @foreach (var item in Model)
+            {
+                <div class="d-inline-block grid">
+                    <a href="/Competitions/Pick?characterId=@item.Id&competitionId=@item.CompetitionId"><img src="~/Images/CharacterImages/@item.CharacterImagePath?random=@ViewData["random"].ToString()" class="ml-3" style="width: 325px; height:300px" /></a>
+                    <h4><span class="font-weight-bold">Name: </span>@item.Name</h4>
+                    <h5><span class="font-weight-bold">Title: </span>@item.Title</h5>
+                    <h5><span class="font-weight-bold">Gender: </span>@item.Gender</h5>
+                    <h5><span class="font-weight-bold">Class: </span>@item.ClassName</h5>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="d-flex justify-content-between">
+        <div>
+            @if (pager.EndPage > 1)
+            {
+                <div class="float-left">
+                    <ul class="pagination">
+                        @if (pager.CurrentPage > 1)
+                        {
+                            <li class="float-left mr-1">
+                                <a href="/Characters/CharactersToPick" class="btn btn-info">First</a>
+                            </li>
+                            <li class="float-left mr-1">
+                                <a href="/Characters/CharactersToPick?accountId=@currAccountId&page=@(pager.CurrentPage - 1)" class="btn btn-info">Previous</a>
+                            </li>
+                        }
+
+                        @for (var page = pager.StartPage; page <= pager.EndPage; page++)
+                        {
+                            <li class="@(page == pager.CurrentPage ? "active" : "") float-right mr-1">
+                                <a href="/Characters/CharactersToPick?accountId=@currAccountId&page=@(page)" class="btn btn-info">@(page)</a>
+                            </li>
+                        }
+
+                        @if (pager.CurrentPage < pager.TotalPages)
+                        {
+                            <li class="float-right mr-1">
+                                <a href="/Characters/CharactersToPick?accountId=@currAccountId&page=@(pager.CurrentPage + 1)" class="btn btn-info">Next</a>
+                            </li>
+                            <li class="float-right mr-1">
+                                <a href="/Characters/CharactersToPick?accountId=@currAccountId&page=@(pager.TotalPages)" class="btn btn-info">Last</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            }
+        </div>
+    </div>
+
+}
+
+
+

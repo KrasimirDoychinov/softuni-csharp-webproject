@@ -13,8 +13,7 @@ using System.Threading.Tasks;
 
 namespace HolocronProject.Web.Areas.Administration.Controllers
 {
-    [Area("Administration")]
-    public class BugReportsController : BaseController
+    public class BugReportsController : BaseAdminController
     {
         private readonly IBugReportsService bugReportService;
         private readonly UserManager<Account> userManager;

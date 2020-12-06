@@ -13,8 +13,7 @@ using System.Threading.Tasks;
 
 namespace HolocronProject.Web.Areas.Administration.Controllers
 {
-    [Area("Administration")]
-    public class ThreadsController : BaseController
+    public class ThreadsController : BaseAdminController
     {
         private readonly IThreadsService threadService;
         private readonly UserManager<Account> userManager;

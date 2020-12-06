@@ -6,10 +6,12 @@ namespace HolocronProject.Data.Models
 {
     public class CompetitionCharacter
     {
-        // TODO: Make sure this works
-        // TODO: Implement services
-        // TODO: Service to increase votes
-        // TODO: View services
+        public CompetitionCharacter()
+        {
+            this.Id = Guid.NewGuid().ToString();
+        }
+
+        public string Id { get; set; }
 
         public string CompetitionId { get; set; }
 
@@ -19,6 +21,6 @@ namespace HolocronProject.Data.Models
 
         public virtual Character Character { get; set; }
 
-        public int Votes { get; set; }
+        public virtual ICollection<CompetitionVote> Votes { get; set; } = new List<CompetitionVote>();
     }
 }

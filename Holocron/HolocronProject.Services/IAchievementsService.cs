@@ -8,6 +8,6 @@ namespace HolocronProject.Services
 {
     public interface IAchievementsService
     {
-        IEnumerable<Achievement> CreateAchievement(string competitionId);
+        IEnumerable<Achievement> CreateAchievement(string title);
     }
 }

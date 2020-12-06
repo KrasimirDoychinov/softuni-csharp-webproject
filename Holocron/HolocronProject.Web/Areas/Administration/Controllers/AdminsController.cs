@@ -1,4 +1,5 @@
 ﻿using HolocronProject.Services;
+using HolocronProject.Web.Areas.Administration.Controllers;
 using HolocronProject.Web.ViewModels.Admins;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -9,8 +10,7 @@ using System.Threading.Tasks;
 
 namespace HolocronProject.Web.Controllers
 {
-    [Area("Administration")]
-    public class AdminsController : BaseController
+    public class AdminsController : BaseAdminController
     {
         private readonly ICharactersService charactersService;
         private readonly IAccountsService accountsService;

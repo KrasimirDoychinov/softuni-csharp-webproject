@@ -1,5 +1,7 @@
 ﻿using HolocronProject.Data;
 using HolocronProject.Data.Models;
+using HolocronProject.Services.Mapper;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +15,8 @@ namespace HolocronProject.Services.Implementations
         private readonly HolocronDbContext context;
         private readonly IAchievementsService achievementService;
 
-        public CompetitionsService(HolocronDbContext context, IAchievementsService achievementService)
+        public CompetitionsService(HolocronDbContext context, 
+            IAchievementsService achievementService)
         {
             this.context = context;
             this.achievementService = achievementService;
@@ -47,7 +50,20 @@ namespace HolocronProject.Services.Implementations
             await this.context.SaveChangesAsync();
         }
 
+        public IEnumerable<T> GetAll<T>()
+            => this.context.Competitions
+            .Where(x => !x.IsFinished)
+            .To<T>()
+            .ToList();
+
         public Competition GetCompetitionById(string competitionId)
             => this.context.Competitions.FirstOrDefault(x => x.Id == competitionId);
+
+        public T GetCompetitionByIdGeneric<T>(string competitionId)
+            => this.context.Competitions
+            .Where(x => x.Id == competitionId)
+            .To<T>()
+            .FirstOrDefault();
+
     }
 }

@@ -17,8 +17,7 @@ using System.Threading.Tasks;
 
 namespace HolocronProject.Web.Areas.Administration.Controllers
 {
-    [Area("Administration")]
-    public class CharactersController : BaseController
+    public class CharactersController : BaseAdminController
     {
         private readonly ICharactersService characterService;
 
@@ -54,7 +53,7 @@ namespace HolocronProject.Web.Areas.Administration.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult NewestCharacters(int? page)
         {
-            var charListViewModel = this.characterService.GetNewestCharacters<CharactersViewModel>();
+            var charListViewModel = this.characterService.GetNewestCharacters<CharacterListViewModel>();
 
             if (charListViewModel.Count() > 0)
             {
@@ -67,7 +66,7 @@ namespace HolocronProject.Web.Areas.Administration.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult AllPendingCharacters(int? page)
         {
-            var charListViewModel = this.characterService.GetAllPendingCharacters<CharactersViewModel>();
+            var charListViewModel = this.characterService.GetAllPendingCharacters<CharacterListViewModel>();
 
             if (charListViewModel.Count() > 0)
             {
@@ -93,7 +92,7 @@ namespace HolocronProject.Web.Areas.Administration.Controllers
             return this.Redirect("/");
         }
 
-        private static IEnumerable<CharactersViewModel> CharListParserAndSanitizer(int? page, IEnumerable<CharactersViewModel> charListViewModel)
+        private static IEnumerable<CharacterListViewModel> CharListParserAndSanitizer(int? page, IEnumerable<CharacterListViewModel> charListViewModel)
         {
             charListViewModel = charListViewModel.OrderByDescending(x => x.NormalizedCreatedOn);
             var pager = new Pager(charListViewModel.Count(), page);

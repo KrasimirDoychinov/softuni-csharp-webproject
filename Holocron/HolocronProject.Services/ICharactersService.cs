@@ -16,7 +16,9 @@ namespace HolocronProject.Services
 
         Character GetCharacterById(string characterId);
 
-        IEnumerable<T> GetCurrentAccountCharacter<T>(string userId);
+        IEnumerable<T> GetCurrentAccountCharacter<T>(string accountId);
+
+        IEnumerable<T> GetCurrentAccountCharacterForCompetition<T>(string accountId, string competitionId);
 
         IEnumerable<T> GetNewestCharacters<T>();
 
@@ -35,6 +37,8 @@ namespace HolocronProject.Services
         IEnumerable<T> GetPendingCharacters<T>(string accountId);
 
         IEnumerable<T> GetAllPendingCharacters<T>();
+
+
 
 
         

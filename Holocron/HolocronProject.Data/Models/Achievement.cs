@@ -20,7 +20,6 @@ namespace HolocronProject.Data.Models
         [MaxLength(GlobalRangeConstraints.AchievementConstants.NameMaxLength)]
         public string Name { get; set; }
 
-        [Required]
         public string CharacterId { get; set; }
 
         public virtual Character Character { get; set; }

@@ -98,7 +98,7 @@ namespace HolocronProject.Web.Controllers
         [Authorize]
         public async Task<IActionResult> AllCharacters(string accountId, int? page)
         {
-            var charListViewModel = this.characterService.GetCurrentAccountCharacter<CharactersViewModel>(accountId);
+            var charListViewModel = this.characterService.GetCurrentAccountCharacter<CharacterListViewModel>(accountId);
 
             if (charListViewModel.Count() > 0)
             {
@@ -139,7 +139,7 @@ namespace HolocronProject.Web.Controllers
         [Authorize]
         public IActionResult PendingCharacters(string accountId, int? page)
         {
-            var pendingCharacters = this.characterService.GetPendingCharacters<CharactersViewModel>(accountId);
+            var pendingCharacters = this.characterService.GetPendingCharacters<CharacterListViewModel>(accountId);
 
             if (pendingCharacters.Count() > 0)
             {
@@ -148,6 +148,7 @@ namespace HolocronProject.Web.Controllers
             ViewData["charactersAccountId"] = accountId;
             return this.View(pendingCharacters.ToList());
         }
+
 
         [Authorize]
         public IActionResult Edit(string characterId)
@@ -196,7 +197,32 @@ namespace HolocronProject.Web.Controllers
             await this.characterService.UpdateCharacterImage(input.Name, input.Image);
             return this.Redirect($"/Characters/AllCharacters?accountId={accountId}");
         }
-        private static IEnumerable<CharactersViewModel> CharListParserAndSanitizer(int? page, IEnumerable<CharactersViewModel> charListViewModel)
+
+        [Authorize]
+        public IActionResult CharactersToPick(string accountId, string competitionId, int? page)
+        {
+            var charListViewModel = this.characterService.GetCurrentAccountCharacterForCompetition<CharacterToPickViewModel>(accountId, competitionId);
+
+            charListViewModel.AsParallel().ForAll(x => x.CompetitionId = competitionId);
+            if (charListViewModel.Count() > 0)
+            {
+                charListViewModel = CharListParserAndSanitizerToPick(page, charListViewModel);
+            }
+            ViewData["charactersAccountId"] = accountId;
+
+            return this.View(charListViewModel.ToList());
+        }
+
+        private static IEnumerable<CharacterListViewModel> CharListParserAndSanitizer(int? page, IEnumerable<CharacterListViewModel> charListViewModel)
+        {
+            charListViewModel = charListViewModel.OrderByDescending(x => x.NormalizedCreatedOn);
+            var pager = new Pager(charListViewModel.Count(), page);
+            charListViewModel = charListViewModel.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize);
+            charListViewModel.FirstOrDefault().Pager = pager;
+            return charListViewModel;
+        }
+
+        private static IEnumerable<CharacterToPickViewModel> CharListParserAndSanitizerToPick(int? page, IEnumerable<CharacterToPickViewModel> charListViewModel)
         {
             charListViewModel = charListViewModel.OrderByDescending(x => x.NormalizedCreatedOn);
             var pager = new Pager(charListViewModel.Count(), page);

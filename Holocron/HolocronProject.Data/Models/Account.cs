@@ -11,7 +11,6 @@ namespace HolocronProject.Data.Models
 
     public class Account : IdentityUser
     {
-        // TODO: Editting user info
         public Account()
         {
             this.Id = Guid.NewGuid().ToString();
@@ -21,8 +20,6 @@ namespace HolocronProject.Data.Models
 
         public string AvatarImagePath { get; set; } 
 
-        // ?TODA?: Figure out how to add a forum signature
-        // ?TODA?: Add max length (add a common) 
         public string ForumSignature { get; set; } = "Placeholder forum signature";
 
         public virtual ICollection<Character> Characters { get; set; } = new List<Character>();
@@ -34,6 +31,8 @@ namespace HolocronProject.Data.Models
         public virtual ICollection<BugReport> BugReports { get; set; } = new List<BugReport>();
 
         public virtual ICollection<PostReport> PostReports { get; set; } = new List<PostReport>();
+
+        public virtual ICollection<CompetitionVote> Votes { get; set; } = new List<CompetitionVote>();
 
         public NotificationStatus NotificationStatus { get; set; } = 0;
 

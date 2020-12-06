@@ -19,31 +19,31 @@ namespace HolocronProject.Tests.Services
         private IPostsService postService;
         private IThreadsService threadService;
 
-        [SetUp]
-        public async Task SetUp()
-        {
-            this.context = new HolocronDbContext();
-            this.postService = new PostsService(context);
-            this.threadService = new ThreadsService(context);
+        //[SetUp]
+        //public async Task SetUp()
+        //{
+        //    this.context = new HolocronDbContext();
+        //    this.postService = new PostsService(context);
+        //    this.threadService = new ThreadsService(context);
 
-            await this.context.Database.EnsureDeletedAsync();
-            await this.context.Database.EnsureCreatedAsync();
+        //    await this.context.Database.EnsureDeletedAsync();
+        //    await this.context.Database.EnsureCreatedAsync();
 
-            var threadId = this.context.BaseThreads
-                .Select(x => x.Id)
-                .FirstOrDefault();
-            var userId = this.context.Accounts
-                .Select(x => x.Id)
-                .FirstOrDefault();
+        //    var threadId = this.context.BaseThreads
+        //        .Select(x => x.Id)
+        //        .FirstOrDefault();
+        //    var userId = this.context.Accounts
+        //        .Select(x => x.Id)
+        //        .FirstOrDefault();
 
-            //await this.threadService.CreateThreadAsync(ThreadInputDto input);
-        }
+        //    //await this.threadService.CreateThreadAsync(ThreadInputDto input);
+        //}
 
-        [TearDown]
-        public async Task TearDown()
-        {
-            await context.DisposeAsync();
-        }
+        //[TearDown]
+        //public async Task TearDown()
+        //{
+        //    await context.DisposeAsync();
+        //}
 
         //[Test]
         //public async Task CreatePostCreatesPostAndIncreasesCount()
