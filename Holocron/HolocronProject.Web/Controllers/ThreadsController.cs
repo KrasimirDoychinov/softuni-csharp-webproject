@@ -62,6 +62,22 @@ namespace HolocronProject.Web.Controllers
             await this.threadService.CreateThreadAsync(threadInputModel);
             return this.Redirect($"/BaseThreads/ById/?threadId={baseThreadId}");
         }
+        [Authorize]
+        public IActionResult Edit(string threadId)
+        {
+            var threadViewModel = this.threadService.GetThreadsById<ThreadEditModel>(threadId);
+
+            return this.View(threadViewModel);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> Edit(ThreadEditModel input)
+        {
+            await this.threadService.EditThreadAsync(input.ThreadId, input.Description, input.Title);
+
+            return this.Redirect($"/Threads/ById?threadId={input.ThreadId}");
+        }
 
         public IActionResult ById(string threadId, int? page)
         {

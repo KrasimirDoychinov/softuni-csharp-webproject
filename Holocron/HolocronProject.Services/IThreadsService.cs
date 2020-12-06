@@ -9,7 +9,9 @@ namespace HolocronProject.Services
     {
         Task CreateThreadAsync(ThreadInputDto input);
 
-        Task DeleteThreadAsync(string threaId);
+        Task DeleteThreadAsync(string threadId);
+
+        Task EditThreadAsync(string threadId, string description, string title);
 
         T GetThreadsById<T>(string threadId);
 

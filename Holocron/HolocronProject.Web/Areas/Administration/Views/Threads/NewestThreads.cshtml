@@ -60,27 +60,27 @@
                         @if (pager.CurrentPage > 1)
                         {
                             <li class="float-left mr-1">
-                                <a href="/Threads/NewestThreads" class="btn btn-info">First</a>
+                                <a href="/Administration/Threads/NewestThreads" class="btn btn-info">First</a>
                             </li>
                             <li class="float-left mr-1">
-                                <a href="/Threads/NewestThreads?page=@(pager.CurrentPage - 1)" class="btn btn-info">Previous</a>
+                                <a href="/Administration/Threads/NewestThreads?page=@(pager.CurrentPage - 1)" class="btn btn-info">Previous</a>
                             </li>
                         }
 
                         @for (var page = pager.StartPage; page <= pager.EndPage; page++)
                         {
                             <li class="@(page == pager.CurrentPage ? "active" : "") float-right mr-1">
-                                <a href="/Threads/NewestThreads?page=@(page)" class="btn btn-info">@(page)</a>
+                                <a href="/Administration/Threads/NewestThreads?page=@(page)" class="btn btn-info">@(page)</a>
                             </li>
                         }
 
                         @if (pager.CurrentPage < pager.TotalPages)
                         {
                             <li class="float-right mr-1">
-                                <a href="/Threads/NewestThreads?page=@(pager.CurrentPage + 1)" class="btn btn-info">Next</a>
+                                <a href="/Administration/Threads/NewestThreads?page=@(pager.CurrentPage + 1)" class="btn btn-info">Next</a>
                             </li>
                             <li class="float-right mr-1">
-                                <a href="/Threads/NewestThreads?page=@(pager.TotalPages)" class="btn btn-info">Last</a>
+                                <a href="/Administration/Threads/NewestThreads?page=@(pager.TotalPages)" class="btn btn-info">Last</a>
                             </li>
                         }
                     </ul>

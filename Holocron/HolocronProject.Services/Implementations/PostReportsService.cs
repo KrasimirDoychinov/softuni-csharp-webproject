@@ -63,24 +63,28 @@ namespace HolocronProject.Services.Implementations
         public IEnumerable<T> GetAllAdminResolved<T>()
             => this.context.PostReports
             .Where(x => x.IsResolved)
+            .OrderByDescending(x => x.ResolvedOn)
             .To<T>()
             .ToList();
 
         public IEnumerable<T> GetAllAdminUnresolved<T>()
             => this.context.PostReports
             .Where(x => !x.IsResolved)
+            .OrderByDescending(x => x.CreatedOn)
             .To<T>()
             .ToList();
 
         public IEnumerable<T> GetAllByAccountResolved<T>(string accountId)
             => this.context.PostReports
             .Where(x => x.AccountId == accountId && x.IsResolved)
+            .OrderByDescending(x => x.ResolvedOn)
             .To<T>()
             .ToList();
 
         public IEnumerable<T> GetAllByAccountUnresolved<T>(string accountId)
             => this.context.PostReports
             .Where(x => x.AccountId == accountId && !x.IsResolved)
+            .OrderByDescending(x => x.CreatedOn)
             .To<T>()
             .ToList();
 
@@ -97,7 +101,6 @@ namespace HolocronProject.Services.Implementations
         public int TotalUnresolvedPostReports()
             => this.context.PostReports
             .Where(x => !x.IsResolved)
-            .OrderByDescending(x => x.CreatedOn)
             .Count();
 
     }

@@ -59,7 +59,7 @@ namespace HolocronProject.Web.Controllers
 
             if (postListViewModel.Count() > 0)
             {
-                postListViewModel = postListViewModel.OrderByDescending(x => x.NormalizedCreatedOn);
+                postListViewModel = postListViewModel.OrderByDescending(x => x.CreatedOn);
                 var pager = new Pager(postListViewModel.Count(), page);
                 postListViewModel = postListViewModel.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize);
                 postListViewModel.FirstOrDefault().Pager = pager;
@@ -80,7 +80,7 @@ namespace HolocronProject.Web.Controllers
 
             if (postListViewModel.Count() > 0)
             {
-                postListViewModel = postListViewModel.OrderByDescending(x => x.NormalizedCreatedOn);
+                postListViewModel = postListViewModel.OrderByDescending(x => x.ResolvedOn);
                 var pager = new Pager(postListViewModel.Count(), page);
                 postListViewModel = postListViewModel.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize);
                 postListViewModel.FirstOrDefault().Pager = pager;

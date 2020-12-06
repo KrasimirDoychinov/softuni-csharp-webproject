@@ -36,9 +36,9 @@ namespace HolocronProject.Services.Implementations
             await this.context.SaveChangesAsync();
         }
 
-        public async Task DeleteThreadAsync(string threaId)
+        public async Task DeleteThreadAsync(string threadId)
         {
-            var thread = this.context.Threads.FirstOrDefault(x => x.Id == threaId);
+            var thread = this.context.Threads.FirstOrDefault(x => x.Id == threadId);
 
             thread.IsDeleted = true;
             thread.DeletedOn = DateTime.UtcNow;
@@ -49,6 +49,17 @@ namespace HolocronProject.Services.Implementations
                 await this.postsService.DeletePostAsync(post.Id);
             }
             await this.context.SaveChangesAsync();
+        }
+
+        public async Task EditThreadAsync(string threadId, string description, string title)
+        {
+            var thread = this.context.Threads.FirstOrDefault(x => x.Id == threadId);
+
+            thread.Description = description;
+            thread.Title = title;
+
+            await this.context.SaveChangesAsync();
+
         }
 
         public IEnumerable<T> GetAllLastThreads<T>()
@@ -75,5 +86,7 @@ namespace HolocronProject.Services.Implementations
             => this.context.Threads
             .Where(x => !x.IsDeleted)
             .Count();
+
+       
     }
 }

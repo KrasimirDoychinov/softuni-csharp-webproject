@@ -35,7 +35,7 @@ namespace HolocronProject.Web.Controllers
                 baseThread.Threads = baseThread.Threads.Where(x => !x.IsDeleted);
                 foreach (var thread in baseThread.Threads)
                 {
-                    baseThread.ThreadsPostsCount = thread.Posts.Where(x => !x.IsDeleted).Count();
+                    baseThread.ThreadsPostsCount += thread.Posts.Where(x => !x.IsDeleted).Count();
                 }
             }
             return View(baseThreads);

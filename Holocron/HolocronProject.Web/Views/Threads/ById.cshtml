@@ -32,13 +32,13 @@
                                 }
                             </div>
                         </div>
+
                         <div>
                             <form id="votesForm" method="post">
                                 <div>
                                     <a href="#" class="text-decoration-none text-warning" onclick="sendVote('@Model.Id', true)">
                                         <i class="fas fa-chevron-up"></i>
                                     </a>
-
                                 </div>
                                 <div id="votesCount" class="text-center">@Model.VotesCount</div>
                                 <div>
@@ -47,6 +47,12 @@
                                     </a>
                                 </div>
                             </form>
+                            @if (Model.AccountId == currAccountId)
+                            {
+                                <a href="/Threads/Edit?threadId=@Model.Id" class="row btn btn-primary btn-sm">
+                                    Edit
+                                </a>
+                            }
                         </div>
                     </div>
                 </div>
@@ -79,7 +85,7 @@
                                         @if (item.AccountId == currAccountId)
                                         {
                                             <a asp-area="Identity" asp-page="/Account/Manage/Index" class="text-decoration-none text-warning" data-abc="true">@item.AccountUserName</a>
-                                            <a href="/Posts/Edit?postId=@item.Id&threadId=@Model.Id" class="btn btn-primary btn-sm float-right">Edit post</a>
+                                            <a href="/Posts/Edit?postId=@item.Id&threadId=@Model.Id" class="btn btn-primary btn-sm float-right">Edit</a>
                                         }
                                         else
                                         {
