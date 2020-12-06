@@ -24,7 +24,7 @@ else
             @foreach (var item in Model)
             {
                 <tr>
-                    <td><a href="/PostReports/ById?id=@item.Id" class="text-decoration-none text-warning" role="button">@item.Title<span class="text-info float-right">@item.AccountUserName</span></a><br />@item.ShortDescription</td>
+                    <td><a href="/Administration/PostReports/ById?id=@item.Id" class="text-decoration-none text-warning" role="button">@item.Title<span class="text-info float-right">@item.AccountUserName</span></a><br />@item.ShortDescription</td>
                     <td>@item.IsResolvedString</td>
                     <td>@item.NormalizedCreatedOn</td>
                 </tr>
@@ -68,7 +68,7 @@ else
             }
         </div>
         <div>
-            <a asp-controller="PostReports" asp-action="AllResolvedPostReports" class="btn btn-primary">Resolved</a>
+            <a  asp-controller="PostReports" asp-action="AllResolvedPostReports" class="btn btn-primary">Resolved</a>
         </div>
     </div>
 

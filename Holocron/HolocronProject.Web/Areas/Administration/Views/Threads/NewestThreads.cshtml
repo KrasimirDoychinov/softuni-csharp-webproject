@@ -33,12 +33,15 @@
                             }
                             <div class="media-body ml-3">
                                 <div class="float-right">
-                                    <a href="/Threads/ById?threadId=@item.Id" class="text-decoration-none text-warning">@item.ShortenedTitle</a>
+                                    <a href="/Threads/ById?threadId=@item.Id" class="text-decoration-none text-warning row">@item.ShortenedTitle</a>
+                                    <a href="/Administration/Threads/Delete?threadId=@item.Id" class="btn btn-danger row">Delete</a>
                                 </div>
+
                                 <label class="text-warning">@item.AccountUserName</label>
                                 <div class="text-info small">Created on <strong>@item.NormalizedCreatedOn</strong></div>
                                 <label class="text-info small">@item.PostsCount <span class="font-weight-bold">posts</span></label>
                             </div>
+                            
                         </div>
                     </div>
                     <div class="card-body" style="background-color: #384047;">
@@ -48,6 +51,7 @@
                         @Html.Raw(item.SanitizedForumSignature)
                     </div>
                 </div>
+
             }
             @if (pager.EndPage > 1)
             {

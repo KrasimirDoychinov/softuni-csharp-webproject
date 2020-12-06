@@ -67,6 +67,8 @@ namespace HolocronProject.Web.Controllers
         {
             var threadViewModel = this.threadService.GetThreadsById<ThreadViewModel>(threadId);
 
+            threadViewModel.Posts = threadViewModel.Posts.Where(x => !x.IsDeleted);
+            threadViewModel.PostsCount = threadViewModel.Posts.Where(x => !x.IsDeleted).Count();
             ThreadByIdParserAndSanitizer(page, threadViewModel);
 
             return this.View(threadViewModel);

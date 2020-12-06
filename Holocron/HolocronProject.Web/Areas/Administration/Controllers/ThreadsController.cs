@@ -1,22 +1,15 @@
 ﻿using HolocronProject.Data.Models;
 using HolocronProject.Services;
-using HolocronProject.Services.Models.Posts;
-using HolocronProject.Services.Models.Threads;
 using HolocronProject.Web.ViewModels.Threads;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using System.Threading;
 using Ganss.XSS;
-using System.Text.RegularExpressions;
-using HtmlAgilityPack;
 using HolocronProject.Web.ViewModels.Pager;
 using HolocronProject.Web.Controllers;
+using System.Threading.Tasks;
 
 namespace HolocronProject.Web.Areas.Administration.Controllers
 {
@@ -46,8 +39,21 @@ namespace HolocronProject.Web.Areas.Administration.Controllers
                 lastThreads = ThreadListParserAndSanitizer(page, lastThreads);
             }
 
+            foreach (var thread in lastThreads)
+            {
+                thread.PostsCount = thread.Posts.Where(x => !x.IsDeleted).Count();
+            }
+
             return this.View(lastThreads.ToList());
         }
+
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Delete(string threadId)
+        {
+            await this.threadService.DeleteThreadAsync(threadId);
+            return this.RedirectToAction(nameof(NewestThreads));
+        }
+
 
         private IEnumerable<ThreadViewModel> ThreadListParserAndSanitizer(int? page, IEnumerable<ThreadViewModel> lastThreads)
         {

@@ -6,6 +6,7 @@ using HolocronProject.Data.Models;
 using System.Threading.Tasks;
 using HolocronProject.Services.Models.Posts;
 using HolocronProject.Services.Mapper;
+using System;
 
 namespace HolocronProject.Services.Implementations
 {
@@ -31,6 +32,18 @@ namespace HolocronProject.Services.Implementations
             await this.context.SaveChangesAsync();
         }
 
+        public async Task DeletePostAsync(string postId)
+        {
+            var post = this.context.Posts
+                .FirstOrDefault(x => x.Id ==postId);
+
+            post.IsDeleted = true;
+            post.DeletedOn = DateTime.UtcNow;
+            post.NormalizedDeletedOn = DateTime.Now.ToString("MM/dd/yyyy h:mm tt");
+
+            await this.context.SaveChangesAsync();
+        }
+
         public async Task EditPostById(string postId, string description)
         {
             var post = this.context.Posts.FirstOrDefault(x => x.Id == postId);
@@ -44,24 +57,31 @@ namespace HolocronProject.Services.Implementations
         public IEnumerable<T> GetAllLastPosts<T>()
             => this.context.Posts
             .OrderByDescending(x => x.CreatedOn)
+            .Where(x => !x.IsDeleted)
             .To<T>()
             .ToList();
 
         public IEnumerable<T> GetLastPostsByAccountId<T>(string accountId)
             => this.context.Posts
-            .Where(x => x.AccountId == accountId)
+            .Where(x => x.AccountId == accountId && !x.IsDeleted)
             .OrderByDescending(x => x.CreatedOn)
             .To<T>()
             .ToList();
 
         public T GetPostById<T>(string postId)
             => this.context.Posts
-            .Where(x => x.Id == postId)
+            .Where(x => x.Id == postId && !x.IsDeleted)
             .To<T>()
             .FirstOrDefault();
 
         public int TotalPosts()
             => this.context.Posts
+            .Where(x => !x.IsDeleted)
+            .Count();
+
+        public int TotalPostInThread(string threadId)
+            => this.context.Posts
+            .Where(x => x.ThreadId == threadId && !x.IsDeleted)
             .Count();
 
     }

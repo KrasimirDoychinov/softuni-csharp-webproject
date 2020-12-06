@@ -11,10 +11,13 @@ namespace HolocronProject.Services.Implementations
     public class PostReportsService : IPostReportsService
     {
         private readonly HolocronDbContext context;
+        private readonly IPostsService postsService;
 
-        public PostReportsService(HolocronDbContext context)
+        public PostReportsService(HolocronDbContext context,
+            IPostsService postsService)
         {
             this.context = context;
+            this.postsService = postsService;
         }
 
         public async Task CreatePostReportAsync(string accountId, string postId, string title, string description, string notes)
@@ -40,6 +43,19 @@ namespace HolocronProject.Services.Implementations
             postReport.ResolvedOn = DateTime.UtcNow;
             postReport.NormalizedResolvedOn = DateTime.Now.ToString("MM/dd/yyyy h:mm tt");
 
+            this.context.PostReports.Update(postReport);
+            await this.context.SaveChangesAsync();
+        }
+
+        public async Task DeletePostReportAsync(string postReportid, string postId)
+        {
+            var postReport = this.GetReportById(postReportid);
+            
+            postReport.IsResolved = true;
+            postReport.ResolvedOn = DateTime.UtcNow;
+            postReport.NormalizedResolvedOn = DateTime.Now.ToString("MM/dd/yyyy h:mm tt");
+
+            await this.postsService.DeletePostAsync(postId);
             this.context.PostReports.Update(postReport);
             await this.context.SaveChangesAsync();
         }
@@ -83,5 +99,6 @@ namespace HolocronProject.Services.Implementations
             .Where(x => !x.IsResolved)
             .OrderByDescending(x => x.CreatedOn)
             .Count();
+
     }
 }

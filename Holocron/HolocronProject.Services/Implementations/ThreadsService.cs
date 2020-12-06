@@ -6,16 +6,20 @@ using HolocronProject.Data.Models;
 using System.Threading.Tasks;
 using HolocronProject.Services.Models.Threads;
 using HolocronProject.Services.Mapper;
+using System;
 
 namespace HolocronProject.Services.Implementations
 {
     public class ThreadsService : IThreadsService
     {
         private HolocronDbContext context;
+        private readonly IPostsService postsService;
 
-        public ThreadsService(HolocronDbContext context)
+        public ThreadsService(HolocronDbContext context,
+            IPostsService postsService)
         {
             this.context = context;
+            this.postsService = postsService;
         }
 
         public async Task CreateThreadAsync(ThreadInputDto input)
@@ -32,27 +36,44 @@ namespace HolocronProject.Services.Implementations
             await this.context.SaveChangesAsync();
         }
 
+        public async Task DeleteThreadAsync(string threaId)
+        {
+            var thread = this.context.Threads.FirstOrDefault(x => x.Id == threaId);
+
+            thread.IsDeleted = true;
+            thread.DeletedOn = DateTime.UtcNow;
+            thread.NormalizedDeletedOn = DateTime.Now.ToString("MM/dd/yyyy h:mm tt");
+
+            foreach (var post in thread.Posts)
+            {
+                await this.postsService.DeletePostAsync(post.Id);
+            }
+            await this.context.SaveChangesAsync();
+        }
+
         public IEnumerable<T> GetAllLastThreads<T>()
             => this.context.Threads
+            .Where(x => !x.IsDeleted)
             .OrderByDescending(x => x.CreatedOn)
             .To<T>()
             .ToList();
 
         public IEnumerable<T> GetLastThreadsByAccountId<T>(string accountId)
             => this.context.Threads
-            .Where(x => x.AccountId == accountId)
+            .Where(x => x.AccountId == accountId && !x.IsDeleted)
             .OrderByDescending(x => x.CreatedOn)
             .To<T>()
             .ToList();
 
         public T GetThreadsById<T>(string threadId)
             => this.context.Threads
-            .Where(x => x.Id == threadId)
+            .Where(x => x.Id == threadId && !x.IsDeleted)
             .To<T>()
             .FirstOrDefault();
 
         public int TotalThreads()
             => this.context.Threads
+            .Where(x => !x.IsDeleted)
             .Count();
     }
 }

@@ -89,7 +89,15 @@ namespace HolocronProject.Web.Areas.Administration.Controllers
         {
             await this.postReportsService.ResolvePostReportAsync(id);
 
-            return this.RedirectToAction("/PostReports/AllPostReports");
+            return this.Redirect("/Administration/PostReports/AllPostReports");
+        }
+
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Delete(string id, string postId)
+        {
+            await this.postReportsService.DeletePostReportAsync(id, postId);
+
+            return this.Redirect("/Administration/PostReports/AllPostReports");
         }
     }
 }

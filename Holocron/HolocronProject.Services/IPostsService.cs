@@ -9,6 +9,8 @@ namespace HolocronProject.Services
     {
         Task CreatePostAsync(string description, string threadId, string accountId);
 
+        Task DeletePostAsync(string postId);
+
         IEnumerable<T> GetLastPostsByAccountId<T>(string accountId);
 
         IEnumerable<T> GetAllLastPosts<T>();
@@ -18,5 +20,7 @@ namespace HolocronProject.Services
         Task EditPostById(string postId, string description);
 
         int TotalPosts();
+
+        int TotalPostInThread(string threadId);
     }
 }

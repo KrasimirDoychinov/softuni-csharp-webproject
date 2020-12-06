@@ -10,6 +10,8 @@ namespace HolocronProject.Services
     {
         Task CreatePostReportAsync(string accountId, string postId, string title, string description, string notes);
 
+        Task DeletePostReportAsync(string postReportid, string postId);
+
         Task ResolvePostReportAsync(string postReportId);
 
         PostReport GetReportById(string postReportId);

@@ -30,6 +30,14 @@ namespace HolocronProject.Web.Controllers
         {
             var baseThreads = this.baseThreadService.GetAll<BaseThreadViewModel>();
 
+            foreach (var baseThread in baseThreads)
+            {
+                baseThread.Threads = baseThread.Threads.Where(x => !x.IsDeleted);
+                foreach (var thread in baseThread.Threads)
+                {
+                    baseThread.ThreadsPostsCount = thread.Posts.Where(x => !x.IsDeleted).Count();
+                }
+            }
             return View(baseThreads);
         }
 

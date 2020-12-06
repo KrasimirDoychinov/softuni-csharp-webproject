@@ -15,6 +15,7 @@ namespace HolocronProject.Web
     // TODO: Make a js script that opens the edit menu for the forum signature
 
     // -----USEFUL-----
+    // DateTime.Now.ToString("MM/dd/yyyy h:mm tt");
     // class="container"
     // style="background-color: #1a1818;
     // font awesome
@@ -22,11 +23,11 @@ namespace HolocronProject.Web
     // .AsParallel().ForAll() -- applies to every single element inside the array
     // -----USEFUL-----
     public class Program
-    {
+    { 
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
-        }
+        }                                                                                    
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
