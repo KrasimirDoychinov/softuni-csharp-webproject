@@ -8,7 +8,8 @@ namespace HolocronProject.Web
 
     // TODO: Review the code each day at the beginning of the code session and at the end of the session
 
-    // TODO: Add edit and delete options for posts, characters and etc.
+    // TODO: Add competitions and achievements
+    // TODO: Add stats view
     // TODO: Fix all the User views and Admin views to look better
     // TODO: !!!Tmmrw look over the admin panel and see if there is something to be added!!!
     // TODO: Look over all the services and controllers and see if u can fix syntax problems in the code 
