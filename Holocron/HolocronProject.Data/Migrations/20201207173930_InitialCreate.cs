@@ -42,7 +42,8 @@ namespace HolocronProject.Data.Migrations
                     AccessFailedCount = table.Column<int>(nullable: false),
                     CreatedOn = table.Column<string>(nullable: true),
                     AvatarImagePath = table.Column<string>(nullable: true),
-                    ForumSignature = table.Column<string>(nullable: true)
+                    ForumSignature = table.Column<string>(nullable: true),
+                    NotificationStatus = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -54,9 +55,11 @@ namespace HolocronProject.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
-                    CreatedOn = table.Column<string>(nullable: true),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    NormalizedCreatedOn = table.Column<string>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
-                    DeletedOn = table.Column<string>(nullable: true),
+                    DeletedOn = table.Column<DateTime>(nullable: false),
+                    NormalizedDeletedOn = table.Column<string>(nullable: true),
                     Title = table.Column<string>(nullable: false),
                     Description = table.Column<string>(nullable: true),
                     ImageUrl = table.Column<string>(nullable: true)
@@ -85,7 +88,7 @@ namespace HolocronProject.Data.Migrations
                 {
                     Id = table.Column<string>(nullable: false),
                     Title = table.Column<string>(maxLength: 50, nullable: false),
-                    Description = table.Column<string>(maxLength: 10000, nullable: false),
+                    Description = table.Column<string>(maxLength: 20000, nullable: false),
                     StartDate = table.Column<DateTime>(nullable: false),
                     EndDate = table.Column<DateTime>(nullable: false),
                     IsFinished = table.Column<bool>(nullable: false),
@@ -231,10 +234,10 @@ namespace HolocronProject.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
-                    CreatedOn = table.Column<string>(nullable: true),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
                     NormalizedCreatedOn = table.Column<string>(nullable: true),
                     IsResolved = table.Column<bool>(nullable: false),
-                    ResolvedOn = table.Column<string>(nullable: true),
+                    ResolvedOn = table.Column<DateTime>(nullable: false),
                     NormalizedResolvedOn = table.Column<string>(nullable: true),
                     Title = table.Column<string>(maxLength: 200, nullable: false),
                     Description = table.Column<string>(maxLength: 20000, nullable: false),
@@ -257,10 +260,12 @@ namespace HolocronProject.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
-                    CreatedOn = table.Column<string>(nullable: true),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    NormalizedCreatedOn = table.Column<string>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
-                    DeletedOn = table.Column<string>(nullable: true),
-                    Title = table.Column<string>(maxLength: 500, nullable: false),
+                    DeletedOn = table.Column<DateTime>(nullable: false),
+                    NormalizedDeletedOn = table.Column<string>(nullable: true),
+                    Title = table.Column<string>(maxLength: 100, nullable: false),
                     Description = table.Column<string>(nullable: false),
                     BaseThreadId = table.Column<string>(nullable: false),
                     AccountId = table.Column<string>(nullable: false)
@@ -287,9 +292,11 @@ namespace HolocronProject.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
-                    CreatedOn = table.Column<string>(nullable: true),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    NormalizedCreatedOn = table.Column<string>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
-                    DeletedOn = table.Column<string>(nullable: true),
+                    DeletedOn = table.Column<DateTime>(nullable: false),
+                    NormalizedDeletedOn = table.Column<string>(nullable: true),
                     Name = table.Column<string>(maxLength: 25, nullable: false),
                     Backstory = table.Column<string>(maxLength: 25000, nullable: true),
                     Description = table.Column<string>(maxLength: 25000, nullable: true),
@@ -301,7 +308,8 @@ namespace HolocronProject.Data.Migrations
                     ClassId = table.Column<string>(nullable: false),
                     RaceId = table.Column<string>(nullable: false),
                     ServerId = table.Column<string>(nullable: false),
-                    AccountId = table.Column<string>(nullable: false)
+                    AccountId = table.Column<string>(nullable: false),
+                    CharacterStatus = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -337,10 +345,12 @@ namespace HolocronProject.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
-                    CreatedOn = table.Column<string>(nullable: true),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    NormalizedCreatedOn = table.Column<string>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
-                    DeletedOn = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(maxLength: 10000, nullable: false),
+                    DeletedOn = table.Column<DateTime>(nullable: false),
+                    NormalizedDeletedOn = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(maxLength: 20000, nullable: false),
                     AccountId = table.Column<string>(nullable: false),
                     ThreadId = table.Column<string>(nullable: false)
                 },
@@ -391,8 +401,8 @@ namespace HolocronProject.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
-                    Name = table.Column<string>(maxLength: 50, nullable: false),
-                    CharacterId = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(maxLength: 100, nullable: false),
+                    CharacterId = table.Column<string>(nullable: true),
                     CompetitionId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
@@ -403,7 +413,7 @@ namespace HolocronProject.Data.Migrations
                         column: x => x.CharacterId,
                         principalTable: "Characters",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Achievements_Competitions_CompetitionId",
                         column: x => x.CompetitionId,
@@ -418,6 +428,7 @@ namespace HolocronProject.Data.Migrations
                 {
                     CompetitionId = table.Column<string>(nullable: false),
                     CharacterId = table.Column<string>(nullable: false),
+                    Id = table.Column<string>(nullable: true),
                     Votes = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -442,15 +453,16 @@ namespace HolocronProject.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
-                    CreatedOn = table.Column<string>(nullable: true),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
                     NormalizedCreatedOn = table.Column<string>(nullable: true),
                     IsResolved = table.Column<bool>(nullable: false),
-                    ResolvedOn = table.Column<string>(nullable: true),
+                    ResolvedOn = table.Column<DateTime>(nullable: false),
                     NormalizedResolvedOn = table.Column<string>(nullable: true),
                     Title = table.Column<string>(maxLength: 200, nullable: false),
                     Description = table.Column<string>(maxLength: 20000, nullable: false),
                     AccountId = table.Column<string>(nullable: false),
-                    PostId = table.Column<string>(nullable: false)
+                    PostId = table.Column<string>(nullable: false),
+                    Notes = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -469,16 +481,50 @@ namespace HolocronProject.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "CompetitionAccounts",
+                columns: table => new
+                {
+                    AccountId = table.Column<string>(nullable: false),
+                    CompetitionId = table.Column<string>(nullable: false),
+                    HasVoted = table.Column<bool>(nullable: false),
+                    CompetitionCharacterId = table.Column<string>(nullable: true),
+                    CompetitionCharacterCharacterId = table.Column<string>(nullable: true),
+                    CompetitionCharacterCompetitionId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CompetitionAccounts", x => new { x.AccountId, x.CompetitionId });
+                    table.ForeignKey(
+                        name: "FK_CompetitionAccounts_AspNetUsers_AccountId",
+                        column: x => x.AccountId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CompetitionAccounts_Competitions_CompetitionId",
+                        column: x => x.CompetitionId,
+                        principalTable: "Competitions",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CompetitionAccounts_CompetitionsCharacters_CompetitionCharacterCharacterId_CompetitionCharacterCompetitionId",
+                        columns: x => new { x.CompetitionCharacterCharacterId, x.CompetitionCharacterCompetitionId },
+                        principalTable: "CompetitionsCharacters",
+                        principalColumns: new[] { "CharacterId", "CompetitionId" },
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.InsertData(
                 table: "BaseThreads",
-                columns: new[] { "Id", "CreatedOn", "DeletedOn", "Description", "ImageUrl", "IsDeleted", "Title" },
+                columns: new[] { "Id", "CreatedOn", "DeletedOn", "Description", "ImageUrl", "IsDeleted", "NormalizedCreatedOn", "NormalizedDeletedOn", "Title" },
                 values: new object[,]
                 {
-                    { "acc0ab85-3c4d-4565-93cc-84c6cc396f29", "11/26/2020 11:23 AM", null, "This is the place to discuss everything PVP related. From questions about gear, stats, guides, discussions and everything else related to PVP in SWTOR. You can also post about PVP guilds, recruitment and more.", "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_76.png", false, "PVP" },
-                    { "46a7c5c0-b9a0-4c72-bfd9-4ec67ab3ab03", "11/26/2020 11:23 AM", null, "This is the place to talk about PVE. Best gear and stats for flashpoints, operations. You can post guides about PVE content here from leveling guides to FP and OP guides. You can also post about PVE guild recruitment and give information about your guild here.", "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_88.png", false, "PVE" },
-                    { "d1a84f9b-6b03-4456-ab19-a26296bad40d", "11/26/2020 11:23 AM", null, "If you want to RP on the site this is the place for you. This is the RP section of the forums where you can find all the forum RP you've ever wanted. You can also post about in-game RP and so on.", "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_423.png", false, "RP" },
-                    { "1b4507d6-deca-4626-aaaf-10e18141944b", "11/26/2020 11:23 AM", null, "This is where you can talk about anything you want. It doesn't need to be just SWTOR or Star Wars. You can post about other games, cars, IT discussions, politics, and everything that can't be found on the other threads.", "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_8.png", false, "Other" },
-                    { "545357eb-f80f-4e9d-a50a-46f378298060", "11/26/2020 11:23 AM", null, "This is the place to show of your character to other people. You can post cool, more modified images of your character. Here you can ask about items and how to combine them to make a cooler character in-game.", "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_245.png", false, "Fashion" }
+                    { "b268a2f7-25e1-470a-ad73-c73b8f57158d", new DateTime(2020, 12, 7, 17, 39, 29, 685, DateTimeKind.Utc).AddTicks(5976), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "This is the place to discuss everything PVP related. From questions about gear, stats, guides, discussions and everything else related to PVP in SWTOR. You can also post about PVP guilds, recruitment and more.", "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_76.png", false, "12/07/2020 07:39 PM", null, "PVP" },
+                    { "a88e2498-d7c9-421b-a49c-34b8a3070f29", new DateTime(2020, 12, 7, 17, 39, 29, 688, DateTimeKind.Utc).AddTicks(4568), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "This is the place to talk about PVE. Best gear and stats for flashpoints, operations. You can post guides about PVE content here from leveling guides to FP and OP guides. You can also post about PVE guild recruitment and give information about your guild here.", "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_88.png", false, "12/07/2020 07:39 PM", null, "PVE" },
+                    { "81a4e972-4b89-4072-9395-361f0602e119", new DateTime(2020, 12, 7, 17, 39, 29, 688, DateTimeKind.Utc).AddTicks(4670), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "If you want to RP on the site this is the place for you. This is the RP section of the forums where you can find all the forum RP you've ever wanted. You can also post about in-game RP and so on.", "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_423.png", false, "12/07/2020 07:39 PM", null, "RP" },
+                    { "c79f5b98-8a24-4f85-bf85-5280f86530f1", new DateTime(2020, 12, 7, 17, 39, 29, 688, DateTimeKind.Utc).AddTicks(4684), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "This is where you can talk about anything you want. It doesn't need to be just SWTOR or Star Wars. You can post about other games, cars, IT discussions, politics, and everything that can't be found on the other threads.", "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_8.png", false, "12/07/2020 07:39 PM", null, "Other" },
+                    { "3f4f4851-dfb5-4524-bf32-c4b7f957dca0", new DateTime(2020, 12, 7, 17, 39, 29, 688, DateTimeKind.Utc).AddTicks(4693), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "This is the place to show of your character to other people. You can post cool, more modified images of your character. Here you can ask about items and how to combine them to make a cooler character in-game.", "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_245.png", false, "12/07/2020 07:39 PM", null, "Fashion" }
                 });
 
             migrationBuilder.InsertData(
@@ -486,22 +532,22 @@ namespace HolocronProject.Data.Migrations
                 columns: new[] { "Id", "Faction", "Name" },
                 values: new object[,]
                 {
-                    { "e8e388ba-61c1-4fbc-aa93-2ca2a9b612b3", 1, "Guardian" },
-                    { "7ee53d4c-5b06-4372-a4ea-674ad16d1320", 1, "Sentinel" },
-                    { "f29ca65b-acd4-4a5e-b60f-6433fa2ab086", 1, "Sage" },
-                    { "4dad911f-fe9d-4ec6-95ce-c8a06fefd7f9", 1, "Commando" },
-                    { "57696945-f3d0-4c92-ae83-c8e3b950dd6e", 1, "Vanguard" },
-                    { "1032a929-9fe5-4430-8c96-688f081bc102", 1, "Scoundrel" },
-                    { "ee87e0ad-b3c7-4581-a1c8-5b30f251d636", 1, "Gunslinger" },
-                    { "e13c3fa4-fefe-43ee-bfdf-3c983bd9ff3e", 1, "Shadow" },
-                    { "3bb84c4b-0eaa-426e-b571-6c1383001a91", 2, "Powertech" },
-                    { "68f8bf11-e51c-4fac-b360-7028976ff660", 2, "Operative" },
-                    { "beb226f2-d787-49b8-b719-e86601e3e089", 2, "Sniper" },
-                    { "16a17e92-4808-4308-be59-5d1532abce0e", 2, "Assassin" },
-                    { "ecd967bc-6ee5-430f-8e4d-028f502d50d7", 2, "Sorcerer" },
-                    { "75ce6688-439e-4ccf-9874-e5bb918dc382", 2, "Marauder" },
-                    { "86b03760-da4e-44cf-9fac-2224a6615644", 2, "Juggernaut" },
-                    { "c163e516-0961-47b3-ae41-84f0a22fb04f", 2, "Mercenary" }
+                    { "62287eef-2a3a-4510-91fd-2a6a5cce81f4", 1, "Guardian" },
+                    { "abcf5b88-b85b-4f2f-a857-1474b0f0f99d", 1, "Sentinel" },
+                    { "e246c05c-6906-47d7-a1bc-973a6f66836c", 1, "Sage" },
+                    { "92ddc5c4-558b-4082-937d-3b1b0f14220d", 1, "Commando" },
+                    { "8386213f-89c6-4d38-a5ef-3fe6631881f7", 1, "Vanguard" },
+                    { "69d577b8-1d70-48b1-8d87-05904297f21d", 1, "Scoundrel" },
+                    { "cf5b9c91-0e5b-420f-85f1-d2143d29c55b", 1, "Gunslinger" },
+                    { "d8a5f67f-aaee-4fd7-8208-e84accb28e59", 1, "Shadow" },
+                    { "313fda59-0f85-46a4-a18e-c2258dd8cbdc", 2, "Powertech" },
+                    { "cd86e460-f6a8-4a1b-99ce-f12c37be6a0e", 2, "Operative" },
+                    { "603239b9-05c7-46a1-8d6b-69c781cf797c", 2, "Sniper" },
+                    { "9eec1d7b-fbe4-4137-b631-798a62136cc3", 2, "Assassin" },
+                    { "16ae45b2-61e1-4ecf-a6d6-0cfea2b53e5a", 2, "Sorcerer" },
+                    { "3d5c19a5-61b3-4eab-bf1c-53e3b3e27487", 2, "Marauder" },
+                    { "413604a7-f2fd-4348-b1b6-5b7b33cdd95a", 2, "Juggernaut" },
+                    { "31d3ee35-2dca-4d2a-9566-79980528e9df", 2, "Mercenary" }
                 });
 
             migrationBuilder.InsertData(
@@ -509,18 +555,18 @@ namespace HolocronProject.Data.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { "4daa3278-65c0-4f61-9fb5-842b09401726", "Nautolan" },
-                    { "19fe5007-24b4-4715-98f2-b33394dd8cbd", "Togruta" },
-                    { "f09fe397-26f5-496c-bdd0-d974d40f8e0e", "Cathar" },
-                    { "4bf46b21-dfc6-48e0-9a85-f144f297cc64", "Zabrak" },
-                    { "4039f240-4909-4398-8764-183ba678bc35", "Twi'lek" },
-                    { "6d0786e5-f716-4596-baca-d9c53dd0da85", "Sith Pureblood" },
-                    { "ca9b3fb3-6173-48e7-943b-72d69b903023", "Mirialan" },
-                    { "8847aeef-237f-4b83-b315-7eb545daea26", "Miraluka" },
-                    { "9faaf1e7-f003-405a-b5bb-6809c588807d", "Human" },
-                    { "d14054fa-8c91-4041-8b03-7a8d692db7b7", "Cyborg" },
-                    { "1d6dab31-8588-4b9c-a9c2-261bcdc271be", "Chiss" },
-                    { "2731be39-fb45-49c5-9766-4d1a272a7f90", "Rattaki" }
+                    { "55be3df9-dcc7-4c08-94cc-09aaaaebb840", "Nautolan" },
+                    { "a43209ab-fa49-402a-9ee7-e0a5bfa106f2", "Togruta" },
+                    { "14686975-acd7-4a5b-b502-50fa3d72726e", "Cathar" },
+                    { "b2896fe3-ff0a-4375-8172-ed57c54f3534", "Zabrak" },
+                    { "6d060ba2-d185-4ae3-a842-c56d3cd018ce", "Twi'lek" },
+                    { "2ba9b9db-52f3-40d9-92c8-cf8ffe649445", "Sith Pureblood" },
+                    { "cdce640b-2898-48c1-8904-dad3e4326bc2", "Mirialan" },
+                    { "9375f632-ad85-4044-a115-da4d1f4091dd", "Miraluka" },
+                    { "2facd810-ae05-4d16-a87a-9d012b4b5f8c", "Human" },
+                    { "b3e265d5-148b-446c-8130-c1f34ee8dce4", "Cyborg" },
+                    { "878a4a8a-3706-41e1-b595-e1694a583988", "Chiss" },
+                    { "aaf1084c-dbec-4dc3-81b7-77d9afba88e2", "Rattaki" }
                 });
 
             migrationBuilder.InsertData(
@@ -528,11 +574,11 @@ namespace HolocronProject.Data.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { "8cd9e5b7-8b4f-4f5b-bd07-076120755637", "Tulak Hord" },
-                    { "1fc298e9-059a-4ec4-acdd-3a351cda77ce", "Darth Malgus" },
-                    { "1fbcbfac-1345-4c02-9bd5-7bd7568622c9", "Star Forge" },
-                    { "8d9a9258-6c36-4b3e-b959-528594c430bf", "Satele Shan" },
-                    { "11005542-371b-4c11-9fee-ed1bc2bf0dd4", "The Leviathan" }
+                    { "f670fa98-e967-406d-a9d6-afa56dc30263", "Tulak Hord" },
+                    { "c0870b48-8ecd-4537-9ac6-2af49cfce712", "Darth Malgus" },
+                    { "32b50f1f-92a1-4a31-b2d7-dfe90ba2f026", "Star Forge" },
+                    { "60bd5c4b-1ca4-464a-8090-ffe5f66d5c34", "Satele Shan" },
+                    { "aa2ccc20-5145-4fa0-b05c-dd48fb53b9eb", "The Leviathan" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -610,6 +656,16 @@ namespace HolocronProject.Data.Migrations
                 column: "ServerId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_CompetitionAccounts_CompetitionId",
+                table: "CompetitionAccounts",
+                column: "CompetitionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CompetitionAccounts_CompetitionCharacterCharacterId_CompetitionCharacterCompetitionId",
+                table: "CompetitionAccounts",
+                columns: new[] { "CompetitionCharacterCharacterId", "CompetitionCharacterCompetitionId" });
+
+            migrationBuilder.CreateIndex(
                 name: "IX_CompetitionsCharacters_CompetitionId",
                 table: "CompetitionsCharacters",
                 column: "CompetitionId");
@@ -674,7 +730,7 @@ namespace HolocronProject.Data.Migrations
                 name: "BugReports");
 
             migrationBuilder.DropTable(
-                name: "CompetitionsCharacters");
+                name: "CompetitionAccounts");
 
             migrationBuilder.DropTable(
                 name: "PostReports");
@@ -686,13 +742,19 @@ namespace HolocronProject.Data.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
+                name: "CompetitionsCharacters");
+
+            migrationBuilder.DropTable(
+                name: "Posts");
+
+            migrationBuilder.DropTable(
                 name: "Characters");
 
             migrationBuilder.DropTable(
                 name: "Competitions");
 
             migrationBuilder.DropTable(
-                name: "Posts");
+                name: "Threads");
 
             migrationBuilder.DropTable(
                 name: "Classes");
@@ -702,9 +764,6 @@ namespace HolocronProject.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Servers");
-
-            migrationBuilder.DropTable(
-                name: "Threads");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

@@ -32,7 +32,6 @@ namespace HolocronProject.Data.Models
 
         public virtual ICollection<PostReport> PostReports { get; set; } = new List<PostReport>();
 
-        public virtual ICollection<CompetitionVote> Votes { get; set; } = new List<CompetitionVote>();
 
         public NotificationStatus NotificationStatus { get; set; } = 0;
 

@@ -28,10 +28,10 @@
             <h5><span class="font-weight-bold">Title: </span>@item.Character.Title</h5>
             <h5><span class="font-weight-bold">Gender: </span>@item.Character.Gender</h5>
             <h5><span class="font-weight-bold">Class: </span>@item.Character.ClassName</h5>
-            <h5><span class="font-weight-bold">Votes: </span>@item.VotesCount</h5>
-            @if (!Model.HasAccountVoted)
+            <h5><span class="font-weight-bold">Votes: </span>@item.Votes</h5>
+            @if (!Model.DoesAccountVoteExist)
             {
-                <a href="/Competitions/Vote?characterId=@item.Character.Id&competitionId=@Model.Id&accountId=@loggedInAccountId" class="btn btn-primary btn-sm">Vote</a>
+                <a href="/Competitions/Vote?characterId=@item.Character.Id&competitionId=@Model.Id&accountId=@loggedInAccountId" class="btn btn-primary btn-sm">Upvote</a>
             }
         </div>
         }
@@ -40,6 +40,10 @@
 <div class="d-flex justify-content-between">
     <div>
         <a href="/Characters/CharactersToPick?accountId=@loggedInAccountId&competitionId=@Model.Id" class="btn btn-primary">Add character</a>
+        @if (Model.HasAccountVoted)
+        {
+            <a href="/Competitions/UnVote?competitionId=@Model.Id&accountId=@loggedInAccountId" class="btn btn-danger">Unvote</a>
+        }
     </div>
     <div>
         <partial name="PaginationView" model="Model" />

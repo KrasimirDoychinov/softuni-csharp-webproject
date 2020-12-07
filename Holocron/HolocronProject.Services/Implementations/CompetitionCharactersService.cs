@@ -1,4 +1,5 @@
 ﻿using HolocronProject.Data;
+using HolocronProject.Data.Enums;
 using HolocronProject.Data.Models;
 using System;
 using System.Collections.Generic;
@@ -29,9 +30,25 @@ namespace HolocronProject.Services.Implementations
             await this.context.SaveChangesAsync();
         }
 
-        public string GetCompetitionCharactersId(string characterId, string competitionId)
-            => this.context.CompetitionsCharacters
-            .FirstOrDefault(x => x.CharacterId == characterId && x.CompetitionId == competitionId)
-            .Id;
+        public async Task UpvoteAsync(string characterId, string competitionId)
+        {
+            var competitionCharacter = this.context.CompetitionsCharacters
+                .FirstOrDefault(x => x.CharacterId == characterId && x.CompetitionId == competitionId);
+
+            competitionCharacter.Votes++;
+
+            await this.context.SaveChangesAsync();
+        }
+
+        public async Task DownvoteAsync(string characterId, string competitionId)
+        {
+            var competitionCharacter = this.context.CompetitionsCharacters
+                .FirstOrDefault(x => x.CharacterId == characterId && x.CompetitionId == competitionId);
+
+            competitionCharacter.Votes--;
+
+            await this.context.SaveChangesAsync();
+        }
+
     }
 }

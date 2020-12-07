@@ -12,6 +12,6 @@ namespace HolocronProject.Web.ViewModels.CompetitionCharacters
     {
         public virtual CharacterListViewModel Character { get; set; }
 
-        public int VotesCount { get; set; }
+        public int Votes { get; set; }
     }
 }

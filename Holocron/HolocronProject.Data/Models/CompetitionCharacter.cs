@@ -21,6 +21,8 @@ namespace HolocronProject.Data.Models
 
         public virtual Character Character { get; set; }
 
-        public virtual ICollection<CompetitionVote> Votes { get; set; } = new List<CompetitionVote>();
+        public int Votes { get; set; }
+
+        public virtual ICollection<CompetitionAccount> CompetitionAccounts { get; set; } = new List<CompetitionAccount>();
     }
 }

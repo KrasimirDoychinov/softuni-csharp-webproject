@@ -14,6 +14,8 @@ namespace HolocronProject.Web.ViewModels.Competitions
 
         public Pager.Pager Pager { get; set; }
 
+        public bool DoesAccountVoteExist { get; set; }
+
         public bool HasAccountVoted { get; set; }
 
         public string ControllerName => "Competitions";

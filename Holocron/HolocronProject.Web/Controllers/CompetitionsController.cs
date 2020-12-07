@@ -17,17 +17,17 @@ namespace HolocronProject.Web.Controllers
     {
         private readonly ICompetitionsService competitionsService;
         private readonly ICompetitionCharactersService competitionCharactersService;
-        private readonly ICompetitionVotesService competitionVotesService;
+        private readonly ICompetitionAccountsService competitionAccountsService;
         private readonly UserManager<Account> userManager;
 
         public CompetitionsController(ICompetitionsService competitionsService,
             ICompetitionCharactersService competitionCharactersService,
-            ICompetitionVotesService competitionVotesService,
+            ICompetitionAccountsService competitionAccountsService,
             UserManager<Account> userManager)
         {
             this.competitionsService = competitionsService;
             this.competitionCharactersService = competitionCharactersService;
-            this.competitionVotesService = competitionVotesService;
+            this.competitionAccountsService = competitionAccountsService;
             this.userManager = userManager;
         }
 
@@ -46,9 +46,8 @@ namespace HolocronProject.Web.Controllers
             var competition = this.competitionsService.GetCompetitionByIdGeneric<CompetitionViewModel>(competitionId);
             var loggedInUserId = this.userManager.GetUserAsync(this.User).Result.Id;
 
-
-            var competitionCharacterId = this.competitionCharactersService.GetCompetitionCharactersId()
-            competition.HasAccountVoted = this.competitionVotesService.HasAccountVoted(competitionId, loggedInUserId);
+            competition.HasAccountVoted = this.competitionAccountsService.DoesAccountVoteExist(competitionId, loggedInUserId);
+            competition.DoesAccountVoteExist = this.competitionAccountsService.HasAccountVoted(competitionId, loggedInUserId);
             var pager = new Pager(competition.Characters.Count(), page);
             competition.Characters = competition.Characters.OrderByDescending(x => x.Character.NormalizedCreatedOn);
             competition.Characters = competition.Characters.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize);
@@ -69,11 +68,22 @@ namespace HolocronProject.Web.Controllers
         [Authorize]
         public async Task<IActionResult> Vote(string characterId, string competitionId, string accountId)
         {
-            var competitionCharacterId = this.competitionCharactersService.GetCompetitionCharactersId(characterId, competitionId);
+            await this.competitionAccountsService.VoteAsync(characterId,competitionId, accountId);
+            //await this.competitionCharactersService.UpvoteAsync(characterId, competitionId);
 
-            await this.competitionVotesService.VoteForCompetition(competitionCharacterId, accountId);
+
             return this.Redirect($"/Competitions/ById?competitionId={competitionId}");
         }
-        
+
+        [Authorize]
+        public async Task<IActionResult> UnVote(string competitionId, string accountId)
+        {
+            await this.competitionAccountsService.UnVoteAsync(competitionId, accountId);
+            //await this.competitionCharactersService.DownvoteAsync(characterId, competitionId);
+
+
+            return this.Redirect($"/Competitions/ById?competitionId={competitionId}");
+        }
+
     }
 }
