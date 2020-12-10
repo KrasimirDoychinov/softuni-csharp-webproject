@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Http;
 using System.IO;
 using HolocronProject.Services.Models.Characters;
 using HolocronProject.Data.Enums;
+using Hangfire;
 
 namespace HolocronProject.Services.Implementations
 {
@@ -113,7 +114,29 @@ namespace HolocronProject.Services.Implementations
             var character = this.GetCharacterById(characterId);
             
             character.CharacterStatus = CharacterStatus.Approved;
+
+            BackgroundJob.Schedule(
+                () => this.accountsService.RemoveNotification(accountId), TimeSpan.FromSeconds(180));
+
             await this.accountsService.NotifyAccountOfApprovedCharacters(accountId);
+
+            this.context.Characters.Update(character);
+            await this.context.SaveChangesAsync();
+        }
+
+        public async Task DeleteCharacter(string characterId, string accountId)
+        {
+            var character = this.GetCharacterById(characterId);
+
+            character.CharacterStatus = CharacterStatus.Deleted;
+            character.IsDeleted = true;
+            character.DeletedOn = DateTime.UtcNow;
+            character.NormalizedDeletedOn = DateTime.UtcNow.ToString("MM/dd/yyyy HH:mm:ss");
+
+            BackgroundJob.Schedule(
+                () => this.accountsService.RemoveNotification(accountId), TimeSpan.FromSeconds(180));
+
+            await this.accountsService.NotifyAccountOfDeletedCharacters(accountId);
 
             this.context.Characters.Update(character);
             await this.context.SaveChangesAsync();
@@ -155,23 +178,5 @@ namespace HolocronProject.Services.Implementations
             await this.context.SaveChangesAsync();
         }
 
-        public async Task DeleteCharacter(string characterId, string accountId)
-        {
-            var character = this.GetCharacterById(characterId);
-
-            character.CharacterStatus = CharacterStatus.Deleted;
-            character.IsDeleted = true;
-            character.DeletedOn = DateTime.UtcNow;
-            character.NormalizedDeletedOn = DateTime.UtcNow.ToString("MM/dd/yyyy HH:mm:ss");
-
-            await this.accountsService.NotifyAccountOfDeletedCharacters(accountId);
-
-            this.context.Characters.Update(character);
-            await this.context.SaveChangesAsync();
-        }
-
-        
-
-        
     }
 }

@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace HolocronProject.Web.Controllers
 {
+    [Authorize]
     public class CompetitionsController : BaseController
     {
         private readonly ICompetitionsService competitionsService;
@@ -32,15 +33,24 @@ namespace HolocronProject.Web.Controllers
         }
 
 
-        [Authorize]
-        public IActionResult All()
+        public IActionResult All(int? page)
         {
             var competitions = this.competitionsService.GetAll<CompetitionListViewModel>();
+
+            competitions = AllCompetitionsPaging(page, competitions);
 
             return this.View(competitions);
         }
 
-        [Authorize]
+        public IActionResult AllFinished(int? page)
+        {
+            var competitions = this.competitionsService.GetAllFinished<CompetitionListViewModel>();
+
+            competitions = AllCompetitionsPaging(page, competitions);
+
+            return this.View(competitions);
+        }
+
         public IActionResult ById(string competitionId, int? page)
         {
             var competition = this.competitionsService.GetCompetitionByIdGeneric<CompetitionViewModel>(competitionId);
@@ -48,21 +58,35 @@ namespace HolocronProject.Web.Controllers
 
             competition.HasAccountVoted = this.competitionAccountsService.DoesAccountVoteExist(competitionId, loggedInUserId);
             competition.DoesAccountVoteExist = this.competitionAccountsService.HasAccountVoted(competitionId, loggedInUserId);
-            var pager = new Pager(competition.Characters.Count(), page);
-            competition.Characters = competition.Characters.OrderByDescending(x => x.Character.NormalizedCreatedOn);
-            competition.Characters = competition.Characters.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize);
-
-            competition.Pager = pager;
+            AllCompetitionCharactersPaging(page, competition);
 
             return this.View(competition);
         }
 
-        [Authorize]
         public async Task<IActionResult> Pick(string characterId, string competitionId)
         {
             await this.competitionCharactersService.AddCharacterToCompetitionAsync(characterId, competitionId);
 
             return this.Redirect($"/Competitions/ById?competitionId={competitionId}");
+        }
+
+        private static void AllCompetitionCharactersPaging(int? page, CompetitionViewModel competition)
+        {
+            var pager = new Pager(competition.Characters.Count(), page);
+            competition.Characters = competition.Characters.OrderByDescending(x => x.Character.NormalizedCreatedOn);
+            competition.Characters = competition.Characters.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize);
+
+            competition.Pager = pager;
+        }
+
+        private static IEnumerable<CompetitionListViewModel> AllCompetitionsPaging(int? page, IEnumerable<CompetitionListViewModel> competitions)
+        {
+            var pager = new Pager(competitions.Count(), page);
+            competitions = competitions.OrderByDescending(x => x.NormalizedStartDate);
+            competitions = competitions.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize);
+
+            competitions.AsParallel().ForAll(x => x.Pager = pager);
+            return competitions.ToList();
         }
 
     }

@@ -1,4 +1,5 @@
-﻿using HolocronProject.Data.Enums;
+﻿using Hangfire;
+using HolocronProject.Data.Enums;
 using HolocronProject.Data.Models;
 using HolocronProject.Services;
 using HolocronProject.Services.Models.Character;
@@ -91,6 +92,10 @@ namespace HolocronProject.Web.Controllers
 
             await this.characterService.CreateCharacterAsync(characterInputDto);
             await this.characterService.UpdateCharacterImage(input.Name, input.Image);
+
+            BackgroundJob.Schedule(
+               () => this.accountsService.RemoveNotification(accountId), TimeSpan.FromSeconds(180));
+
             await this.accountsService.NotifyAccountOfPendingCharacters(accountId);
             return this.Redirect($"/");
         }

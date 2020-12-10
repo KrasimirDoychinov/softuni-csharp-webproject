@@ -19,9 +19,6 @@ namespace HolocronProject.Web.Areas.Administration.Models.Competitions
         public string Description { get; set; }
 
         [Required]
-        public DateTime StartDate { get; set; }
-
-        [Required]
         [CompetitionEndDateAfterStartDate]
         public DateTime EndDate { get; set; }
 

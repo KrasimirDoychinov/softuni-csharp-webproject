@@ -5,22 +5,27 @@ using HolocronProject.Web.ViewModels.Competitions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using Hangfire;
+using System;
 
 namespace HolocronProject.Web.Areas.Administration.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class CompetitionsController : BaseAdminController
     {
         private readonly ICompetitionsService competitionsService;
         private readonly IAchievementsService achievementsService;
+        private readonly IRacesService racesService;
 
         public CompetitionsController(ICompetitionsService competitionsService,
-            IAchievementsService achievementsService)
+            IAchievementsService achievementsService,
+            IRacesService racesService)
         {
             this.competitionsService = competitionsService;
             this.achievementsService = achievementsService;
+            this.racesService = racesService;
         }
 
-        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             var competition = new CompetitionInputModel();
@@ -28,7 +33,7 @@ namespace HolocronProject.Web.Areas.Administration.Controllers
             return this.View(competition);
         }
 
-        [Authorize(Roles = "Admin")]
+        
         [HttpPost]
         public async Task<IActionResult> Create(CompetitionInputModel input)
         {
@@ -36,10 +41,14 @@ namespace HolocronProject.Web.Areas.Administration.Controllers
             {
                 return this.View(input);
             }
+            
+            var competitionId = await this.competitionsService.CreateCompetitionAsync(input.Title, input.Description, DateTime.Now, input.EndDate);
+            var totalSeconds = (input.EndDate - DateTime.Now).TotalSeconds;
 
-            await this.competitionsService.CreateCompetitionAsync(input.Title, input.Description, input.StartDate, input.EndDate);
+            BackgroundJob.Schedule(
+                () => this.competitionsService.FinishCompetitionAsync(competitionId), TimeSpan.FromSeconds(totalSeconds));
 
-            return this.Redirect("/");
+            return this.Redirect("/Competitions/All");
         }
     }
 }

@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Hangfire;
 
 namespace HolocronProject.Services.Implementations
 {
@@ -23,7 +24,7 @@ namespace HolocronProject.Services.Implementations
         }
 
 
-        public async Task CreateCompetitionAsync(string title, string description, DateTime startDate, DateTime endDate)
+        public async Task<string> CreateCompetitionAsync(string title, string description, DateTime startDate, DateTime endDate)
         {
             var achievements = this.achievementService.CreateAchievement(title);
 
@@ -38,6 +39,8 @@ namespace HolocronProject.Services.Implementations
 
             await this.context.Competitions.AddAsync(competition);
             await this.context.SaveChangesAsync();
+
+            return competition.Id;
         }
 
         public async Task FinishCompetitionAsync(string competitionId)
@@ -45,14 +48,20 @@ namespace HolocronProject.Services.Implementations
             var competition = GetCompetitionById(competitionId);
 
             competition.IsFinished = true;
+            competition.FinishedOn = DateTime.UtcNow;
 
-            this.context.Competitions.Update(competition);
             await this.context.SaveChangesAsync();
         }
 
         public IEnumerable<T> GetAll<T>()
             => this.context.Competitions
             .Where(x => !x.IsFinished)
+            .To<T>()
+            .ToList();
+
+        public IEnumerable<T> GetAllFinished<T>()
+            => this.context.Competitions
+            .Where(x => x.IsFinished)
             .To<T>()
             .ToList();
 

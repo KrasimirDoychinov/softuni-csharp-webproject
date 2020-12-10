@@ -8,7 +8,8 @@ namespace HolocronProject.Web
 
     // TODO: Review the code each day at the beginning of the code session and at the end of the session
 
-    // TODO: !!!Add hangfire timer!!!
+    // TODO: !!!Finish competitions and reward achievements!!!
+    // TODO: !!!Add signalR timer!!!
     // TODO: !!!Add competitions and achievements!!!
     // TODO: !!!Delete the CompetitionVotes table!!!
     // TODO: Add stats view

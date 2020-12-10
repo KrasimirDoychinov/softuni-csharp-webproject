@@ -8,14 +8,15 @@ namespace HolocronProject.Services
 {
     public interface ICompetitionsService
     {
-        Task CreateCompetitionAsync(string title, string description, DateTime startDate, DateTime endDate);
+        Task<string> CreateCompetitionAsync(string title, string description, DateTime startDate, DateTime endDate);
 
         Task FinishCompetitionAsync(string competitionId);
-
 
         Competition GetCompetitionById(string competitionId);
 
         IEnumerable<T> GetAll<T>();
+
+        IEnumerable<T> GetAllFinished<T>();
 
         T GetCompetitionByIdGeneric<T>(string competitionId);
 

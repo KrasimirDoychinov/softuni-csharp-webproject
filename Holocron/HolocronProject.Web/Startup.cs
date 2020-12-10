@@ -17,6 +17,8 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using Microsoft.AspNetCore.Identity;
 using HolocronProject.Web.Hubs;
+using Hangfire;
+using Hangfire.SqlServer;
 
 namespace HolocronProject.Web
 {
@@ -53,9 +55,28 @@ namespace HolocronProject.Web
             {
                 o.EnableDetailedErrors = true;
             });
+
             services.AddControllersWithViews();
             services.AddRazorPages();
 
+            services.AddHangfire(configuration => configuration
+                .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+                .UseSimpleAssemblyNameTypeSerializer()
+                .UseRecommendedSerializerSettings()
+                .UseSqlServerStorage(Configuration.GetConnectionString("DefaultConnection"), new SqlServerStorageOptions
+                {
+                    CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
+                    SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),
+                    QueuePollInterval = TimeSpan.Zero,
+                    UseRecommendedIsolationLevel = true,
+                    DisableGlobalLocks = true
+                }));
+
+            // Add the processing server as IHostedService
+            services.AddHangfireServer();
+
+            // Add framework services.
+            services.AddMvc();
 
             services.AddImageSharp();
             services.AddTransient<IAccountsService, AccountsService>();
@@ -80,7 +101,7 @@ namespace HolocronProject.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
+        public void Configure(IApplicationBuilder app, IBackgroundJobClient backgroundJobs, IWebHostEnvironment env,
             UserManager<Account> userManager,
             RoleManager<IdentityRole> roleManager)
         {
@@ -101,6 +122,9 @@ namespace HolocronProject.Web
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
+            app.UseHangfireDashboard();
+            backgroundJobs.Enqueue(() => Console.WriteLine("Hello world from Hangfire!"));
+
             app.UseRouting();
 
             app.UseAuthentication();
@@ -111,6 +135,7 @@ namespace HolocronProject.Web
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapHub<VoteHub>("/vote");
+                endpoints.MapHangfireDashboard();
 
                 endpoints.MapControllerRoute(
                       name: "areas",

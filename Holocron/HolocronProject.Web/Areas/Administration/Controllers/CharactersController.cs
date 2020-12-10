@@ -73,7 +73,6 @@ namespace HolocronProject.Web.Areas.Administration.Controllers
                 charListViewModel = CharListParserAndSanitizer(page, charListViewModel);
             }
 
-
             return this.View(charListViewModel.ToList());
         }
 
@@ -84,6 +83,7 @@ namespace HolocronProject.Web.Areas.Administration.Controllers
 
             return this.Redirect("/");
         }
+
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteCharacter(string characterId, string accountId)
         {

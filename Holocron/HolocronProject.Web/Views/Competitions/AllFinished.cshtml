@@ -1,7 +1,7 @@
 ﻿
 @model List<CompetitionListViewModel>
 
-@{ 
+@{
     var pager = Model.Select(x => x.Pager).FirstOrDefault();
 }
 
@@ -31,7 +31,7 @@
 
 <div class="d-flex justify-content-between">
     <div>
-        <a class="btn btn-primary" href="/Competitions/AllFinished">Finished competitions</a>
+        <a class="btn btn-primary" href="/Competitions/All">Ongoing competitions</a>
     </div>
     <div>
         @if (pager.EndPage > 1)
@@ -41,27 +41,27 @@
                     @if (pager.CurrentPage > 1)
                     {
                         <li class="float-left mr-1">
-                            <a href="/Competitions/All" class="btn btn-info">First</a>
+                            <a href="/Competitions/AllFinished" class="btn btn-info">First</a>
                         </li>
                         <li class="float-left mr-1">
-                            <a href="/Competitions/All?page=@(pager.CurrentPage - 1)" class="btn btn-info">Previous</a>
+                            <a href="/Competitions/AllFinished?page=@(pager.CurrentPage - 1)" class="btn btn-info">Previous</a>
                         </li>
                     }
 
                     @for (var page = pager.StartPage; page <= pager.EndPage; page++)
                     {
                         <li class="@(page == pager.CurrentPage ? "active" : "") float-right mr-1">
-                            <a href="/Competitions/All?page=@(page)" class="btn btn-info">@(page)</a>
+                            <a href="/Competitions/AllFinished?page=@(page)" class="btn btn-info">@(page)</a>
                         </li>
                     }
 
                     @if (pager.CurrentPage < pager.TotalPages)
                     {
                         <li class="float-right mr-1">
-                            <a href="/Competitions/All?page=@(pager.CurrentPage + 1)" class="btn btn-info">Next</a>
+                            <a href="/Competitions/AllFinished?page=@(pager.CurrentPage + 1)" class="btn btn-info">Next</a>
                         </li>
                         <li class="float-right mr-1">
-                            <a href="/Competitions/All?page=@(pager.TotalPages)" class="btn btn-info">Last</a>
+                            <a href="/Competitions/AllFinished?page=@(pager.TotalPages)" class="btn btn-info">Last</a>
                         </li>
                     }
                 </ul>

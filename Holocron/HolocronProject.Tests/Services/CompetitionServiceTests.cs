@@ -56,7 +56,7 @@ namespace HolocronProject.Tests.Services
                 .Select(x => x.Id)
                 .FirstOrDefault();
 
-            await this.competitionService.FinishCompetitionAsync(competitionId);
+            this.competitionService.FinishCompetitionAsync(competitionId);
 
             var actualResult = this.context.Competitions
                 .Where(x => x.IsFinished)

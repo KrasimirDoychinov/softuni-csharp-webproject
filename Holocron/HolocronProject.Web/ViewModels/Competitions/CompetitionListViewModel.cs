@@ -26,5 +26,7 @@ namespace HolocronProject.Web.ViewModels.Competitions
         public DateTime EndDate { get; set; }
 
         public string NormalizedEndDate => this.EndDate.ToString("MM/dd/yyyy h:mm tt");
+
+        public Pager.Pager Pager { get; set; }
     }
 }
