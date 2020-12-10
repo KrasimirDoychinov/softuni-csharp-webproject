@@ -65,25 +65,5 @@ namespace HolocronProject.Web.Controllers
             return this.Redirect($"/Competitions/ById?competitionId={competitionId}");
         }
 
-        [Authorize]
-        public async Task<IActionResult> Vote(string characterId, string competitionId, string accountId)
-        {
-            await this.competitionAccountsService.VoteAsync(characterId,competitionId, accountId);
-            //await this.competitionCharactersService.UpvoteAsync(characterId, competitionId);
-
-
-            return this.Redirect($"/Competitions/ById?competitionId={competitionId}");
-        }
-
-        [Authorize]
-        public async Task<IActionResult> UnVote(string competitionId, string accountId)
-        {
-            await this.competitionAccountsService.UnVoteAsync(competitionId, accountId);
-            //await this.competitionCharactersService.DownvoteAsync(characterId, competitionId);
-
-
-            return this.Redirect($"/Competitions/ById?competitionId={competitionId}");
-        }
-
     }
 }

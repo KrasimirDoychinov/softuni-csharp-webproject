@@ -16,6 +16,7 @@ using SixLabors.ImageSharp.Web.DependencyInjection;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using Microsoft.AspNetCore.Identity;
+using HolocronProject.Web.Hubs;
 
 namespace HolocronProject.Web
 {
@@ -47,6 +48,11 @@ namespace HolocronProject.Web
             services.AddDefaultIdentity<Account>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<HolocronDbContext>();
+
+            services.AddSignalR(o =>
+            {
+                o.EnableDetailedErrors = true;
+            });
             services.AddControllersWithViews();
             services.AddRazorPages();
 
@@ -104,6 +110,8 @@ namespace HolocronProject.Web
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHub<VoteHub>("/vote");
+
                 endpoints.MapControllerRoute(
                       name: "areas",
                       pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"

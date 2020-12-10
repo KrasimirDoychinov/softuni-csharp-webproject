@@ -9,8 +9,6 @@ namespace HolocronProject.Services
     {
         Task AddCharacterToCompetitionAsync(string characterId, string competitionId);
 
-        Task UpvoteAsync(string characterId, string competitionId);
-
-        Task DownvoteAsync(string characterId, string competitionId);
+        int GetVotesCount(string characterId, string competitionId);
     }
 }

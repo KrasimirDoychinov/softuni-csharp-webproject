@@ -94,6 +94,7 @@ namespace HolocronProject.Web.Controllers
         public IActionResult LastThreads(string accountId, int? page)
         {
             var lastThreads = this.threadService.GetLastThreadsByAccountId<ThreadViewModel>(accountId);
+            lastThreads.AsParallel().ForAll(x => x.PostsCount = x.Posts.Where(x => !x.IsDeleted).Count());
 
             if (lastThreads.Count() > 0)
             {
@@ -115,6 +116,7 @@ namespace HolocronProject.Web.Controllers
             sanitizer.AllowedTags.Add("iframe");
 
             threadViewModel.SanitizedDescription = sanitizer.Sanitize(threadViewModel.Description);
+           
             threadViewModel.SanitizedDescription = this.htmlSizeParser.Parse(threadViewModel.SanitizedDescription, 100, 50);
 
             threadViewModel.Posts.AsParallel().ForAll(x => x.SanitizedDescription = sanitizer.Sanitize(x.Description));

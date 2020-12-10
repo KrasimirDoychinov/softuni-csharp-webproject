@@ -30,25 +30,9 @@ namespace HolocronProject.Services.Implementations
             await this.context.SaveChangesAsync();
         }
 
-        public async Task UpvoteAsync(string characterId, string competitionId)
-        {
-            var competitionCharacter = this.context.CompetitionsCharacters
-                .FirstOrDefault(x => x.CharacterId == characterId && x.CompetitionId == competitionId);
-
-            competitionCharacter.Votes++;
-
-            await this.context.SaveChangesAsync();
-        }
-
-        public async Task DownvoteAsync(string characterId, string competitionId)
-        {
-            var competitionCharacter = this.context.CompetitionsCharacters
-                .FirstOrDefault(x => x.CharacterId == characterId && x.CompetitionId == competitionId);
-
-            competitionCharacter.Votes--;
-
-            await this.context.SaveChangesAsync();
-        }
-
+        public int GetVotesCount(string characterId, string competitionId)
+            => this.context.CompetitionsCharacters
+            .FirstOrDefault(x => x.CharacterId == characterId && x.CompetitionId == competitionId)
+            .Votes;
     }
 }

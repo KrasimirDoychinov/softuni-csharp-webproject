@@ -27,7 +27,7 @@ namespace HolocronProject.Services.Implementations
 
         public async Task VoteAsync(string characterId, string competitionId, string accountId)
         {
-            if (this.DoesAccountVoteExist(competitionId,accountId))
+            if (this.DoesAccountVoteExist(competitionId, accountId))
             {
                 var competitionAccount = this.context.CompetitionAccounts
                     .FirstOrDefault(x => x.CompetitionId == competitionId && x.AccountId == accountId);
@@ -47,27 +47,50 @@ namespace HolocronProject.Services.Implementations
                     HasVoted = true
                 };
 
-                competitionCharacter.CompetitionAccounts.Add(competitionAccount);
-                competitionCharacter.Votes++;
+                object lockObj = new object();
+                lock (lockObj)
+                {
+                    competitionCharacter.CompetitionAccounts.Add(competitionAccount);
+                    competitionCharacter.Votes++;
+                }
 
                 await this.context.CompetitionAccounts.AddAsync(competitionAccount);
-                await this.context.SaveChangesAsync();
             }
+
+            await this.context.SaveChangesAsync();
         }
 
         public async Task UnVoteAsync(string competitionId, string accountId)
         {
             var competitionAccount = this.context.CompetitionAccounts
                 .FirstOrDefault(x => x.CompetitionId == competitionId && x.AccountId == accountId);
-            var characterId = competitionAccount.CompetitionCharacter.CharacterId;
+            var characterId = this.GetCharacterId(competitionId, accountId);
 
             var competitionCharacter = this.context.CompetitionsCharacters
                    .FirstOrDefault(x => x.CompetitionId == competitionId && x.CharacterId == characterId);
 
-            competitionCharacter.CompetitionAccounts.Remove(competitionAccount);
-            competitionCharacter.Votes--;
-            this.context.CompetitionAccounts.Remove(competitionAccount);
+            object lockObj = new object();
+            lock (lockObj)
+            {
+                competitionCharacter.CompetitionAccounts.Remove(competitionAccount);
+                competitionCharacter.Votes--;
+                this.context.CompetitionAccounts.Remove(competitionAccount);
+            }
+
             await this.context.SaveChangesAsync();
+        }
+
+        public string GetCharacterId(string competitionId, string accountId)
+        {
+            var competitionAccount = this.context.CompetitionAccounts
+            .FirstOrDefault(x => x.CompetitionId == competitionId && x.AccountId == accountId);
+
+            if (competitionAccount == null)
+            {
+                throw new Exception("There is no vote found to unvote.");
+            }
+
+            return competitionAccount.CompetitionCharacter.CharacterId;
         }
     }
 }

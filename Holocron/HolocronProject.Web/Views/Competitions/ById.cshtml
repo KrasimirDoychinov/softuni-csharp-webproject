@@ -3,6 +3,7 @@
 
 @inject UserManager<Account> userManager
 @{
+    var counter = 1;
     var loggedInAccountId = this.userManager.GetUserAsync(this.User).Result.Id;
     if (Model.Characters.Count() > 0)
     {
@@ -19,33 +20,250 @@
 
 <hr class="bg-warning" />
 <div class="row text-center">
-    <div class="col-md-12 ">
+    <div class="col-md-12">
         @foreach (var item in Model.Characters)
         {
-        <div class="d-inline-block grid">
-            <a href="/Characters/CharacterInfo?characterId=@item.Character.Id&accountId=@item.Character.AccountId"><img src="~/Images/CharacterImages/@item.Character.CharacterImagePath?random=@ViewData["random"].ToString()" class="ml-3" style="width: 325px; height:300px" /></a>
-            <h4><span class="font-weight-bold">Name: </span>@item.Character.Name</h4>
-            <h5><span class="font-weight-bold">Title: </span>@item.Character.Title</h5>
-            <h5><span class="font-weight-bold">Gender: </span>@item.Character.Gender</h5>
-            <h5><span class="font-weight-bold">Class: </span>@item.Character.ClassName</h5>
-            <h5><span class="font-weight-bold">Votes: </span>@item.Votes</h5>
-            @if (!Model.DoesAccountVoteExist)
-            {
-                <a href="/Competitions/Vote?characterId=@item.Character.Id&competitionId=@Model.Id&accountId=@loggedInAccountId" class="btn btn-primary btn-sm">Upvote</a>
-            }
-        </div>
+            <div class="d-inline-block grid mb-5">
+                <a href="/Characters/CharacterInfo?characterId=@item.Character.Id&accountId=@item.Character.AccountId"><img src="~/Images/CharacterImages/@item.Character.CharacterImagePath?random=@ViewData["random"].ToString()" class="ml-3" style="width: 325px; height:300px" /></a>
+                <h4><span class="font-weight-bold">Name: </span>@item.Character.Name</h4>
+                <h5><span class="font-weight-bold">Title: </span>@item.Character.Title</h5>
+                <h5><span class="font-weight-bold">Gender: </span>@item.Character.Gender</h5>
+                <h5><span class="font-weight-bold">Class: </span>@item.Character.ClassName</h5>
+                <h5><span class="font-weight-bold">Votes: </span><span id="vote@(counter)" class="@item.Character.Id">@item.Votes</span></h5>
+                @if (!Model.DoesAccountVoteExist)
+                {
+                    <button id="voteButton@(counter)" class="btn btn-primary">Vote</button>
+                    <p id="test@(counter)" hidden="hidden">@item.Character.Id</p>
+
+                    
+                }
+                else
+                {
+                    <button id="voteButton@(counter)" class="btn btn-primary" hidden="hidden">Vote</button>
+                    <p id="test@(counter)" hidden="hidden">@item.Character.Id</p>
+                }
+            </div>
+            counter++;
         }
     </div>
 </div>
 <div class="d-flex justify-content-between">
     <div>
         <a href="/Characters/CharactersToPick?accountId=@loggedInAccountId&competitionId=@Model.Id" class="btn btn-primary">Add character</a>
+
         @if (Model.HasAccountVoted)
         {
-            <a href="/Competitions/UnVote?competitionId=@Model.Id&accountId=@loggedInAccountId" class="btn btn-danger">Unvote</a>
+            <button class="btn btn-danger" id="unvoteButton">Unvote</button>
+        }
+        else
+        {
+            <button class="btn btn-danger" id="unvoteButton" hidden="hidden">Unvote</button>
         }
     </div>
     <div>
         <partial name="PaginationView" model="Model" />
     </div>
 </div>
+
+
+@section Scripts{
+    <script>
+        var connection =
+                new signalR.HubConnectionBuilder()
+                .withUrl("/vote")
+                .build();
+
+        connection.on("Vote",
+            function (voteCount, voteNumber) {
+                switch (voteNumber) {
+                    case 1:
+                        document.getElementById("vote1").innerHTML = voteCount;
+                        break;
+                    case 2:
+                        document.getElementById("vote2").innerHTML = voteCount;
+                        break;
+                    case 3:
+                        document.getElementById("vote3").innerHTML = voteCount;
+                        break;
+                    case 4:
+                        document.getElementById("vote4").innerHTML = voteCount;
+                        break;
+                    case 5:
+                        document.getElementById("vote5").innerHTML = voteCount;
+                        break;
+                    case 6:
+                        document.getElementById("vote6").innerHTML = voteCount;
+                        break;
+                    case 7:
+                        document.getElementById("vote7").innerHTML = voteCount;
+                        break;
+                    case 8:
+                        document.getElementById("vote8").innerHTML = voteCount;
+                        break;
+                    case 9:
+                        document.getElementById("vote9").innerHTML = voteCount;
+                        break;
+                    case 10:
+                        document.getElementById("vote10").innerHTML = voteCount;
+                        break;
+                    default:
+                        break;
+                }
+            });
+
+        connection.on("Unvote",
+            function (voteCount, characterId) {
+                var list = document.getElementsByClassName(`${characterId}`);
+                var charVotes = list[0];
+                charVotes.innerHTML = voteCount;
+            });
+
+
+        $("#voteButton1").click(function () {
+            var competitionId = '@Model.Id';
+            var accountId = '@loggedInAccountId';
+            var characterId = document.getElementById("test1").innerHTML;
+            var voteNumber = 1;
+            connection.invoke("Vote", competitionId, accountId, characterId, voteNumber)
+            showUnvoteButton();
+            hideAllVoteButtons();
+        });
+
+        $("#voteButton2").click(function () {
+            var competitionId = '@Model.Id';
+            var accountId = '@loggedInAccountId';
+            var characterId = document.getElementById("test2").innerHTML;
+            var voteNumber = 2;
+            connection.invoke("Vote", competitionId, accountId, characterId, voteNumber)
+            showUnvoteButton();
+            hideAllVoteButtons();
+        });
+
+        $("#voteButton3").click(function () {
+            var competitionId = '@Model.Id';
+            var accountId = '@loggedInAccountId';
+            var characterId = document.getElementById("test3").innerHTML;
+            var voteNumber = 3;
+            connection.invoke("Vote", competitionId, accountId, characterId, voteNumber)
+            showUnvoteButton();
+            hideAllVoteButtons();
+        });
+
+        $("#voteButton4").click(function () {
+            var competitionId = '@Model.Id';
+            var accountId = '@loggedInAccountId';
+            var characterId = document.getElementById("test4").innerHTML;
+            var voteNumber = 4;
+            connection.invoke("Vote", competitionId, accountId, characterId, voteNumber)
+            showUnvoteButton();
+            hideAllVoteButtons();
+        });
+
+        $("#voteButton5").click(function () {
+            var competitionId = '@Model.Id';
+            var accountId = '@loggedInAccountId';
+            var characterId = document.getElementById("test5").innerHTML;
+            var voteNumber = 5;
+            connection.invoke("Vote", competitionId, accountId, characterId, voteNumber)
+            showUnvoteButton();
+            hideAllVoteButtons();
+        });
+
+        $("#voteButton6").click(function () {
+            var competitionId = '@Model.Id';
+            var accountId = '@loggedInAccountId';
+            var characterId = document.getElementById("test6").innerHTML;
+            var voteNumber = 6;
+            connection.invoke("Vote", competitionId, accountId, characterId, voteNumber)
+            showUnvoteButton();
+            hideAllVoteButtons();
+        });
+
+        $("#voteButton7").click(function () {
+            var competitionId = '@Model.Id';
+            var accountId = '@loggedInAccountId';
+            var characterId = document.getElementById("test7").innerHTML;
+            var voteNumber = 7;
+            connection.invoke("Vote", competitionId, accountId, characterId, voteNumber)
+            showUnvoteButton();
+            hideAllVoteButtons();
+        });
+
+        $("#voteButton8").click(function () {
+            var competitionId = '@Model.Id';
+            var accountId = '@loggedInAccountId';
+            var characterId = document.getElementById("test8").innerHTML;
+            var voteNumber = 8;
+            connection.invoke("Vote", competitionId, accountId, characterId, voteNumber)
+            showUnvoteButton();
+            hideAllVoteButtons();
+        });
+
+        $("#voteButton9").click(function () {
+            var competitionId = '@Model.Id';
+            var accountId = '@loggedInAccountId';
+            var characterId = document.getElementById("test9").innerHTML;
+            var voteNumber = 9;
+            connection.invoke("Vote", competitionId, accountId, characterId, voteNumber)
+            showUnvoteButton();
+            hideAllVoteButtons();
+        });
+
+        $("#voteButton10").click(function () {
+            var competitionId = '@Model.Id';
+            var accountId = '@loggedInAccountId';
+            var characterId = document.getElementById("test10").innerHTML;
+            var voteNumber = 10;
+            connection.invoke("Vote", competitionId, accountId, characterId, voteNumber)
+            showUnvoteButton();
+            hideAllVoteButtons();
+        });
+
+        $("#unvoteButton").click(function () {
+            var competitionId = '@Model.Id';
+            var accountId = '@loggedInAccountId';
+            connection.invoke("Unvote", competitionId, accountId)
+            hideUnvoteButton();
+            showAllVoteButtons();
+        });
+
+        function hideAllVoteButtons() {
+            document.getElementById("voteButton1").hidden = "hidden";
+            document.getElementById("voteButton2").hidden = "hidden";
+            document.getElementById("voteButton3").hidden = "hidden";
+            document.getElementById("voteButton4").hidden = "hidden";
+            document.getElementById("voteButton5").hidden = "hidden";
+            document.getElementById("voteButton6").hidden = "hidden";
+            document.getElementById("voteButton7").hidden = "hidden";
+            document.getElementById("voteButton8").hidden = "hidden";
+            document.getElementById("voteButton9").hidden = "hidden";
+            document.getElementById("voteButton10").hidden = "hidden";
+        }
+
+        function showUnvoteButton() {
+            document.getElementById("unvoteButton").hidden = "";
+        }
+
+        function showAllVoteButtons() {
+            document.getElementById("voteButton1").hidden = "";
+            document.getElementById("voteButton2").hidden = "";
+            document.getElementById("voteButton3").hidden = "";
+            document.getElementById("voteButton4").hidden = "";
+            document.getElementById("voteButton5").hidden = "";
+            document.getElementById("voteButton6").hidden = "";
+            document.getElementById("voteButton7").hidden = "";
+            document.getElementById("voteButton8").hidden = "";
+            document.getElementById("voteButton9").hidden = "";
+            document.getElementById("voteButton10").hidden = "";
+        }
+
+        function hideUnvoteButton() {
+            document.getElementById("unvoteButton").hidden = "hidden";
+        }
+
+        connection.start().catch(function (err) {
+            return console.error(err.toString());
+        });
+
+    </script>
+}
