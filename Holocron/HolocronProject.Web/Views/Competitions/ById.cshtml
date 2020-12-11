@@ -18,43 +18,61 @@
     <p class="text-break">@Model.Description</p>
 </div>
 
-<hr class="bg-warning" />
-<div class="row text-center">
-    <div class="col-md-12">
-        @foreach (var item in Model.Characters)
-        {
-            <div class="d-inline-block grid mb-5">
-                <a href="/Characters/CharacterInfo?characterId=@item.Character.Id&accountId=@item.Character.AccountId"><img src="~/Images/CharacterImages/@item.Character.CharacterImagePath?random=@ViewData["random"].ToString()" class="ml-3" style="width: 325px; height:300px" /></a>
-                <h4><span class="font-weight-bold">Name: </span>@item.Character.Name</h4>
-                <h5><span class="font-weight-bold">Title: </span>@item.Character.Title</h5>
-                <h5><span class="font-weight-bold">Gender: </span>@item.Character.Gender</h5>
-                <h5><span class="font-weight-bold">Class: </span>@item.Character.ClassName</h5>
-                <h5><span class="font-weight-bold">Votes: </span><span id="vote@(counter)" class="@item.Character.Id">@item.Votes</span></h5>
-                @if (!Model.DoesAccountVoteExist)
-                {
-                    <button id="voteButton@(counter)" class="btn btn-primary">Vote</button>
-                    <p id="test@(counter)" hidden="hidden">@item.Character.Id</p>
+@if (Model.Characters.Count() <= 0)
+{
+    <h1 class="text-center">There are currently no characters competing in this competition. <span class="text-primary"><a class="text-decoration-none" href="/Characters/CharactersToPick?accountId=@loggedInAccountId&competitionId=@Model.Id">Be the first!</a></span></h1>
+}
 
-                    
-                }
-                else
-                {
-                    <button id="voteButton@(counter)" class="btn btn-primary" hidden="hidden">Vote</button>
-                    <p id="test@(counter)" hidden="hidden">@item.Character.Id</p>
-                }
-            </div>
-            counter++;
-        }
+else
+{
+    <hr class="bg-warning" />
+    <div class="row text-center">
+        <div class="col-md-12">
+            @foreach (var item in Model.Characters)
+            {
+                <div class="d-inline-block grid mb-5">
+                    <a href="/Characters/CharacterInfo?characterId=@item.Character.Id&accountId=@item.Character.AccountId"><img src="~/Images/CharacterImages/@item.Character.CharacterImagePath?random=@ViewData["random"].ToString()" class="ml-3" style="width: 325px; height:300px" /></a>
+                    <h4><span class="font-weight-bold">Name: </span>@item.Character.Name</h4>
+                    <h5><span class="font-weight-bold">Title: </span>@item.Character.Title</h5>
+                    <h5><span class="font-weight-bold">Gender: </span>@item.Character.Gender</h5>
+                    <h5><span class="font-weight-bold">Class: </span>@item.Character.ClassName</h5>
+                    <h5><span class="font-weight-bold">Votes: </span><span id="vote@(counter)" class="@item.Character.Id">@item.Votes</span></h5>
+                    @if (!Model.DoesAccountVoteExist)
+                    {
+                        <button id="voteButton@(counter)" class="btn btn-primary">Vote</button>
+                        <p id="test@(counter)" hidden="hidden">@item.Character.Id</p>
+
+
+                    }
+
+                    else
+                    {
+                        <button id="voteButton@(counter)" class="btn btn-primary" hidden="hidden">Vote</button>
+                        <p id="test@(counter)" hidden="hidden">@item.Character.Id</p>
+                    }
+                </div>
+                counter++;
+            }
+        </div>
     </div>
-</div>
+}
 <div class="d-flex justify-content-between">
     <div>
-        <a href="/Characters/CharactersToPick?accountId=@loggedInAccountId&competitionId=@Model.Id" class="btn btn-primary">Add character</a>
+        @if (Model.Characters.Count() > 0)
+        {
+            <a href="/Characters/CharactersToPick?accountId=@loggedInAccountId&competitionId=@Model.Id" class="btn btn-primary">Add character</a>
+        }
+
+        @if (this.User.IsInRole("Admin"))
+        {
+            <a href="/Administration/Competitions/Finish?competitionId=@Model.Id" class="btn btn-danger">Finish</a>
+        }
 
         @if (Model.HasAccountVoted)
         {
             <button class="btn btn-danger" id="unvoteButton">Unvote</button>
         }
+
         else
         {
             <button class="btn btn-danger" id="unvoteButton" hidden="hidden">Unvote</button>

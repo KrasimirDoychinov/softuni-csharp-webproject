@@ -8,7 +8,7 @@
 <div class="text-center">
     <div class="col-md-12 ">
         <img src="~/Images/CharacterImages/@Model.CharacterImagePath?random=@ViewData["random"].ToString()" width="400" height="400"/>
-        <div class="col-md-12 text-left mt-5 background-color">
+        <div class="col-md-12 text-left mt-5 mb-5 background-color">
             <div class="text-center">
                 <h4><span class="font-weight-bold">Name: </span>@Model.Name</h4>
                 <h4><span class="font-weight-bold">Title: </span>@Model.Title</h4>
@@ -16,6 +16,11 @@
                 <h5><span class="font-weight-bold">Type: </span>@Model.CharacterType</h5>
                 <h5><span class="font-weight-bold">Force affiliation: </span>@Model.ForceAffiliationString</h5>
                 <h5><span class="font-weight-bold">Faction: </span>@Model.ClassFaction</h5>
+                <h5 class="font-weight-bold">Achievements: </h5>
+                @foreach (var item in Model.Achievements)
+                {
+                    <h6 class="text-warning">@item.Name</h6>
+                }
             </div>
         </div>
     </div>

@@ -38,7 +38,6 @@ namespace HolocronProject.Web.ViewModels.Threads
 
         public string SanitizedDescription { get; set; }
 
-
         public IEnumerable<PostViewModel> Posts { get; set; }
 
         public int VotesCount { get; set; }

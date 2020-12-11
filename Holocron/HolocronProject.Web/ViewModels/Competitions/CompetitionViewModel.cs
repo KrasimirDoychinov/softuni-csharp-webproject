@@ -12,7 +12,7 @@ namespace HolocronProject.Web.ViewModels.Competitions
     {
         public IEnumerable<CompetitionCharactersViewModel> Characters { get; set; }
 
-        public Pager.Pager Pager { get; set; }
+        public bool IsFinished { get; set; }
 
         public bool DoesAccountVoteExist { get; set; }
 

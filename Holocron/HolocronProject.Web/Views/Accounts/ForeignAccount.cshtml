@@ -1,12 +1,17 @@
 ﻿@model ForeignAccountViewModel
 
+@inject UserManager<Account> userManager
+
+@{ 
+}
 
 <div class="text-center ">
     <h3 class="text-warning">
-        @if (this.User.IsInRole("Admin"))
+        @if (Model.Role == "Admin")
         {
             <i class="fas fa-user-cog"></i>
         }
+
         else
         {
             <i class="fas fa-user"></i>
@@ -17,6 +22,7 @@
     {
         <img src="~/Images/AvatarImages/@Model.AvatarImagePath?random=@ViewData["random"].ToString()" class="rounded-circle border border-warning border" height="150" width="150" alt="" />
     }
+
     else
     {
         <img src="~/Images/AvatarImages/defaultAvatar.jpg" class="rounded-circle border border-warning border" height="100" width="100" />

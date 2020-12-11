@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace HolocronProject.Web.Controllers
@@ -30,6 +31,9 @@ namespace HolocronProject.Web.Controllers
             }
 
             var foreignAccount = this.accountService.GetAccountByIdGeneric<ForeignAccountViewModel>(accountId);
+
+            var account = this.accountService.GetAccountById(accountId);
+            foreignAccount.Role = this.userManager.GetRolesAsync(account).Result.FirstOrDefault();
 
             return this.View(foreignAccount);
         }

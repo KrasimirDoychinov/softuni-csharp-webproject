@@ -1,6 +1,6 @@
 ﻿using HolocronProject.Data.Enums;
 using HolocronProject.Services.Mapper;
-
+using HolocronProject.Web.ViewModels.Achievements;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +21,8 @@ namespace HolocronProject.Web.ViewModels.Characters
         public string CharacterType { get; set; }
 
         public ForceAffiliation ForceAffiliation { get; set; }
+
+        public IEnumerable<AchievementViewModel> Achievements { get; set; } = new List<AchievementViewModel>();
 
         public string ForceAffiliationString { get; set; }
 

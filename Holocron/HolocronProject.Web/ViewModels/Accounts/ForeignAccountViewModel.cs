@@ -18,7 +18,6 @@ namespace HolocronProject.Web.ViewModels.Accounts
 
         public string AvatarImagePath { get; set; }
 
-
         public int PostsCount { get; set; }
 
         public int ThreadsCount { get; set; }
@@ -28,5 +27,7 @@ namespace HolocronProject.Web.ViewModels.Accounts
         public int PostReportsCount { get; set; }
 
         public int CharactersCount { get; set; }
+
+        public string Role { get; set; }
     }
 }

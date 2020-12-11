@@ -21,7 +21,7 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td><a href="/Competitions/ById?competitionId=@item.Id" class="text-decoration-none text-warning" role="button">@item.ShortTitle</a><br />@item.ShortDescription</td>
+                <td><a href="/Competitions/ByIdFinished?competitionId=@item.Id" class="text-decoration-none text-warning" role="button">@item.ShortTitle</a><br />@item.ShortDescription</td>
                 <td>@item.NormalizedStartDate</td>
                 <td>@item.NormalizedEndDate</td>
             </tr>

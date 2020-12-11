@@ -1,71 +1,78 @@
 ﻿
 @model List<CompetitionListViewModel>
 
-@{ 
+@{
     var pager = Model.Select(x => x.Pager).FirstOrDefault();
 }
 
 @if (Model.Count() <= 0)
 {
     <h1 class="text-center">There are currently no active competitions.</h1>
-}
-<table class="table text-white table-striped table-hover table-dark">
-    <thead>
-        <tr>
-            <th scope="col" class="col">Title</th>
-            <th scope="col">Start date</th>
-            <th scope="col">End date</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td><a href="/Competitions/ById?competitionId=@item.Id" class="text-decoration-none text-warning" role="button">@item.ShortTitle</a><br />@item.ShortDescription</td>
-                <td>@item.NormalizedStartDate</td>
-                <td>@item.NormalizedEndDate</td>
-            </tr>
-        }
-    </tbody>
-</table>
-
-<div class="d-flex justify-content-between">
     <div>
         <a class="btn btn-primary" href="/Competitions/AllFinished">Finished competitions</a>
     </div>
-    <div>
-        @if (pager.EndPage > 1)
-        {
-            <div class="float-left">
-                <ul class="pagination">
-                    @if (pager.CurrentPage > 1)
-                    {
-                        <li class="float-left mr-1">
-                            <a href="/Competitions/All" class="btn btn-info">First</a>
-                        </li>
-                        <li class="float-left mr-1">
-                            <a href="/Competitions/All?page=@(pager.CurrentPage - 1)" class="btn btn-info">Previous</a>
-                        </li>
-                    }
+}
+else
+{
+    <table class="table text-white table-striped table-hover table-dark">
+        <thead>
+            <tr>
+                <th scope="col" class="col">Title</th>
+                <th scope="col">Start date</th>
+                <th scope="col">End date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td><a href="/Competitions/ById?competitionId=@item.Id" class="text-decoration-none text-warning" role="button">@item.ShortTitle</a><br />@item.ShortDescription</td>
+                    <td>@item.NormalizedStartDate</td>
+                    <td>@item.NormalizedEndDate</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 
-                    @for (var page = pager.StartPage; page <= pager.EndPage; page++)
-                    {
-                        <li class="@(page == pager.CurrentPage ? "active" : "") float-right mr-1">
-                            <a href="/Competitions/All?page=@(page)" class="btn btn-info">@(page)</a>
-                        </li>
-                    }
+    <div class="d-flex justify-content-between">
+        <div>
+            <a class="btn btn-primary" href="/Competitions/AllFinished">Finished competitions</a>
+        </div>
+        <div>
+            @if (pager.EndPage > 1)
+            {
+                <div class="float-left">
+                    <ul class="pagination">
+                        @if (pager.CurrentPage > 1)
+                        {
+                            <li class="float-left mr-1">
+                                <a href="/Competitions/All" class="btn btn-info">First</a>
+                            </li>
+                            <li class="float-left mr-1">
+                                <a href="/Competitions/All?page=@(pager.CurrentPage - 1)" class="btn btn-info">Previous</a>
+                            </li>
+                        }
 
-                    @if (pager.CurrentPage < pager.TotalPages)
-                    {
-                        <li class="float-right mr-1">
-                            <a href="/Competitions/All?page=@(pager.CurrentPage + 1)" class="btn btn-info">Next</a>
-                        </li>
-                        <li class="float-right mr-1">
-                            <a href="/Competitions/All?page=@(pager.TotalPages)" class="btn btn-info">Last</a>
-                        </li>
-                    }
-                </ul>
-            </div>
-        }
+                        @for (var page = pager.StartPage; page <= pager.EndPage; page++)
+                        {
+                            <li class="@(page == pager.CurrentPage ? "active" : "") float-right mr-1">
+                                <a href="/Competitions/All?page=@(page)" class="btn btn-info">@(page)</a>
+                            </li>
+                        }
+
+                        @if (pager.CurrentPage < pager.TotalPages)
+                        {
+                            <li class="float-right mr-1">
+                                <a href="/Competitions/All?page=@(pager.CurrentPage + 1)" class="btn btn-info">Next</a>
+                            </li>
+                            <li class="float-right mr-1">
+                                <a href="/Competitions/All?page=@(pager.TotalPages)" class="btn btn-info">Last</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            }
+        </div>
     </div>
-</div>
+}
+

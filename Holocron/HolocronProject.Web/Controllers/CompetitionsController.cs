@@ -54,6 +54,12 @@ namespace HolocronProject.Web.Controllers
         public IActionResult ById(string competitionId, int? page)
         {
             var competition = this.competitionsService.GetCompetitionByIdGeneric<CompetitionViewModel>(competitionId);
+
+            if (competition.IsFinished)
+            {
+                return this.Redirect($"/Competitions/ByIdFinished/?competitionId={competitionId}");
+            }
+
             var loggedInUserId = this.userManager.GetUserAsync(this.User).Result.Id;
 
             competition.HasAccountVoted = this.competitionAccountsService.DoesAccountVoteExist(competitionId, loggedInUserId);
@@ -62,6 +68,18 @@ namespace HolocronProject.Web.Controllers
 
             return this.View(competition);
         }
+
+        public IActionResult ByIdFinished(string competitionId, int? page)
+        {
+            var competition = this.competitionsService.GetCompetitionByIdGeneric<CompetitionViewModel>(competitionId);
+
+            AllCompetitionCharactersPaging(page, competition);
+
+            competition.Characters = competition.Characters
+                .OrderByDescending(x => x.Votes);
+            return this.View(competition);
+        }
+
 
         public async Task<IActionResult> Pick(string characterId, string competitionId)
         {

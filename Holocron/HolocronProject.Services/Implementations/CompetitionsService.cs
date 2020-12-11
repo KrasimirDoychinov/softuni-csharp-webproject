@@ -16,7 +16,7 @@ namespace HolocronProject.Services.Implementations
         private readonly HolocronDbContext context;
         private readonly IAchievementsService achievementService;
 
-        public CompetitionsService(HolocronDbContext context, 
+        public CompetitionsService(HolocronDbContext context,
             IAchievementsService achievementService)
         {
             this.context = context;
@@ -49,6 +49,33 @@ namespace HolocronProject.Services.Implementations
 
             competition.IsFinished = true;
             competition.FinishedOn = DateTime.UtcNow;
+
+            var winners = competition.Characters
+                .OrderByDescending(x => x.Votes)
+                .Take(3)
+                .ToList();
+
+            var firstPlaceAchievement = competition.Achievements.FirstOrDefault(x => x.Name.Contains("First place"));
+            var secondPlaceAchievement = competition.Achievements.FirstOrDefault(x => x.Name.Contains("Second place"));
+            var thirdPlaceAchievement = competition.Achievements.FirstOrDefault(x => x.Name.Contains("Third place"));
+
+            if (winners.Count() >= 1)
+            {
+                var firstPlaceWinner = winners[0].Character;
+                firstPlaceWinner.Achievements.Add(firstPlaceAchievement);
+            }
+
+            if (winners.Count() >= 2)
+            {
+                var secondPlaceWinner = winners[1].Character;
+                secondPlaceWinner.Achievements.Add(secondPlaceAchievement);
+            }
+
+            if (winners.Count() >= 3)
+            {
+                var thirdPlaceWinner = winners[2].Character;
+                thirdPlaceWinner.Achievements.Add(thirdPlaceAchievement);
+            }
 
             await this.context.SaveChangesAsync();
         }
