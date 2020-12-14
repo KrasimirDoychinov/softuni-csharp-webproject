@@ -13,7 +13,7 @@ namespace HolocronProject.Web.ViewModels.BugReports
 
         public string AccountUserName { get; set; }
 
-        public string CreatedOn { get; set; }
+        public DateTime CreatedOn { get; set; }
 
         public string NormalizedCreatedOn { get; set; }
 

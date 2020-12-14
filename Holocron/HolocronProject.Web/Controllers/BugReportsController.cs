@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace HolocronProject.Web.Controllers
 {
+    [Authorize]
     public class BugReportsController : BaseController
     {
         private readonly IBugReportsService bugReportService;
@@ -24,13 +25,12 @@ namespace HolocronProject.Web.Controllers
             this.userManager = userManager;
         }
 
-        [Authorize]
+        
         public IActionResult Create()
         {
             return this.View();
         }
 
-        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Create(BugReportInputModel input)
         {
@@ -45,7 +45,6 @@ namespace HolocronProject.Web.Controllers
             return this.RedirectToAction(nameof(AllBugReports));
         }
 
-        [Authorize]
         public IActionResult AllBugReports(int? page)
         {
             IEnumerable<BugReportListViewModel> bugReportsViewModel;
@@ -55,16 +54,13 @@ namespace HolocronProject.Web.Controllers
 
             if (bugReportsViewModel.Count() > 0)
             {
-                bugReportsViewModel = bugReportsViewModel.OrderByDescending(x => x.CreatedOn);
-                var pager = new Pager(bugReportsViewModel.Count(), page);
-                bugReportsViewModel = bugReportsViewModel.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize);
-                bugReportsViewModel.FirstOrDefault().Pager = pager;
+                bugReportsViewModel = BugReportsPager(page, bugReportsViewModel);
+                BugReportUTCToLocalTime(bugReportsViewModel);
             }
 
             return this.View(bugReportsViewModel.ToList());
         }
 
-        [Authorize]
         public IActionResult AllResolvedBugReports(int? page)
         {
             IEnumerable<BugReportListViewModel> bugReportsViewModel;
@@ -74,13 +70,26 @@ namespace HolocronProject.Web.Controllers
 
             if (bugReportsViewModel.Count() > 0)
             {
-                bugReportsViewModel = bugReportsViewModel.OrderByDescending(x => x.ResolvedOn);
-                var pager = new Pager(bugReportsViewModel.Count(), page);
-                bugReportsViewModel = bugReportsViewModel.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize);
-                bugReportsViewModel.FirstOrDefault().Pager = pager;
+                bugReportsViewModel = BugReportsPager(page, bugReportsViewModel);
+                BugReportUTCToLocalTime(bugReportsViewModel);
             }
 
             return this.View(bugReportsViewModel.ToList());
+        }
+
+        private static void BugReportUTCToLocalTime(IEnumerable<BugReportListViewModel> bugReportsViewModel)
+        {
+            bugReportsViewModel.AsParallel().ForAll(x => x.NormalizedCreatedOn = x.CreatedOn.ToLocalTime().ToString("MM/dd/yyyy h:mm tt"));
+            bugReportsViewModel.AsParallel().ForAll(x => x.NormalizedResolvedOn = x.ResolvedOn.ToLocalTime().ToString("MM/dd/yyyy h:mm tt"));
+        }
+
+        private static IEnumerable<BugReportListViewModel> BugReportsPager(int? page, IEnumerable<BugReportListViewModel> bugReportsViewModel)
+        {
+            bugReportsViewModel = bugReportsViewModel.OrderByDescending(x => x.CreatedOn);
+            var pager = new Pager(bugReportsViewModel.Count(), page);
+            bugReportsViewModel = bugReportsViewModel.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize);
+            bugReportsViewModel.FirstOrDefault().Pager = pager;
+            return bugReportsViewModel;
         }
     }
 }

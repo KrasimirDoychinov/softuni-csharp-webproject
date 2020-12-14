@@ -13,7 +13,7 @@ namespace HolocronProject.Web.ViewModels.Posts
     {
         public string Id { get; set; }
 
-        public string CreatedOn { get; set; }
+        public DateTime CreatedOn { get; set; }
 
         public string NormalizedCreatedOn { get; set; }
 
@@ -28,6 +28,7 @@ namespace HolocronProject.Web.ViewModels.Posts
         public string AccountAvatarImagePath { get; set; }
 
         public bool IsDeleted { get; set; }
+
         public string AccountForumSignature { get; set; }
 
         public string SanitizedForumSignature => new HtmlSanitizer().Sanitize(this.AccountForumSignature);

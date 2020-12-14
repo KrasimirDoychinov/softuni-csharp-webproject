@@ -35,12 +35,13 @@ namespace HolocronProject.Web.Areas.Administration.Controllers
 
             if (lastThreads.Count() > 0)
             {
-                lastThreads = ThreadListParserAndSanitizer(page, lastThreads);
-            }
+                lastThreads = LastThreadsPager(page, lastThreads);
+                LastThreadsSanitizer(lastThreads);
 
-            foreach (var thread in lastThreads)
-            {
-                thread.PostsCount = thread.Posts.Where(x => !x.IsDeleted).Count();
+                foreach (var thread in lastThreads)
+                {
+                    thread.PostsCount = thread.Posts.Where(x => !x.IsDeleted).Count();
+                }
             }
 
             return this.View(lastThreads.ToList());
@@ -53,23 +54,23 @@ namespace HolocronProject.Web.Areas.Administration.Controllers
             return this.RedirectToAction(nameof(NewestThreads));
         }
 
-
-        private IEnumerable<ThreadViewModel> ThreadListParserAndSanitizer(int? page, IEnumerable<ThreadViewModel> lastThreads)
+        private static IEnumerable<ThreadViewModel> LastThreadsPager(int? page, IEnumerable<ThreadViewModel> lastThreads)
         {
-            var sanitizer = new HtmlSanitizer();
-
             var pager = new Pager(lastThreads.Count(), page);
             lastThreads = lastThreads.OrderByDescending(x => x.CreatedOn);
             lastThreads = lastThreads.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize);
 
             lastThreads.FirstOrDefault().Pager = pager;
+            return lastThreads;
+        }
 
+        private void LastThreadsSanitizer(IEnumerable<ThreadViewModel> lastThreads)
+        {
+            var sanitizer = new HtmlSanitizer();
             sanitizer.AllowedTags.Add("iframe");
 
             lastThreads.AsParallel().ForAll(x => x.SanitizedDescription = sanitizer.Sanitize(x.Description));
             lastThreads.AsParallel().ForAll(x => x.SanitizedDescription = this.htmlSizeParser.Parse(x.SanitizedDescription, 100, 50));
-
-            return lastThreads;
         }
     }
 }

@@ -39,7 +39,6 @@ namespace HolocronProject.Services.Implementations
 
             post.IsDeleted = true;
             post.DeletedOn = DateTime.UtcNow;
-            post.NormalizedDeletedOn = DateTime.Now.ToString("MM/dd/yyyy h:mm tt");
 
             await this.context.SaveChangesAsync();
         }

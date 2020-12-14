@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 
 namespace HolocronProject.Web.Areas.Administration.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class PostsController : BaseAdminController
     {
 
@@ -30,35 +31,36 @@ namespace HolocronProject.Web.Areas.Administration.Controllers
             this.htmlSizeParser = htmlSizeParser;
         }
 
-        [Authorize(Roles = "Admin")]
         public IActionResult NewestPosts(int? page)
         {
             var lastPosts = this.postService.GetAllLastPosts<LastPostsViewModel>();
 
             if (lastPosts.Count() > 0)
             {
-                lastPosts = PostParserAndSanitizer(page, lastPosts);
+                lastPosts = LastPostsPager(page, lastPosts);
+                LastPostsSanitizer(lastPosts);
             }
-
 
             return this.View(lastPosts.ToList());
         }
 
-        private IEnumerable<LastPostsViewModel> PostParserAndSanitizer(int? page, IEnumerable<LastPostsViewModel> lastPosts)
+        private static IEnumerable<LastPostsViewModel> LastPostsPager(int? page, IEnumerable<LastPostsViewModel> lastPosts)
         {
-            var sanitizer = new HtmlSanitizer();
-
             var pager = new Pager(lastPosts.Count(), page);
             lastPosts = lastPosts.OrderByDescending(x => x.CreatedOn);
             lastPosts = lastPosts.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize);
 
             lastPosts.FirstOrDefault().Pager = pager;
+            return lastPosts;
+        }
 
+        private void LastPostsSanitizer(IEnumerable<LastPostsViewModel> lastPosts)
+        {
+            var sanitizer = new HtmlSanitizer();
             sanitizer.AllowedTags.Add("iframe");
 
             lastPosts.AsParallel().ForAll(x => x.SanitizedDescription = sanitizer.Sanitize(x.Description));
             lastPosts.AsParallel().ForAll(x => x.SanitizedDescription = this.htmlSizeParser.Parse(x.SanitizedDescription, 100, 50));
-            return lastPosts;
         }
     }
 }

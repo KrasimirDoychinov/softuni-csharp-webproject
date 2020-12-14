@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace HolocronProject.Web.Controllers
 {
+    [Authorize]
     public class PostReportsController : BaseController
     {
         private readonly IPostReportsService postReportsService;
@@ -28,13 +29,11 @@ namespace HolocronProject.Web.Controllers
             this.htmlSizeParser = htmlSizeParser;
         }
 
-        [Authorize]
         public IActionResult Create()
         {
             return this.View();
         }
 
-        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Create(PostReportInputModel input, string postId)
         {
@@ -49,45 +48,51 @@ namespace HolocronProject.Web.Controllers
             return this.RedirectToAction(nameof(AllPostReports));
         }
 
-        [Authorize]
         public IActionResult AllPostReports(int? page)
         {
-            IEnumerable<PostReportListViewModel> postListViewModel;
+            IEnumerable<PostReportListViewModel> postReportListViewModel;
 
             var accountId = this.userManager.GetUserAsync(this.User).Result.Id;
-            postListViewModel = this.postReportsService.GetAllByAccountUnresolved<PostReportListViewModel>(accountId);
+            postReportListViewModel = this.postReportsService.GetAllByAccountUnresolved<PostReportListViewModel>(accountId);
 
-            if (postListViewModel.Count() > 0)
+            if (postReportListViewModel.Count() > 0)
             {
-                postListViewModel = postListViewModel.OrderByDescending(x => x.CreatedOn);
-                var pager = new Pager(postListViewModel.Count(), page);
-                postListViewModel = postListViewModel.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize);
-                postListViewModel.FirstOrDefault().Pager = pager;
-
+                postReportListViewModel = PostReportsPager(page, postReportListViewModel);
+                PostReportsUTCToLocalTime(postReportListViewModel);
             }
 
-            return this.View(postListViewModel.ToList());
+            return this.View(postReportListViewModel.ToList());
         }
 
-        [Authorize]
         public IActionResult AllResolvedPostReports(int? page)
         {
-            IEnumerable<PostReportListViewModel> postListViewModel;
+            IEnumerable<PostReportListViewModel> postReportListViewModel;
 
             var accountId = this.userManager.GetUserAsync(this.User).Result.Id;
-            postListViewModel = this.postReportsService.GetAllByAccountResolved<PostReportListViewModel>(accountId);
+            postReportListViewModel = this.postReportsService.GetAllByAccountResolved<PostReportListViewModel>(accountId);
 
-
-            if (postListViewModel.Count() > 0)
+            if (postReportListViewModel.Count() > 0)
             {
-                postListViewModel = postListViewModel.OrderByDescending(x => x.ResolvedOn);
-                var pager = new Pager(postListViewModel.Count(), page);
-                postListViewModel = postListViewModel.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize);
-                postListViewModel.FirstOrDefault().Pager = pager;
+                postReportListViewModel = PostReportsPager(page, postReportListViewModel);
+                PostReportsUTCToLocalTime(postReportListViewModel);
             }
 
+            return this.View(postReportListViewModel.ToList());
+        }
 
-            return this.View(postListViewModel.ToList());
+        private static IEnumerable<PostReportListViewModel> PostReportsPager(int? page, IEnumerable<PostReportListViewModel> postReportListViewModel)
+        {
+            postReportListViewModel = postReportListViewModel.OrderByDescending(x => x.CreatedOn);
+            var pager = new Pager(postReportListViewModel.Count(), page);
+            postReportListViewModel = postReportListViewModel.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize);
+            postReportListViewModel.FirstOrDefault().Pager = pager;
+            return postReportListViewModel;
+        }
+
+        private static void PostReportsUTCToLocalTime(IEnumerable<PostReportListViewModel> postReportListViewModel)
+        {
+            postReportListViewModel.AsParallel().ForAll(x => x.NormalizedCreatedOn = x.CreatedOn.ToLocalTime().ToString("MM/dd/yyyy h:mm tt"));
+            postReportListViewModel.AsParallel().ForAll(x => x.NormalizedResolvedOn = x.ResolvedOn.ToLocalTime().ToString("MM/dd/yyyy h:mm tt"));
         }
     }
 }

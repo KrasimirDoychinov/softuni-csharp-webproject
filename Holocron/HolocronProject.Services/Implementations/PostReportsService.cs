@@ -41,7 +41,6 @@ namespace HolocronProject.Services.Implementations
 
             postReport.IsResolved = true;
             postReport.ResolvedOn = DateTime.UtcNow;
-            postReport.NormalizedResolvedOn = DateTime.Now.ToString("MM/dd/yyyy h:mm tt");
 
             this.context.PostReports.Update(postReport);
             await this.context.SaveChangesAsync();
@@ -53,7 +52,6 @@ namespace HolocronProject.Services.Implementations
             
             postReport.IsResolved = true;
             postReport.ResolvedOn = DateTime.UtcNow;
-            postReport.NormalizedResolvedOn = DateTime.Now.ToString("MM/dd/yyyy h:mm tt");
 
             await this.postsService.DeletePostAsync(postId);
             this.context.PostReports.Update(postReport);

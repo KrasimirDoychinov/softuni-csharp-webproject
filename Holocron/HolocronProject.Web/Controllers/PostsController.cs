@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace HolocronProject.Web.Controllers
 {
+    [Authorize]
     public class PostsController : BaseController
     {
         private readonly IPostsService postService;
@@ -28,13 +29,11 @@ namespace HolocronProject.Web.Controllers
             this.htmlSizeParser = htmlSizeParser;
         }
 
-        [Authorize]
         public IActionResult Create()
         {
             return this.View();
         }
 
-        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Create(PostInputModel input, string threadId)
         {
@@ -49,20 +48,6 @@ namespace HolocronProject.Web.Controllers
             return this.Redirect($"/Threads/ById?threadId={threadId}");
         }
 
-        [Authorize]
-        public IActionResult LastPosts(string accountId, int? page)
-        {
-            var lastPosts = this.postService.GetLastPostsByAccountId<LastPostsViewModel>(accountId);
-
-            if (lastPosts.Count() > 0)
-            {
-                lastPosts = PostParserAndSanitizer(page, lastPosts);
-            }
-            
-            return this.View(lastPosts.ToList());
-        }
-
-        [Authorize]
         public IActionResult Edit(string postId)
         {
             var postViewModel = this.postService.GetPostById<PostEditViewModel>(postId);
@@ -70,7 +55,6 @@ namespace HolocronProject.Web.Controllers
             return this.View(postViewModel);
         }
 
-        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Edit(PostEditViewModel input)
         {
@@ -79,23 +63,37 @@ namespace HolocronProject.Web.Controllers
             return this.Redirect($"/Threads/ById?threadId={input.ThreadId}");
         }
 
-
-        private IEnumerable<LastPostsViewModel> PostParserAndSanitizer(int? page, IEnumerable<LastPostsViewModel> lastPosts)
+        public IActionResult LastPosts(string accountId, int? page)
         {
-            var sanitizer = new HtmlSanitizer();
+            var lastPosts = this.postService.GetLastPostsByAccountId<LastPostsViewModel>(accountId);
 
+            if (lastPosts.Count() > 0)
+            {
+                lastPosts = LastPostsPager(page, lastPosts);
+                LastPostsSanitizer(lastPosts);
+                lastPosts.AsParallel().ForAll(x => x.NormalizedCreatedOn = x.CreatedOn.ToLocalTime().ToString("MM/dd/yyyy h:mm tt"));
+            }
+
+            return this.View(lastPosts.ToList());
+        }
+
+        private static IEnumerable<LastPostsViewModel> LastPostsPager(int? page, IEnumerable<LastPostsViewModel> lastPosts)
+        {
             var pager = new Pager(lastPosts.Count(), page);
             lastPosts = lastPosts.OrderByDescending(x => x.CreatedOn);
             lastPosts = lastPosts.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize);
 
             lastPosts.FirstOrDefault().Pager = pager;
+            return lastPosts;
+        }
 
+        private void LastPostsSanitizer(IEnumerable<LastPostsViewModel> lastPosts)
+        {
+            var sanitizer = new HtmlSanitizer();
             sanitizer.AllowedTags.Add("iframe");
 
             lastPosts.AsParallel().ForAll(x => x.SanitizedDescription = sanitizer.Sanitize(x.Description));
             lastPosts.AsParallel().ForAll(x => x.SanitizedDescription = this.htmlSizeParser.Parse(x.SanitizedDescription, 100, 50));
-            return lastPosts;
         }
-
     }
 }

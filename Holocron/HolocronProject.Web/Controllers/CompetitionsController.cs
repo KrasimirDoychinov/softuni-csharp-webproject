@@ -37,8 +37,12 @@ namespace HolocronProject.Web.Controllers
         {
             var competitions = this.competitionsService.GetAll<CompetitionListViewModel>();
 
-            competitions = AllCompetitionsPaging(page, competitions);
-
+            if (competitions.Count() > 0)
+            {
+                competitions = AllCompetitionsPaging(page, competitions);
+                CompetitionsUTCToLocalTime(competitions);
+            }
+            
             return this.View(competitions);
         }
 
@@ -46,7 +50,11 @@ namespace HolocronProject.Web.Controllers
         {
             var competitions = this.competitionsService.GetAllFinished<CompetitionListViewModel>();
 
-            competitions = AllCompetitionsPaging(page, competitions);
+            if (competitions.Count() > 0)
+            {
+                competitions = AllCompetitionsPaging(page, competitions);
+                CompetitionsUTCToLocalTime(competitions);
+            }
 
             return this.View(competitions);
         }
@@ -65,6 +73,7 @@ namespace HolocronProject.Web.Controllers
             competition.HasAccountVoted = this.competitionAccountsService.DoesAccountVoteExist(competitionId, loggedInUserId);
             competition.DoesAccountVoteExist = this.competitionAccountsService.HasAccountVoted(competitionId, loggedInUserId);
             AllCompetitionCharactersPaging(page, competition);
+            CompetitionUTCToLocalTime(competition);
 
             return this.View(competition);
         }
@@ -77,9 +86,10 @@ namespace HolocronProject.Web.Controllers
 
             competition.Characters = competition.Characters
                 .OrderByDescending(x => x.Votes);
+            CompetitionUTCToLocalTime(competition);
+
             return this.View(competition);
         }
-
 
         public async Task<IActionResult> Pick(string characterId, string competitionId)
         {
@@ -107,5 +117,16 @@ namespace HolocronProject.Web.Controllers
             return competitions.ToList();
         }
 
+        private static void CompetitionsUTCToLocalTime(IEnumerable<CompetitionListViewModel> competitions)
+        {
+            competitions.AsParallel().ForAll(x => x.NormalizedStartDate = x.StartDate.ToLocalTime().ToString("MM/dd/yyyy h:mm tt"));
+            competitions.AsParallel().ForAll(x => x.NormalizedEndDate = x.EndDate.ToLocalTime().ToString("MM/dd/yyyy h:mm tt"));
+        }
+
+        private static void CompetitionUTCToLocalTime(CompetitionViewModel competition)
+        {
+            competition.NormalizedStartDate = competition.StartDate.ToLocalTime().ToString("MM/dd/yyyy h:mm tt");
+            competition.NormalizedEndDate = competition.EndDate.ToLocalTime().ToString("MM/dd/yyyy h:mm tt");
+        }
     }
 }

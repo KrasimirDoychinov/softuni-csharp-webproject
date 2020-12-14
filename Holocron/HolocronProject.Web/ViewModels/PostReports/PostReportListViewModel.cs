@@ -15,9 +15,10 @@ namespace HolocronProject.Web.ViewModels.PostReports
 
         public string Title { get; set; }
 
-        public string CreatedOn { get; set; }
+        public DateTime CreatedOn { get; set; }
 
-        public string ResolvedOn { get; set; }
+        public DateTime ResolvedOn { get; set; }
+
         public string NormalizedCreatedOn { get; set; }
 
         public string NormalizedResolvedOn { get; set; }

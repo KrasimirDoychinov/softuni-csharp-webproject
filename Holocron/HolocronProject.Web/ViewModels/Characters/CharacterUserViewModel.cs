@@ -50,6 +50,8 @@ namespace HolocronProject.Web.ViewModels.Characters
 
         public bool IsApproved { get; set; }
 
-        public string CreatedOn { get; set; }
+        public DateTime CreatedOn { get; set; }
+
+        public string NormalizedCreatedOn { get; set; }
     }
 }

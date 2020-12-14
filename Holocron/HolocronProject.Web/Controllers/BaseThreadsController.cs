@@ -24,21 +24,26 @@ namespace HolocronProject.Web.Controllers
         public IActionResult ById(string threadId, int? page)
         {
             var baseThread = this.baseThreadService.GetById<BaseThreadViewModel>(threadId);
-
-            var pager = new Pager(baseThread.ThreadsCount, page);
-            baseThread.Threads = baseThread.Threads.Where(x => !x.IsDeleted);
-            baseThread.Threads = baseThread.Threads.OrderByDescending(x => x.CreatedOn);
-            baseThread.Threads = baseThread.Threads.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize);
+            Pager pager = BaseThreadPager(page, baseThread);
 
             foreach (var thread in baseThread.Threads)
             {
                 thread.PostsCount = this.postsService.TotalPostInThread(thread.Id);
             }
 
-
+            baseThread.Threads.AsParallel().ForAll(x => x.NormalizedCreatedOn = x.CreatedOn.ToLocalTime().ToString("MM/dd/yyyy h:mm tt"));
             baseThread.Pager = pager;
 
             return this.View(baseThread);
+        }
+
+        private static Pager BaseThreadPager(int? page, BaseThreadViewModel baseThread)
+        {
+            var pager = new Pager(baseThread.ThreadsCount, page);
+            baseThread.Threads = baseThread.Threads.Where(x => !x.IsDeleted);
+            baseThread.Threads = baseThread.Threads.OrderByDescending(x => x.CreatedOn);
+            baseThread.Threads = baseThread.Threads.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize);
+            return pager;
         }
     }
 }

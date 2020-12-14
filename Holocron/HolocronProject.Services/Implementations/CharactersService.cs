@@ -131,7 +131,6 @@ namespace HolocronProject.Services.Implementations
             character.CharacterStatus = CharacterStatus.Deleted;
             character.IsDeleted = true;
             character.DeletedOn = DateTime.UtcNow;
-            character.NormalizedDeletedOn = DateTime.UtcNow.ToString("MM/dd/yyyy HH:mm:ss");
 
             BackgroundJob.Schedule(
                 () => this.accountsService.RemoveNotification(accountId), TimeSpan.FromSeconds(180));

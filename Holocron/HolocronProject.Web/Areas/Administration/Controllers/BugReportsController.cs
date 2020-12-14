@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace HolocronProject.Web.Areas.Administration.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class BugReportsController : BaseAdminController
     {
         private readonly IBugReportsService bugReportService;
@@ -25,43 +26,38 @@ namespace HolocronProject.Web.Areas.Administration.Controllers
             this.userManager = userManager;
         }
 
-        [Authorize(Roles = "Admin")]
         public IActionResult AllBugReports(int? page)
         {
-            IEnumerable<BugReportListViewModel> bugReportsViewModel;
+            IEnumerable<BugReportListViewModel> bugReportsList;
 
-            bugReportsViewModel = this.bugReportService.GetAllAdminUnresolved<BugReportListViewModel>();
+            bugReportsList = this.bugReportService.GetAllAdminUnresolved<BugReportListViewModel>();
 
-            if (bugReportsViewModel.Count() > 0)
+            if (bugReportsList.Count() > 0)
             {
-                bugReportsViewModel = bugReportsViewModel.OrderByDescending(x => x.CreatedOn);
-                var pager = new Pager(bugReportsViewModel.Count(), page);
-                bugReportsViewModel = bugReportsViewModel.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize);
-                bugReportsViewModel.FirstOrDefault().Pager = pager;
+                bugReportsList = BugReportsListPager(page, bugReportsList);
+                BugReportsListUTCToLocalTime(bugReportsList);
             }
 
-            return this.View(bugReportsViewModel.ToList());
+            
+
+            return this.View(bugReportsList.ToList());
         }
 
-        [Authorize(Roles = "Admin")]
         public IActionResult AllResolvedBugReports(int? page)
         {
-            IEnumerable<BugReportListViewModel> bugReportsViewModel;
+            IEnumerable<BugReportListViewModel> bugReportsList;
 
-            bugReportsViewModel = this.bugReportService.GetAllAdminResolved<BugReportListViewModel>();
+            bugReportsList = this.bugReportService.GetAllAdminResolved<BugReportListViewModel>();
 
-            if (bugReportsViewModel.Count() > 0)
+            if (bugReportsList.Count() > 0)
             {
-                bugReportsViewModel = bugReportsViewModel.OrderByDescending(x => x.ResolvedOn);
-                var pager = new Pager(bugReportsViewModel.Count(), page);
-                bugReportsViewModel = bugReportsViewModel.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize);
-                bugReportsViewModel.FirstOrDefault().Pager = pager;
+                bugReportsList = BugReportsListPager(page, bugReportsList);
+                BugReportsListUTCToLocalTime(bugReportsList);
             }
-
-            return this.View(bugReportsViewModel.ToList());
+            
+            return this.View(bugReportsList.ToList());
         }
 
-        [Authorize(Roles = "Admin")]
         public IActionResult ById(string id)
         {
             var bugReportViewModel = this.bugReportService.GetBugReportByIdGeneric<BugReportViewModel>(id);
@@ -69,12 +65,26 @@ namespace HolocronProject.Web.Areas.Administration.Controllers
             return this.View(bugReportViewModel);
         }
 
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Resolve(string id)
         {
             await this.bugReportService.ResolveBugReportAsync(id);
 
             return this.Redirect("/Administration/BugReports/AllBugReports");
+        }
+
+        private static IEnumerable<BugReportListViewModel> BugReportsListPager(int? page, IEnumerable<BugReportListViewModel> bugReportsList)
+        {
+            bugReportsList = bugReportsList.OrderByDescending(x => x.CreatedOn);
+            var pager = new Pager(bugReportsList.Count(), page);
+            bugReportsList = bugReportsList.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize);
+            bugReportsList.FirstOrDefault().Pager = pager;
+            return bugReportsList;
+        }
+
+        private static void BugReportsListUTCToLocalTime(IEnumerable<BugReportListViewModel> bugReportsList)
+        {
+            bugReportsList.AsParallel().ForAll(x => x.NormalizedCreatedOn = x.CreatedOn.ToLocalTime().ToString("MM/dd/yyyy h:mm tt"));
+            bugReportsList.AsParallel().ForAll(x => x.NormalizedResolvedOn = x.ResolvedOn.ToLocalTime().ToString("MM/dd/yyyy h:mm tt"));
         }
     }
 }

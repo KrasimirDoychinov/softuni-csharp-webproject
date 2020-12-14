@@ -28,7 +28,7 @@ namespace HolocronProject.Web.ViewModels.Threads
 
         public string ShortenedTitle => this.Title.Length <= 50 ? this.Title : this.Title.Substring(0, 50) + "...";
 
-        public string CreatedOn { get; set; }
+        public DateTime CreatedOn { get; set; }
 
         public string NormalizedCreatedOn { get; set; }
 

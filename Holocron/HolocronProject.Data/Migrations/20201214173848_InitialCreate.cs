@@ -56,10 +56,10 @@ namespace HolocronProject.Data.Migrations
                 {
                     Id = table.Column<string>(nullable: false),
                     CreatedOn = table.Column<DateTime>(nullable: false),
-                    NormalizedCreatedOn = table.Column<string>(nullable: true),
+                    NormalizedCreatedOn = table.Column<DateTime>(nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: false),
-                    NormalizedDeletedOn = table.Column<string>(nullable: true),
+                    NormalizedDeletedOn = table.Column<DateTime>(nullable: false),
                     Title = table.Column<string>(nullable: false),
                     Description = table.Column<string>(nullable: true),
                     ImageUrl = table.Column<string>(nullable: true)
@@ -235,10 +235,10 @@ namespace HolocronProject.Data.Migrations
                 {
                     Id = table.Column<string>(nullable: false),
                     CreatedOn = table.Column<DateTime>(nullable: false),
-                    NormalizedCreatedOn = table.Column<string>(nullable: true),
+                    NormalizedCreatedOn = table.Column<DateTime>(nullable: false),
                     IsResolved = table.Column<bool>(nullable: false),
                     ResolvedOn = table.Column<DateTime>(nullable: false),
-                    NormalizedResolvedOn = table.Column<string>(nullable: true),
+                    NormalizedResolvedOn = table.Column<DateTime>(nullable: false),
                     Title = table.Column<string>(maxLength: 200, nullable: false),
                     Description = table.Column<string>(maxLength: 20000, nullable: false),
                     Notes = table.Column<string>(nullable: true),
@@ -261,10 +261,10 @@ namespace HolocronProject.Data.Migrations
                 {
                     Id = table.Column<string>(nullable: false),
                     CreatedOn = table.Column<DateTime>(nullable: false),
-                    NormalizedCreatedOn = table.Column<string>(nullable: true),
+                    NormalizedCreatedOn = table.Column<DateTime>(nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: false),
-                    NormalizedDeletedOn = table.Column<string>(nullable: true),
+                    NormalizedDeletedOn = table.Column<DateTime>(nullable: false),
                     Title = table.Column<string>(maxLength: 100, nullable: false),
                     Description = table.Column<string>(nullable: false),
                     BaseThreadId = table.Column<string>(nullable: false),
@@ -293,10 +293,10 @@ namespace HolocronProject.Data.Migrations
                 {
                     Id = table.Column<string>(nullable: false),
                     CreatedOn = table.Column<DateTime>(nullable: false),
-                    NormalizedCreatedOn = table.Column<string>(nullable: true),
+                    NormalizedCreatedOn = table.Column<DateTime>(nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: false),
-                    NormalizedDeletedOn = table.Column<string>(nullable: true),
+                    NormalizedDeletedOn = table.Column<DateTime>(nullable: false),
                     Name = table.Column<string>(maxLength: 25, nullable: false),
                     Backstory = table.Column<string>(maxLength: 25000, nullable: true),
                     Description = table.Column<string>(maxLength: 25000, nullable: true),
@@ -346,10 +346,10 @@ namespace HolocronProject.Data.Migrations
                 {
                     Id = table.Column<string>(nullable: false),
                     CreatedOn = table.Column<DateTime>(nullable: false),
-                    NormalizedCreatedOn = table.Column<string>(nullable: true),
+                    NormalizedCreatedOn = table.Column<DateTime>(nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: false),
-                    NormalizedDeletedOn = table.Column<string>(nullable: true),
+                    NormalizedDeletedOn = table.Column<DateTime>(nullable: false),
                     Description = table.Column<string>(maxLength: 20000, nullable: false),
                     AccountId = table.Column<string>(nullable: false),
                     ThreadId = table.Column<string>(nullable: false)
@@ -454,10 +454,10 @@ namespace HolocronProject.Data.Migrations
                 {
                     Id = table.Column<string>(nullable: false),
                     CreatedOn = table.Column<DateTime>(nullable: false),
-                    NormalizedCreatedOn = table.Column<string>(nullable: true),
+                    NormalizedCreatedOn = table.Column<DateTime>(nullable: false),
                     IsResolved = table.Column<bool>(nullable: false),
                     ResolvedOn = table.Column<DateTime>(nullable: false),
-                    NormalizedResolvedOn = table.Column<string>(nullable: true),
+                    NormalizedResolvedOn = table.Column<DateTime>(nullable: false),
                     Title = table.Column<string>(maxLength: 200, nullable: false),
                     Description = table.Column<string>(maxLength: 20000, nullable: false),
                     AccountId = table.Column<string>(nullable: false),
@@ -520,11 +520,11 @@ namespace HolocronProject.Data.Migrations
                 columns: new[] { "Id", "CreatedOn", "DeletedOn", "Description", "ImageUrl", "IsDeleted", "NormalizedCreatedOn", "NormalizedDeletedOn", "Title" },
                 values: new object[,]
                 {
-                    { "b268a2f7-25e1-470a-ad73-c73b8f57158d", new DateTime(2020, 12, 7, 17, 39, 29, 685, DateTimeKind.Utc).AddTicks(5976), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "This is the place to discuss everything PVP related. From questions about gear, stats, guides, discussions and everything else related to PVP in SWTOR. You can also post about PVP guilds, recruitment and more.", "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_76.png", false, "12/07/2020 07:39 PM", null, "PVP" },
-                    { "a88e2498-d7c9-421b-a49c-34b8a3070f29", new DateTime(2020, 12, 7, 17, 39, 29, 688, DateTimeKind.Utc).AddTicks(4568), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "This is the place to talk about PVE. Best gear and stats for flashpoints, operations. You can post guides about PVE content here from leveling guides to FP and OP guides. You can also post about PVE guild recruitment and give information about your guild here.", "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_88.png", false, "12/07/2020 07:39 PM", null, "PVE" },
-                    { "81a4e972-4b89-4072-9395-361f0602e119", new DateTime(2020, 12, 7, 17, 39, 29, 688, DateTimeKind.Utc).AddTicks(4670), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "If you want to RP on the site this is the place for you. This is the RP section of the forums where you can find all the forum RP you've ever wanted. You can also post about in-game RP and so on.", "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_423.png", false, "12/07/2020 07:39 PM", null, "RP" },
-                    { "c79f5b98-8a24-4f85-bf85-5280f86530f1", new DateTime(2020, 12, 7, 17, 39, 29, 688, DateTimeKind.Utc).AddTicks(4684), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "This is where you can talk about anything you want. It doesn't need to be just SWTOR or Star Wars. You can post about other games, cars, IT discussions, politics, and everything that can't be found on the other threads.", "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_8.png", false, "12/07/2020 07:39 PM", null, "Other" },
-                    { "3f4f4851-dfb5-4524-bf32-c4b7f957dca0", new DateTime(2020, 12, 7, 17, 39, 29, 688, DateTimeKind.Utc).AddTicks(4693), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "This is the place to show of your character to other people. You can post cool, more modified images of your character. Here you can ask about items and how to combine them to make a cooler character in-game.", "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_245.png", false, "12/07/2020 07:39 PM", null, "Fashion" }
+                    { "3a710b76-97e6-4922-aff0-3df63d92d0b2", new DateTime(2020, 12, 14, 17, 38, 47, 700, DateTimeKind.Utc).AddTicks(7506), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "This is the place to discuss everything PVP related. From questions about gear, stats, guides, discussions and everything else related to PVP in SWTOR. You can also post about PVP guilds, recruitment and more.", "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_76.png", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "PVP" },
+                    { "bbb0fc1e-db8a-499b-b23a-e243c9d46a58", new DateTime(2020, 12, 14, 17, 38, 47, 700, DateTimeKind.Utc).AddTicks(8442), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "This is the place to talk about PVE. Best gear and stats for flashpoints, operations. You can post guides about PVE content here from leveling guides to FP and OP guides. You can also post about PVE guild recruitment and give information about your guild here.", "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_88.png", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "PVE" },
+                    { "8b4ce15e-cc91-4c5a-8432-d0bc6aaa4247", new DateTime(2020, 12, 14, 17, 38, 47, 700, DateTimeKind.Utc).AddTicks(8487), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "If you want to RP on the site this is the place for you. This is the RP section of the forums where you can find all the forum RP you've ever wanted. You can also post about in-game RP and so on.", "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_423.png", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "RP" },
+                    { "ac21bd77-7e1c-40c1-9d2e-df78268f642f", new DateTime(2020, 12, 14, 17, 38, 47, 700, DateTimeKind.Utc).AddTicks(8491), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "This is where you can talk about anything you want. It doesn't need to be just SWTOR or Star Wars. You can post about other games, cars, IT discussions, politics, and everything that can't be found on the other threads.", "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_8.png", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Other" },
+                    { "e4073799-ff13-4243-b476-8ba5b9e57080", new DateTime(2020, 12, 14, 17, 38, 47, 700, DateTimeKind.Utc).AddTicks(8494), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "This is the place to show of your character to other people. You can post cool, more modified images of your character. Here you can ask about items and how to combine them to make a cooler character in-game.", "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_245.png", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Fashion" }
                 });
 
             migrationBuilder.InsertData(
@@ -532,22 +532,22 @@ namespace HolocronProject.Data.Migrations
                 columns: new[] { "Id", "Faction", "Name" },
                 values: new object[,]
                 {
-                    { "62287eef-2a3a-4510-91fd-2a6a5cce81f4", 1, "Guardian" },
-                    { "abcf5b88-b85b-4f2f-a857-1474b0f0f99d", 1, "Sentinel" },
-                    { "e246c05c-6906-47d7-a1bc-973a6f66836c", 1, "Sage" },
-                    { "92ddc5c4-558b-4082-937d-3b1b0f14220d", 1, "Commando" },
-                    { "8386213f-89c6-4d38-a5ef-3fe6631881f7", 1, "Vanguard" },
-                    { "69d577b8-1d70-48b1-8d87-05904297f21d", 1, "Scoundrel" },
-                    { "cf5b9c91-0e5b-420f-85f1-d2143d29c55b", 1, "Gunslinger" },
-                    { "d8a5f67f-aaee-4fd7-8208-e84accb28e59", 1, "Shadow" },
-                    { "313fda59-0f85-46a4-a18e-c2258dd8cbdc", 2, "Powertech" },
-                    { "cd86e460-f6a8-4a1b-99ce-f12c37be6a0e", 2, "Operative" },
-                    { "603239b9-05c7-46a1-8d6b-69c781cf797c", 2, "Sniper" },
-                    { "9eec1d7b-fbe4-4137-b631-798a62136cc3", 2, "Assassin" },
-                    { "16ae45b2-61e1-4ecf-a6d6-0cfea2b53e5a", 2, "Sorcerer" },
-                    { "3d5c19a5-61b3-4eab-bf1c-53e3b3e27487", 2, "Marauder" },
-                    { "413604a7-f2fd-4348-b1b6-5b7b33cdd95a", 2, "Juggernaut" },
-                    { "31d3ee35-2dca-4d2a-9566-79980528e9df", 2, "Mercenary" }
+                    { "e56dd53d-e49c-4171-8c1b-50cde4b4dc2e", 1, "Guardian" },
+                    { "3bf08fc3-13e4-44ae-9152-89640dab342a", 1, "Sentinel" },
+                    { "3df21721-bb54-43f3-b7cf-b37207b804b7", 1, "Sage" },
+                    { "ff3086d5-6bbd-4379-be45-90c5f8cae8b4", 1, "Commando" },
+                    { "1fdb1040-0468-4d53-9aaf-5f81d9c93155", 1, "Vanguard" },
+                    { "325bf826-1f94-4ac0-a3f6-1cfd0715358c", 1, "Scoundrel" },
+                    { "7f3441f4-58d6-4f83-b7f2-f64ae6ad93e2", 1, "Gunslinger" },
+                    { "7c04e6c0-d6d5-4d6a-b508-afcb531abd1f", 1, "Shadow" },
+                    { "8652536d-f76c-4098-8306-f28b8aaf0542", 2, "Powertech" },
+                    { "56c0cf45-7574-4c54-84ea-bec618129445", 2, "Operative" },
+                    { "4cb55826-f2fd-4b5e-8cfb-5a10e9c609f6", 2, "Sniper" },
+                    { "68f798cf-99d6-4bab-a351-11a58948cdbc", 2, "Assassin" },
+                    { "8479cabc-5c4c-4d6e-b022-dc0638493534", 2, "Sorcerer" },
+                    { "b760665d-d721-4f5b-90fa-847b1d0a8d88", 2, "Marauder" },
+                    { "8915e647-d04b-4a9a-bb3e-b48c367b13bd", 2, "Juggernaut" },
+                    { "6e0e2c31-3733-465d-994d-8bce35b3f373", 2, "Mercenary" }
                 });
 
             migrationBuilder.InsertData(
@@ -555,18 +555,18 @@ namespace HolocronProject.Data.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { "55be3df9-dcc7-4c08-94cc-09aaaaebb840", "Nautolan" },
-                    { "a43209ab-fa49-402a-9ee7-e0a5bfa106f2", "Togruta" },
-                    { "14686975-acd7-4a5b-b502-50fa3d72726e", "Cathar" },
-                    { "b2896fe3-ff0a-4375-8172-ed57c54f3534", "Zabrak" },
-                    { "6d060ba2-d185-4ae3-a842-c56d3cd018ce", "Twi'lek" },
-                    { "2ba9b9db-52f3-40d9-92c8-cf8ffe649445", "Sith Pureblood" },
-                    { "cdce640b-2898-48c1-8904-dad3e4326bc2", "Mirialan" },
-                    { "9375f632-ad85-4044-a115-da4d1f4091dd", "Miraluka" },
-                    { "2facd810-ae05-4d16-a87a-9d012b4b5f8c", "Human" },
-                    { "b3e265d5-148b-446c-8130-c1f34ee8dce4", "Cyborg" },
-                    { "878a4a8a-3706-41e1-b595-e1694a583988", "Chiss" },
-                    { "aaf1084c-dbec-4dc3-81b7-77d9afba88e2", "Rattaki" }
+                    { "a0de8003-8d12-4f1f-8e3b-eb3471f88897", "Nautolan" },
+                    { "f17d2a68-7de6-482a-97ef-17a18c4bfc60", "Togruta" },
+                    { "9b3ac3ca-cf48-4460-8494-0b8fa2f0ce28", "Cathar" },
+                    { "bf7363eb-49d8-4036-bb09-73e8c92f681f", "Zabrak" },
+                    { "27482297-1592-4daa-8816-02c1a03b6cd7", "Twi'lek" },
+                    { "a2963bc8-23eb-4685-bd20-d975bd64c1d6", "Sith Pureblood" },
+                    { "be6eedf6-61e7-499f-9ae7-45cfc2317e6e", "Mirialan" },
+                    { "82348cee-6f76-4a08-af63-e7662f148833", "Miraluka" },
+                    { "2acf60a5-5358-4c46-9095-0d024e86db6e", "Human" },
+                    { "5776155c-19d9-4e00-982b-265fca792cae", "Cyborg" },
+                    { "ceb40fec-c925-442b-b98b-c503097f4016", "Chiss" },
+                    { "8ef8c5b3-f8f5-4f5b-8b21-60cb53743be8", "Rattaki" }
                 });
 
             migrationBuilder.InsertData(
@@ -574,11 +574,11 @@ namespace HolocronProject.Data.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { "f670fa98-e967-406d-a9d6-afa56dc30263", "Tulak Hord" },
-                    { "c0870b48-8ecd-4537-9ac6-2af49cfce712", "Darth Malgus" },
-                    { "32b50f1f-92a1-4a31-b2d7-dfe90ba2f026", "Star Forge" },
-                    { "60bd5c4b-1ca4-464a-8090-ffe5f66d5c34", "Satele Shan" },
-                    { "aa2ccc20-5145-4fa0-b05c-dd48fb53b9eb", "The Leviathan" }
+                    { "9a63040e-d42d-4edf-863d-a5257ca2fef9", "Tulak Hord" },
+                    { "1ac9cae9-ccdf-444c-b836-cd2f3ac55509", "Darth Malgus" },
+                    { "bfc32301-bc59-454e-a888-fbec9ab8b381", "Star Forge" },
+                    { "721c35fd-3ef9-4357-8261-47b78300150a", "Satele Shan" },
+                    { "d1c4ee97-402c-4cf5-b96d-78496ddab209", "The Leviathan" }
                 });
 
             migrationBuilder.CreateIndex(

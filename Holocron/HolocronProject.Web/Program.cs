@@ -8,15 +8,11 @@ namespace HolocronProject.Web
 
     // TODO: Review the code each day at the beginning of the code session and at the end of the session
 
-    // TODO: !!!Finish competitions and reward achievements!!!
-    // TODO: !!!Add signalR timer!!!
-    // TODO: !!!Add competitions and achievements!!!
-    // TODO: !!!Delete the CompetitionVotes table!!!
+    // TODO: Show all date time in local timezone
+    // TODO: Look over every single service and controller and fix anything that is wrong
+    // TODO: Look over all the views as well
     // TODO: Add stats view
-    // TODO: Fix all the User views and Admin views to look better
-    // TODO: !!!Tmmrw look over the admin panel and see if there is something to be added!!!
-    // TODO: Look over all the services and controllers and see if u can fix syntax problems in the code 
-    // TODO: Make a js script that opens the edit menu for the forum signature
+    // TODO: !!!Add signalR timer!!!
 
     // -----USEFUL-----
     // DateTime.Now.ToString("MM/dd/yyyy h:mm tt");

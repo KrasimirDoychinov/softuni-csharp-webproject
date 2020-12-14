@@ -42,7 +42,6 @@ namespace HolocronProject.Services.Implementations
 
             thread.IsDeleted = true;
             thread.DeletedOn = DateTime.UtcNow;
-            thread.NormalizedDeletedOn = DateTime.Now.ToString("MM/dd/yyyy h:mm tt");
 
             foreach (var post in thread.Posts)
             {

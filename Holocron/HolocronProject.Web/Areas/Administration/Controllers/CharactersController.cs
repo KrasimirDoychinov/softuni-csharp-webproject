@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 
 namespace HolocronProject.Web.Areas.Administration.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class CharactersController : BaseAdminController
     {
         private readonly ICharactersService characterService;
@@ -26,7 +27,6 @@ namespace HolocronProject.Web.Areas.Administration.Controllers
             this.characterService = characterService;
         }
 
-        [Authorize(Roles = "Admin")]
         public IActionResult CharacterInfo(string characterId)
         {
             var charViewModel = this.characterService.GetCharacterByIdGeneric<CharacterUserViewModel>(characterId);
@@ -50,33 +50,33 @@ namespace HolocronProject.Web.Areas.Administration.Controllers
 
             return this.View(charViewModel);
         }
-        [Authorize(Roles = "Admin")]
+
         public IActionResult NewestCharacters(int? page)
         {
             var charListViewModel = this.characterService.GetNewestCharacters<CharacterListViewModel>();
 
             if (charListViewModel.Count() > 0)
             {
-                charListViewModel = CharListParserAndSanitizer(page, charListViewModel);
+                charListViewModel = CharListPager(page, charListViewModel);
+                CharListUTCToLocalTime(charListViewModel);
             }
 
             return this.View(charListViewModel.ToList());
         }
 
-        [Authorize(Roles = "Admin")]
         public IActionResult AllPendingCharacters(int? page)
         {
             var charListViewModel = this.characterService.GetAllPendingCharacters<CharacterListViewModel>();
 
             if (charListViewModel.Count() > 0)
             {
-                charListViewModel = CharListParserAndSanitizer(page, charListViewModel);
+                charListViewModel = CharListPager(page, charListViewModel);
+                CharListUTCToLocalTime(charListViewModel);
             }
 
             return this.View(charListViewModel.ToList());
         }
 
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> ApproveCharacter(string characterId, string accountId)
         {
             await this.characterService.ApproveCharacter(characterId, accountId);
@@ -84,7 +84,6 @@ namespace HolocronProject.Web.Areas.Administration.Controllers
             return this.Redirect("/");
         }
 
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteCharacter(string characterId, string accountId)
         {
             await this.characterService.DeleteCharacter(characterId, accountId);
@@ -92,13 +91,18 @@ namespace HolocronProject.Web.Areas.Administration.Controllers
             return this.Redirect("/");
         }
 
-        private static IEnumerable<CharacterListViewModel> CharListParserAndSanitizer(int? page, IEnumerable<CharacterListViewModel> charListViewModel)
+        private static IEnumerable<CharacterListViewModel> CharListPager(int? page, IEnumerable<CharacterListViewModel> charListViewModel)
         {
             charListViewModel = charListViewModel.OrderByDescending(x => x.NormalizedCreatedOn);
             var pager = new Pager(charListViewModel.Count(), page);
             charListViewModel = charListViewModel.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize);
             charListViewModel.FirstOrDefault().Pager = pager;
             return charListViewModel;
+        }
+
+        private static void CharListUTCToLocalTime(IEnumerable<CharacterListViewModel> charList)
+        {
+            charList.AsParallel().ForAll(x => x.NormalizedCreatedOn = x.CreatedOn.ToLocalTime().ToString("MM/dd/yyyy h:mm tt"));
         }
     }
 }

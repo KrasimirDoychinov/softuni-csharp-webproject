@@ -14,7 +14,7 @@ namespace HolocronProject.Web.ViewModels.Accounts
 
         public string UserName { get; set; }
 
-        public string CreatedOn { get; set; }
+        public DateTime CreatedOn { get; set; }
 
         public string AvatarImagePath { get; set; }
 

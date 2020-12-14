@@ -23,6 +23,7 @@ using System.Threading.Tasks;
 
 namespace HolocronProject.Web.Controllers
 {
+    [Authorize]
     public class CharactersController : BaseController
     {
         private readonly IClassesService classService;
@@ -51,7 +52,6 @@ namespace HolocronProject.Web.Controllers
             this.userManager = userManager;
         }
 
-        [Authorize]
         public IActionResult CreateCharacter()
         {
             var characterInputModel = new CharacterInputModel();
@@ -61,7 +61,6 @@ namespace HolocronProject.Web.Controllers
             return this.View(characterInputModel);
         }
 
-        [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateCharacter(CharacterInputModel input)
         {
@@ -100,62 +99,6 @@ namespace HolocronProject.Web.Controllers
             return this.Redirect($"/");
         }
 
-        [Authorize]
-        public async Task<IActionResult> AllCharacters(string accountId, int? page)
-        {
-            var charListViewModel = this.characterService.GetCurrentAccountCharacter<CharacterListViewModel>(accountId);
-
-            if (charListViewModel.Count() > 0)
-            {
-                charListViewModel = CharListParserAndSanitizer(page, charListViewModel);
-            }
-            await this.accountsService.RemoveNotification(accountId);
-            ViewData["charactersAccountId"] = accountId;
-
-            return this.View(charListViewModel.ToList());
-        }
-
-        [Authorize]
-        public IActionResult CharacterInfo(string characterId, string accountId)
-        {
-            var charViewModel = this.characterService.GetCharacterByIdGeneric<CharacterUserViewModel>(characterId);
-            ViewData["charactersAccountId"] = accountId;
-
-            if (charViewModel.ForceAffiliation == ForceAffiliation.LightSide)
-            {
-                charViewModel.ForceAffiliationString = "Light side";
-            }
-            else if (charViewModel.ForceAffiliation == ForceAffiliation.DarkSide)
-            {
-                charViewModel.ForceAffiliationString = "Dark side";
-            }
-            else if (charViewModel.ForceAffiliation == ForceAffiliation.None)
-            {
-                charViewModel.ForceAffiliationString = "None";
-            }
-            else
-            {
-                charViewModel.ForceAffiliationString = "Unknown";
-            }
-
-            return this.View(charViewModel);
-        }
-
-        [Authorize]
-        public IActionResult PendingCharacters(string accountId, int? page)
-        {
-            var pendingCharacters = this.characterService.GetPendingCharacters<CharacterListViewModel>(accountId);
-
-            if (pendingCharacters.Count() > 0)
-            {
-                pendingCharacters = CharListParserAndSanitizer(page, pendingCharacters);
-            }
-            ViewData["charactersAccountId"] = accountId;
-            return this.View(pendingCharacters.ToList());
-        }
-
-
-        [Authorize]
         public IActionResult Edit(string characterId)
         {
             var characterEditModel = this.characterService.GetCharacterByIdGeneric<CharacterEditViewModel>(characterId);
@@ -167,7 +110,6 @@ namespace HolocronProject.Web.Controllers
             return this.View(characterEditModel);
         }
 
-        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Edit(CharacterEditViewModel input)
         {
@@ -203,7 +145,64 @@ namespace HolocronProject.Web.Controllers
             return this.Redirect($"/Characters/AllCharacters?accountId={accountId}");
         }
 
-        [Authorize]
+        public async Task<IActionResult> AllCharacters(string accountId, int? page)
+        {
+            var charListViewModel = this.characterService.GetCurrentAccountCharacter<CharacterListViewModel>(accountId);
+
+            if (charListViewModel.Count() > 0)
+            {
+                charListViewModel = CharListPager(page, charListViewModel);
+                CharListUTCToLocalTime(charListViewModel);
+            }
+            await this.accountsService.RemoveNotification(accountId);
+            ViewData["charactersAccountId"] = accountId;
+           
+            return this.View(charListViewModel.ToList());
+        }
+
+        public IActionResult CharacterInfo(string characterId, string accountId)
+        {
+            var charViewModel = this.characterService.GetCharacterByIdGeneric<CharacterUserViewModel>(characterId);
+            ViewData["charactersAccountId"] = accountId;
+
+            if (charViewModel.ForceAffiliation == ForceAffiliation.LightSide)
+            {
+                charViewModel.ForceAffiliationString = "Light side";
+            }
+            else if (charViewModel.ForceAffiliation == ForceAffiliation.DarkSide)
+            {
+                charViewModel.ForceAffiliationString = "Dark side";
+            }
+            else if (charViewModel.ForceAffiliation == ForceAffiliation.None)
+            {
+                charViewModel.ForceAffiliationString = "None";
+            }
+            else
+            {
+                charViewModel.ForceAffiliationString = "Unknown";
+            }
+
+            charViewModel.NormalizedCreatedOn = charViewModel.CreatedOn.ToLocalTime().ToString("MM/dd/yyyy h:mm tt");
+
+            return this.View(charViewModel);
+        }
+
+        public IActionResult PendingCharacters(string accountId, int? page)
+        {
+            var pendingCharacters = this.characterService.GetPendingCharacters<CharacterListViewModel>(accountId);
+
+            if (pendingCharacters.Count() > 0)
+            {
+                pendingCharacters = CharListPager(page, pendingCharacters);
+                pendingCharacters.AsParallel().ForAll(x => x.NormalizedCreatedOn = x.CreatedOn.ToLocalTime().ToString("MM/dd/yyyy h:mm tt"));
+            }
+
+            ViewData["charactersAccountId"] = accountId;
+            return this.View(pendingCharacters.ToList());
+        }
+
+
+        
         public IActionResult CharactersToPick(string accountId, string competitionId, int? page)
         {
             var charListViewModel = this.characterService.GetCurrentAccountCharacterForCompetition<CharacterToPickViewModel>(accountId, competitionId);
@@ -211,14 +210,15 @@ namespace HolocronProject.Web.Controllers
             charListViewModel.AsParallel().ForAll(x => x.CompetitionId = competitionId);
             if (charListViewModel.Count() > 0)
             {
-                charListViewModel = CharListParserAndSanitizerToPick(page, charListViewModel);
+                charListViewModel = CharListToPickPager(page, charListViewModel);
+                CharListUTCToLocalTime(charListViewModel);
             }
-            ViewData["charactersAccountId"] = accountId;
 
+            ViewData["charactersAccountId"] = accountId;
             return this.View(charListViewModel.ToList());
         }
 
-        private static IEnumerable<CharacterListViewModel> CharListParserAndSanitizer(int? page, IEnumerable<CharacterListViewModel> charListViewModel)
+        private static IEnumerable<CharacterListViewModel> CharListPager(int? page, IEnumerable<CharacterListViewModel> charListViewModel)
         {
             charListViewModel = charListViewModel.OrderByDescending(x => x.NormalizedCreatedOn);
             var pager = new Pager(charListViewModel.Count(), page);
@@ -227,13 +227,18 @@ namespace HolocronProject.Web.Controllers
             return charListViewModel;
         }
 
-        private static IEnumerable<CharacterToPickViewModel> CharListParserAndSanitizerToPick(int? page, IEnumerable<CharacterToPickViewModel> charListViewModel)
+        private static IEnumerable<CharacterToPickViewModel> CharListToPickPager(int? page, IEnumerable<CharacterToPickViewModel> charListViewModel)
         {
             charListViewModel = charListViewModel.OrderByDescending(x => x.NormalizedCreatedOn);
             var pager = new Pager(charListViewModel.Count(), page);
             charListViewModel = charListViewModel.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize);
             charListViewModel.FirstOrDefault().Pager = pager;
             return charListViewModel;
+        }
+
+        private static void CharListUTCToLocalTime(IEnumerable<CharacterListViewModel> charListViewModel)
+        {
+            charListViewModel.AsParallel().ForAll(x => x.NormalizedCreatedOn = x.CreatedOn.ToLocalTime().ToString("MM/dd/yyyy h:mm tt"));
         }
     }
 }

@@ -20,7 +20,7 @@
                         }
                         <div class="media-body ml-3">
                             <a href="/Accounts/ForeignAccount?accountId=@Model.AccountId" class="text-decoration-none text-warning" data-abc="true">@Model.AccountUserName</a>
-                            <div class="text-info small">Created on <strong>@Model.NormalizedCreatedOn</strong></div>
+                            <div class="text-info small" id="testDate">Created on <strong>@Model.NormalizedCreatedOn.ToString()</strong></div>
                             <div class="text-info small">
                                 <strong>@Model.PostsCount</strong>@if (Model.PostsCount == 1)
                                 {
