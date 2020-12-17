@@ -1,2 +1,3 @@
-# softuni-csharp-webproject
+# Holocron
+
 SoftUni CSharp WebProject
