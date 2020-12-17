@@ -50,7 +50,7 @@ namespace HolocronProject.Web.Controllers
             IEnumerable<BugReportListViewModel> bugReportsViewModel;
 
             var accountId = this.userManager.GetUserAsync(this.User).Result.Id;
-            bugReportsViewModel = this.bugReportService.GetAllByAccountUnresolved<BugReportListViewModel>(accountId);
+            bugReportsViewModel = this.bugReportService.GetAllByAccountUnresolved<BugReportListViewModel>(accountId, null);
 
             if (bugReportsViewModel.Count() > 0)
             {
@@ -66,7 +66,7 @@ namespace HolocronProject.Web.Controllers
             IEnumerable<BugReportListViewModel> bugReportsViewModel;
 
             var accountId = this.userManager.GetUserAsync(this.User).Result.Id;
-            bugReportsViewModel = this.bugReportService.GetAllByAccountResolved<BugReportListViewModel>(accountId);
+            bugReportsViewModel = this.bugReportService.GetAllByAccountResolved<BugReportListViewModel>(accountId, null);
 
             if (bugReportsViewModel.Count() > 0)
             {

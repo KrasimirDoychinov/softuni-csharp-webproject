@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using HolocronProject.Data;
 using HolocronProject.Data.Enums;
 using HolocronProject.Data.Models;
@@ -87,10 +88,10 @@ namespace HolocronProject.Services.Implementations
             return account.AvatarImagePath;
         }
 
-        public T GetAccountByIdGeneric<T>(string accountId)
+        public T GetAccountByIdGeneric<T>(string accountId, IMapper mapper = null)
             => this.context.Accounts
             .Where(x => x.Id == accountId)
-            .To<T>()
+            .To<T>(mapper)
             .FirstOrDefault();
 
         public bool IsAvatarImageSet(string accountId)

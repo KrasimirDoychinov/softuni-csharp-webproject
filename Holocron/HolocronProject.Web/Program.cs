@@ -15,6 +15,14 @@ namespace HolocronProject.Web
     // TODO: !!!Add signalR timer!!!
 
     // -----USEFUL-----
+
+    //var config = new MapperConfiguration(opts =>
+    //{
+    //    opts.CreateMap<Account, ForeignAccountViewModel>();
+    //});
+    //var mapper = config.CreateMapper(); 
+
+    // Use this mapper to instantiate your class
     // DateTime.Now.ToString("MM/dd/yyyy h:mm tt");
     // class="container"
     // style="background-color: #1a1818;

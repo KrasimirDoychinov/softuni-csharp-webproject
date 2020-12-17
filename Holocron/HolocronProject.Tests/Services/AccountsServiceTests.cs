@@ -15,6 +15,7 @@ using AutoMapper;
 using Moq;
 using HolocronProject.Services.Mapper;
 using HolocronProject.Data.Enums;
+using HolocronProject.Services.Models.Character;
 
 namespace HolocronProject.Tests.Services
 {
@@ -137,7 +138,7 @@ namespace HolocronProject.Tests.Services
             await context.Accounts.AddAsync(account);
             await context.SaveChangesAsync();
 
-            await accountService.CreateAvatarImageAsync("1", file);
+            await accountService.UpdateAvatarImageAsync("1", file);
 
             Assert.AreEqual("1(Account).png", account.AvatarImagePath);
         }
@@ -255,6 +256,28 @@ namespace HolocronProject.Tests.Services
             await accountService.NotifyAccountOfApprovedCharactersAsync("1");
 
             Assert.AreEqual(NotificationStatus.HasApprovedCharacters, account.NotificationStatus);
+        }
+
+        [Test]
+        public async Task NotifyAccountOfPendingCharactersShouldSetNotificationStatusToHasPending()
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
+                    .UseInMemoryDatabase(Guid.NewGuid().ToString())
+                    .Options;
+            var context = new ApplicationDbContext(optionsBuilder);
+            var accountService = new AccountsService(context);
+
+            var account = new Account
+            {
+                Id = "1"
+            };
+
+            await context.Accounts.AddAsync(account);
+            await context.SaveChangesAsync();
+
+            await accountService.NotifyAccountOfPendingCharactersAsync("1");
+
+            Assert.AreEqual(NotificationStatus.HasPendingCharacters, account.NotificationStatus);
         }
 
         [Test]
@@ -388,6 +411,58 @@ namespace HolocronProject.Tests.Services
             await accountService.RemoveNotificationAsync("1");
 
             Assert.AreEqual(NotificationStatus.HasNoPendingOrApprovedCharacters, account.NotificationStatus);
+        }
+
+        [Test]
+        public async Task GetAccountByIdGenericShouldReturnCorrectMappedEntity()
+        {
+            var config = new MapperConfiguration(opts =>
+            {
+                opts.CreateMap<Account, ForeignAccountViewModel>();
+            });
+
+            var mapper = config.CreateMapper();
+
+            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
+                    .UseInMemoryDatabase(Guid.NewGuid().ToString())
+                    .Options;
+            var context = new ApplicationDbContext(optionsBuilder);
+            var accountService = new AccountsService(context);
+
+            var account = new Account
+            {
+                Id = "1"
+            };
+
+            await context.Accounts.AddAsync(account);
+            await context.SaveChangesAsync();
+
+            var mappedModel = accountService.GetAccountByIdGeneric<ForeignAccountViewModel>("1", mapper);
+
+            Assert.AreEqual(NotificationStatus.HasNoPendingOrApprovedCharacters, account.NotificationStatus);
+        }
+
+        [Test]
+        public async Task TotalAccountsShouldReturnCorrectValue()
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
+                    .UseInMemoryDatabase(Guid.NewGuid().ToString())
+                    .Options;
+            var context = new ApplicationDbContext(optionsBuilder);
+            var accountService = new AccountsService(context);
+
+            var account = new Account
+            {
+                Id = "1"
+            };
+
+            await context.Accounts.AddAsync(account);
+            await context.SaveChangesAsync();
+
+            var serviceAccountCount = accountService.TotalAccounts();
+            var contextAccountCount = await context.Accounts.CountAsync();
+
+            Assert.AreEqual(contextAccountCount, serviceAccountCount);
         }
     }
 }

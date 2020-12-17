@@ -1,4 +1,5 @@
-﻿using HolocronProject.Data.Models;
+﻿using AutoMapper;
+using HolocronProject.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,17 +13,17 @@ namespace HolocronProject.Services
 
         Task ResolveBugReportAsync(string bugReportId);
 
-        BugReport GetReportById(string bugReportId);
+        BugReport GetBugReportById(string bugReportId);
 
-        T GetBugReportByIdGeneric<T>(string bugReportId);
+        T GetBugReportByIdGeneric<T>(string bugReportId, IMapper mapper);
 
-        IEnumerable<T> GetAllByAccountUnresolved<T>(string accountId);
+        IEnumerable<T> GetAllByAccountUnresolved<T>(string accountId, IMapper mapper);
 
-        IEnumerable<T> GetAllByAccountResolved<T>(string accountId);
+        IEnumerable<T> GetAllByAccountResolved<T>(string accountId, IMapper mapper);
 
-        IEnumerable<T> GetAllAdminUnresolved<T>();
+        IEnumerable<T> GetAllAdminUnresolved<T>(IMapper mapper);
 
-        IEnumerable<T> GetAllAdminResolved<T>();
+        IEnumerable<T> GetAllAdminResolved<T>(IMapper mapper);
 
         int TotalUnresolvedBugReports();
     }

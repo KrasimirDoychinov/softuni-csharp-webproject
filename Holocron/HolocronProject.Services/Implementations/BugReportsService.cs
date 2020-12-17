@@ -1,4 +1,5 @@
-﻿using HolocronProject.Data;
+﻿using AutoMapper;
+using HolocronProject.Data;
 using HolocronProject.Data.Models;
 using HolocronProject.Services.Mapper;
 using System;
@@ -34,7 +35,7 @@ namespace HolocronProject.Services.Implementations
 
         public async Task ResolveBugReportAsync(string bugReportId)
         {
-            var bugReport = GetReportById(bugReportId);
+            var bugReport = GetBugReportById(bugReportId);
 
             bugReport.IsResolved = true;
             bugReport.ResolvedOn = DateTime.UtcNow;
@@ -43,41 +44,41 @@ namespace HolocronProject.Services.Implementations
             await this.context.SaveChangesAsync();
         }
 
-        public T GetBugReportByIdGeneric<T>(string bugReportId)
+        public T GetBugReportByIdGeneric<T>(string bugReportId, IMapper mapper = null)
             => this.context.BugReports
             .Where(x => x.Id == bugReportId)
-            .To<T>()
+            .To<T>(mapper)
             .FirstOrDefault();
 
-        public IEnumerable<T> GetAllByAccountUnresolved<T>(string accountId)
+        public IEnumerable<T> GetAllByAccountUnresolved<T>(string accountId, IMapper mapper = null)
             => this.context.BugReports
             .Where(x => x.AccountId == accountId && !x.IsResolved)
             .OrderByDescending(x => x.CreatedOn)
-            .To<T>()
+            .To<T>(mapper)
             .ToList();
 
-        public IEnumerable<T> GetAllByAccountResolved<T>(string accountId)
+        public IEnumerable<T> GetAllByAccountResolved<T>(string accountId, IMapper mapper = null)
             => this.context.BugReports
             .Where(x => x.AccountId == accountId && x.IsResolved)
             .OrderByDescending(x => x.ResolvedOn)
-            .To<T>()
+            .To<T>(mapper)
             .ToList();
 
-        public IEnumerable<T> GetAllAdminUnresolved<T>()
+        public IEnumerable<T> GetAllAdminUnresolved<T>(IMapper mapper = null)
             => this.context.BugReports
             .Where(x => !x.IsResolved)
             .OrderByDescending(x => x.CreatedOn)
-            .To<T>()
+            .To<T>(mapper)
             .ToList();
 
-        public IEnumerable<T> GetAllAdminResolved<T>()
+        public IEnumerable<T> GetAllAdminResolved<T>(IMapper mapper = null)
             => this.context.BugReports
             .Where(x => x.IsResolved)
             .OrderByDescending(x => x.ResolvedOn)
-            .To<T>()
+            .To<T>(mapper)
             .ToList();
 
-        public BugReport GetReportById(string bugReportId)
+        public BugReport GetBugReportById(string bugReportId)
             => this.context.BugReports
             .FirstOrDefault(x => x.Id == bugReportId);
 

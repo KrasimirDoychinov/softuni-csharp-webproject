@@ -30,7 +30,7 @@ namespace HolocronProject.Web.Areas.Administration.Controllers
         {
             IEnumerable<BugReportListViewModel> bugReportsList;
 
-            bugReportsList = this.bugReportService.GetAllAdminUnresolved<BugReportListViewModel>();
+            bugReportsList = this.bugReportService.GetAllAdminUnresolved<BugReportListViewModel>(null);
 
             if (bugReportsList.Count() > 0)
             {
@@ -47,7 +47,7 @@ namespace HolocronProject.Web.Areas.Administration.Controllers
         {
             IEnumerable<BugReportListViewModel> bugReportsList;
 
-            bugReportsList = this.bugReportService.GetAllAdminResolved<BugReportListViewModel>();
+            bugReportsList = this.bugReportService.GetAllAdminResolved<BugReportListViewModel>(null);
 
             if (bugReportsList.Count() > 0)
             {
@@ -60,7 +60,7 @@ namespace HolocronProject.Web.Areas.Administration.Controllers
 
         public IActionResult ById(string id)
         {
-            var bugReportViewModel = this.bugReportService.GetBugReportByIdGeneric<BugReportViewModel>(id);
+            var bugReportViewModel = this.bugReportService.GetBugReportByIdGeneric<BugReportViewModel>(id, null);
 
             return this.View(bugReportViewModel);
         }

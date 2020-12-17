@@ -5,6 +5,7 @@ using HolocronProject.Data.Models;
 using HolocronProject.Services.Models;
 using Microsoft.AspNetCore.Http;
 using HolocronProject.Data.Enums;
+using AutoMapper;
 
 namespace HolocronProject.Services
 {
@@ -24,7 +25,7 @@ namespace HolocronProject.Services
 
         string GetAccountAvatarImagePath(string accountId);
 
-        T GetAccountByIdGeneric<T>(string accountId);
+        T GetAccountByIdGeneric<T>(string accountId, IMapper mapper = null);
 
         bool IsAvatarImageSet(string accountId);
 
