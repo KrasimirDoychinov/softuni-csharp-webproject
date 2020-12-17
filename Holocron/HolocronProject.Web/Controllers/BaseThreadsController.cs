@@ -23,7 +23,7 @@ namespace HolocronProject.Web.Controllers
 
         public IActionResult ById(string threadId, int? page)
         {
-            var baseThread = this.baseThreadService.GetById<BaseThreadViewModel>(threadId);
+            var baseThread = this.baseThreadService.GetById<BaseThreadViewModel>(threadId, null);
             Pager pager = BaseThreadPager(page, baseThread);
 
             foreach (var thread in baseThread.Threads)

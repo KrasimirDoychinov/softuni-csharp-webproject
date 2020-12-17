@@ -10,6 +10,7 @@ using HolocronProject.Web.ViewModels.Achievements;
 using HolocronProject.Web.ViewModels.Characters;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Moq;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -22,17 +23,44 @@ namespace HolocronProject.Tests.Services
 {
     public class CharactersServiceTests
     {
-        [Test]
-        public async Task CreateCharacterShouldCreateCharacter()
-        {
+        private ApplicationDbContext context;
+        private ICharactersService charactersService;
+        private IMapper mapper;
+        private IFormFile file;
 
+        [SetUp]
+        public async Task SetUp()
+        {
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseInMemoryDatabase(Guid.NewGuid().ToString())
                 .Options;
-            var context = new ApplicationDbContext(optionsBuilder);
-            var accountsService = new AccountsService(context);
-            var charactersService = new CharactersService(context, accountsService);
+            this.context = new ApplicationDbContext(optionsBuilder);
+            this.file = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "dummy.txt");
+            await context.Database.EnsureDeletedAsync();
+            await context.Database.EnsureCreatedAsync();
 
+            var IMockedAccountsService = new Mock<IAccountsService>();
+            this.charactersService = new CharactersService(context, IMockedAccountsService.Object);
+
+            var config = new MapperConfiguration(opts =>
+            {
+                opts.CreateMap<Character, CharacterListViewModel>();
+                opts.CreateMap<Character, CharacterUserViewModel>();
+                opts.CreateMap<Achievement, AchievementViewModel>();
+            });
+
+            this.mapper = config.CreateMapper();
+        }
+
+        [TearDown]
+        public async Task TearDown()
+        {
+            await context.DisposeAsync();
+        }
+
+        [Test]
+        public async Task CreateCharacterShouldCreateCharacter()
+        {
             var race = new Race
             {
                 Id = "1"
@@ -68,7 +96,7 @@ namespace HolocronProject.Tests.Services
             await context.Classes.AddAsync(@class);
             await context.SaveChangesAsync();
 
-            await charactersService.CreateCharacterAsync(characterDto);
+            await this.charactersService.CreateCharacterAsync(characterDto);
 
             var characterCount = await context.Characters.CountAsync();
 
@@ -78,20 +106,6 @@ namespace HolocronProject.Tests.Services
         [Test]
         public async Task GetCurrentAccountCharactersShouldReturnAllAccountCharactersAndAllApproved()
         {
-            var config = new MapperConfiguration(opts =>
-            {
-                opts.CreateMap<Character, CharacterListViewModel>();
-            });
-
-            var mapper = config.CreateMapper();
-
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-            var context = new ApplicationDbContext(optionsBuilder);
-            var accountsService = new AccountsService(context);
-            var charactersService = new CharactersService(context, accountsService);
-
             var account = new Account
             {
                 Id = "1"
@@ -122,7 +136,7 @@ namespace HolocronProject.Tests.Services
             await context.Characters.AddAsync(character);
             await context.SaveChangesAsync();
 
-            var mappedEntity = charactersService.GetCurrentAccountCharacters<CharacterListViewModel>("1", mapper).ToList();
+            var mappedEntity = this.charactersService.GetCurrentAccountCharacters<CharacterListViewModel>("1", this.mapper).ToList();
 
             var characterCount = await context.Characters.Where(x => x.AccountId == "1" && x.CharacterStatus == CharacterStatus.Approved).CountAsync();
 
@@ -132,20 +146,6 @@ namespace HolocronProject.Tests.Services
         [Test]
         public async Task GetCurrentAccountCharactersShouldReturnNothingBecauseAllArePendingOrDeleted()
         {
-            var config = new MapperConfiguration(opts =>
-            {
-                opts.CreateMap<Character, CharacterListViewModel>();
-            });
-
-            var mapper = config.CreateMapper();
-
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-            var context = new ApplicationDbContext(optionsBuilder);
-            var accountsService = new AccountsService(context);
-            var charactersService = new CharactersService(context, accountsService);
-
             var account = new Account
             {
                 Id = "1"
@@ -186,20 +186,6 @@ namespace HolocronProject.Tests.Services
         [Test]
         public async Task GetCurrentAccountCharacterForCompetitionShouldReturnCharacterThatIsNotInCompetition()
         {
-            var config = new MapperConfiguration(opts =>
-            {
-                opts.CreateMap<Character, CharacterListViewModel>();
-            });
-
-            var mapper = config.CreateMapper();
-
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-            var context = new ApplicationDbContext(optionsBuilder);
-            var accountsService = new AccountsService(context);
-            var charactersService = new CharactersService(context, accountsService);
-
             var account = new Account
             {
                 Id = "1"
@@ -245,20 +231,7 @@ namespace HolocronProject.Tests.Services
         [Test]
         public async Task GetCurrentAccountCharacterForCompetitionShouldReturnNothingBecauseCharacterIsAlreadyInCompetition()
         {
-            var config = new MapperConfiguration(opts =>
-            {
-                opts.CreateMap<Character, CharacterListViewModel>();
-            });
-
-            var mapper = config.CreateMapper();
-
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-            var context = new ApplicationDbContext(optionsBuilder);
-            var accountsService = new AccountsService(context);
             var competitionCharactersService = new CompetitionCharactersService(context);
-            var charactersService = new CharactersService(context, accountsService);
 
             var account = new Account
             {
@@ -305,20 +278,6 @@ namespace HolocronProject.Tests.Services
         [Test]
         public async Task GetCurrentAccountCharacterForCompetitionShouldReturnNothingBecauseCharactersAreNotApproved()
         {
-            var config = new MapperConfiguration(opts =>
-            {
-                opts.CreateMap<Character, CharacterListViewModel>();
-            });
-
-            var mapper = config.CreateMapper();
-
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-            var context = new ApplicationDbContext(optionsBuilder);
-            var accountsService = new AccountsService(context);
-            var charactersService = new CharactersService(context, accountsService);
-
             var account = new Account
             {
                 Id = "1"
@@ -363,27 +322,11 @@ namespace HolocronProject.Tests.Services
         [Test]
         public async Task GetCharacterByIdGenericShouldReturnCorrectCharacter()
         {
-            var config = new MapperConfiguration(opts =>
-            {
-                opts.CreateMap<Character, CharacterUserViewModel>();
-                opts.CreateMap<Achievement, AchievementViewModel>();
-            });
-
-            var mapper = config.CreateMapper();
-
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-            var context = new ApplicationDbContext(optionsBuilder);
-            var accountsService = new AccountsService(context);
-            var charactersService = new CharactersService(context, accountsService);
-
             var account = new Account
             {
                 Id = "1"
             };
             
-
             var character = new Character
             {
                 Id = "1",
@@ -409,7 +352,7 @@ namespace HolocronProject.Tests.Services
             await context.Characters.AddAsync(character);
             await context.SaveChangesAsync();
 
-            var mappedEntity = charactersService.GetCharacterByIdGeneric<CharacterUserViewModel>("1", mapper);
+            var mappedEntity = charactersService.GetCharacterByIdGeneric<CharacterUserViewModel>("1", this.mapper);
 
             Assert.AreEqual(character.Id, mappedEntity.Id);
         }
@@ -417,16 +360,6 @@ namespace HolocronProject.Tests.Services
         [Test]
         public async Task UpdateCharacterImageShouldUpdateCharacterImage()
         {
-            IFormFile file = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "dummy.txt");
-
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-            var context = new ApplicationDbContext(optionsBuilder);
-            var accountsService = new AccountsService(context);
-            var charactersService = new CharactersService(context, accountsService);
-
-
             var character = new Character
             {
                 Id = "1",
@@ -453,21 +386,13 @@ namespace HolocronProject.Tests.Services
 
             var test = context.Characters
                 .FirstOrDefault(x => x.Name == "Test" && x.Server.Id == "1");
-            await charactersService.UpdateCharacterImageAsync("Test", "1", file);
+            await charactersService.UpdateCharacterImageAsync("Test", "1", this.file);
             Assert.AreEqual("1(Character).png", character.CharacterImagePath);
         }
 
         [Test]
         public async Task GetCharacterByIdShouldReturnCorrectCharacter()
         {
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-            var context = new ApplicationDbContext(optionsBuilder);
-            var accountsService = new AccountsService(context);
-            var charactersService = new CharactersService(context, accountsService);
-
-
             var character = new Character
             {
                 Id = "1",
@@ -500,14 +425,6 @@ namespace HolocronProject.Tests.Services
         [Test]
         public async Task TotalApprovedCharactersShouldReturnCorrectCount()
         {
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-            var context = new ApplicationDbContext(optionsBuilder);
-            var accountsService = new AccountsService(context);
-            var charactersService = new CharactersService(context, accountsService);
-
-
             var character = new Character
             {
                 Id = "1",
@@ -562,22 +479,6 @@ namespace HolocronProject.Tests.Services
         [Test]
         public async Task GetNewestCharactersShouldReturnNewestCharactersThatAreApproved()
         {
-            var config = new MapperConfiguration(opts =>
-            {
-                opts.CreateMap<Character, CharacterListViewModel>();
-            });
-
-            var mapper = config.CreateMapper();
-
-
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-            var context = new ApplicationDbContext(optionsBuilder);
-            var accountsService = new AccountsService(context);
-            var charactersService = new CharactersService(context, accountsService);
-
-
             var character = new Character
             {
                 Id = "1",
@@ -633,14 +534,6 @@ namespace HolocronProject.Tests.Services
         [Test]
         public async Task ApproveCharacterAsyncShouldSetCharacterStatusToApproved()
         {
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-            var context = new ApplicationDbContext(optionsBuilder);
-            var accountsService = new AccountsService(context);
-            var charactersService = new CharactersService(context, accountsService);
-
-
             var character = new Character
             {
                 Id = "1",
@@ -673,14 +566,6 @@ namespace HolocronProject.Tests.Services
         [Test]
         public async Task DeleteCharacterShouldSetIsDeletedOnToTrue()
         {
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-            var context = new ApplicationDbContext(optionsBuilder);
-            var accountsService = new AccountsService(context);
-            var charactersService = new CharactersService(context, accountsService);
-
-
             var character = new Character
             {
                 Id = "1",
@@ -713,21 +598,6 @@ namespace HolocronProject.Tests.Services
         [Test]
         public async Task GetPendingCharactersShouldReturnAllPendingCharacters()
         {
-            var config = new MapperConfiguration(opts =>
-            {
-                opts.CreateMap<Character, CharacterListViewModel>();
-            });
-
-            var mapper = config.CreateMapper();
-
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-            var context = new ApplicationDbContext(optionsBuilder);
-            var accountsService = new AccountsService(context);
-            var charactersService = new CharactersService(context, accountsService);
-
-
             var character = new Character
             {
                 Id = "1",
@@ -760,21 +630,6 @@ namespace HolocronProject.Tests.Services
         [Test]
         public async Task GetPendingCharactersShouldReturnNothingBecauseNoCharactersArePending()
         {
-            var config = new MapperConfiguration(opts =>
-            {
-                opts.CreateMap<Character, CharacterListViewModel>();
-            });
-
-            var mapper = config.CreateMapper();
-
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-            var context = new ApplicationDbContext(optionsBuilder);
-            var accountsService = new AccountsService(context);
-            var charactersService = new CharactersService(context, accountsService);
-
-
             var character = new Character
             {
                 Id = "1",
@@ -807,21 +662,6 @@ namespace HolocronProject.Tests.Services
         [Test]
         public async Task GetAllPendingCharactersShouldReturnAllPendingCharacters ()
         {
-            var config = new MapperConfiguration(opts =>
-            {
-                opts.CreateMap<Character, CharacterListViewModel>();
-            });
-
-            var mapper = config.CreateMapper();
-
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-            var context = new ApplicationDbContext(optionsBuilder);
-            var accountsService = new AccountsService(context);
-            var charactersService = new CharactersService(context, accountsService);
-
-
             var character = new Character
             {
                 Id = "1",
@@ -854,21 +694,6 @@ namespace HolocronProject.Tests.Services
         [Test]
         public async Task GetAllPendingCharactersShouldReturnNothingBecauseThereAreNoPendingCharacters()
         {
-            var config = new MapperConfiguration(opts =>
-            {
-                opts.CreateMap<Character, CharacterListViewModel>();
-            });
-
-            var mapper = config.CreateMapper();
-
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-            var context = new ApplicationDbContext(optionsBuilder);
-            var accountsService = new AccountsService(context);
-            var charactersService = new CharactersService(context, accountsService);
-
-
             var character = new Character
             {
                 Id = "1",
@@ -901,14 +726,6 @@ namespace HolocronProject.Tests.Services
         [Test]
         public async Task TotalPendingCharactersShouldReturnCorrectCount()
         {
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-            var context = new ApplicationDbContext(optionsBuilder);
-            var accountsService = new AccountsService(context);
-            var charactersService = new CharactersService(context, accountsService);
-
-
             var character = new Character
             {
                 Id = "1",
@@ -941,14 +758,6 @@ namespace HolocronProject.Tests.Services
         [Test]
         public async Task EditCharacterAsyncShouldEditCharacter()
         {
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-            var context = new ApplicationDbContext(optionsBuilder);
-            var accountsService = new AccountsService(context);
-            var charactersService = new CharactersService(context, accountsService);
-
-
             var character = new Character
             {
                 Id = "1",
@@ -979,7 +788,7 @@ namespace HolocronProject.Tests.Services
                 Backstory = "New backstory"
             };
 
-            await charactersService.EditCharacterAsync(characterEditDto);
+            await this.charactersService.EditCharacterAsync(characterEditDto);
 
             Assert.AreEqual("New backstory", character.Backstory);
         }

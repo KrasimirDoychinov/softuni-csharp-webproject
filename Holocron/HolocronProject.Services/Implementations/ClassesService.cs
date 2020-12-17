@@ -22,9 +22,5 @@ namespace HolocronProject.Services.Implementations
             .To<T>()
             .ToList();
 
-        public Class GetClassById(string classId)
-            => this.context.Classes
-            .FirstOrDefault(x => x.Id == classId);
-
     }
 }

@@ -39,10 +39,5 @@ namespace HolocronProject.Services
 
         IEnumerable<T> GetAllPendingCharacters<T>(IMapper mapper = null);
 
-
-
-
-        
-
     }
 }

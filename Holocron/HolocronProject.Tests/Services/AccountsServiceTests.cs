@@ -16,31 +16,50 @@ using Moq;
 using HolocronProject.Services.Mapper;
 using HolocronProject.Data.Enums;
 using HolocronProject.Services.Models.Character;
+using HolocronProject.Services;
 
 namespace HolocronProject.Tests.Services
 {
     [TestFixture]
     public class AccountsServiceTests
     {
-        [Test]
-        public async Task UpdateForumSignatureShouldUpdateForumSignature()
+        private ApplicationDbContext context;
+        private IAccountsService accountService;
+        private IFormFile file;
+
+        [SetUp]
+        public async Task SetUp()
         {
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseInMemoryDatabase(Guid.NewGuid().ToString())
                 .Options;
-            var context = new ApplicationDbContext(optionsBuilder);
-            var accountService = new AccountsService(context);
+            this.context = new ApplicationDbContext(optionsBuilder);
+            this.accountService = new AccountsService(context);
+            await context.Database.EnsureDeletedAsync();
+            await context.Database.EnsureCreatedAsync();
 
+            this.file = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "dummy.txt");
+        }
+
+        [TearDown]
+        public async Task TearDown()
+        {
+            await context.DisposeAsync();
+        }
+
+        [Test]
+        public async Task UpdateForumSignatureShouldUpdateForumSignature()
+        {
             var account = new Account
             {
                 Id = "1",
                 ForumSignature = "None"
             };
 
-            await context.Accounts.AddAsync(account);
-            await context.SaveChangesAsync();
+            await this.context.Accounts.AddAsync(account);
+            await this.context.SaveChangesAsync();
 
-            await accountService.UpdateForumSignatureAsync("1", "New sigs");
+            await this.accountService.UpdateForumSignatureAsync("1", "New sigs");
 
             Assert.AreEqual("New sigs", account.ForumSignature);
         }
@@ -48,12 +67,6 @@ namespace HolocronProject.Tests.Services
         [Test]
         public async Task UpdateUserNameShouldUptadeUserName()
         {
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-            var context = new ApplicationDbContext(optionsBuilder);
-            var accountService = new AccountsService(context);
-
             var account = new Account
             {
                 Id = "1",
@@ -61,10 +74,10 @@ namespace HolocronProject.Tests.Services
                 NormalizedUserName = "OLDUSERNAME"
             };
 
-            await context.Accounts.AddAsync(account);
-            await context.SaveChangesAsync();
+            await this.context.Accounts.AddAsync(account);
+            await this.context.SaveChangesAsync();
 
-            await accountService.UpdateUserNameAsync("1", "Newusername");
+            await this.accountService.UpdateUserNameAsync("1", "Newusername");
 
             Assert.AreEqual("Newusername", account.UserName);
             Assert.AreEqual("NEWUSERNAME", account.NormalizedUserName);
@@ -73,22 +86,16 @@ namespace HolocronProject.Tests.Services
         [Test]
         public async Task UpdateAvatarImagePathShouldUpdateAvatarImagePath()
         {
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-            var context = new ApplicationDbContext(optionsBuilder);
-            var accountService = new AccountsService(context);
-
             var account = new Account
             {
                 Id = "1",
                 AvatarImagePath = "None"
             };
 
-            await context.Accounts.AddAsync(account);
-            await context.SaveChangesAsync();
+            await this.context.Accounts.AddAsync(account);
+            await this.context.SaveChangesAsync();
 
-            await accountService.UpdateAvatarImagePathAsync("1");
+            await this.accountService.UpdateAvatarImagePathAsync("1");
 
             Assert.AreEqual("1(Account).png", account.AvatarImagePath);
         }
@@ -96,24 +103,16 @@ namespace HolocronProject.Tests.Services
         [Test]
         public async Task CreateAvatarImageShouldCreateImageInWwwrootImagesAvatarImagesLocation()
         {
-            IFormFile file = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "dummy.txt");
-
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-            var context = new ApplicationDbContext(optionsBuilder);
-            var accountService = new AccountsService(context);
-
             var account = new Account
             {
                 Id = "1",
                 AvatarImagePath = "None"
             };
 
-            await context.Accounts.AddAsync(account);
-            await context.SaveChangesAsync();
+            await this.context.Accounts.AddAsync(account);
+            await this.context.SaveChangesAsync();
 
-            await accountService.CreateAvatarImageAsync("1", file);
+            await this.accountService.CreateAvatarImageAsync("1", this.file);
 
             Assert.AreEqual("1(Account).png", account.AvatarImagePath);
         }
@@ -121,24 +120,16 @@ namespace HolocronProject.Tests.Services
         [Test]
         public async Task UpdateAvatarImageShouldUpdateAvatarImage()
         {
-            IFormFile file = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "dummy.txt");
-
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-            var context = new ApplicationDbContext(optionsBuilder);
-            var accountService = new AccountsService(context);
-
             var account = new Account
             {
                 Id = "1",
                 AvatarImagePath = "None"
             };
 
-            await context.Accounts.AddAsync(account);
-            await context.SaveChangesAsync();
+            await this.context.Accounts.AddAsync(account);
+            await this.context.SaveChangesAsync();
 
-            await accountService.UpdateAvatarImageAsync("1", file);
+            await this.accountService.UpdateAvatarImageAsync("1", this.file);
 
             Assert.AreEqual("1(Account).png", account.AvatarImagePath);
         }
@@ -146,22 +137,16 @@ namespace HolocronProject.Tests.Services
         [Test]
         public async Task GetAccountByIdShouldReturnCorrectAccount()
         {
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-            var context = new ApplicationDbContext(optionsBuilder);
-            var accountService = new AccountsService(context);
-
             var account = new Account
             {
                 Id = "1",
                 UserName = "Test username"
             };
 
-            await context.Accounts.AddAsync(account);
-            await context.SaveChangesAsync();
+            await this.context.Accounts.AddAsync(account);
+            await this.context.SaveChangesAsync();
 
-            var newAccount = accountService.GetAccountById("1");
+            var newAccount = this.accountService.GetAccountById("1");
 
             Assert.AreEqual(newAccount, account);
         }
@@ -169,22 +154,16 @@ namespace HolocronProject.Tests.Services
         [Test]
         public async Task GetAccountAvatarImagePathShouldReturnCorrectPath()
         {
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-            var context = new ApplicationDbContext(optionsBuilder);
-            var accountService = new AccountsService(context);
-
             var account = new Account
             {
                 Id = "1",
                 AvatarImagePath = "Test path"
             };
 
-            await context.Accounts.AddAsync(account);
-            await context.SaveChangesAsync();
+            await this.context.Accounts.AddAsync(account);
+            await this.context.SaveChangesAsync();
 
-            var path = accountService.GetAccountAvatarImagePath("1");
+            var path = this.accountService.GetAccountAvatarImagePath("1");
 
             Assert.AreEqual(path, account.AvatarImagePath);
         }
@@ -192,23 +171,15 @@ namespace HolocronProject.Tests.Services
         [Test]
         public async Task IsAvatarImageSetShouldReturnTrueIfSet()
         {
-            IFormFile file = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "dummy.txt");
-
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
-               .UseInMemoryDatabase(Guid.NewGuid().ToString())
-               .Options;
-            var context = new ApplicationDbContext(optionsBuilder);
-            var accountService = new AccountsService(context);
-
             var account = new Account
             {
                 Id = "1"
             };
 
-            await context.Accounts.AddAsync(account);
-            await context.SaveChangesAsync();
+            await this.context.Accounts.AddAsync(account);
+            await this.context.SaveChangesAsync();
 
-            await accountService.CreateAvatarImageAsync("1", file);
+            await this.accountService.CreateAvatarImageAsync("1", this.file);
             var isSet = accountService.IsAvatarImageSet("1");
 
             Assert.True(isSet);
@@ -217,21 +188,15 @@ namespace HolocronProject.Tests.Services
         [Test]
         public async Task IsAvatarImageSetShouldReturnFlaseIfNotSet()
         {
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
-               .UseInMemoryDatabase(Guid.NewGuid().ToString())
-               .Options;
-            var context = new ApplicationDbContext(optionsBuilder);
-            var accountService = new AccountsService(context);
-
             var account = new Account
             {
                 Id = "1"
             };
 
-            await context.Accounts.AddAsync(account);
-            await context.SaveChangesAsync();
+            await this.context.Accounts.AddAsync(account);
+            await this.context.SaveChangesAsync();
 
-            var isSet = accountService.IsAvatarImageSet("1");
+            var isSet = this.accountService.IsAvatarImageSet("1");
 
             Assert.False(isSet);
         }
@@ -239,21 +204,15 @@ namespace HolocronProject.Tests.Services
         [Test]
         public async Task NotifyAccountOfApprovedCharactersShouldSetNotificationStatusToHasApproved()
         {
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
-                    .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                    .Options;
-            var context = new ApplicationDbContext(optionsBuilder);
-            var accountService = new AccountsService(context);
-
             var account = new Account
             {
                 Id = "1"
             };
 
-            await context.Accounts.AddAsync(account);
-            await context.SaveChangesAsync();
+            await this.context.Accounts.AddAsync(account);
+            await this.context.SaveChangesAsync();
 
-            await accountService.NotifyAccountOfApprovedCharactersAsync("1");
+            await this.accountService.NotifyAccountOfApprovedCharactersAsync("1");
 
             Assert.AreEqual(NotificationStatus.HasApprovedCharacters, account.NotificationStatus);
         }
@@ -261,21 +220,15 @@ namespace HolocronProject.Tests.Services
         [Test]
         public async Task NotifyAccountOfPendingCharactersShouldSetNotificationStatusToHasPending()
         {
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
-                    .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                    .Options;
-            var context = new ApplicationDbContext(optionsBuilder);
-            var accountService = new AccountsService(context);
-
             var account = new Account
             {
                 Id = "1"
             };
 
-            await context.Accounts.AddAsync(account);
-            await context.SaveChangesAsync();
+            await this.context.Accounts.AddAsync(account);
+            await this.context.SaveChangesAsync();
 
-            await accountService.NotifyAccountOfPendingCharactersAsync("1");
+            await this.accountService.NotifyAccountOfPendingCharactersAsync("1");
 
             Assert.AreEqual(NotificationStatus.HasPendingCharacters, account.NotificationStatus);
         }
@@ -283,11 +236,6 @@ namespace HolocronProject.Tests.Services
         [Test]
         public async Task NotifyAccountOfApprovedCharactersShouldSetNotificationStatusToHasApprovedWhenCharacterIsApprovedByAdmin()
         {
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
-                    .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                    .Options;
-            var context = new ApplicationDbContext(optionsBuilder);
-            var accountService = new AccountsService(context);
             var characterService = new CharactersService(context, accountService);
 
             var account = new Account
@@ -303,9 +251,9 @@ namespace HolocronProject.Tests.Services
                 CharacterStatus = CharacterStatus.Pending
             };
 
-            await context.Accounts.AddAsync(account);
-            await context.Characters.AddAsync(character);
-            await context.SaveChangesAsync();
+            await this.context.Accounts.AddAsync(account);
+            await this.context.Characters.AddAsync(character);
+            await this.context.SaveChangesAsync();
 
             await characterService.ApproveCharacterAsync("1", "1");
 
@@ -316,21 +264,15 @@ namespace HolocronProject.Tests.Services
         [Test]
         public async Task NotifyAccountOfDeletedCharactersShouldSetNotificationStatusToHasDeleted()
         {
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
-                    .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                    .Options;
-            var context = new ApplicationDbContext(optionsBuilder);
-            var accountService = new AccountsService(context);
-
             var account = new Account
             {
                 Id = "1"
             };
 
-            await context.Accounts.AddAsync(account);
-            await context.SaveChangesAsync();
+            await this.context.Accounts.AddAsync(account);
+            await this.context.SaveChangesAsync();
 
-            await accountService.NotifyAccountOfDeletedCharactersAsync("1");
+            await this.accountService.NotifyAccountOfDeletedCharactersAsync("1");
 
             Assert.AreEqual(NotificationStatus.HasDeletedCharacters, account.NotificationStatus);
         }
@@ -338,11 +280,6 @@ namespace HolocronProject.Tests.Services
         [Test]
         public async Task NotifyAccountOfDeletedCharactersShouldSetNotificationStatusToHasDeletedWhenCharacterIsDeletedByAdmin()
         {
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
-                    .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                    .Options;
-            var context = new ApplicationDbContext(optionsBuilder);
-            var accountService = new AccountsService(context);
             var characterService = new CharactersService(context, accountService);
 
             var account = new Account
@@ -358,9 +295,9 @@ namespace HolocronProject.Tests.Services
                 CharacterStatus = CharacterStatus.Pending
             };
 
-            await context.Accounts.AddAsync(account);
-            await context.Characters.AddAsync(character);
-            await context.SaveChangesAsync();
+            await this.context.Accounts.AddAsync(account);
+            await this.context.Characters.AddAsync(character);
+            await this.context.SaveChangesAsync();
 
             await characterService.DeleteCharacterAsync("1", "1");
 
@@ -371,19 +308,14 @@ namespace HolocronProject.Tests.Services
         [Test]
         public async Task IsUserNotifiedShouldReturnCorrectNotificationStatus()
         {
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
-                    .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                    .Options;
-            var context = new ApplicationDbContext(optionsBuilder);
-            var accountService = new AccountsService(context);
 
             var account = new Account
             {
                 Id = "1"
             };
 
-            await context.Accounts.AddAsync(account);
-            await context.SaveChangesAsync();
+            await this.context.Accounts.AddAsync(account);
+            await this.context.SaveChangesAsync();
 
             await accountService.NotifyAccountOfApprovedCharactersAsync("1");
             var status = accountService.IsUserNotified("1");
@@ -394,21 +326,16 @@ namespace HolocronProject.Tests.Services
         [Test]
         public async Task RemoveNotificationShouldSetNotificationStatusToHasNoPendingOrApproved()
         {
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
-                    .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                    .Options;
-            var context = new ApplicationDbContext(optionsBuilder);
-            var accountService = new AccountsService(context);
 
             var account = new Account
             {
                 Id = "1"
             };
 
-            await context.Accounts.AddAsync(account);
-            await context.SaveChangesAsync();
+            await this.context.Accounts.AddAsync(account);
+            await this.context.SaveChangesAsync();
 
-            await accountService.RemoveNotificationAsync("1");
+            await this.accountService.RemoveNotificationAsync("1");
 
             Assert.AreEqual(NotificationStatus.HasNoPendingOrApprovedCharacters, account.NotificationStatus);
         }
@@ -423,19 +350,13 @@ namespace HolocronProject.Tests.Services
 
             var mapper = config.CreateMapper();
 
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
-                    .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                    .Options;
-            var context = new ApplicationDbContext(optionsBuilder);
-            var accountService = new AccountsService(context);
-
             var account = new Account
             {
                 Id = "1"
             };
 
-            await context.Accounts.AddAsync(account);
-            await context.SaveChangesAsync();
+            await this.context.Accounts.AddAsync(account);
+            await this.context.SaveChangesAsync();
 
             var mappedModel = accountService.GetAccountByIdGeneric<ForeignAccountViewModel>("1", mapper);
 
@@ -445,24 +366,17 @@ namespace HolocronProject.Tests.Services
         [Test]
         public async Task TotalAccountsShouldReturnCorrectValue()
         {
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
-                    .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                    .Options;
-            var context = new ApplicationDbContext(optionsBuilder);
-            var accountService = new AccountsService(context);
-
             var account = new Account
             {
                 Id = "1"
             };
 
-            await context.Accounts.AddAsync(account);
-            await context.SaveChangesAsync();
+            await this.context.Accounts.AddAsync(account);
+            await this.context.SaveChangesAsync();
 
-            var serviceAccountCount = accountService.TotalAccounts();
-            var contextAccountCount = await context.Accounts.CountAsync();
+            var serviceAccountCount = this.accountService.TotalAccounts();
 
-            Assert.AreEqual(contextAccountCount, serviceAccountCount);
+            Assert.AreEqual(1, serviceAccountCount);
         }
     }
 }

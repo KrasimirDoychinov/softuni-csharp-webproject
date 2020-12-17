@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using HolocronProject.Data;
 using HolocronProject.Data.Models;
+using HolocronProject.Services;
 using HolocronProject.Services.Implementations;
 using HolocronProject.Web.ViewModels.BugReports;
 using Microsoft.EntityFrameworkCore;
@@ -15,27 +16,51 @@ namespace HolocronProject.Tests.Services
 {
     public class BugReportsServiceTests
     {
-        [Test]
-        public async Task CreateBugReportShouldCreateBugReport()
+        private ApplicationDbContext context;
+        private IBugReportsService bugReportsService;
+        private IMapper mapper;
+
+        [SetUp]
+        public async Task SetUp()
         {
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseInMemoryDatabase(Guid.NewGuid().ToString())
                 .Options;
-            var context = new ApplicationDbContext(optionsBuilder);
-            var bugReportsService = new BugReportsService(context);
+            this.context = new ApplicationDbContext(optionsBuilder);
+            await context.Database.EnsureDeletedAsync();
+            await context.Database.EnsureCreatedAsync();
+            this.bugReportsService = new BugReportsService(context);
 
+            var config = new MapperConfiguration(opts =>
+            {
+                opts.CreateMap<BugReport, BugReportViewModel>();
+                opts.CreateMap<BugReport, BugReportListViewModel>();
+            });
+
+            this.mapper = config.CreateMapper();
+        }
+
+        [TearDown]
+        public async Task TearDown()
+        {
+            await context.DisposeAsync();
+        }
+
+        [Test]
+        public async Task CreateBugReportShouldCreateBugReport()
+        {
             var account = new Account
             {
                 Id = "1"
             };
 
-            await context.Accounts.AddAsync(account);
-            await context.SaveChangesAsync();
+            await this.context.Accounts.AddAsync(account);
+            await this.context.SaveChangesAsync();
 
-            await bugReportsService.CreateBugReportAsync("1", "Test", "Test", "Test");
-            var bugReportsCount = await context.BugReports.CountAsync();
+            await this.bugReportsService.CreateBugReportAsync("1", "Test", "Test", "Test");
+            var bugReportsCount = await this.context.BugReports.CountAsync();
 
-            var bugReport = await context.BugReports.FirstOrDefaultAsync();
+            var bugReport = await this.context.BugReports.FirstOrDefaultAsync();
 
             Assert.AreEqual(bugReportsCount, 1);
             Assert.False(bugReport.IsResolved);
@@ -44,22 +69,16 @@ namespace HolocronProject.Tests.Services
         [Test]
         public async Task ResolveBugReportShouldResolveTheBugReport()
         {
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-            var context = new ApplicationDbContext(optionsBuilder);
-            var bugReportsService = new BugReportsService(context);
-
             var bugReport = new BugReport
             {
                 Id = "1",
                 IsResolved = false
             };
 
-            await context.BugReports.AddAsync(bugReport);
-            await context.SaveChangesAsync();
+            await this.context.BugReports.AddAsync(bugReport);
+            await this.context.SaveChangesAsync();
 
-            await bugReportsService.ResolveBugReportAsync("1");
+            await this.bugReportsService.ResolveBugReportAsync("1");
 
             Assert.True(bugReport.IsResolved);
         }
@@ -67,19 +86,6 @@ namespace HolocronProject.Tests.Services
         [Test]
         public async Task GetBugReportByIdGenericShouldReturnCorrectMappedEntity()
         {
-            var config = new MapperConfiguration(opts =>
-            {
-                opts.CreateMap<BugReport, BugReportViewModel>();
-            });
-
-            var mapper = config.CreateMapper();
-
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-            var context = new ApplicationDbContext(optionsBuilder);
-            var bugReportsService = new BugReportsService(context);
-
             var bugReport = new BugReport
             {
                 Id = "1",
@@ -92,10 +98,10 @@ namespace HolocronProject.Tests.Services
                 ResolvedOn = DateTime.UtcNow.AddDays(1)
             };
 
-            await context.BugReports.AddAsync(bugReport);
-            await context.SaveChangesAsync();
+            await this.context.BugReports.AddAsync(bugReport);
+            await this.context.SaveChangesAsync();
 
-            var mappedEntity = bugReportsService.GetBugReportByIdGeneric<BugReportViewModel>("1", mapper);
+            var mappedEntity = this.bugReportsService.GetBugReportByIdGeneric<BugReportViewModel>("1", this.mapper);
 
             Assert.AreEqual(mappedEntity.Id, bugReport.Id);
             Assert.AreEqual(mappedEntity.CreatedOn, bugReport.CreatedOn);
@@ -107,19 +113,6 @@ namespace HolocronProject.Tests.Services
         [Test]
         public async Task GetAllByAccountUnresolvedShouldReturnAllUnresolvedBasedOnAccountId()
         {
-            var config = new MapperConfiguration(opts =>
-            {
-                opts.CreateMap<BugReport, BugReportListViewModel>();
-            });
-
-            var mapper = config.CreateMapper();
-
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-            var context = new ApplicationDbContext(optionsBuilder);
-            var bugReportsService = new BugReportsService(context);
-
             var account = new Account
             {
                 Id = "1"
@@ -137,11 +130,11 @@ namespace HolocronProject.Tests.Services
                 ResolvedOn = DateTime.UtcNow.AddDays(1)
             };
 
-            await context.Accounts.AddAsync(account);
-            await context.BugReports.AddAsync(bugReport);
-            await context.SaveChangesAsync();
+            await this.context.Accounts.AddAsync(account);
+            await this.context.BugReports.AddAsync(bugReport);
+            await this.context.SaveChangesAsync();
 
-            var mappedEntity = bugReportsService.GetAllByAccountUnresolved<BugReportListViewModel>("1", mapper).ToList();
+            var mappedEntity = this.bugReportsService.GetAllByAccountUnresolved<BugReportListViewModel>("1", this.mapper).ToList();
 
             Assert.AreEqual(mappedEntity[0].Id, bugReport.Id);
         }
@@ -149,19 +142,6 @@ namespace HolocronProject.Tests.Services
         [Test]
         public async Task GetAllByAccountUnresolvedShouldReturnNothingBecauseAllAreAreResolved()
         {
-            var config = new MapperConfiguration(opts =>
-            {
-                opts.CreateMap<BugReport, BugReportListViewModel>();
-            });
-
-            var mapper = config.CreateMapper();
-
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-            var context = new ApplicationDbContext(optionsBuilder);
-            var bugReportsService = new BugReportsService(context);
-
             var account = new Account
             {
                 Id = "1"
@@ -179,11 +159,11 @@ namespace HolocronProject.Tests.Services
                 ResolvedOn = DateTime.UtcNow.AddDays(1)
             };
 
-            await context.Accounts.AddAsync(account);
-            await context.BugReports.AddAsync(bugReport);
-            await context.SaveChangesAsync();
+            await this.context.Accounts.AddAsync(account);
+            await this.context.BugReports.AddAsync(bugReport);
+            await this.context.SaveChangesAsync();
 
-            var mappedEntity = bugReportsService.GetAllByAccountUnresolved<BugReportListViewModel>("1", mapper);
+            var mappedEntity = this.bugReportsService.GetAllByAccountUnresolved<BugReportListViewModel>("1", this.mapper);
 
             Assert.AreEqual(0, mappedEntity.Count());
         }
@@ -191,19 +171,6 @@ namespace HolocronProject.Tests.Services
         [Test]
         public async Task GetAllByAccountResolvedShouldReturnAllResolvedBasedOnAccountId()
         {
-            var config = new MapperConfiguration(opts =>
-            {
-                opts.CreateMap<BugReport, BugReportListViewModel>();
-            });
-
-            var mapper = config.CreateMapper();
-
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-            var context = new ApplicationDbContext(optionsBuilder);
-            var bugReportsService = new BugReportsService(context);
-
             var account = new Account
             {
                 Id = "1"
@@ -221,11 +188,11 @@ namespace HolocronProject.Tests.Services
                 ResolvedOn = DateTime.UtcNow.AddDays(1)
             };
 
-            await context.Accounts.AddAsync(account);
-            await context.BugReports.AddAsync(bugReport);
-            await context.SaveChangesAsync();
+            await this.context.Accounts.AddAsync(account);
+            await this.context.BugReports.AddAsync(bugReport);
+            await this.context.SaveChangesAsync();
 
-            var mappedEntity = bugReportsService.GetAllByAccountResolved<BugReportListViewModel>("1", mapper).ToList();
+            var mappedEntity = this.bugReportsService.GetAllByAccountResolved<BugReportListViewModel>("1", this.mapper).ToList();
 
             Assert.AreEqual(mappedEntity[0].Id, bugReport.Id);
         }
@@ -233,19 +200,6 @@ namespace HolocronProject.Tests.Services
         [Test]
         public async Task GetAllByAccountResolvedShouldReturnNothinBecauseAllAreAreUnresolved()
         {
-            var config = new MapperConfiguration(opts =>
-            {
-                opts.CreateMap<BugReport, BugReportListViewModel>();
-            });
-
-            var mapper = config.CreateMapper();
-
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-            var context = new ApplicationDbContext(optionsBuilder);
-            var bugReportsService = new BugReportsService(context);
-
             var account = new Account
             {
                 Id = "1"
@@ -263,11 +217,11 @@ namespace HolocronProject.Tests.Services
                 ResolvedOn = DateTime.UtcNow.AddDays(1)
             };
 
-            await context.Accounts.AddAsync(account);
-            await context.BugReports.AddAsync(bugReport);
-            await context.SaveChangesAsync();
+            await this.context.Accounts.AddAsync(account);
+            await this.context.BugReports.AddAsync(bugReport);
+            await this.context.SaveChangesAsync();
 
-            var mappedEntity = bugReportsService.GetAllByAccountResolved<BugReportListViewModel>("1", mapper).ToList();
+            var mappedEntity = this.bugReportsService.GetAllByAccountResolved<BugReportListViewModel>("1", this.mapper).ToList();
 
             Assert.AreEqual(0, mappedEntity.Count());
         }
@@ -275,19 +229,6 @@ namespace HolocronProject.Tests.Services
         [Test]
         public async Task GetAllAdminUnresolvedShouldReturnAllUnresolved()
         {
-            var config = new MapperConfiguration(opts =>
-            {
-                opts.CreateMap<BugReport, BugReportListViewModel>();
-            });
-
-            var mapper = config.CreateMapper();
-
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-            var context = new ApplicationDbContext(optionsBuilder);
-            var bugReportsService = new BugReportsService(context);
-
             var account = new Account
             {
                 Id = "1"
@@ -322,13 +263,13 @@ namespace HolocronProject.Tests.Services
                 ResolvedOn = DateTime.UtcNow.AddDays(1)
             };
 
-            await context.Accounts.AddAsync(account);
-            await context.Accounts.AddAsync(secondAccount);
-            await context.BugReports.AddAsync(bugReport);
-            await context.BugReports.AddAsync(secondBugReport);
-            await context.SaveChangesAsync();
+            await this.context.Accounts.AddAsync(account);
+            await this.context.Accounts.AddAsync(secondAccount);
+            await this.context.BugReports.AddAsync(bugReport);
+            await this.context.BugReports.AddAsync(secondBugReport);
+            await this.context.SaveChangesAsync();
 
-            var mappedEntity = bugReportsService.GetAllAdminUnresolved<BugReportListViewModel>(mapper).ToList();
+            var mappedEntity = this.bugReportsService.GetAllAdminUnresolved<BugReportListViewModel>(this.mapper).ToList();
 
             Assert.AreEqual(mappedEntity[1].Id, bugReport.Id);
             Assert.AreEqual(mappedEntity[0].Id, secondBugReport.Id);
@@ -338,19 +279,6 @@ namespace HolocronProject.Tests.Services
         [Test]
         public async Task GetAllAdminUnresolvedShouldReturnNothingBecauseAllAreAreResolved()
         {
-            var config = new MapperConfiguration(opts =>
-            {
-                opts.CreateMap<BugReport, BugReportListViewModel>();
-            });
-
-            var mapper = config.CreateMapper();
-
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-            var context = new ApplicationDbContext(optionsBuilder);
-            var bugReportsService = new BugReportsService(context);
-
             var account = new Account
             {
                 Id = "1"
@@ -385,13 +313,13 @@ namespace HolocronProject.Tests.Services
                 ResolvedOn = DateTime.UtcNow.AddDays(1)
             };
 
-            await context.Accounts.AddAsync(account);
-            await context.Accounts.AddAsync(secondAccount);
-            await context.BugReports.AddAsync(bugReport);
-            await context.BugReports.AddAsync(secondBugReport);
-            await context.SaveChangesAsync();
+            await this.context.Accounts.AddAsync(account);
+            await this.context.Accounts.AddAsync(secondAccount);
+            await this.context.BugReports.AddAsync(bugReport);
+            await this.context.BugReports.AddAsync(secondBugReport);
+            await this.context.SaveChangesAsync();
 
-            var mappedEntity = bugReportsService.GetAllAdminUnresolved<BugReportListViewModel>(mapper).ToList();
+            var mappedEntity = this.bugReportsService.GetAllAdminUnresolved<BugReportListViewModel>(this.mapper).ToList();
 
             Assert.AreEqual(0, mappedEntity.Count());
         }
@@ -399,19 +327,6 @@ namespace HolocronProject.Tests.Services
         [Test]
         public async Task GetAllAdminResolvedShouldReturnAllResolved()
         {
-            var config = new MapperConfiguration(opts =>
-            {
-                opts.CreateMap<BugReport, BugReportListViewModel>();
-            });
-
-            var mapper = config.CreateMapper();
-
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-            var context = new ApplicationDbContext(optionsBuilder);
-            var bugReportsService = new BugReportsService(context);
-
             var account = new Account
             {
                 Id = "1"
@@ -446,13 +361,13 @@ namespace HolocronProject.Tests.Services
                 ResolvedOn = DateTime.UtcNow.AddDays(1)
             };
 
-            await context.Accounts.AddAsync(account);
-            await context.Accounts.AddAsync(secondAccount);
-            await context.BugReports.AddAsync(bugReport);
-            await context.BugReports.AddAsync(secondBugReport);
-            await context.SaveChangesAsync();
+            await this.context.Accounts.AddAsync(account);
+            await this.context.Accounts.AddAsync(secondAccount);
+            await this.context.BugReports.AddAsync(bugReport);
+            await this.context.BugReports.AddAsync(secondBugReport);
+            await this.context.SaveChangesAsync();
 
-            var mappedEntity = bugReportsService.GetAllAdminResolved<BugReportListViewModel>(mapper).ToList();
+            var mappedEntity = this.bugReportsService.GetAllAdminResolved<BugReportListViewModel>(this.mapper).ToList();
 
             Assert.AreEqual(mappedEntity[1].Id, bugReport.Id);
             Assert.AreEqual(mappedEntity[0].Id, secondBugReport.Id);
@@ -462,19 +377,6 @@ namespace HolocronProject.Tests.Services
         [Test]
         public async Task GetAllAdminResolvedShouldReturnNothingBecauseAllAreAreUnresolved()
         {
-            var config = new MapperConfiguration(opts =>
-            {
-                opts.CreateMap<BugReport, BugReportListViewModel>();
-            });
-
-            var mapper = config.CreateMapper();
-
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-            var context = new ApplicationDbContext(optionsBuilder);
-            var bugReportsService = new BugReportsService(context);
-
             var account = new Account
             {
                 Id = "1"
@@ -509,13 +411,13 @@ namespace HolocronProject.Tests.Services
                 ResolvedOn = DateTime.UtcNow.AddDays(1)
             };
 
-            await context.Accounts.AddAsync(account);
-            await context.Accounts.AddAsync(secondAccount);
-            await context.BugReports.AddAsync(bugReport);
-            await context.BugReports.AddAsync(secondBugReport);
-            await context.SaveChangesAsync();
+            await this.context.Accounts.AddAsync(account);
+            await this.context.Accounts.AddAsync(secondAccount);
+            await this.context.BugReports.AddAsync(bugReport);
+            await this.context.BugReports.AddAsync(secondBugReport);
+            await this.context.SaveChangesAsync();
 
-            var mappedEntity = bugReportsService.GetAllAdminResolved<BugReportListViewModel>(mapper).ToList();
+            var mappedEntity = this.bugReportsService.GetAllAdminResolved<BugReportListViewModel>(this.mapper).ToList();
 
             Assert.AreEqual(0, mappedEntity.Count());
         }
@@ -523,19 +425,6 @@ namespace HolocronProject.Tests.Services
         [Test]
         public async Task GetBugReportByIdShouldReturnCorrectBugReport()
         {
-            var config = new MapperConfiguration(opts =>
-            {
-                opts.CreateMap<BugReport, BugReportListViewModel>();
-            });
-
-            var mapper = config.CreateMapper();
-
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-            var context = new ApplicationDbContext(optionsBuilder);
-            var bugReportsService = new BugReportsService(context);
-
             var account = new Account
             {
                 Id = "1"
@@ -553,11 +442,11 @@ namespace HolocronProject.Tests.Services
                 ResolvedOn = DateTime.UtcNow.AddDays(1)
             };
 
-            await context.Accounts.AddAsync(account);
-            await context.BugReports.AddAsync(bugReport);
-            await context.SaveChangesAsync();
+            await this.context.Accounts.AddAsync(account);
+            await this.context.BugReports.AddAsync(bugReport);
+            await this.context.SaveChangesAsync();
 
-            var foundBugReport = bugReportsService.GetBugReportById("1");
+            var foundBugReport = this.bugReportsService.GetBugReportById("1");
 
             Assert.AreEqual(bugReport, foundBugReport);
         }
@@ -565,19 +454,6 @@ namespace HolocronProject.Tests.Services
         [Test]
         public async Task TotalUnresolvedBugsShouldReturnCorrectNumber()
         {
-            var config = new MapperConfiguration(opts =>
-            {
-                opts.CreateMap<BugReport, BugReportListViewModel>();
-            });
-
-            var mapper = config.CreateMapper();
-
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-            var context = new ApplicationDbContext(optionsBuilder);
-            var bugReportsService = new BugReportsService(context);
-
             var account = new Account
             {
                 Id = "1"
@@ -607,12 +483,12 @@ namespace HolocronProject.Tests.Services
                 ResolvedOn = DateTime.UtcNow.AddDays(1)
             };
 
-            await context.Accounts.AddAsync(account);
-            await context.BugReports.AddAsync(bugReport);
-            await context.BugReports.AddAsync(secondBugReport);
-            await context.SaveChangesAsync();
+            await this.context.Accounts.AddAsync(account);
+            await this.context.BugReports.AddAsync(bugReport);
+            await this.context.BugReports.AddAsync(secondBugReport);
+            await this.context.SaveChangesAsync();
 
-            var totalUnresolvedBugs = bugReportsService.TotalUnresolvedBugReports();
+            var totalUnresolvedBugs = this.bugReportsService.TotalUnresolvedBugReports();
 
             Assert.AreEqual(1, totalUnresolvedBugs);
         }
