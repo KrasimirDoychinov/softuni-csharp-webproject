@@ -17,7 +17,7 @@ namespace HolocronProject.Services
 
         T GetPostById<T>(string postId);
 
-        Task EditPostById(string postId, string description);
+        Task EditPostByIdAsync(string postId, string description);
 
         int TotalPosts();
 

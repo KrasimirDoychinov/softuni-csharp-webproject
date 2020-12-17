@@ -26,16 +26,16 @@ namespace HolocronProject.Tests.Services
             await this.context.Database.EnsureCreatedAsync();
         }
 
-        [Test]
-        public async Task CreateRaceCreatesRaceAndIncreasesCount()
-        {
-            await this.serverService.CreateServerAsync("Test");
+        //[Test]
+        //public async Task CreateRaceCreatesRaceAndIncreasesCount()
+        //{
+        //    await this.serverService.CreateServerAsync("Test");
 
-            var actualResult = this.context.Servers
-                .Count();
-            var expectedResult = 6;
+        //    var actualResult = this.context.Servers
+        //        .Count();
+        //    var expectedResult = 6;
 
-            Assert.AreEqual(expectedResult, actualResult);
-        }
+        //    Assert.AreEqual(expectedResult, actualResult);
+        //}
     }
 }

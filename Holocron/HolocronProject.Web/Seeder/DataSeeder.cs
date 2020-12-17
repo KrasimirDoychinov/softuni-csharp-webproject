@@ -1,15 +1,19 @@
-﻿using HolocronProject.Data.Models;
+﻿using HolocronProject.Data;
+using HolocronProject.Data.Models;
+using HolocronProject.Services;
+using HolocronProject.Services.Models.Threads;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace HolocronProject.Web
+namespace HolocronProject.Web.Seeder
 {
-    public class MyIdentityDataInitializer
+    public class DataSeeder
     {
-        public static void SeedData(UserManager<Account> userManager,RoleManager<IdentityRole> roleManager)
+        public static void SeedData(UserManager<Account> userManager,
+            RoleManager<IdentityRole> roleManager)
         {
             SeedRoles(roleManager);
             SeedUsers(userManager);
@@ -61,8 +65,6 @@ namespace HolocronProject.Web
                 var roleAdmin = new IdentityRole() { Name = "Admin" };
                 roleManager.CreateAsync(roleAdmin).Wait();
             }
-
-
         }
     }
 }

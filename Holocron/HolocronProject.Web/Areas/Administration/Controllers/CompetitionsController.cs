@@ -46,7 +46,7 @@ namespace HolocronProject.Web.Areas.Administration.Controllers
             var totalSeconds = (input.EndDate - DateTime.Now).TotalSeconds;
 
             BackgroundJob.Schedule(
-                () => this.competitionsService.FinishCompetitionAsync(competitionId), TimeSpan.FromSeconds(180));
+                () => this.competitionsService.FinishCompetitionAsync(competitionId), TimeSpan.FromSeconds(totalSeconds));
 
             return this.Redirect("/Competitions/All");
         }

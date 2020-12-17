@@ -91,6 +91,7 @@ namespace HolocronProject.Services.Implementations
 
             return account.AvatarImagePath;
         }
+
         public T GetAccountByIdGeneric<T>(string accountId)
             => this.context.Accounts
             .Where(x => x.Id == accountId)
@@ -108,7 +109,7 @@ namespace HolocronProject.Services.Implementations
             => this.context.Accounts
             .Count();
 
-        public async Task NotifyAccountOfApprovedCharacters(string accountId)
+        public async Task NotifyAccountOfApprovedCharactersAsync(string accountId)
         {
             var account = this.GetAccountById(accountId);
 
@@ -118,7 +119,7 @@ namespace HolocronProject.Services.Implementations
             await this.context.SaveChangesAsync();
         }
 
-        public async Task NotifyAccountOfPendingCharacters(string accountId)
+        public async Task NotifyAccountOfPendingCharactersAsync(string accountId)
         {
             var account = this.GetAccountById(accountId);
 
@@ -128,7 +129,7 @@ namespace HolocronProject.Services.Implementations
             await this.context.SaveChangesAsync();
         }
 
-        public async Task NotifyAccountOfDeletedCharacters(string accountId)
+        public async Task NotifyAccountOfDeletedCharactersAsync(string accountId)
         {
             var account = this.GetAccountById(accountId);
 
@@ -144,7 +145,7 @@ namespace HolocronProject.Services.Implementations
             .FirstOrDefault()
             .NotificationStatus;
 
-        public async Task RemoveNotification(string accountId)
+        public async Task RemoveNotificationAsync(string accountId)
         {
             var account = this.GetAccountById(accountId);
 

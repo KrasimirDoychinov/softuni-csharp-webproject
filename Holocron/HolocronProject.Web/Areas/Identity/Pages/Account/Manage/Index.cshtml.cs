@@ -54,7 +54,7 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account.Manage
 
         public string SanitizedForumSignature => new HtmlSanitizer().Sanitize(this.ForumSignature);
 
-        public string CreatedOn { get; set; }
+        public string NormalizedCreatedOn { get; set; }
 
         public string AvatarImagePath { get; set; }
 
@@ -67,7 +67,6 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account.Manage
         public string StatusMessage { get; set; }
 
 
-
         private async Task LoadAsync(Data.Models.Account user)
         {
             var userName = await _userManager.GetUserNameAsync(user);
@@ -77,7 +76,7 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account.Manage
             UserName = userName;
             AvatarImagePath = user.AvatarImagePath;
             ForumSignature = user.ForumSignature;
-            CreatedOn = user.CreatedOn;
+            NormalizedCreatedOn = user.CreatedOn.ToLocalTime().ToString("MM/dd/yyyy h:mm tt");
         }
 
         public async Task<IActionResult> OnGetAsync()
@@ -87,7 +86,7 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account.Manage
 
             AvatarImagePath = user.AvatarImagePath;
             ForumSignature = user.ForumSignature;
-            CreatedOn = user.CreatedOn;
+            NormalizedCreatedOn = user.CreatedOn.ToLocalTime().ToString("MM/dd/yyyy h:mm tt");
 
             if (user == null)
             {

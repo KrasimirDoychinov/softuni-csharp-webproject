@@ -43,7 +43,7 @@ namespace HolocronProject.Services.Implementations
             await this.context.SaveChangesAsync();
         }
 
-        public async Task EditPostById(string postId, string description)
+        public async Task EditPostByIdAsync(string postId, string description)
         {
             var post = this.context.Posts.FirstOrDefault(x => x.Id == postId);
 

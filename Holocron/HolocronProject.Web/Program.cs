@@ -8,8 +8,8 @@ namespace HolocronProject.Web
 
     // TODO: Review the code each day at the beginning of the code session and at the end of the session
 
-    // TODO: Show all date time in local timezone
-    // TODO: Look over every single service and controller and fix anything that is wrong
+    // TODO: !!!Seed threads, characters, bug reports, post reports, competitions,
+    // TODO: Look over all the code then start tests
     // TODO: Look over all the views as well
     // TODO: Add stats view
     // TODO: !!!Add signalR timer!!!

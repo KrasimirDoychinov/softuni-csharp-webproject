@@ -24,15 +24,15 @@ namespace HolocronProject.Services
 
         T GetCharacterByIdGeneric<T>(string characterId);
 
-        Task UpdateCharacterImage(string characterName, IFormFile image);
+        Task UpdateCharacterImageAsync(string characterName, IFormFile image);
 
         int TotalApprovedCharacters();
 
         int TotalPendingCharacters();
 
-        Task ApproveCharacter(string characterId, string accountId);
+        Task ApproveCharacterAsync(string characterId, string accountId);
 
-        Task DeleteCharacter(string characterId, string accountId);
+        Task DeleteCharacterAsync(string characterId, string accountId);
 
         IEnumerable<T> GetPendingCharacters<T>(string accountId);
 

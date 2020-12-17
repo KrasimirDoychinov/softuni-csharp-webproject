@@ -19,17 +19,6 @@ namespace HolocronProject.Services.Implementations
             this.context = context;
         }
 
-        public async Task CreateServerAsync(string name)
-        {
-            var server = new Server
-            {
-                Name = name
-            };
-
-            await this.context.Servers.AddAsync(server);
-            await this.context.SaveChangesAsync();
-        }
-
         public IEnumerable<T> GetAll<T>()
             => this.context.Servers
             .OrderBy(x => x.Name)

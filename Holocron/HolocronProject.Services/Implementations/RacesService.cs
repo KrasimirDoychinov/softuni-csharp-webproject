@@ -18,17 +18,6 @@ namespace HolocronProject.Services
             this.context = context;
         }
 
-        public async Task CreateRaceAsync(string name)
-        {
-            var race = new Race
-            {
-                Name = name
-            };
-
-            await this.context.Races.AddAsync(race);
-            await this.context.SaveChangesAsync();
-        }
-
         public IEnumerable<T> GetAll<T>()
             => this.context.Races
             .OrderBy(x => x.Name)

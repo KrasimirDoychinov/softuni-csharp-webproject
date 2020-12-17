@@ -90,12 +90,12 @@ namespace HolocronProject.Web.Controllers
             };
 
             await this.characterService.CreateCharacterAsync(characterInputDto);
-            await this.characterService.UpdateCharacterImage(input.Name, input.Image);
+            await this.characterService.UpdateCharacterImageAsync(input.Name, input.Image);
 
             BackgroundJob.Schedule(
-               () => this.accountsService.RemoveNotification(accountId), TimeSpan.FromSeconds(180));
+               () => this.accountsService.RemoveNotificationAsync(accountId), TimeSpan.FromSeconds(180));
 
-            await this.accountsService.NotifyAccountOfPendingCharacters(accountId);
+            await this.accountsService.NotifyAccountOfPendingCharactersAsync(accountId);
             return this.Redirect($"/");
         }
 
@@ -141,7 +141,7 @@ namespace HolocronProject.Web.Controllers
             };
 
             await this.characterService.EditCharacterAsync(characterInputDto);
-            await this.characterService.UpdateCharacterImage(input.Name, input.Image);
+            await this.characterService.UpdateCharacterImageAsync(input.Name, input.Image);
             return this.Redirect($"/Characters/AllCharacters?accountId={accountId}");
         }
 
@@ -154,7 +154,7 @@ namespace HolocronProject.Web.Controllers
                 charListViewModel = CharListPager(page, charListViewModel);
                 CharListUTCToLocalTime(charListViewModel);
             }
-            await this.accountsService.RemoveNotification(accountId);
+            await this.accountsService.RemoveNotificationAsync(accountId);
             ViewData["charactersAccountId"] = accountId;
            
             return this.View(charListViewModel.ToList());

@@ -16,11 +16,11 @@ namespace HolocronProject.Data.Models
             this.Id = Guid.NewGuid().ToString();
         }
         
-        public string CreatedOn { get; set; } = DateTime.UtcNow.ToString("MM/dd/yyyy h:mm tt");
+        public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
 
         public string AvatarImagePath { get; set; } 
 
-        public string ForumSignature { get; set; } = "Placeholder forum signature";
+        public string ForumSignature { get; set; }
 
         public virtual ICollection<Character> Characters { get; set; } = new List<Character>();
 
@@ -31,7 +31,6 @@ namespace HolocronProject.Data.Models
         public virtual ICollection<BugReport> BugReports { get; set; } = new List<BugReport>();
 
         public virtual ICollection<PostReport> PostReports { get; set; } = new List<PostReport>();
-
 
         public NotificationStatus NotificationStatus { get; set; } = 0;
 

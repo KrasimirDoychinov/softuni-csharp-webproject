@@ -70,7 +70,7 @@ namespace HolocronProject.Services.Implementations
                 .Where(x => x.Id == characterId)
                 .To<T>().FirstOrDefault();
 
-        public async Task UpdateCharacterImage(string characterName, IFormFile image)
+        public async Task UpdateCharacterImageAsync(string characterName, IFormFile image)
         {
             if (image == null)
             {
@@ -109,22 +109,22 @@ namespace HolocronProject.Services.Implementations
             .To<T>()
             .ToList();
 
-        public async Task ApproveCharacter(string characterId, string accountId)
+        public async Task ApproveCharacterAsync(string characterId, string accountId)
         {
             var character = this.GetCharacterById(characterId);
             
             character.CharacterStatus = CharacterStatus.Approved;
 
             BackgroundJob.Schedule(
-                () => this.accountsService.RemoveNotification(accountId), TimeSpan.FromSeconds(180));
+                () => this.accountsService.RemoveNotificationAsync(accountId), TimeSpan.FromSeconds(180));
 
-            await this.accountsService.NotifyAccountOfApprovedCharacters(accountId);
+            await this.accountsService.NotifyAccountOfApprovedCharactersAsync(accountId);
 
             this.context.Characters.Update(character);
             await this.context.SaveChangesAsync();
         }
 
-        public async Task DeleteCharacter(string characterId, string accountId)
+        public async Task DeleteCharacterAsync(string characterId, string accountId)
         {
             var character = this.GetCharacterById(characterId);
 
@@ -133,9 +133,9 @@ namespace HolocronProject.Services.Implementations
             character.DeletedOn = DateTime.UtcNow;
 
             BackgroundJob.Schedule(
-                () => this.accountsService.RemoveNotification(accountId), TimeSpan.FromSeconds(180));
+                () => this.accountsService.RemoveNotificationAsync(accountId), TimeSpan.FromSeconds(180));
 
-            await this.accountsService.NotifyAccountOfDeletedCharacters(accountId);
+            await this.accountsService.NotifyAccountOfDeletedCharactersAsync(accountId);
 
             this.context.Characters.Update(character);
             await this.context.SaveChangesAsync();

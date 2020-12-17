@@ -30,13 +30,13 @@ namespace HolocronProject.Services
 
         int TotalAccounts();
 
-        Task NotifyAccountOfApprovedCharacters(string accountId);
+        Task NotifyAccountOfApprovedCharactersAsync(string accountId);
 
-        Task NotifyAccountOfPendingCharacters(string accountId);
+        Task NotifyAccountOfPendingCharactersAsync(string accountId);
 
-        Task NotifyAccountOfDeletedCharacters(string accountId);
+        Task NotifyAccountOfDeletedCharactersAsync(string accountId);
 
-        Task RemoveNotification(string accountId);
+        Task RemoveNotificationAsync(string accountId);
 
         NotificationStatus IsUserNotified(string accountId);
 

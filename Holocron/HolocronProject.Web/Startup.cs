@@ -19,6 +19,7 @@ using Microsoft.AspNetCore.Identity;
 using HolocronProject.Web.Hubs;
 using Hangfire;
 using Hangfire.SqlServer;
+using HolocronProject.Web.Seeder;
 
 namespace HolocronProject.Web
 {
@@ -130,7 +131,7 @@ namespace HolocronProject.Web
             app.UseAuthentication();
             app.UseAuthorization();
 
-            MyIdentityDataInitializer.SeedData(userManager, roleManager);
+            DataSeeder.SeedData(userManager, roleManager);
 
             app.UseEndpoints(endpoints =>
             {

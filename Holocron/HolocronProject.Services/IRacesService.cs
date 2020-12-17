@@ -7,9 +7,6 @@ namespace HolocronProject.Services
 {
     public interface IRacesService
     {
-        Task CreateRaceAsync(string name);
-
         IEnumerable<T> GetAll<T>();
-        
     }
 }

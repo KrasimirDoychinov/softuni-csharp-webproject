@@ -41,7 +41,7 @@ namespace HolocronProject.Web.Controllers
         [Authorize]
         public async Task<IActionResult> RemoveNotification(string accountId)
         {
-            await this.accountService.RemoveNotification(accountId);
+            await this.accountService.RemoveNotificationAsync(accountId);
 
             return this.Redirect("/");
         }

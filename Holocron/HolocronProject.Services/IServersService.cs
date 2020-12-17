@@ -7,8 +7,6 @@ namespace HolocronProject.Services
 {
     public interface IServersService
     {
-        Task CreateServerAsync(string name);
-
         IEnumerable<T> GetAll<T>();
     }
 }

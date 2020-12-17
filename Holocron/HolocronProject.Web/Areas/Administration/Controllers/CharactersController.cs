@@ -79,14 +79,14 @@ namespace HolocronProject.Web.Areas.Administration.Controllers
 
         public async Task<IActionResult> ApproveCharacter(string characterId, string accountId)
         {
-            await this.characterService.ApproveCharacter(characterId, accountId);
+            await this.characterService.ApproveCharacterAsync(characterId, accountId);
 
             return this.Redirect("/");
         }
 
         public async Task<IActionResult> DeleteCharacter(string characterId, string accountId)
         {
-            await this.characterService.DeleteCharacter(characterId, accountId);
+            await this.characterService.DeleteCharacterAsync(characterId, accountId);
 
             return this.Redirect("/");
         }

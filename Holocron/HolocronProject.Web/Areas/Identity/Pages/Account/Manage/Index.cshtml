@@ -22,7 +22,7 @@
     <div class="col-md-6">
         <form id="profile-form" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="All" class="text-danger"></div>
-            <label><span class="font-weight-bold">Created on:</span> @Model.CreatedOn</label>
+            <label><span class="font-weight-bold">Created on: </span>@Model.NormalizedCreatedOn</label>
 
             <div class="form-group">
                 <label asp-for="UserName" class="font-weight-bold"></label>
@@ -42,6 +42,7 @@
             {
                 <img src="~/Images/AvatarImages/@Model.AvatarImagePath?random=@ViewData["random"].ToString()" class="rounded-circle border border-warning border" height="150" width="150" alt="@Model.AvatarImagePath?random=@ViewData["random"].ToString()" />
             }
+
             else
             {
                 <img src="~/Images/AvatarImages/defaultAvatar.jpg" class="rounded-circle border border-warning border" height="150" width="150" alt="@Model.AvatarImagePath?random=@ViewData["random"].ToString()" />
@@ -57,8 +58,11 @@
                 <textarea asp-for="ForumSignature" class="form-control"></textarea>
             </div>
 
-            <p>@Html.Raw(Model.SanitizedForumSignature)</p>
 
+            <button onclick="showHideSig()" class="btn btn-primary">Preview forum signature</button>
+            <div id="forumSig" style="display: none">
+                @Html.Raw(Model.SanitizedForumSignature)
+            </div>
             <button id="update-profile-button" type="submit" class="btn btn-primary">Update information</button>
         </form>
     </div>
@@ -68,4 +72,10 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+
+
+    <script>
+        $("#showHideBtn").click(function () {
+        });
+    </script>
 }

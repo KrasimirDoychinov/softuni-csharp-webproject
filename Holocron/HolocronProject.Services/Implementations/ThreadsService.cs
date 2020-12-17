@@ -47,6 +47,7 @@ namespace HolocronProject.Services.Implementations
             {
                 await this.postsService.DeletePostAsync(post.Id);
             }
+
             await this.context.SaveChangesAsync();
         }
 
