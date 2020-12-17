@@ -90,10 +90,7 @@ namespace HolocronProject.Web.Controllers
             };
 
             await this.characterService.CreateCharacterAsync(characterInputDto);
-            await this.characterService.UpdateCharacterImageAsync(input.Name, input.Image);
-
-            BackgroundJob.Schedule(
-               () => this.accountsService.RemoveNotificationAsync(accountId), TimeSpan.FromSeconds(180));
+            await this.characterService.UpdateCharacterImageAsync(input.Name, input.ServerId, input.Image);
 
             await this.accountsService.NotifyAccountOfPendingCharactersAsync(accountId);
             return this.Redirect($"/");
@@ -141,13 +138,13 @@ namespace HolocronProject.Web.Controllers
             };
 
             await this.characterService.EditCharacterAsync(characterInputDto);
-            await this.characterService.UpdateCharacterImageAsync(input.Name, input.Image);
+            await this.characterService.UpdateCharacterImageAsync(input.Name, input.ServerId, input.Image);
             return this.Redirect($"/Characters/AllCharacters?accountId={accountId}");
         }
 
         public async Task<IActionResult> AllCharacters(string accountId, int? page)
         {
-            var charListViewModel = this.characterService.GetCurrentAccountCharacter<CharacterListViewModel>(accountId);
+            var charListViewModel = this.characterService.GetCurrentAccountCharacters<CharacterListViewModel>(accountId);
 
             if (charListViewModel.Count() > 0)
             {

@@ -14,6 +14,7 @@ using System.IO;
 using HolocronProject.Services.Models.Characters;
 using HolocronProject.Data.Enums;
 using Hangfire;
+using AutoMapper;
 
 namespace HolocronProject.Services.Implementations
 {
@@ -51,26 +52,27 @@ namespace HolocronProject.Services.Implementations
             await this.context.SaveChangesAsync();
         }
 
-        public IEnumerable<T> GetCurrentAccountCharacter<T>(string accountId)
+        public IEnumerable<T> GetCurrentAccountCharacters<T>(string accountId, IMapper mapper = null)
             => this.context.Characters
                 .Where(x => x.AccountId == accountId && x.CharacterStatus == CharacterStatus.Approved)
-                .To<T>()
+                .To<T>(mapper)
                 .ToList();
 
-        public IEnumerable<T> GetCurrentAccountCharacterForCompetition<T>(string accountId, string competitionId) 
+        public IEnumerable<T> GetCurrentAccountCharacterForCompetition<T>(string accountId, string competitionId, IMapper mapper = null) 
             => this.context.Characters
                 .Where(x => x.AccountId == accountId 
                 && x.CharacterStatus == CharacterStatus.Approved
                 && !x.Competitions.Any(x => x.CompetitionId == competitionId))
-                .To<T>()
+                .To<T>(mapper)
                 .ToList();
 
-        public T GetCharacterByIdGeneric<T>(string characterId)
+        public T GetCharacterByIdGeneric<T>(string characterId, IMapper mapper = null)
             => this.context.Characters
                 .Where(x => x.Id == characterId)
-                .To<T>().FirstOrDefault();
+                .To<T>(mapper)
+            .FirstOrDefault();
 
-        public async Task UpdateCharacterImageAsync(string characterName, IFormFile image)
+        public async Task UpdateCharacterImageAsync(string characterName, string serverId, IFormFile image)
         {
             if (image == null)
             {
@@ -79,8 +81,7 @@ namespace HolocronProject.Services.Implementations
             else
             {
                 var character = this.context.Characters
-                .OrderByDescending(x => x.CreatedOn)
-                .FirstOrDefault();
+                .FirstOrDefault(x => x.Name == characterName && x.Server.Id == serverId);
 
                 using (var fs = new FileStream(
                    $"wwwroot/Images/CharacterImages/{character.Id}(Character).png", FileMode.Create))
@@ -102,11 +103,11 @@ namespace HolocronProject.Services.Implementations
             .Where(x => x.CharacterStatus == CharacterStatus.Approved)
             .Count();
 
-        public IEnumerable<T> GetNewestCharacters<T>()
+        public IEnumerable<T> GetNewestCharacters<T>(IMapper mapper = null)
             => this.context.Characters
             .Where(x => x.CharacterStatus == CharacterStatus.Approved)
             .OrderByDescending(x => x.CreatedOn)
-            .To<T>()
+            .To<T>(mapper)
             .ToList();
 
         public async Task ApproveCharacterAsync(string characterId, string accountId)
@@ -135,16 +136,16 @@ namespace HolocronProject.Services.Implementations
             await this.context.SaveChangesAsync();
         }
 
-        public IEnumerable<T> GetPendingCharacters<T>(string accountId)
+        public IEnumerable<T> GetPendingCharacters<T>(string accountId, IMapper mapper = null)
             => this.context.Characters
             .Where(x => x.AccountId == accountId && x.CharacterStatus  == CharacterStatus.Pending)
-            .To<T>()
+            .To<T>(mapper)
             .ToList();
 
-        public IEnumerable<T> GetAllPendingCharacters<T>()
+        public IEnumerable<T> GetAllPendingCharacters<T>(IMapper mapper = null)
             => this.context.Characters
             .Where(x => x.CharacterStatus == CharacterStatus.Pending)
-            .To<T>()
+            .To<T>(mapper)
             .ToList();
 
         public int TotalPendingCharacters()
@@ -156,7 +157,6 @@ namespace HolocronProject.Services.Implementations
         {
             var character = this.GetCharacterById(input.Id);
 
-            character.AccountId = input.AccountId;
             character.Backstory = input.Backstory;
             character.Description = input.Description;
             character.CharacterType = input.CharacterType;

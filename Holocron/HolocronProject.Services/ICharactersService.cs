@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoMapper;
 using HolocronProject.Data.Models;
 using HolocronProject.Services.Models;
 using HolocronProject.Services.Models.Character;
@@ -16,15 +17,15 @@ namespace HolocronProject.Services
 
         Character GetCharacterById(string characterId);
 
-        IEnumerable<T> GetCurrentAccountCharacter<T>(string accountId);
+        IEnumerable<T> GetCurrentAccountCharacters<T>(string accountId, IMapper mapper = null);
 
-        IEnumerable<T> GetCurrentAccountCharacterForCompetition<T>(string accountId, string competitionId);
+        IEnumerable<T> GetCurrentAccountCharacterForCompetition<T>(string accountId, string competitionId, IMapper mapper = null);
 
-        IEnumerable<T> GetNewestCharacters<T>();
+        IEnumerable<T> GetNewestCharacters<T>(IMapper mapper = null);
 
-        T GetCharacterByIdGeneric<T>(string characterId);
+        T GetCharacterByIdGeneric<T>(string characterId, IMapper mapper = null);
 
-        Task UpdateCharacterImageAsync(string characterName, IFormFile image);
+        Task UpdateCharacterImageAsync(string characterName, string serverId, IFormFile image);
 
         int TotalApprovedCharacters();
 
@@ -34,9 +35,9 @@ namespace HolocronProject.Services
 
         Task DeleteCharacterAsync(string characterId, string accountId);
 
-        IEnumerable<T> GetPendingCharacters<T>(string accountId);
+        IEnumerable<T> GetPendingCharacters<T>(string accountId, IMapper mapper = null);
 
-        IEnumerable<T> GetAllPendingCharacters<T>();
+        IEnumerable<T> GetAllPendingCharacters<T>(IMapper mapper = null);
 
 
 
