@@ -7,14 +7,14 @@ using System;
 
 namespace HolocronProject.Data
 {
-    public class HolocronDbContext : IdentityDbContext<Account>
+    public class ApplicationDbContext : IdentityDbContext<Account>
     {
 
-        public HolocronDbContext()
+        public ApplicationDbContext()
         {
         }
 
-        public HolocronDbContext(DbContextOptions options)
+        public ApplicationDbContext(DbContextOptions options)
             : base(options)
         {
         }

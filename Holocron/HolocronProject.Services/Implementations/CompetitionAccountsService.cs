@@ -10,9 +10,9 @@ namespace HolocronProject.Services.Implementations
 {
     public class CompetitionAccountsService : ICompetitionAccountsService
     {
-        private readonly HolocronDbContext context;
+        private readonly ApplicationDbContext context;
 
-        public CompetitionAccountsService(HolocronDbContext context)
+        public CompetitionAccountsService(ApplicationDbContext context)
         {
             this.context = context;
         }

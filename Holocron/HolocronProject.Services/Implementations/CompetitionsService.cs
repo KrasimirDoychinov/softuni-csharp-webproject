@@ -13,10 +13,10 @@ namespace HolocronProject.Services.Implementations
 {
     public class CompetitionsService : ICompetitionsService
     {
-        private readonly HolocronDbContext context;
+        private readonly ApplicationDbContext context;
         private readonly IAchievementsService achievementService;
 
-        public CompetitionsService(HolocronDbContext context,
+        public CompetitionsService(ApplicationDbContext context,
             IAchievementsService achievementService)
         {
             this.context = context;

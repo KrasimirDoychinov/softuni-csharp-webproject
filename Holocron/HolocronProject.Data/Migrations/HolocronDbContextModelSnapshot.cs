@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HolocronProject.Data.Migrations
 {
-    [DbContext(typeof(HolocronDbContext))]
+    [DbContext(typeof(ApplicationDbContext))]
     partial class HolocronDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

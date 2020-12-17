@@ -10,10 +10,10 @@ namespace HolocronProject.Services.Implementations
 {
     public class PostReportsService : IPostReportsService
     {
-        private readonly HolocronDbContext context;
+        private readonly ApplicationDbContext context;
         private readonly IPostsService postsService;
 
-        public PostReportsService(HolocronDbContext context,
+        public PostReportsService(ApplicationDbContext context,
             IPostsService postsService)
         {
             this.context = context;

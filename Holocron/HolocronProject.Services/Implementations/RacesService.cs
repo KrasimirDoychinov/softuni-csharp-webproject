@@ -11,9 +11,9 @@ namespace HolocronProject.Services
 {
     public class RacesService : IRacesService
     {
-        private HolocronDbContext context;
+        private ApplicationDbContext context;
 
-        public RacesService(HolocronDbContext context)
+        public RacesService(ApplicationDbContext context)
         {
             this.context = context;
         }

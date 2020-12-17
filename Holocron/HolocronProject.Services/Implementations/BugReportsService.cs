@@ -11,9 +11,9 @@ namespace HolocronProject.Services.Implementations
 {
     public class BugReportsService : IBugReportsService
     {
-        private readonly HolocronDbContext context;
+        private readonly ApplicationDbContext context;
 
-        public BugReportsService(HolocronDbContext context)
+        public BugReportsService(ApplicationDbContext context)
         {
             this.context = context;
         }

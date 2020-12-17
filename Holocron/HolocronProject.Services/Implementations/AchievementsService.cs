@@ -9,9 +9,9 @@ namespace HolocronProject.Services.Implementations
 {
     public class AchievementsService : IAchievementsService
     {
-        private readonly HolocronDbContext context;
+        private readonly ApplicationDbContext context;
 
-        public AchievementsService(HolocronDbContext context)
+        public AchievementsService(ApplicationDbContext context)
         {
             this.context = context;
         }

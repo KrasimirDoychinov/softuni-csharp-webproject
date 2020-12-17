@@ -20,10 +20,10 @@ namespace HolocronProject.Services.Implementations
     // TODO: Add more character services
     public class CharactersService : ICharactersService
     {
-        private readonly HolocronDbContext context;
+        private readonly ApplicationDbContext context;
         private readonly IAccountsService accountsService;
 
-        public CharactersService(HolocronDbContext context,
+        public CharactersService(ApplicationDbContext context,
             IAccountsService accountsService)
         {
             this.context = context;
@@ -115,9 +115,6 @@ namespace HolocronProject.Services.Implementations
             
             character.CharacterStatus = CharacterStatus.Approved;
 
-            BackgroundJob.Schedule(
-                () => this.accountsService.RemoveNotificationAsync(accountId), TimeSpan.FromSeconds(180));
-
             await this.accountsService.NotifyAccountOfApprovedCharactersAsync(accountId);
 
             this.context.Characters.Update(character);
@@ -131,9 +128,6 @@ namespace HolocronProject.Services.Implementations
             character.CharacterStatus = CharacterStatus.Deleted;
             character.IsDeleted = true;
             character.DeletedOn = DateTime.UtcNow;
-
-            BackgroundJob.Schedule(
-                () => this.accountsService.RemoveNotificationAsync(accountId), TimeSpan.FromSeconds(180));
 
             await this.accountsService.NotifyAccountOfDeletedCharactersAsync(accountId);
 

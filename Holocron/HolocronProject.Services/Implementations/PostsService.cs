@@ -12,9 +12,9 @@ namespace HolocronProject.Services.Implementations
 {
     public class PostsService : IPostsService
     {
-        private HolocronDbContext context;
+        private ApplicationDbContext context;
 
-        public PostsService(HolocronDbContext context)
+        public PostsService(ApplicationDbContext context)
         {
             this.context = context;
         }

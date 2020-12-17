@@ -12,9 +12,9 @@ namespace HolocronProject.Services.Implementations
 
     public class AccountsService : IAccountsService
     {
-        private HolocronDbContext context;
+        private ApplicationDbContext context;
 
-        public AccountsService(HolocronDbContext context)
+        public AccountsService(ApplicationDbContext context)
         {
             this.context = context;
         }
@@ -25,7 +25,6 @@ namespace HolocronProject.Services.Implementations
 
             account.ForumSignature = forumSignature;
 
-            this.context.Accounts.Update(account);
             await this.context.SaveChangesAsync();
         }
 
@@ -35,9 +34,7 @@ namespace HolocronProject.Services.Implementations
 
             account.UserName = newUserName;
             account.NormalizedUserName = newUserName.ToUpper();
-            await UpdateAvatarImagePathAsync(accountId);
 
-            this.context.Accounts.Update(account);
             await this.context.SaveChangesAsync();
         }
 
@@ -47,7 +44,6 @@ namespace HolocronProject.Services.Implementations
 
             account.AvatarImagePath = $"{account.Id}(Account).png";
 
-            this.context.Accounts.Update(account);
             await this.context.SaveChangesAsync();
         }
 
@@ -59,7 +55,6 @@ namespace HolocronProject.Services.Implementations
             using (var fs = new FileStream(
                  $"wwwroot/Images/AvatarImages/{account.AvatarImagePath}", FileMode.Create))
             {
-
                 await image.CopyToAsync(fs);
             }
 

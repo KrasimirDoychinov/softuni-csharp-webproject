@@ -11,9 +11,9 @@ namespace HolocronProject.Services.Implementations
 {
     public class CompetitionCharactersService : ICompetitionCharactersService
     {
-        private readonly HolocronDbContext context;
+        private readonly ApplicationDbContext context;
 
-        public CompetitionCharactersService(HolocronDbContext context)
+        public CompetitionCharactersService(ApplicationDbContext context)
         {
             this.context = context;
         }

@@ -11,9 +11,9 @@ namespace HolocronProject.Services.Implementations
 {
     public class BaseThreadsService : IBaseThreadsService
     {
-        private HolocronDbContext context;
+        private ApplicationDbContext context;
 
-        public BaseThreadsService(HolocronDbContext context)
+        public BaseThreadsService(ApplicationDbContext context)
         {
             this.context = context;
         }

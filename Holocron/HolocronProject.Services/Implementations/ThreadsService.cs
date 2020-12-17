@@ -12,10 +12,10 @@ namespace HolocronProject.Services.Implementations
 {
     public class ThreadsService : IThreadsService
     {
-        private HolocronDbContext context;
+        private ApplicationDbContext context;
         private readonly IPostsService postsService;
 
-        public ThreadsService(HolocronDbContext context,
+        public ThreadsService(ApplicationDbContext context,
             IPostsService postsService)
         {
             this.context = context;

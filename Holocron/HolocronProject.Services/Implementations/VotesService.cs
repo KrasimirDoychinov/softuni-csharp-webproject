@@ -11,9 +11,9 @@ namespace HolocronProject.Services.Implementations
 {
     public class VotesService : IVotesService
     {
-        private readonly HolocronDbContext context;
+        private readonly ApplicationDbContext context;
 
-        public VotesService(HolocronDbContext context)
+        public VotesService(ApplicationDbContext context)
         {
             this.context = context;
         }

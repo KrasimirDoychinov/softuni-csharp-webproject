@@ -9,9 +9,9 @@ namespace HolocronProject.Services.Implementations
 {
     public class ClassesService : IClassesService
     {
-        private readonly HolocronDbContext context;
+        private readonly ApplicationDbContext context;
 
-        public ClassesService(HolocronDbContext context)
+        public ClassesService(ApplicationDbContext context)
         {
             this.context = context;
         }

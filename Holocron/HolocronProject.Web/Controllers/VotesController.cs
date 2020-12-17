@@ -4,9 +4,6 @@ using HolocronProject.Web.ViewModels.Votes;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace HolocronProject.Web.Controllers
@@ -25,9 +22,6 @@ namespace HolocronProject.Web.Controllers
             this.userManager = userManager;
         }
 
-        // POST: /api/votes
-        //  {"postId": 1, "isUpVote": true}
-        //  {"votesCount": 16}
         [Authorize]
         [HttpPost]
         public async Task<ActionResult<VoteResponseModel>> Post(VoteInputModel input)

@@ -17,7 +17,7 @@ namespace HolocronProject.Web.ValidationAttributes
             var property = type.GetProperty("ServerId");
             object serverName = property.GetValue(instance);
 
-            var context = new HolocronDbContext();
+            var context = new ApplicationDbContext();
 
             if (context.Characters
                 .Where(x => x.CharacterStatus == CharacterStatus.Approved)

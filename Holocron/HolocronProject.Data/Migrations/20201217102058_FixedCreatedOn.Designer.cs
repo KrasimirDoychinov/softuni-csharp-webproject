@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HolocronProject.Data.Migrations
 {
-    [DbContext(typeof(HolocronDbContext))]
+    [DbContext(typeof(ApplicationDbContext))]
     [Migration("20201217102058_FixedCreatedOn")]
     partial class FixedCreatedOn
     {

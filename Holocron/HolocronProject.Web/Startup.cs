@@ -45,12 +45,12 @@ namespace HolocronProject.Web
                 options.HeaderName = "X-CSRF-TOKEN";
             });
 
-            services.AddDbContext<HolocronDbContext>(options =>
+            services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<Account>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<HolocronDbContext>();
+                .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddSignalR(o =>
             {
