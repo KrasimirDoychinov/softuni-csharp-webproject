@@ -1,4 +1,5 @@
-﻿using HolocronProject.Data;
+﻿using AutoMapper;
+using HolocronProject.Data;
 using HolocronProject.Data.Models;
 using HolocronProject.Services.Mapper;
 using System;
@@ -16,8 +17,8 @@ namespace HolocronProject.Services.Implementations
         public PostReportsService(ApplicationDbContext context,
             IPostsService postsService)
         {
-            this.context = context;
             this.postsService = postsService;
+            this.context = context;
         }
 
         public async Task CreatePostReportAsync(string accountId, string postId, string title, string description, string notes)
@@ -37,62 +38,60 @@ namespace HolocronProject.Services.Implementations
 
         public async Task ResolvePostReportAsync(string postReportId)
         {
-            var postReport = this.GetReportById(postReportId);
+            var postReport = this.GetPostReportById(postReportId);
 
             postReport.IsResolved = true;
             postReport.ResolvedOn = DateTime.UtcNow;
-
-            this.context.PostReports.Update(postReport);
+            
             await this.context.SaveChangesAsync();
         }
 
-        public async Task DeletePostReportAsync(string postReportid, string postId)
+        public async Task DeletePostReportAsync(string postReportid)
         {
-            var postReport = this.GetReportById(postReportid);
+            var postReport = this.GetPostReportById(postReportid);
             
             postReport.IsResolved = true;
             postReport.ResolvedOn = DateTime.UtcNow;
 
-            await this.postsService.DeletePostAsync(postId);
-            this.context.PostReports.Update(postReport);
+            await this.postsService.DeletePostAsync(postReport.PostId);
             await this.context.SaveChangesAsync();
         }
 
-        public IEnumerable<T> GetAllAdminResolved<T>()
+        public IEnumerable<T> GetAllAdminResolved<T>(IMapper mapper = null)
             => this.context.PostReports
             .Where(x => x.IsResolved)
             .OrderByDescending(x => x.ResolvedOn)
-            .To<T>()
+            .To<T>(mapper)
             .ToList();
 
-        public IEnumerable<T> GetAllAdminUnresolved<T>()
+        public IEnumerable<T> GetAllAdminUnresolved<T>(IMapper mapper = null)
             => this.context.PostReports
             .Where(x => !x.IsResolved)
             .OrderByDescending(x => x.CreatedOn)
-            .To<T>()
+            .To<T>(mapper)
             .ToList();
 
-        public IEnumerable<T> GetAllByAccountResolved<T>(string accountId)
+        public IEnumerable<T> GetAllByAccountResolved<T>(string accountId, IMapper mapper = null)
             => this.context.PostReports
             .Where(x => x.AccountId == accountId && x.IsResolved)
             .OrderByDescending(x => x.ResolvedOn)
-            .To<T>()
+            .To<T>(mapper)
             .ToList();
 
-        public IEnumerable<T> GetAllByAccountUnresolved<T>(string accountId)
+        public IEnumerable<T> GetAllByAccountUnresolved<T>(string accountId, IMapper mapper = null)
             => this.context.PostReports
             .Where(x => x.AccountId == accountId && !x.IsResolved)
             .OrderByDescending(x => x.CreatedOn)
-            .To<T>()
+            .To<T>(mapper)
             .ToList();
 
-        public T GetPostReportByIdGeneric<T>(string postReportId)
+        public T GetPostReportByIdGeneric<T>(string postReportId, IMapper mapper = null)
             => this.context.PostReports
             .Where(x => x.Id == postReportId)
-            .To<T>()
+            .To<T>(mapper)
             .FirstOrDefault();
 
-        public PostReport GetReportById(string postReportId)
+        public PostReport GetPostReportById(string postReportId)
             => this.context.PostReports
             .FirstOrDefault(x => x.Id == postReportId);
 
