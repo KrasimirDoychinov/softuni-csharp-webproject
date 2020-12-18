@@ -25,7 +25,7 @@ namespace HolocronProject.Web.ViewModels.BaseThreads
 
         public string Description { get; set; }
 
-        public IEnumerable<ThreadViewModel> Threads { get; set; }
+        public IEnumerable<ThreadListViewModel> Threads { get; set; }
 
         public Pager.Pager Pager { get; set; }
 

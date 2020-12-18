@@ -18,9 +18,9 @@ namespace HolocronProject.Services.Implementations
             this.context = context;
         }
 
-        public int GetVotes(string postId)
+        public int GetVotes(string threadId)
             => this.context.Votes
-            .Where(x => x.ThreadId == postId)
+            .Where(x => x.ThreadId == threadId)
             .Sum(x => (int)x.Type);
 
         public async Task VoteAsync(string threadId, string accountId, bool isUpVote)
@@ -32,7 +32,6 @@ namespace HolocronProject.Services.Implementations
             {
                 vote.Type = isUpVote ? VoteType.UpVote : VoteType.DownVote;
 
-                this.context.Votes.Update(vote);
             }
             else
             {

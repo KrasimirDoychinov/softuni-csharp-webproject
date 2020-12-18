@@ -36,7 +36,7 @@ namespace HolocronProject.Web.ViewModels.Characters
 
         [Required]
         [Display(Name = "Character image")]
-        [CharacterImageFormat]
+        [ImageValidatorAttribute]
         public IFormFile Image { get; set; }
 
         [Required]

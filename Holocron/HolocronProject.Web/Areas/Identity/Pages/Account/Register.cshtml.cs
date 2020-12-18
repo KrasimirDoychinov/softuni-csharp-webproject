@@ -86,7 +86,7 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account
             public string AvatarImagePath { get; set; }
 
             [Display(Name = "Avatar")]
-            [AccountAvatarImage]
+            [ImageValidator]
             public IFormFile AvatarImage { get; set; }
         }
 

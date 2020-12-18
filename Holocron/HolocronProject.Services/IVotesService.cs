@@ -7,8 +7,8 @@ namespace HolocronProject.Services
 {
     public interface IVotesService
     {
-        Task VoteAsync(string postId, string accountId, bool isUpVote);
+        Task VoteAsync(string threadId, string accountId, bool isUpVote);
 
-        int GetVotes(string postId);
+        int GetVotes(string threadId);
     }
 }

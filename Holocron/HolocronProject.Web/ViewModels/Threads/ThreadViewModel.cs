@@ -42,8 +42,6 @@ namespace HolocronProject.Web.ViewModels.Threads
 
         public int VotesCount { get; set; }
 
-        public bool IsDeleted { get; set; }
-
         public Pager.Pager Pager { get; set; }
 
         public string ControllerName => "Threads";
@@ -51,7 +49,6 @@ namespace HolocronProject.Web.ViewModels.Threads
         public string ActionName => "ById";
 
         public string QueryId => "threadId";
-
 
         public void CreateMappings(IProfileExpression configuration)
         {

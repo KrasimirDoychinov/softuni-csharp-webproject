@@ -31,7 +31,7 @@ namespace HolocronProject.Web.Areas.Administration.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult NewestThreads(int? page)
         {
-            var lastThreads = this.threadService.GetAllLastThreads<ThreadViewModel>();
+            var lastThreads = this.threadService.GetAllNotDeletedThreads<ThreadViewModel>();
 
             if (lastThreads.Count() > 0)
             {

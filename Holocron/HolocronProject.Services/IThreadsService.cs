@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoMapper;
 using HolocronProject.Data.Models;
 using HolocronProject.Services.Models.Threads;
 
@@ -13,13 +14,13 @@ namespace HolocronProject.Services
 
         Task EditThreadAsync(string threadId, string description, string title);
 
-        T GetThreadsById<T>(string threadId);
+        T GetThreadById<T>(string threadId, IMapper mapper = null);
 
-        IEnumerable<T> GetLastThreadsByAccountId<T>(string accountId);
+        IEnumerable<T> GetLastNotDeletedThreadsByAccountId<T>(string accountId, IMapper mapper = null);
 
-        IEnumerable<T> GetAllLastThreads<T>();
+        IEnumerable<T> GetAllNotDeletedThreads<T>(IMapper mapper = null);
 
-        int TotalThreads();
+        int TotalNotDeletedThreads();
 
     }
 }

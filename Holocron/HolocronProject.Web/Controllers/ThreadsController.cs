@@ -65,7 +65,7 @@ namespace HolocronProject.Web.Controllers
         [Authorize]
         public IActionResult Edit(string threadId)
         {
-            var threadViewModel = this.threadService.GetThreadsById<ThreadEditModel>(threadId);
+            var threadViewModel = this.threadService.GetThreadById<ThreadEditModel>(threadId);
 
             return this.View(threadViewModel);
         }
@@ -81,7 +81,7 @@ namespace HolocronProject.Web.Controllers
 
         public IActionResult ById(string threadId, int? page)
         {
-            var threadViewModel = this.threadService.GetThreadsById<ThreadViewModel>(threadId);
+            var threadViewModel = this.threadService.GetThreadById<ThreadViewModel>(threadId);
 
             threadViewModel.Posts = threadViewModel.Posts.Where(x => !x.IsDeleted);
             threadViewModel.PostsCount = threadViewModel.Posts.Where(x => !x.IsDeleted).Count();
@@ -99,7 +99,7 @@ namespace HolocronProject.Web.Controllers
         [Authorize]
         public IActionResult LastThreads(string accountId, int? page)
         {
-            var lastThreads = this.threadService.GetLastThreadsByAccountId<ThreadViewModel>(accountId);
+            var lastThreads = this.threadService.GetLastNotDeletedThreadsByAccountId<ThreadViewModel>(accountId);
             lastThreads.AsParallel().ForAll(x => x.PostsCount = x.Posts.Where(x => !x.IsDeleted).Count());
 
             if (lastThreads.Count() > 0)

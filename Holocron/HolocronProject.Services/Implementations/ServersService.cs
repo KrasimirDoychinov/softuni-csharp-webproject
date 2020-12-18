@@ -7,6 +7,7 @@ using HolocronProject.Data;
 using HolocronProject.Data.Models;
 using System.Security.Cryptography.X509Certificates;
 using HolocronProject.Services.Mapper;
+using AutoMapper;
 
 namespace HolocronProject.Services.Implementations
 {
@@ -19,10 +20,10 @@ namespace HolocronProject.Services.Implementations
             this.context = context;
         }
 
-        public IEnumerable<T> GetAll<T>()
+        public IEnumerable<T> GetAll<T>(IMapper mapper = null)
             => this.context.Servers
             .OrderBy(x => x.Name)
-            .To<T>()
+            .To<T>(mapper)
             .ToList();
 
     }

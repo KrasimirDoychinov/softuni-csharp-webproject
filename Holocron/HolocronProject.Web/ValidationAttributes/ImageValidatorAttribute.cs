@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace HolocronProject.Web.ValidationAttributes
 {
-    public class AccountAvatarImageAttribute : ValidationAttribute
+    public class ImageValidatorAttribute : ValidationAttribute
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {

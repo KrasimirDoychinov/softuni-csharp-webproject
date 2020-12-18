@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using HolocronProject.Services.Models.Threads;
 using HolocronProject.Services.Mapper;
 using System;
+using AutoMapper;
 
 namespace HolocronProject.Services.Implementations
 {
@@ -62,27 +63,27 @@ namespace HolocronProject.Services.Implementations
 
         }
 
-        public IEnumerable<T> GetAllLastThreads<T>()
+        public IEnumerable<T> GetAllNotDeletedThreads<T>(IMapper mapper = null)
             => this.context.Threads
             .Where(x => !x.IsDeleted)
             .OrderByDescending(x => x.CreatedOn)
-            .To<T>()
+            .To<T>(mapper)
             .ToList();
 
-        public IEnumerable<T> GetLastThreadsByAccountId<T>(string accountId)
+        public IEnumerable<T> GetLastNotDeletedThreadsByAccountId<T>(string accountId, IMapper mapper = null)
             => this.context.Threads
             .Where(x => x.AccountId == accountId && !x.IsDeleted)
             .OrderByDescending(x => x.CreatedOn)
-            .To<T>()
+            .To<T>(mapper)
             .ToList();
 
-        public T GetThreadsById<T>(string threadId)
+        public T GetThreadById<T>(string threadId, IMapper mapper = null)
             => this.context.Threads
             .Where(x => x.Id == threadId && !x.IsDeleted)
-            .To<T>()
+            .To<T>(mapper)
             .FirstOrDefault();
 
-        public int TotalThreads()
+        public int TotalNotDeletedThreads()
             => this.context.Threads
             .Where(x => !x.IsDeleted)
             .Count();

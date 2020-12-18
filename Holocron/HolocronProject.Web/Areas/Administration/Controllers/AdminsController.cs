@@ -42,7 +42,7 @@ namespace HolocronProject.Web.Controllers
             panelViewModel.TotalAccounts = this.accountsService.TotalAccounts();
             panelViewModel.TotalCharacters = this.charactersService.TotalApprovedCharacters();
             panelViewModel.TotalPosts = this.postsService.TotalNotDeletedPosts();
-            panelViewModel.TotalThreads = this.threadsService.TotalThreads();
+            panelViewModel.TotalThreads = this.threadsService.TotalNotDeletedThreads();
             panelViewModel.TotalUnresolvedBugReports = this.bugReportsService.TotalUnresolvedBugReports();
             panelViewModel.TotalUnresolvedPostReports = this.postReportsService.TotalUnresolvedPostReports();
             panelViewModel.TotalPendingCharacters = this.charactersService.TotalPendingCharacters();

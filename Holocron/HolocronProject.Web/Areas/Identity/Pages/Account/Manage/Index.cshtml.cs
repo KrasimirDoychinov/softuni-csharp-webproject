@@ -60,7 +60,7 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account.Manage
 
         public bool IsAvatarImageSet { get; set; }
 
-        [AccountAvatarImage]
+        [ImageValidator]
         public IFormFile AvatarImage { get; set; }
 
         [TempData]
