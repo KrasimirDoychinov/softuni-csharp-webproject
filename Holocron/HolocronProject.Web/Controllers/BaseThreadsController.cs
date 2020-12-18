@@ -28,7 +28,7 @@ namespace HolocronProject.Web.Controllers
 
             foreach (var thread in baseThread.Threads)
             {
-                thread.PostsCount = this.postsService.TotalPostInThread(thread.Id);
+                thread.PostsCount = this.postsService.TotalNotDeletedPostInThread(thread.Id);
             }
 
             baseThread.Threads.AsParallel().ForAll(x => x.NormalizedCreatedOn = x.CreatedOn.ToLocalTime().ToString("MM/dd/yyyy h:mm tt"));

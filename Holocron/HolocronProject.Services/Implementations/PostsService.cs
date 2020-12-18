@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using HolocronProject.Services.Models.Posts;
 using HolocronProject.Services.Mapper;
 using System;
+using AutoMapper;
 
 namespace HolocronProject.Services.Implementations
 {
@@ -53,32 +54,32 @@ namespace HolocronProject.Services.Implementations
             await this.context.SaveChangesAsync();
         }
 
-        public IEnumerable<T> GetAllLastPosts<T>()
+        public IEnumerable<T> GetAllNotDeletedPosts<T>(IMapper mapper = null)
             => this.context.Posts
             .OrderByDescending(x => x.CreatedOn)
             .Where(x => !x.IsDeleted)
-            .To<T>()
+            .To<T>(mapper)
             .ToList();
 
-        public IEnumerable<T> GetLastPostsByAccountId<T>(string accountId)
+        public IEnumerable<T> GetLastNotDeletedPostsByAccountId<T>(string accountId, IMapper mapper = null)
             => this.context.Posts
             .Where(x => x.AccountId == accountId && !x.IsDeleted)
             .OrderByDescending(x => x.CreatedOn)
-            .To<T>()
+            .To<T>(mapper)
             .ToList();
 
-        public T GetPostById<T>(string postId)
+        public T GetNotDeletedPostById<T>(string postId, IMapper mapper = null)
             => this.context.Posts
             .Where(x => x.Id == postId && !x.IsDeleted)
-            .To<T>()
+            .To<T>(mapper)
             .FirstOrDefault();
 
-        public int TotalPosts()
+        public int TotalNotDeletedPosts()
             => this.context.Posts
             .Where(x => !x.IsDeleted)
             .Count();
 
-        public int TotalPostInThread(string threadId)
+        public int TotalNotDeletedPostInThread(string threadId)
             => this.context.Posts
             .Where(x => x.ThreadId == threadId && !x.IsDeleted)
             .Count();

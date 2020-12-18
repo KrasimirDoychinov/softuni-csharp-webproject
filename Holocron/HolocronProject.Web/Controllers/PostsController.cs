@@ -50,7 +50,7 @@ namespace HolocronProject.Web.Controllers
 
         public IActionResult Edit(string postId)
         {
-            var postViewModel = this.postService.GetPostById<PostEditViewModel>(postId);
+            var postViewModel = this.postService.GetNotDeletedPostById<PostEditViewModel>(postId);
 
             return this.View(postViewModel);
         }
@@ -65,7 +65,7 @@ namespace HolocronProject.Web.Controllers
 
         public IActionResult LastPosts(string accountId, int? page)
         {
-            var lastPosts = this.postService.GetLastPostsByAccountId<LastPostsViewModel>(accountId);
+            var lastPosts = this.postService.GetLastNotDeletedPostsByAccountId<LastPostsViewModel>(accountId);
 
             if (lastPosts.Count() > 0)
             {

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoMapper;
 using HolocronProject.Data.Models;
 using HolocronProject.Services.Models.Posts;
 
@@ -11,16 +12,16 @@ namespace HolocronProject.Services
 
         Task DeletePostAsync(string postId);
 
-        IEnumerable<T> GetLastPostsByAccountId<T>(string accountId);
+        IEnumerable<T> GetLastNotDeletedPostsByAccountId<T>(string accountId, IMapper mapper = null);
 
-        IEnumerable<T> GetAllLastPosts<T>();
+        IEnumerable<T> GetAllNotDeletedPosts<T>(IMapper mapper = null);
 
-        T GetPostById<T>(string postId);
+        T GetNotDeletedPostById<T>(string postId, IMapper mapper = null);
 
         Task EditPostByIdAsync(string postId, string description);
 
-        int TotalPosts();
+        int TotalNotDeletedPosts();
 
-        int TotalPostInThread(string threadId);
+        int TotalNotDeletedPostInThread(string threadId);
     }
 }

@@ -33,7 +33,7 @@ namespace HolocronProject.Web.Areas.Administration.Controllers
 
         public IActionResult NewestPosts(int? page)
         {
-            var lastPosts = this.postService.GetAllLastPosts<LastPostsViewModel>();
+            var lastPosts = this.postService.GetAllNotDeletedPosts<LastPostsViewModel>();
 
             if (lastPosts.Count() > 0)
             {
