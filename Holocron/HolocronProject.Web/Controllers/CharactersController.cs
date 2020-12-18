@@ -55,7 +55,7 @@ namespace HolocronProject.Web.Controllers
         public IActionResult CreateCharacter()
         {
             var characterInputModel = new CharacterInputModel();
-            characterInputModel.Classes = this.classService.GetAll<ClassViewModel>();
+            characterInputModel.Classes = this.classService.GetAll<ClassViewModel>(null);
             characterInputModel.Races = this.raceService.GetAll<RaceViewModel>();
             characterInputModel.Servers = this.serverService.GetAll<ServerViewModel>();
             return this.View(characterInputModel);
@@ -68,7 +68,7 @@ namespace HolocronProject.Web.Controllers
 
             if (!ModelState.IsValid)
             {
-                input.Classes = this.classService.GetAll<ClassViewModel>();
+                input.Classes = this.classService.GetAll<ClassViewModel>(null);
                 input.Races = this.raceService.GetAll<RaceViewModel>();
                 input.Servers = this.serverService.GetAll<ServerViewModel>();
                 return this.View(input);
@@ -100,7 +100,7 @@ namespace HolocronProject.Web.Controllers
         {
             var characterEditModel = this.characterService.GetCharacterByIdGeneric<CharacterEditViewModel>(characterId);
 
-            characterEditModel.Classes = this.classService.GetAll<ClassViewModel>();
+            characterEditModel.Classes = this.classService.GetAll<ClassViewModel>(null);
             characterEditModel.Races = this.raceService.GetAll<RaceViewModel>();
             characterEditModel.Servers = this.serverService.GetAll<ServerViewModel>();
 
@@ -112,7 +112,7 @@ namespace HolocronProject.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                input.Classes = this.classService.GetAll<ClassViewModel>();
+                input.Classes = this.classService.GetAll<ClassViewModel>(null);
                 input.Races = this.raceService.GetAll<RaceViewModel>();
                 input.Servers = this.serverService.GetAll<ServerViewModel>();
 

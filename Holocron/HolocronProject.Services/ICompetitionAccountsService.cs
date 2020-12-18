@@ -11,9 +11,7 @@ namespace HolocronProject.Services
 
         Task UnVoteAsync(string competitionId, string accountId);
 
-        string GetCharacterId(string competitionId, string accountId);
-
-        bool DoesAccountVoteExist(string competitionId, string accountId);
+        string GetCompetitionCharacterCharacterId(string competitionId, string accountId);
 
         bool HasAccountVoted(string competitionId, string accountId);
     }

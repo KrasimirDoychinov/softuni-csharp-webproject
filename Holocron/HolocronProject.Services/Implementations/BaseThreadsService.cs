@@ -19,7 +19,7 @@ namespace HolocronProject.Services.Implementations
         }
 
         public IEnumerable<T> GetAll<T>(IMapper mapper = null)
-            =>this.context.BaseThreads
+            => this.context.BaseThreads
             .OrderBy(x => x.Title)
             .To<T>(mapper) 
             .ToList();
@@ -27,7 +27,7 @@ namespace HolocronProject.Services.Implementations
         public T GetById<T>(string id, IMapper mapper)
             => this.context.BaseThreads
                 .Where(x => x.Id == id)
-                .To<T>()
+                .To<T>(mapper)
                 .FirstOrDefault();
     }
 }

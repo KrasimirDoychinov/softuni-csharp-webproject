@@ -32,8 +32,5 @@ namespace HolocronProject.Web.ViewModels.Posts
         public string AccountForumSignature { get; set; }
 
         public string SanitizedForumSignature => new HtmlSanitizer().Sanitize(this.AccountForumSignature);
-
-        
-
     }
 }

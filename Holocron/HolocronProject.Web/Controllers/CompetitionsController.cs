@@ -70,8 +70,7 @@ namespace HolocronProject.Web.Controllers
 
             var loggedInUserId = this.userManager.GetUserAsync(this.User).Result.Id;
 
-            competition.HasAccountVoted = this.competitionAccountsService.DoesAccountVoteExist(competitionId, loggedInUserId);
-            competition.DoesAccountVoteExist = this.competitionAccountsService.HasAccountVoted(competitionId, loggedInUserId);
+            competition.HasAccountVoted = this.competitionAccountsService.HasAccountVoted(competitionId, loggedInUserId);
             AllCompetitionCharactersPaging(page, competition);
             CompetitionUTCToLocalTime(competition);
 

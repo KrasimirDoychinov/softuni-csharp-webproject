@@ -37,7 +37,7 @@ else
                     <h5><span class="font-weight-bold">Gender: </span>@item.Character.Gender</h5>
                     <h5><span class="font-weight-bold">Class: </span>@item.Character.ClassName</h5>
                     <h5><span class="font-weight-bold">Votes: </span><span id="vote@(counter)" class="@item.Character.Id">@item.Votes</span></h5>
-                    @if (!Model.DoesAccountVoteExist)
+                    @if (!Model.HasAccountVoted)
                     {
                         <button id="voteButton@(counter)" class="btn btn-primary">Vote</button>
                         <p id="test@(counter)" hidden="hidden">@item.Character.Id</p>

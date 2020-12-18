@@ -14,8 +14,6 @@ namespace HolocronProject.Web.ViewModels.Competitions
 
         public bool IsFinished { get; set; }
 
-        public bool DoesAccountVoteExist { get; set; }
-
         public bool HasAccountVoted { get; set; }
 
         public string ControllerName => "Competitions";

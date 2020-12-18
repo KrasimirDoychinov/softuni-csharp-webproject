@@ -17,27 +17,16 @@ namespace HolocronProject.Services.Implementations
             this.context = context;
         }
 
-        public bool DoesAccountVoteExist(string competitionId, string accountId)
-            => this.context.CompetitionAccounts
-            .Any(x => x.AccountId == accountId && x.CompetitionId == competitionId);
-
         public bool HasAccountVoted(string competitionId, string accountId)
            => this.context.CompetitionAccounts
            .Any(x => x.AccountId == accountId && x.CompetitionId == competitionId && x.HasVoted);
 
         public async Task VoteAsync(string characterId, string competitionId, string accountId)
         {
-            if (this.DoesAccountVoteExist(competitionId, accountId))
-            {
-                var competitionAccount = this.context.CompetitionAccounts
-                    .FirstOrDefault(x => x.CompetitionId == competitionId && x.AccountId == accountId);
-
-                competitionAccount.HasVoted = true;
-            }
-            else
+            if (!this.HasAccountVoted(competitionId, accountId))
             {
                 var competitionCharacter = this.context.CompetitionsCharacters
-                    .FirstOrDefault(x => x.CompetitionId == competitionId && x.CharacterId == characterId);
+                       .FirstOrDefault(x => x.CompetitionId == competitionId && x.CharacterId == characterId);
 
                 var competitionAccount = new CompetitionAccount
                 {
@@ -55,16 +44,16 @@ namespace HolocronProject.Services.Implementations
                 }
 
                 await this.context.CompetitionAccounts.AddAsync(competitionAccount);
+                await this.context.SaveChangesAsync();
             }
-
-            await this.context.SaveChangesAsync();
         }
 
         public async Task UnVoteAsync(string competitionId, string accountId)
         {
             var competitionAccount = this.context.CompetitionAccounts
                 .FirstOrDefault(x => x.CompetitionId == competitionId && x.AccountId == accountId);
-            var characterId = this.GetCharacterId(competitionId, accountId);
+
+            var characterId = this.GetCompetitionCharacterCharacterId(competitionId, accountId);
 
             var competitionCharacter = this.context.CompetitionsCharacters
                    .FirstOrDefault(x => x.CompetitionId == competitionId && x.CharacterId == characterId);
@@ -80,14 +69,14 @@ namespace HolocronProject.Services.Implementations
             await this.context.SaveChangesAsync();
         }
 
-        public string GetCharacterId(string competitionId, string accountId)
+        public string GetCompetitionCharacterCharacterId(string competitionId, string accountId)
         {
             var competitionAccount = this.context.CompetitionAccounts
             .FirstOrDefault(x => x.CompetitionId == competitionId && x.AccountId == accountId);
 
             if (competitionAccount == null)
             {
-                throw new Exception("There is no vote found to unvote.");
+                throw new ArgumentNullException("There is no vote found to unvote.");
             }
 
             return competitionAccount.CompetitionCharacter.CharacterId;

@@ -32,7 +32,7 @@ namespace HolocronProject.Web.Hubs
 
         public async Task UnVote(string competitionId, string accountId)
         {
-            var characterId = this.competitionAccountsService.GetCharacterId(competitionId, accountId);
+            var characterId = this.competitionAccountsService.GetCompetitionCharacterCharacterId(competitionId, accountId);
             await this.competitionAccountsService.UnVoteAsync(competitionId, accountId);
 
             var voteCount = this.competitionCharactersService.GetVotesCount(characterId, competitionId);

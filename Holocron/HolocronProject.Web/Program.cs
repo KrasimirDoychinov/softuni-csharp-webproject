@@ -8,7 +8,7 @@ namespace HolocronProject.Web
 
     // TODO: Review the code each day at the beginning of the code session and at the end of the session
 
-    // TODO: !!!Seed threads, characters, bug reports, post reports, competitions,
+    // TODO: !!!Continue from CompetitionAccountsTests!!!
     // TODO: Look over all the code then start tests
     // TODO: Look over all the views as well
     // TODO: Add stats view
