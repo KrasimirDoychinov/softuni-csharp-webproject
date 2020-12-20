@@ -52,26 +52,6 @@ namespace HolocronProject.Services.Implementations
             await this.context.SaveChangesAsync();
         }
 
-        public IEnumerable<T> GetCurrentAccountCharacters<T>(string accountId, IMapper mapper = null)
-            => this.context.Characters
-                .Where(x => x.AccountId == accountId && x.CharacterStatus == CharacterStatus.Approved)
-                .To<T>(mapper)
-                .ToList();
-
-        public IEnumerable<T> GetCurrentAccountCharacterForCompetition<T>(string accountId, string competitionId, IMapper mapper = null) 
-            => this.context.Characters
-                .Where(x => x.AccountId == accountId 
-                && x.CharacterStatus == CharacterStatus.Approved
-                && !x.Competitions.Any(x => x.CompetitionId == competitionId))
-                .To<T>(mapper)
-                .ToList();
-
-        public T GetCharacterByIdGeneric<T>(string characterId, IMapper mapper = null)
-            => this.context.Characters
-                .Where(x => x.Id == characterId)
-                .To<T>(mapper)
-            .FirstOrDefault();
-
         public async Task UpdateCharacterImageAsync(string characterName, string serverId, IFormFile image)
         {
             if (image == null)
@@ -93,22 +73,6 @@ namespace HolocronProject.Services.Implementations
                 await this.context.SaveChangesAsync();
             }
         }
-
-        public Character GetCharacterById(string characterId)
-            => this.context.Characters
-            .FirstOrDefault(x => x.Id == characterId);
-
-        public int TotalApprovedCharacters()
-            => this.context.Characters
-            .Where(x => x.CharacterStatus == CharacterStatus.Approved)
-            .Count();
-
-        public IEnumerable<T> GetNewestCharacters<T>(IMapper mapper = null)
-            => this.context.Characters
-            .Where(x => x.CharacterStatus == CharacterStatus.Approved)
-            .OrderByDescending(x => x.CreatedOn)
-            .To<T>(mapper)
-            .ToList();
 
         public async Task ApproveCharacterAsync(string characterId, string accountId)
         {
@@ -136,23 +100,6 @@ namespace HolocronProject.Services.Implementations
             await this.context.SaveChangesAsync();
         }
 
-        public IEnumerable<T> GetPendingCharacters<T>(string accountId, IMapper mapper = null)
-            => this.context.Characters
-            .Where(x => x.AccountId == accountId && x.CharacterStatus  == CharacterStatus.Pending)
-            .To<T>(mapper)
-            .ToList();
-
-        public IEnumerable<T> GetAllPendingCharacters<T>(IMapper mapper = null)
-            => this.context.Characters
-            .Where(x => x.CharacterStatus == CharacterStatus.Pending)
-            .To<T>(mapper)
-            .ToList();
-
-        public int TotalPendingCharacters()
-            => this.context.Characters
-            .Where(x => x.CharacterStatus == CharacterStatus.Pending)
-            .Count();
-
         public async Task EditCharacterAsync(CharacterEditDto input)
         {
             var character = this.GetCharacterById(input.Id);
@@ -171,5 +118,57 @@ namespace HolocronProject.Services.Implementations
             await this.context.SaveChangesAsync();
         }
 
+        public Character GetCharacterById(string characterId)
+            => this.context.Characters
+            .FirstOrDefault(x => x.Id == characterId);
+
+        public int TotalApprovedCharacters()
+            => this.context.Characters
+            .Where(x => x.CharacterStatus == CharacterStatus.Approved)
+            .Count();
+
+        public IEnumerable<T> GetNewestCharacters<T>(IMapper mapper = null)
+            => this.context.Characters
+            .Where(x => x.CharacterStatus == CharacterStatus.Approved)
+            .OrderByDescending(x => x.CreatedOn)
+            .To<T>(mapper)
+            .ToList();
+
+        public IEnumerable<T> GetPendingCharacters<T>(string accountId, IMapper mapper = null)
+            => this.context.Characters
+            .Where(x => x.AccountId == accountId && x.CharacterStatus == CharacterStatus.Pending)
+            .To<T>(mapper)
+            .ToList();
+
+        public IEnumerable<T> GetAllPendingCharacters<T>(IMapper mapper = null)
+            => this.context.Characters
+            .Where(x => x.CharacterStatus == CharacterStatus.Pending)
+            .To<T>(mapper)
+            .ToList();
+
+        public int TotalPendingCharacters()
+            => this.context.Characters
+            .Where(x => x.CharacterStatus == CharacterStatus.Pending)
+            .Count();
+
+        public IEnumerable<T> GetCurrentAccountCharacters<T>(string accountId, IMapper mapper = null)
+            => this.context.Characters
+                .Where(x => x.AccountId == accountId && x.CharacterStatus == CharacterStatus.Approved)
+                .To<T>(mapper)
+                .ToList();
+
+        public IEnumerable<T> GetCurrentAccountCharacterForCompetition<T>(string accountId, string competitionId, IMapper mapper = null)
+            => this.context.Characters
+                .Where(x => x.AccountId == accountId
+                && x.CharacterStatus == CharacterStatus.Approved
+                && !x.Competitions.Any(x => x.CompetitionId == competitionId))
+                .To<T>(mapper)
+                .ToList();
+
+        public T GetCharacterByIdGeneric<T>(string characterId, IMapper mapper = null)
+            => this.context.Characters
+                .Where(x => x.Id == characterId)
+                .To<T>(mapper)
+            .FirstOrDefault();
     }
 }

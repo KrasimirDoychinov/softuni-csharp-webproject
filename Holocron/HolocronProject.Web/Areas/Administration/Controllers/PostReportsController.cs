@@ -94,7 +94,7 @@ namespace HolocronProject.Web.Areas.Administration.Controllers
             postListViewModel = postListViewModel.OrderByDescending(x => x.NormalizedCreatedOn);
             var pager = new Pager(postListViewModel.Count(), page);
             postListViewModel = postListViewModel.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize);
-            postListViewModel.FirstOrDefault().Pager = pager;
+            postListViewModel.AsParallel().ForAll(x => x.Pager = pager);
             return postListViewModel;
         }
 

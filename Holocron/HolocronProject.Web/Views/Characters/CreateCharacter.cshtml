@@ -8,101 +8,116 @@
     var servers = Model.Servers.Select(x => new SelectListItem(x.Name, x.Id));
 }
 
-<form method="post" class="col-md-6" enctype="multipart/form-data">
-    <div asp-validation-summary="All" class="text-danger"></div>
-    <label class="text-info">All fields marked with <span class="text-danger">*</span> are required.</label>
-    <hr class="bg-warning"/>
+<div class="row">
+    <div class="col">
+        <form method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <label class="text-info">All fields marked with <span class="text-danger">*</span> are required.</label>
+            <hr class="bg-warning" />
 
-    <div class="form-group ">
-        <label asp-for="Name" class="font-weight-bold"></label>
-        <label class="text-danger">*</label>
-        <input asp-for="Name" class="form-control" />
-        <span asp-validation-for="Name" class="text-danger"></span>
+            <div class="form-group ">
+                <label asp-for="Name" class="font-weight-bold"></label>
+                <label class="text-danger">*</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Backstory" class="font-weight-bold"></label>
+                <textarea asp-for="Backstory" class="form-control" rows="10"></textarea>
+                <span asp-validation-for="Backstory" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Description" class="font-weight-bold"></label>
+                <textarea asp-for="Description" class="form-control" rows="10"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="Title" class="font-weight-bold"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Gender" class="font-weight-bold"></label>
+                <label class="text-danger">*</label>
+                <select asp-for="Gender" class="form-control"
+                        asp-items="@Html.GetEnumSelectList<Gender>()">
+                </select>
+                <span asp-validation-for="Gender" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CharacterType" class="font-weight-bold"></label>
+                <label class="text-danger">*</label>
+                <select asp-for="CharacterType" class="form-control"
+                        asp-items="@Html.GetEnumSelectList<CharacterType>()">
+                </select>
+                <span asp-validation-for="CharacterType" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ForceAffiliation" class="font-weight-bold"></label>
+                <label class="text-danger">*</label>
+                <select asp-for="ForceAffiliation" class="form-control"
+                        asp-items="@Html.GetEnumSelectList<ForceAffiliation>()">
+                </select>
+                <span asp-validation-for="ForceAffiliation" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ClassId" class="font-weight-bold"></label>
+                <label class="text-danger">*</label>
+                <select asp-for="ClassId" class="form-control"
+                        asp-items="classes">
+                </select>
+                <span asp-validation-for="ClassId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="RaceId" class="font-weight-bold"></label>
+                <label class="text-danger">*</label>
+                <select asp-for="RaceId" class="form-control"
+                        asp-items="races">
+                </select>
+                <span asp-validation-for="RaceId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ServerId" class="font-weight-bold"></label>
+                <label class="text-danger">*</label>
+                <select asp-for="ServerId" class="form-control"
+                        asp-items="servers">
+                </select>
+                <span asp-validation-for="ServerId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Image" class="font-weight-bold "></label>
+                <label class="text-danger">*</label>
+                <input asp-for="Image" class="form-control" />
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </div>
+
+            <input type="submit" class="btn btn-primary" value="Create character" />
+
+        </form>
     </div>
 
-    <div class="form-group">
-        <label asp-for="Backstory" class="font-weight-bold"></label>
-        <textarea asp-for="Backstory" class="form-control" rows="10"></textarea>
-        <span asp-validation-for="Backstory" class="text-danger"></span>
+    <div class="col">
+        <h2 class="text-info text-center">Rules</h2>
+        <h6><span class="text-info">1. </span>Two characters with the same name can exist, but cannot be on the same server.</h6>
+        <h6><span class="text-info">2. </span>Each character <span class="text-danger">must</span> have a type and affiliation.</h6>
+        <h6><span class="text-info">3. </span>Please do not write <span class="text-danger">stupid things, use inappropriate images, use profanity</span> or other things that can potentially offend other users on the forum.</h6>
+        <h6><span class="text-info">4. </span>If the above rule is broken your character will be <span class="text-danger">deleted</span>.</h6>
     </div>
-
-    <div class="form-group">
-        <label asp-for="Description" class="font-weight-bold"></label>
-        <textarea asp-for="Description" class="form-control" rows="10"></textarea>
-        <span asp-validation-for="Description" class="text-danger"></span>
-    </div>
+</div>
 
 
-    <div class="form-group">
-        <label asp-for="Title" class="font-weight-bold"></label>
-        <input asp-for="Title" class="form-control" />
-        <span asp-validation-for="Title" class="text-danger"></span>
-    </div>
 
-    <div class="form-group">
-        <label asp-for="Gender" class="font-weight-bold"></label>
-        <label class="text-danger">*</label>
-        <select asp-for="Gender" class="form-control"
-                asp-items="@Html.GetEnumSelectList<Gender>()">
-        </select>
-        <span asp-validation-for="Gender" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="CharacterType" class="font-weight-bold"></label>
-        <label class="text-danger">*</label>
-        <select asp-for="CharacterType" class="form-control"
-                asp-items="@Html.GetEnumSelectList<CharacterType>()">
-        </select>
-        <span asp-validation-for="CharacterType" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="ForceAffiliation" class="font-weight-bold"></label>
-        <label class="text-danger">*</label>
-        <select asp-for="ForceAffiliation" class="form-control"
-                asp-items="@Html.GetEnumSelectList<ForceAffiliation>()">
-        </select>
-        <span asp-validation-for="ForceAffiliation" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="ClassId" class="font-weight-bold"></label>
-        <label class="text-danger">*</label>
-        <select asp-for="ClassId" class="form-control"
-                asp-items="classes">
-        </select>
-        <span asp-validation-for="ClassId" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="RaceId" class="font-weight-bold"></label>
-        <label class="text-danger">*</label>
-        <select asp-for="RaceId" class="form-control"
-                asp-items="races">
-        </select>
-        <span asp-validation-for="RaceId" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="ServerId" class="font-weight-bold"></label>
-        <label class="text-danger">*</label>
-        <select asp-for="ServerId" class="form-control"
-                asp-items="servers">
-        </select>
-        <span asp-validation-for="ServerId" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Image" class="font-weight-bold "></label>
-        <label class="text-danger">*</label>
-        <input asp-for="Image" class="form-control" />
-        <span asp-validation-for="Image" class="text-danger"></span>
-    </div>
-
-    <input type="submit" class="btn btn-primary" value="Create character" />
-
-</form>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

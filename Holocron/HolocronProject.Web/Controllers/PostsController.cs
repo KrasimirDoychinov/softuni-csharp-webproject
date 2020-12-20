@@ -83,7 +83,7 @@ namespace HolocronProject.Web.Controllers
             lastPosts = lastPosts.OrderByDescending(x => x.CreatedOn);
             lastPosts = lastPosts.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize);
 
-            lastPosts.FirstOrDefault().Pager = pager;
+            lastPosts.AsParallel().ForAll(x => x.Pager = pager);
             return lastPosts;
         }
 

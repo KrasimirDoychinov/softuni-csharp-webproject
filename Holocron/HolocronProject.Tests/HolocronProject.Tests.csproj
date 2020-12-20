@@ -24,8 +24,4 @@
     <ProjectReference Include="..\HolocronProject.Web\HolocronProject.Web.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="ValidationAttributes\" />
-  </ItemGroup>
-
 </Project>

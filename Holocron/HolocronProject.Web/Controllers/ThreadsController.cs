@@ -109,8 +109,6 @@ namespace HolocronProject.Web.Controllers
                 lastThreads.AsParallel().ForAll(x => x.NormalizedCreatedOn = x.CreatedOn.ToLocalTime().ToString("MM/dd/yyyy h:mm tt"));
             }
 
-            
-
             return this.View(lastThreads.ToList());
         }
         
@@ -142,7 +140,7 @@ namespace HolocronProject.Web.Controllers
             lastThreads = lastThreads.OrderByDescending(x => x.CreatedOn);
             lastThreads = lastThreads.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize);
 
-            lastThreads.FirstOrDefault().Pager = pager;
+            lastThreads.AsParallel().ForAll(x => x.Pager = pager);
             return lastThreads;
         }
 

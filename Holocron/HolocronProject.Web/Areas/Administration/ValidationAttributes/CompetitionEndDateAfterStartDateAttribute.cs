@@ -27,10 +27,6 @@ namespace HolocronProject.Web.Areas.Administration.ValidationAttributes
             {
                 return new ValidationResult("The end date cannot be before the start date.");
             }
-
-            
-
-
         }
     }
 }

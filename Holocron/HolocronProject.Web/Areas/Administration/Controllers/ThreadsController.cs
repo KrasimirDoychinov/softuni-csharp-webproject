@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace HolocronProject.Web.Areas.Administration.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ThreadsController : BaseAdminController
     {
         private readonly IThreadsService threadService;
@@ -28,7 +29,6 @@ namespace HolocronProject.Web.Areas.Administration.Controllers
             this.htmlSizeParser = htmlSizeParser;
         }
 
-        [Authorize(Roles = "Admin")]
         public IActionResult NewestThreads(int? page)
         {
             var lastThreads = this.threadService.GetAllNotDeletedThreads<ThreadViewModel>();
@@ -47,7 +47,6 @@ namespace HolocronProject.Web.Areas.Administration.Controllers
             return this.View(lastThreads.ToList());
         }
 
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(string threadId)
         {
             await this.threadService.DeleteThreadAsync(threadId);
@@ -60,7 +59,7 @@ namespace HolocronProject.Web.Areas.Administration.Controllers
             lastThreads = lastThreads.OrderByDescending(x => x.CreatedOn);
             lastThreads = lastThreads.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize);
 
-            lastThreads.FirstOrDefault().Pager = pager;
+            lastThreads.AsParallel().ForAll(x => x.Pager = pager);
             return lastThreads;
         }
 

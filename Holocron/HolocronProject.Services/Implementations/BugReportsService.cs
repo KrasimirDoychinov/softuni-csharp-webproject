@@ -44,6 +44,16 @@ namespace HolocronProject.Services.Implementations
             await this.context.SaveChangesAsync();
         }
 
+        public BugReport GetBugReportById(string bugReportId)
+            => this.context.BugReports
+            .FirstOrDefault(x => x.Id == bugReportId);
+
+        public int TotalUnresolvedBugReports()
+            => this.context.BugReports
+            .Where(x => !x.IsResolved)
+            .OrderByDescending(x => x.CreatedOn)
+            .Count();
+
         public T GetBugReportByIdGeneric<T>(string bugReportId, IMapper mapper = null)
             => this.context.BugReports
             .Where(x => x.Id == bugReportId)
@@ -78,14 +88,6 @@ namespace HolocronProject.Services.Implementations
             .To<T>(mapper)
             .ToList();
 
-        public BugReport GetBugReportById(string bugReportId)
-            => this.context.BugReports
-            .FirstOrDefault(x => x.Id == bugReportId);
-
-        public int TotalUnresolvedBugReports()
-            => this.context.BugReports
-            .Where(x => !x.IsResolved)
-            .OrderByDescending(x => x.CreatedOn)
-            .Count();
+        
     }
 }

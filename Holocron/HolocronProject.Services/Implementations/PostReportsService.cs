@@ -57,6 +57,15 @@ namespace HolocronProject.Services.Implementations
             await this.context.SaveChangesAsync();
         }
 
+        public PostReport GetPostReportById(string postReportId)
+            => this.context.PostReports
+            .FirstOrDefault(x => x.Id == postReportId);
+
+        public int TotalUnresolvedPostReports()
+            => this.context.PostReports
+            .Where(x => !x.IsResolved)
+            .Count();
+
         public IEnumerable<T> GetAllAdminResolved<T>(IMapper mapper = null)
             => this.context.PostReports
             .Where(x => x.IsResolved)
@@ -90,15 +99,5 @@ namespace HolocronProject.Services.Implementations
             .Where(x => x.Id == postReportId)
             .To<T>(mapper)
             .FirstOrDefault();
-
-        public PostReport GetPostReportById(string postReportId)
-            => this.context.PostReports
-            .FirstOrDefault(x => x.Id == postReportId);
-
-        public int TotalUnresolvedPostReports()
-            => this.context.PostReports
-            .Where(x => !x.IsResolved)
-            .Count();
-
     }
 }

@@ -80,6 +80,9 @@ namespace HolocronProject.Services.Implementations
             await this.context.SaveChangesAsync();
         }
 
+        public Competition GetCompetitionById(string competitionId)
+            => this.context.Competitions.FirstOrDefault(x => x.Id == competitionId);
+
         public IEnumerable<T> GetAll<T>()
             => this.context.Competitions
             .Where(x => !x.IsFinished)
@@ -91,10 +94,6 @@ namespace HolocronProject.Services.Implementations
             .Where(x => x.IsFinished)
             .To<T>()
             .ToList();
-
-        public Competition GetCompetitionById(string competitionId)
-            => this.context.Competitions.FirstOrDefault(x => x.Id == competitionId);
-
         public T GetCompetitionByIdGeneric<T>(string competitionId)
             => this.context.Competitions
             .Where(x => x.Id == competitionId)

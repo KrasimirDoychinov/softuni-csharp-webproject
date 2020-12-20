@@ -88,22 +88,12 @@ namespace HolocronProject.Services.Implementations
             return account.AvatarImagePath;
         }
 
-        public T GetAccountByIdGeneric<T>(string accountId, IMapper mapper = null)
-            => this.context.Accounts
-            .Where(x => x.Id == accountId)
-            .To<T>(mapper)
-            .FirstOrDefault();
-
         public bool IsAvatarImageSet(string accountId)
         {
             var account = GetAccountById(accountId);
 
             return File.Exists($"wwwroot/Images/AvatarImages/{account.AvatarImagePath}");
         }
-
-        public int TotalAccounts()
-            => this.context.Accounts
-            .Count();
 
         public async Task NotifyAccountOfApprovedCharactersAsync(string accountId)
         {
@@ -135,12 +125,6 @@ namespace HolocronProject.Services.Implementations
             await this.context.SaveChangesAsync();
         }
 
-        public NotificationStatus IsUserNotified(string accountId)
-            => this.context.Accounts
-            .Where(x => x.Id == accountId)
-            .FirstOrDefault()
-            .NotificationStatus;
-
         public async Task RemoveNotificationAsync(string accountId)
         {
             var account = this.GetAccountById(accountId);
@@ -150,5 +134,21 @@ namespace HolocronProject.Services.Implementations
             this.context.Accounts.Update(account);
             await this.context.SaveChangesAsync();
         }
+
+        public NotificationStatus IsUserNotified(string accountId)
+            => this.context.Accounts
+            .Where(x => x.Id == accountId)
+            .FirstOrDefault()
+            .NotificationStatus;
+
+        public int TotalAccounts()
+            => this.context.Accounts
+            .Count();
+
+        public T GetAccountByIdGeneric<T>(string accountId, IMapper mapper = null)
+            => this.context.Accounts
+            .Where(x => x.Id == accountId)
+            .To<T>(mapper)
+            .FirstOrDefault();
     }
 }

@@ -139,7 +139,7 @@ namespace HolocronProject.Web.Controllers
 
             await this.characterService.EditCharacterAsync(characterInputDto);
             await this.characterService.UpdateCharacterImageAsync(input.Name, input.ServerId, input.Image);
-            return this.Redirect($"/Characters/AllCharacters?accountId={accountId}");
+            return this.Redirect($"/Characters/CharacterInfo?characterId={input.CharacterId}&accountId={accountId}");
         }
 
         public async Task<IActionResult> AllCharacters(string accountId, int? page)
@@ -151,6 +151,7 @@ namespace HolocronProject.Web.Controllers
                 charListViewModel = CharListPager(page, charListViewModel);
                 CharListUTCToLocalTime(charListViewModel);
             }
+
             await this.accountsService.RemoveNotificationAsync(accountId);
             ViewData["charactersAccountId"] = accountId;
            
@@ -166,14 +167,17 @@ namespace HolocronProject.Web.Controllers
             {
                 charViewModel.ForceAffiliationString = "Light side";
             }
+
             else if (charViewModel.ForceAffiliation == ForceAffiliation.DarkSide)
             {
                 charViewModel.ForceAffiliationString = "Dark side";
             }
+
             else if (charViewModel.ForceAffiliation == ForceAffiliation.None)
             {
                 charViewModel.ForceAffiliationString = "None";
             }
+
             else
             {
                 charViewModel.ForceAffiliationString = "Unknown";
@@ -220,7 +224,7 @@ namespace HolocronProject.Web.Controllers
             charListViewModel = charListViewModel.OrderByDescending(x => x.NormalizedCreatedOn);
             var pager = new Pager(charListViewModel.Count(), page);
             charListViewModel = charListViewModel.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize);
-            charListViewModel.FirstOrDefault().Pager = pager;
+            charListViewModel.AsParallel().ForAll(x => x.Pager = pager);
             return charListViewModel;
         }
 
@@ -229,7 +233,7 @@ namespace HolocronProject.Web.Controllers
             charListViewModel = charListViewModel.OrderByDescending(x => x.NormalizedCreatedOn);
             var pager = new Pager(charListViewModel.Count(), page);
             charListViewModel = charListViewModel.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize);
-            charListViewModel.FirstOrDefault().Pager = pager;
+            charListViewModel.AsParallel().ForAll(x => x.Pager = pager);
             return charListViewModel;
         }
 

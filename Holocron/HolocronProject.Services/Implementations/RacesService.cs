@@ -24,6 +24,5 @@ namespace HolocronProject.Services
             .OrderBy(x => x.Name)
             .To<T>(mapper)
             .ToList();
-
     }
 }

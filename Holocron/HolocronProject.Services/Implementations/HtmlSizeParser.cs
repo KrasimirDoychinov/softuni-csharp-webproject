@@ -47,12 +47,11 @@ namespace HolocronProject.Services.Implementations
             {
                 return input;
             }
+
             else
             {
                 return temp;
             }
-
-
         }
     }
 }

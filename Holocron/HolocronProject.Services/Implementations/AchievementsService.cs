@@ -11,6 +11,7 @@ namespace HolocronProject.Services.Implementations
     {
         public AchievementsService()
         {
+
         }
 
         public IEnumerable<Achievement> CreateAchievement(string title)

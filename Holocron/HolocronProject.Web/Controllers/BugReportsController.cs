@@ -88,7 +88,7 @@ namespace HolocronProject.Web.Controllers
             bugReportsViewModel = bugReportsViewModel.OrderByDescending(x => x.CreatedOn);
             var pager = new Pager(bugReportsViewModel.Count(), page);
             bugReportsViewModel = bugReportsViewModel.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize);
-            bugReportsViewModel.FirstOrDefault().Pager = pager;
+            bugReportsViewModel.AsParallel().ForAll(x => x.Pager = pager);
             return bugReportsViewModel;
         }
     }

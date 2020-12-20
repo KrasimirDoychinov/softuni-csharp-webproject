@@ -30,7 +30,7 @@ else
                 @foreach (var item in Model)
                 {
                     <div class="d-inline-block grid">
-                        <a href="/Characters/CharacterInfo?characterId=@item.Id"><img src="~/Images/CharacterImages/@item.CharacterImagePath" class="ml-3" style="width: 325px; height:300px" /></a>
+                        <a href="/Characters/CharacterInfo?characterId=@item.Id&accountId=@item.AccountId"><img src="~/Images/CharacterImages/@item.CharacterImagePath" class="ml-3" style="width: 325px; height:300px" /></a>
                         <h4><span class="font-weight-bold">Name: </span>@item.Name</h4>
                         <h5><span class="font-weight-bold">User: </span>@item.AccountUserName</h5>
                         <h5><span class="font-weight-bold">Title: </span>@item.Title</h5>

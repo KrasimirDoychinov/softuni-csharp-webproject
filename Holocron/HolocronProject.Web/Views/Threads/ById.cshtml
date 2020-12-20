@@ -4,6 +4,7 @@
 @{
     var currAccountId = this.userManager.GetUserAsync(this.User).Result.Id;
 }
+
 <div class="container-fluid mt-100">
     <div class="row">
         <div class="col-md-12">
@@ -22,10 +23,12 @@
                             <a href="/Accounts/ForeignAccount?accountId=@Model.AccountId" class="text-decoration-none text-warning" data-abc="true">@Model.AccountUserName</a>
                             <div class="text-info small" id="testDate">Created on <strong>@Model.NormalizedCreatedOn.ToString()</strong></div>
                             <div class="text-info small">
-                                <strong>@Model.PostsCount</strong>@if (Model.PostsCount == 1)
+                                <strong>@Model.PostsCount</strong>
+                                @if (Model.PostsCount == 1)
                                 {
                                     <span>post</span>
                                 }
+
                                 else
                                 {
                                     <span>posts</span>
@@ -35,24 +38,33 @@
 
                         <div>
                             <form id="votesForm" method="post">
-                                <div>
+                                <div class="row">
                                     <a href="#" class="text-decoration-none text-warning" onclick="sendVote('@Model.Id', true)">
                                         <i class="fas fa-chevron-up"></i>
                                     </a>
                                 </div>
-                                <div id="votesCount" class="text-center">@Model.VotesCount</div>
-                                <div>
+                                <div id="votesCount" class="text-center row">@Model.VotesCount</div>
+                                <div class="row">
                                     <a href="#" class="text-decoration-none text-warning" onclick="sendVote('@Model.Id', false)">
                                         <i class="fas fa-chevron-down"></i>
                                     </a>
                                 </div>
                             </form>
-                            @if (Model.AccountId == currAccountId)
-                            {
-                                <a href="/Threads/Edit?threadId=@Model.Id" class="row btn btn-primary btn-sm">
-                                    Edit
-                                </a>
-                            }
+                            <div class="row">
+                                @if (Model.AccountId == currAccountId)
+                                {
+                                    <a href="/Threads/Edit?threadId=@Model.Id" class="btn btn-primary btn-sm mr-2">
+                                        Edit
+                                    </a>
+                                }
+
+                                @if (this.User.IsInRole("Admin"))
+                                {
+                                    <a href="/Administration/Threads/Delete?threadId=@Model.Id" class="btn btn-danger btn-sm">
+                                        Delete
+                                    </a>
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>

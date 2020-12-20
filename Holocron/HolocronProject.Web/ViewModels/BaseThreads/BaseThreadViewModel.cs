@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace HolocronProject.Web.ViewModels.BaseThreads
 {
-    public class BaseThreadViewModel : IMapFrom<BaseThread>
+    public class BaseThreadViewModel : IMapFrom<BaseThread>, IHaveCustomMappings
     {
 
         public string Id { get; set; }
@@ -35,5 +35,14 @@ namespace HolocronProject.Web.ViewModels.BaseThreads
 
         public string QueryId => "threadId";
 
+        public void CreateMappings(IProfileExpression configuration)
+        {
+            configuration.CreateMap<BaseThread, BaseThreadViewModel>()
+               .ForMember(x => x.ThreadsCount, options =>
+               {
+                   options.MapFrom(p => p.Threads.Where(x => !x.IsDeleted).Count());
+               });
+
+        }
     }
 }

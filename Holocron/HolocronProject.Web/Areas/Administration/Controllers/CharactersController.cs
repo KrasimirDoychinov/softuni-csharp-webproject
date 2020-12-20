@@ -1,15 +1,10 @@
 ﻿using HolocronProject.Data.Enums;
-using HolocronProject.Data.Models;
 using HolocronProject.Services;
-using HolocronProject.Web.Controllers;
 using HolocronProject.Web.ViewModels.Characters;
 using HolocronProject.Web.ViewModels.Pager;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SixLabors.ImageSharp;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -81,14 +76,14 @@ namespace HolocronProject.Web.Areas.Administration.Controllers
         {
             await this.characterService.ApproveCharacterAsync(characterId, accountId);
 
-            return this.Redirect("/");
+            return this.Redirect(nameof(AllPendingCharacters));
         }
 
         public async Task<IActionResult> DeleteCharacter(string characterId, string accountId)
         {
             await this.characterService.DeleteCharacterAsync(characterId, accountId);
 
-            return this.Redirect("/");
+            return this.Redirect(nameof(AllPendingCharacters));
         }
 
         private static IEnumerable<CharacterListViewModel> CharListPager(int? page, IEnumerable<CharacterListViewModel> charListViewModel)
@@ -96,7 +91,7 @@ namespace HolocronProject.Web.Areas.Administration.Controllers
             charListViewModel = charListViewModel.OrderByDescending(x => x.NormalizedCreatedOn);
             var pager = new Pager(charListViewModel.Count(), page);
             charListViewModel = charListViewModel.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize);
-            charListViewModel.FirstOrDefault().Pager = pager;
+            charListViewModel.AsParallel().ForAll(x => x.Pager = pager);
             return charListViewModel;
         }
 

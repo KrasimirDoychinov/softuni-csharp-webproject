@@ -63,6 +63,11 @@ namespace HolocronProject.Services.Implementations
 
         }
 
+        public int TotalNotDeletedThreads()
+           => this.context.Threads
+           .Where(x => !x.IsDeleted)
+           .Count();
+
         public IEnumerable<T> GetAllNotDeletedThreads<T>(IMapper mapper = null)
             => this.context.Threads
             .Where(x => !x.IsDeleted)
@@ -82,12 +87,5 @@ namespace HolocronProject.Services.Implementations
             .Where(x => x.Id == threadId && !x.IsDeleted)
             .To<T>(mapper)
             .FirstOrDefault();
-
-        public int TotalNotDeletedThreads()
-            => this.context.Threads
-            .Where(x => !x.IsDeleted)
-            .Count();
-
-       
     }
 }

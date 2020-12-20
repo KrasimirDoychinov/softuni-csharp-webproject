@@ -38,8 +38,6 @@ namespace HolocronProject.Web.Areas.Administration.Controllers
                 BugReportsListUTCToLocalTime(bugReportsList);
             }
 
-            
-
             return this.View(bugReportsList.ToList());
         }
 
@@ -77,7 +75,7 @@ namespace HolocronProject.Web.Areas.Administration.Controllers
             bugReportsList = bugReportsList.OrderByDescending(x => x.CreatedOn);
             var pager = new Pager(bugReportsList.Count(), page);
             bugReportsList = bugReportsList.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize);
-            bugReportsList.FirstOrDefault().Pager = pager;
+            bugReportsList.AsParallel().ForAll(x => x.Pager = pager);
             return bugReportsList;
         }
 
