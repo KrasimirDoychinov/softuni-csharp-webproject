@@ -10,23 +10,32 @@
     });
 </script>
 
-<form method="post">
-    <div class="form-group">
-        <label asp-for="Title" class="font-weight-bold"></label>
-        <label class="text-danger">*</label>
-        <input asp-for="Title" class="form-control" />
-        <span asp-validation-for="Title" class="text-danger"></span>
-    </div>
+<div class="row">
+    <div class="col col-md-9">
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="Title" class="font-weight-bold"></label>
+                <label class="text-danger">*</label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
 
-    <div class="form-group">
-        <label asp-for="Description" class="font-weight-bold"></label>
-        <label class="text-danger">*</label>
-        <textarea asp-for="Description" class="form-control" rows="15"></textarea>
-        <span asp-validation-for="Description" class="text-danger"></span>
-    </div>
+            <div class="form-group">
+                <label asp-for="Description" class="font-weight-bold"></label>
+                <label class="text-danger">*</label>
+                <textarea asp-for="Description" class="form-control" rows="15"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
 
-    <input type="submit" class="btn btn-primary" value="Create thread" />
-</form>
+            <input type="submit" class="btn btn-primary" value="Create thread" />
+        </form>
+    </div>
+    <div class="col-md-3">
+        <h2 class="text-info text-center">Rules</h2>
+        <h6><span class="text-info">1. </span>Please do not write <span class="text-danger">stupid things, use inappropriate images, use profanity</span> or other things that can potentially offend other users on the forum.</h6>
+        <h6><span class="text-info">2. </span>If the above rule is broken your thread will be <span class="text-danger">deleted</span>.</h6>
+    </div>
+</div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

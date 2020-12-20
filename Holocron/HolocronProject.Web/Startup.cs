@@ -20,6 +20,7 @@ using HolocronProject.Web.Hubs;
 using Hangfire;
 using Hangfire.SqlServer;
 using HolocronProject.Web.Seeder;
+using Microsoft.AspNetCore.Http;
 
 namespace HolocronProject.Web
 {
@@ -35,6 +36,15 @@ namespace HolocronProject.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                // This lambda determines whether user consent for non-essential 
+                // cookies is needed for a given request.
+                options.CheckConsentNeeded = context => true;
+                // requires using Microsoft.AspNetCore.Http;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+
             services.AddControllersWithViews(cfg =>
             {
                 cfg.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
@@ -122,6 +132,7 @@ namespace HolocronProject.Web
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseCookiePolicy();
 
             app.UseHangfireDashboard();
             backgroundJobs.Enqueue(() => Console.WriteLine("Hello world from Hangfire!"));
