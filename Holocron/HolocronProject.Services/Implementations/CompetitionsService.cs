@@ -15,12 +15,15 @@ namespace HolocronProject.Services.Implementations
     {
         private readonly ApplicationDbContext context;
         private readonly IAchievementsService achievementService;
+        private readonly ICompetitionCharactersService competitionCharactersService;
 
         public CompetitionsService(ApplicationDbContext context,
-            IAchievementsService achievementService)
+            IAchievementsService achievementService,
+            ICompetitionCharactersService competitionCharactersService)
         {
             this.context = context;
             this.achievementService = achievementService;
+            this.competitionCharactersService = competitionCharactersService;
         }
 
 
@@ -81,7 +84,14 @@ namespace HolocronProject.Services.Implementations
         }
 
         public Competition GetCompetitionById(string competitionId)
-            => this.context.Competitions.FirstOrDefault(x => x.Id == competitionId);
+        {
+            var competition = this.context.Competitions
+             .FirstOrDefault(x => x.Id == competitionId);
+
+            competition.Characters = this.competitionCharactersService.GetAllNotDeletedCharacters(competitionId).ToList();
+
+            return competition;
+        }
 
         public IEnumerable<T> GetAll<T>()
             => this.context.Competitions

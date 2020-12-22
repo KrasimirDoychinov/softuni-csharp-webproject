@@ -1,13 +1,16 @@
 ﻿@using System.Security.Claims
 @inject AccountsService accountService
 @inject UserManager<Account> userManager
+@inject SignInManager<Account> signInManager;
 @inject Random random
 @{
-    string accountId = string.Empty; ;
+    var accountId = string.Empty;
+    var accountUsername = string.Empty;
     NotificationStatus isUserNotified = NotificationStatus.HasNoPendingOrApprovedCharacters;
     ViewData["random"] = random.NextDouble().ToString();
     if (this.User.Identity.IsAuthenticated)
     {
+        accountUsername = this.userManager.GetUserAsync(this.User).Result.UserName;
         accountId = this.userManager.GetUserAsync(this.User).Result.Id;
         isUserNotified = this.accountService.IsUserNotified(accountId);
     }
@@ -22,7 +25,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
-    
+
 </head>
 <body class="background container">
     <div class="container background-color">
@@ -69,43 +72,56 @@
         </nav>
         <hr class="border-warning" style="border-width: 5px;" />
         <div class="container p-3">
+
             <main role="main" class="pb-3 text-white">
-                @if (this.User.Identity.IsAuthenticated)
+                @if (this.accountService.IsAccountBanned(accountUsername))
                 {
-                    @if (isUserNotified == HolocronProject.Data.Enums.NotificationStatus.HasApprovedCharacters)
-                    {
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            You have one or more characters that have been approved!
-                            Click <span><a href="/Characters/AllCharacters?accountId=@accountId" class="text-dark text-decoration-none font-weight-bold">here</a></span> to view your characters.
-                            <span><a href="/Accounts/RemoveNotification?accountId=@accountId" class="text-dark text-decoration-none font-weight-bold">Don't show again</a></span>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                    }
-                    else if (isUserNotified == HolocronProject.Data.Enums.NotificationStatus.HasPendingCharacters)
-                    {
-                        <div class="alert alert-primary alert-dismissible fade show" role="alert">
-                            You have one or more characters that are pending.
-                            <span><a href="/Accounts/RemoveNotification?accountId=@accountId" class="text-dark text-decoration-none font-weight-bold">Don't show again</a></span>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                    }
-                    else if (isUserNotified == HolocronProject.Data.Enums.NotificationStatus.HasDeletedCharacters)
-                    {
-                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                            You have one or more characters that have not been approved.
-                            <span><a href="/Accounts/RemoveNotification?accountId=@accountId" class="text-dark text-decoration-none font-weight-bold">Don't show again</a></span>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                    }
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        This account has been banned.
+                    </div>
+                    await this.signInManager.SignOutAsync();
+                    IgnoreBody();
                 }
-                <partial name="_CookieConsentPartial" />
-                @RenderBody()
+
+                else
+                {
+                    @if (this.User.Identity.IsAuthenticated)
+                    {
+                        @if (isUserNotified == HolocronProject.Data.Enums.NotificationStatus.HasApprovedCharacters)
+                        {
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                You have one or more characters that have been approved!
+                                Click <span><a href="/Characters/AllCharacters?accountId=@accountId" class="text-dark text-decoration-none font-weight-bold">here</a></span> to view your characters.
+                                <span><a href="/Accounts/RemoveNotification?accountId=@accountId" class="text-dark text-decoration-none font-weight-bold">Don't show again</a></span>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        }
+                        else if (isUserNotified == HolocronProject.Data.Enums.NotificationStatus.HasPendingCharacters)
+                        {
+                            <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                                You have one or more characters that are pending.
+                                <span><a href="/Accounts/RemoveNotification?accountId=@accountId" class="text-dark text-decoration-none font-weight-bold">Don't show again</a></span>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        }
+                        else if (isUserNotified == HolocronProject.Data.Enums.NotificationStatus.HasDeletedCharacters)
+                        {
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                You have one or more characters that have not been approved.
+                                <span><a href="/Accounts/RemoveNotification?accountId=@accountId" class="text-dark text-decoration-none font-weight-bold">Don't show again</a></span>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        }
+                    }
+                    <partial name="_CookieConsentPartial" />
+                    @RenderBody()
+                }
             </main>
         </div>
     </div>

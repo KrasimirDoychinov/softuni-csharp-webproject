@@ -21,6 +21,7 @@ using Hangfire;
 using Hangfire.SqlServer;
 using HolocronProject.Web.Seeder;
 using Microsoft.AspNetCore.Http;
+using HolocronProject.Services.EmailSender;
 
 namespace HolocronProject.Web
 {
@@ -106,6 +107,7 @@ namespace HolocronProject.Web
             services.AddTransient<ICompetitionCharactersService, CompetitionCharactersService>();
             services.AddTransient<ICompetitionAccountsService, CompetitionAccountsService>();
             services.AddTransient<IHtmlSizeParser, HtmlSizeParser>();
+            services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient(typeof(AccountsService));
             services.AddTransient(typeof(Random));
 
@@ -114,7 +116,8 @@ namespace HolocronProject.Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IBackgroundJobClient backgroundJobs, IWebHostEnvironment env,
             UserManager<Account> userManager,
-            RoleManager<IdentityRole> roleManager)
+            RoleManager<IdentityRole> roleManager,
+            IAccountsService accountsService)
         {
             AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
             app.UseImageSharp();
@@ -142,7 +145,7 @@ namespace HolocronProject.Web
             app.UseAuthentication();
             app.UseAuthorization();
 
-            DataSeeder.SeedData(userManager, roleManager);
+            DataSeeder.SeedData(userManager, roleManager, accountsService);
 
             app.UseEndpoints(endpoints =>
             {

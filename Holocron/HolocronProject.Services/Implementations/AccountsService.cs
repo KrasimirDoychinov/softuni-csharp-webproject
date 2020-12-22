@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -14,10 +16,33 @@ namespace HolocronProject.Services.Implementations
     public class AccountsService : IAccountsService
     {
         private ApplicationDbContext context;
+        private readonly IPostsService postsService;
+        private readonly IThreadsService threadsService;
+        private readonly ICompetitionAccountsService competitionAccountsService;
 
-        public AccountsService(ApplicationDbContext context)
+        public AccountsService(ApplicationDbContext context,
+            IPostsService postsService,
+            IThreadsService threadsService,
+            ICompetitionAccountsService competitionAccountsService)
         {
             this.context = context;
+            this.postsService = postsService;
+            this.threadsService = threadsService;
+            this.competitionAccountsService = competitionAccountsService;
+        }
+
+        public async Task BanAccountAsync(string accountId)
+        {
+            var account = this.GetAccountById(accountId);
+
+            account.IsBanned = true;
+            account.BannedOn = DateTime.UtcNow;
+
+            await this.postsService.DeleteAllPostsByAccountIdAsync(accountId);
+            await this.threadsService.DeleteAllThreadsByAccountId(accountId);
+            await this.competitionAccountsService.DeleteAllCompetitionAccountsByAccountId(accountId);
+
+            await this.context.SaveChangesAsync();
         }
 
         public async Task UpdateForumSignatureAsync(string accountId, string forumSignature)
@@ -62,11 +87,24 @@ namespace HolocronProject.Services.Implementations
             await this.context.SaveChangesAsync();
         }
 
+        public async Task AddDefaultAvatarImagePathAsync(string accountId)
+        {
+            var account = this.GetAccountById(accountId);
+
+            account.AvatarImagePath = "defaultAvatar.jpg";
+
+            await this.context.SaveChangesAsync();
+        }
+
         public async Task UpdateAvatarImageAsync(string accountId, IFormFile avatarImage)
         {
             var account = this.GetAccountById(accountId);
 
-            File.Delete($"wwwroot/Images/AvatarImages/{account.AvatarImagePath}");
+            if (File.Exists($"wwwroot/Images/AvatarImages/{account.AvatarImagePath}"))
+            {
+                File.Delete($"wwwroot/Images/AvatarImages/{account.AvatarImagePath}");
+            }
+            
             account.AvatarImagePath = $"{account.Id}(Account).png";
             using (var fs = new FileStream(
                 $"wwwroot/Images/AvatarImages/{account.AvatarImagePath}", FileMode.Create))
@@ -141,14 +179,26 @@ namespace HolocronProject.Services.Implementations
             .FirstOrDefault()
             .NotificationStatus;
 
-        public int TotalAccounts()
-            => this.context.Accounts
-            .Count();
-
         public T GetAccountByIdGeneric<T>(string accountId, IMapper mapper = null)
             => this.context.Accounts
             .Where(x => x.Id == accountId)
             .To<T>(mapper)
             .FirstOrDefault();
+
+        public IEnumerable<T> GetLatestAccounts<T>(string accountId, IMapper mapper = null)
+            => this.context.Accounts
+            .Where(x => !x.IsBanned && x.Id != accountId)
+            .OrderByDescending(x => x.CreatedOn)
+            .To<T>()
+            .ToList();
+
+        public int TotalAccounts()
+            => this.context.Accounts
+            .Count();
+
+        public bool IsAccountBanned(string accountUsername)
+            => this.context.Accounts
+            .Any(x => x.UserName == accountUsername && x.IsBanned);
+
     }
 }

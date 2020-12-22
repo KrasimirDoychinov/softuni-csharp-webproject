@@ -8,17 +8,19 @@ namespace HolocronProject.Services
 {
     public interface IPostsService
     {
+        Task DeleteAllPostsByAccountIdAsync(string accountId);
+
         Task CreatePostAsync(string description, string threadId, string accountId);
 
         Task DeletePostAsync(string postId);
 
-        IEnumerable<T> GetLastNotDeletedPostsByAccountId<T>(string accountId, IMapper mapper = null);
-
-        IEnumerable<T> GetAllNotDeletedPosts<T>(IMapper mapper = null);
+        Task EditPostByIdAsync(string postId, string description);
 
         T GetNotDeletedPostById<T>(string postId, IMapper mapper = null);
 
-        Task EditPostByIdAsync(string postId, string description);
+        IEnumerable<T> GetLastNotDeletedPostsByAccountId<T>(string accountId, IMapper mapper = null);
+
+        IEnumerable<T> GetAllNotDeletedPosts<T>(IMapper mapper = null);
 
         int TotalNotDeletedPosts();
 

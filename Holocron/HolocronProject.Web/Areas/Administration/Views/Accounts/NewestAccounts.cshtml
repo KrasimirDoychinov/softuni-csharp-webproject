@@ -1,0 +1,63 @@
+﻿
+@model List<NewestAccountsViewModel>
+
+@{ 
+    var pager = Model.Select(x => x.Pager).FirstOrDefault();
+}
+
+@if (Model.Count() <= 0)
+{
+    <div class="text-center">
+        <h1>The are currently no registered accounts on the forum.</h1>
+    </div>
+}
+else
+{
+    <div class="row text-center">
+        <div class="col-md-12">
+            @foreach (var item in Model)
+            {
+                <div class="d-inline-block grid">
+                    <img src="~/Images/AvatarImages/@item.AvatarImagePath?random=@ViewData["random"].ToString()" width="325" ; height="300" />
+                    <h4><span class="font-weight-bold">Username: </span>@item.UserName</h4>
+                    <h5><span class="font-weight-bold">Created on: </span>@item.CreatedOn</h5>
+                    <a href="/Administration/Accounts/Ban?accountId=@item.Id" class="btn btn-danger">Ban</a>
+                </div>
+            }
+        </div>
+    </div>
+
+    @if (pager.EndPage > 1)
+    {
+        <div class="">
+            <ul class="pagination">
+                @if (pager.CurrentPage > 1)
+                {
+                    <li class="float-left mr-1">
+                        <a href="/Administration/Characters/NewestCharacters" class="btn btn-info">First</a>
+                    </li>
+                    <li class="float-left mr-1">
+                        <a href="/Administration/Characters/NewestCharacters?page=@(pager.CurrentPage - 1)" class="btn btn-info">Previous</a>
+                    </li>
+                }
+
+                @for (var page = pager.StartPage; page <= pager.EndPage; page++)
+                {
+                    <li class="@(page == pager.CurrentPage ? "active" : "") float-right mr-1">
+                        <a href="/Administration/Characters/NewestCharacters?page=@(page)" class="btn btn-info">@(page)</a>
+                    </li>
+                }
+
+                @if (pager.CurrentPage < pager.TotalPages)
+                {
+                    <li class="float-right mr-1">
+                        <a href="/Administration/Characters/NewestCharacters?page=@(pager.CurrentPage + 1)" class="btn btn-info">Next</a>
+                    </li>
+                    <li class="float-right mr-1">
+                        <a href="/Administration/Characters/NewestCharacters?page=@(pager.TotalPages)" class="btn btn-info">Last</a>
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+}

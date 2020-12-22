@@ -19,7 +19,7 @@ namespace HolocronProject.Services.Implementations
 
         public bool HasAccountVoted(string competitionId, string accountId)
            => this.context.CompetitionAccounts
-           .Any(x => x.AccountId == accountId && x.CompetitionId == competitionId && x.HasVoted);
+           .Any(x => x.AccountId == accountId && x.CompetitionId == competitionId && x.HasVoted && !x.IsDeleted);
 
         public async Task VoteAsync(string characterId, string competitionId, string accountId)
         {
@@ -80,6 +80,18 @@ namespace HolocronProject.Services.Implementations
             }
 
             return competitionAccount.CompetitionCharacter.CharacterId;
+        }
+
+        public async Task DeleteAllCompetitionAccountsByAccountId(string accountId)
+        {
+            var competitionAccounts = this.context.CompetitionAccounts
+                .Where(x => x.AccountId == accountId)
+                .ToList();
+
+            competitionAccounts.AsParallel().ForAll(x => x.IsDeleted = true);
+            competitionAccounts.AsParallel().ForAll(x => x.DeletedOn = DateTime.UtcNow);
+
+            await this.context.SaveChangesAsync();
         }
     }
 }

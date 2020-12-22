@@ -9,6 +9,7 @@
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="Hangfire.Core" Version="1.7.18" />
     <PackageReference Include="HtmlAgilityPack" Version="1.11.28" />
+    <PackageReference Include="MailKit" Version="2.10.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="3.1.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="3.1.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.10" />
@@ -22,10 +23,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\HolocronProject.Data\HolocronProject.Data.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Files\" />
   </ItemGroup>
 
 </Project>

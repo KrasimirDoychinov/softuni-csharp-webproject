@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace HolocronProject.Web.Areas.Administration.Models.Competitions
+namespace HolocronProject.Web.Areas.Administration.ViewModels.Competitions
 {
     public class CompetitionInputModel 
     {

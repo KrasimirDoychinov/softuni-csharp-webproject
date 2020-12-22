@@ -34,7 +34,7 @@ namespace HolocronProject.Tests.Services
                 .UseInMemoryDatabase(Guid.NewGuid().ToString())
                 .Options;
             this.context = new ApplicationDbContext(optionsBuilder);
-            this.accountService = new AccountsService(context);
+            this.accountService = new AccountsService(context, null, null, null);
             await context.Database.EnsureDeletedAsync();
             await context.Database.EnsureCreatedAsync();
 

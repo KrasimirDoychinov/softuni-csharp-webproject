@@ -18,6 +18,10 @@ namespace HolocronProject.Data.Models
         
         public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
 
+        public bool IsBanned { get; set; } = false;
+
+        public DateTime BannedOn { get; set; }
+
         public string AvatarImagePath { get; set; } 
 
         public string ForumSignature { get; set; }

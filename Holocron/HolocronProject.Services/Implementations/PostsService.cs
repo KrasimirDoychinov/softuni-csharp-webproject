@@ -83,5 +83,17 @@ namespace HolocronProject.Services.Implementations
             .Where(x => x.Id == postId && !x.IsDeleted)
             .To<T>(mapper)
             .FirstOrDefault();
+
+        public async Task DeleteAllPostsByAccountIdAsync(string accountId)
+        {
+            var posts = this.context.Posts
+                .Where(x => x.AccountId == accountId)
+                .ToList();
+
+            posts.AsParallel().ForAll(x => x.IsDeleted = true);
+            posts.AsParallel().ForAll(x => x.DeletedOn = DateTime.UtcNow);
+
+            await this.context.SaveChangesAsync();
+        }
     }
 }

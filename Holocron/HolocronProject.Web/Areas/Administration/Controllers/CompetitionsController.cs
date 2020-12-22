@@ -1,5 +1,5 @@
 ﻿using HolocronProject.Services;
-using HolocronProject.Web.Areas.Administration.Models.Competitions;
+using HolocronProject.Web.Areas.Administration.ViewModels.Competitions;
 using HolocronProject.Web.Controllers;
 using HolocronProject.Web.ViewModels.Competitions;
 using Microsoft.AspNetCore.Authorization;

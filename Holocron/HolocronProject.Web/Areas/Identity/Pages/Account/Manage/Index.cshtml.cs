@@ -49,7 +49,6 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account.Manage
 
         [Display(Name = "Forum signature")]
         [MaxLength(UserConstants.ForumSignatureMaxLength, ErrorMessage = UserErrorMessages.ForumSignatureLengthError)]
-        // TODO: Attributes
         public string ForumSignature { get; set; }
 
         public string SanitizedForumSignature => new HtmlSanitizer().Sanitize(this.ForumSignature);
@@ -58,7 +57,6 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account.Manage
 
         public string AvatarImagePath { get; set; }
 
-        public bool IsAvatarImageSet { get; set; }
 
         [ImageValidator]
         public IFormFile AvatarImage { get; set; }
@@ -100,7 +98,7 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account.Manage
         public async Task<IActionResult> OnPostAsync(string userName, string forumSignature, IFormFile avatarImage)
         {
             var user = await _userManager.GetUserAsync(User);
-            
+
             if (user == null)
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
@@ -119,6 +117,7 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account.Manage
                 await this.accountService.UpdateAvatarImageAsync(user.Id, avatarImage);
             }
 
+            
             if (user.ForumSignature != forumSignature)
             {
                 await this.accountService.UpdateForumSignatureAsync(user.Id, forumSignature);

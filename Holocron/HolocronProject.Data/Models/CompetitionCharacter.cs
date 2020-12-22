@@ -4,7 +4,7 @@ using System.Text;
 
 namespace HolocronProject.Data.Models
 {
-    public class CompetitionCharacter
+    public class CompetitionCharacter : BaseDeletableModel
     {
         public CompetitionCharacter()
         {

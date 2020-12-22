@@ -2,7 +2,7 @@
 
 @inject UserManager<Account> userManager
 
-@{ 
+@{
 }
 
 <div class="text-center ">
@@ -18,15 +18,9 @@
         }
         @Model.UserName
     </h3>
-    @if (Model.AvatarImagePath != null)
-    {
-        <img src="~/Images/AvatarImages/@Model.AvatarImagePath?random=@ViewData["random"].ToString()" class="rounded-circle border border-warning border" height="150" width="150" alt="" />
-    }
+    <img src="~/Images/AvatarImages/@Model.AvatarImagePath?random=@ViewData["random"].ToString()" class="rounded-circle border border-warning border" height="150" width="150" alt="" />
 
-    else
-    {
-        <img src="~/Images/AvatarImages/defaultAvatar.jpg" class="rounded-circle border border-warning border" height="100" width="100" />
-    }
+
 </div>
 
 <div class="row">

@@ -76,14 +76,14 @@ namespace HolocronProject.Web.Areas.Administration.Controllers
         {
             await this.characterService.ApproveCharacterAsync(characterId, accountId);
 
-            return this.Redirect(nameof(AllPendingCharacters));
+            return this.RedirectToAction(nameof(AllPendingCharacters));
         }
 
         public async Task<IActionResult> DeleteCharacter(string characterId, string accountId)
         {
             await this.characterService.DeleteCharacterAsync(characterId, accountId);
 
-            return this.Redirect(nameof(AllPendingCharacters));
+            return this.RedirectToAction(nameof(AllPendingCharacters));
         }
 
         private static IEnumerable<CharacterListViewModel> CharListPager(int? page, IEnumerable<CharacterListViewModel> charListViewModel)

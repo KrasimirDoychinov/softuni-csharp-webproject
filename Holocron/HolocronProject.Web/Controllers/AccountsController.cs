@@ -45,5 +45,23 @@ namespace HolocronProject.Web.Controllers
 
             return this.Redirect("/");
         }
+
+        public IActionResult ConfirmEmail(string userid, string token)
+        {
+            var user = userManager.FindByIdAsync(userid).Result;
+            var result = userManager.
+                        ConfirmEmailAsync(user, token).Result;
+
+            if (result.Succeeded)
+            {
+                ViewBag.Message = "Email confirmed successfully!";
+                return View("SuccessfulEmailConfirmation");
+            }
+            else
+            {
+                ViewBag.Message = "Error while confirming your email!";
+                return View("UnSuccessfulEmailConfirmation");
+            }
+        }
     }
 }

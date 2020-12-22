@@ -38,15 +38,9 @@
 
             </div>
 
-            @if (Model.AvatarImagePath != null)
-            {
-                <img src="~/Images/AvatarImages/@Model.AvatarImagePath?random=@ViewData["random"].ToString()" class="rounded-circle border border-warning border" height="150" width="150" alt="@Model.AvatarImagePath?random=@ViewData["random"].ToString()" />
-            }
+            <img src="~/Images/AvatarImages/@Model.AvatarImagePath?random=@ViewData["random"].ToString()" class="rounded-circle border border-warning border" height="150" width="150" alt="@Model.AvatarImagePath?random=@ViewData["random"].ToString()" />
 
-            else
-            {
-                <img src="~/Images/AvatarImages/defaultAvatar.jpg" class="rounded-circle border border-warning border" height="150" width="150" alt="@Model.AvatarImagePath?random=@ViewData["random"].ToString()" />
-            }
+
 
             <div class="form-group mt-3">
                 <input asp-for="AvatarImage" class="form-control img-fluid" />

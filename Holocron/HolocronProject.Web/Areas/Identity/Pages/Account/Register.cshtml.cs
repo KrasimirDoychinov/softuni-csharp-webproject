@@ -21,6 +21,7 @@ using SixLabors.ImageSharp;
 using HolocronProject.Data.Common;
 using HolocronProject.Web.ValidationAttributes;
 using HolocronProject.Services;
+using System.Net.Mail;
 
 namespace HolocronProject.Web.Areas.Identity.Pages.Account
 {
@@ -31,29 +32,30 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<Data.Models.Account> _signInManager;
-        private readonly RoleManager<IdentityRole> roleManager;
         private readonly UserManager<Data.Models.Account> _userManager;
         private readonly ILogger<RegisterModel> _logger;
-        private readonly IEmailSender _emailSender;
         private readonly IWebHostEnvironment webHostEnvironment;
         private readonly IAccountsService userService;
+        private readonly IAccountsService accountsService;
+        private readonly Services.EmailSender.IEmailSender emailSender;
 
         public RegisterModel(
             UserManager<Data.Models.Account> userManager,
             SignInManager<Data.Models.Account> signInManager,
             RoleManager<IdentityRole> roleManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender,
             IWebHostEnvironment webHostEnvironment,
-            IAccountsService userService)
+            IAccountsService userService,
+            IAccountsService accountsService,
+            Services.EmailSender.IEmailSender emailSender)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            this.roleManager = roleManager;
             _logger = logger;
-            _emailSender = emailSender;
             this.webHostEnvironment = webHostEnvironment;
             this.userService = userService;
+            this.accountsService = accountsService;
+            this.emailSender = emailSender;
         }
 
         [BindProperty]
@@ -83,7 +85,11 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
 
-            public string AvatarImagePath { get; set; }
+            [Required]
+            [Display(Name = "Email")]
+            [EmailAddress]
+            //[EmailTaken]
+            public string Email { get; set; }
 
             [Display(Name = "Avatar")]
             [ImageValidator]
@@ -98,60 +104,48 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl = returnUrl ?? Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-            
 
             if (ModelState.IsValid)
             {
-                var user = new Data.Models.Account { UserName = Input.UserName };
+                var user = new Data.Models.Account { UserName = Input.UserName, Email = Input.Email };
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
-                    var adminRole = new IdentityRole() { Name = "Admin" };
-                    var userRole = new IdentityRole() { Name = "Account" };
-
-                    await roleManager.CreateAsync(userRole);
-                    await roleManager.CreateAsync(adminRole);
-
-                    if (Input.UserName == "TestAdmin1" && Input.Password == "TestAdmin1.")
-                    {
-                        await _userManager.AddToRoleAsync(user, "Admin");
-                    }
-
-
                     _logger.LogInformation("Account created a new account with password.");
-
-                    
-                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                    var callbackUrl = Url.Page(
-                        "/Account/ConfirmEmail",
-                        pageHandler: null,
-                        values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
-                        protocol: Request.Scheme);
-
-                    await _signInManager.SignInAsync(user, isPersistent: false);
 
                     if (Input.AvatarImage != null)
                     {
                         await this.userService.CreateAvatarImageAsync(user.Id, Input.AvatarImage);
                     }
-                    return LocalRedirect(returnUrl);
 
-                    
+                    else
+                    {
+                        await this.accountsService.AddDefaultAvatarImagePathAsync(user.Id);
+                    }
+
+                    string confirmationToken = _userManager.
+                    GenerateEmailConfirmationTokenAsync(user).Result;
+
+                    string confirmationLink = Url.Action("ConfirmEmail",
+                      "Accounts", new
+                      {
+                          userid = user.Id,
+                          token = confirmationToken
+                      },
+                       protocol: HttpContext.Request.Scheme);
+
+                    this.emailSender.SendConfirmationEmail(user, confirmationLink);
+                    return RedirectToAction("Login", "Account");
+
                 }
                 foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
 
-                
             }
-
-            
-
             // If we got this far, something failed, redisplay form
             return Page();
         }

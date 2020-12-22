@@ -87,5 +87,17 @@ namespace HolocronProject.Services.Implementations
             .Where(x => x.Id == threadId && !x.IsDeleted)
             .To<T>(mapper)
             .FirstOrDefault();
+
+        public async Task DeleteAllThreadsByAccountId(string accountId)
+        {
+            var threads = this.context.Threads
+                .Where(x => x.AccountId == accountId)
+                .ToList();
+
+            threads.AsParallel().ForAll(x => x.IsDeleted = true);
+            threads.AsParallel().ForAll(x => x.DeletedOn = DateTime.UtcNow);
+
+            await this.context.SaveChangesAsync();
+        }
     }
 }

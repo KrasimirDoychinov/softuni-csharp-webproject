@@ -11,14 +11,8 @@
             <div class="card mb-4 bg-dark">
                 <div class="card-header">
                     <div class="media flex-wrap w-100 align-items-center">
-                        @if (Model.AccountAvatarImagePath != null)
-                        {
-                            <img src="/Images/AvatarImages/@Model.AccountAvatarImagePath?random=@ViewData["random"].ToString()" class="d-block ui-w-40 rounded-circle border border-warning" height="100" width="100" alt="">
-                        }
-                        else
-                        {
-                            <img src="/Images/AvatarImages/defaultAvatar.jpg?random=@ViewData["random"].ToString()" class="d-block ui-w-40 rounded-circle border border-warning" height="100" width="100" alt="">
-                        }
+                        <img src="/Images/AvatarImages/@Model.AccountAvatarImagePath?random=@ViewData["random"].ToString()" class="d-block ui-w-40 rounded-circle border border-warning" height="100" width="100" alt="">
+
                         <div class="media-body ml-3">
                             <a href="/Accounts/ForeignAccount?accountId=@Model.AccountId" class="text-decoration-none text-warning" data-abc="true">@Model.AccountUserName</a>
                             <div class="text-info small" id="testDate">Created on <strong>@Model.NormalizedCreatedOn.ToString()</strong></div>

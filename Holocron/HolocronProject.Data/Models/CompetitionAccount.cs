@@ -4,7 +4,7 @@ using System.Text;
 
 namespace HolocronProject.Data.Models
 {
-    public class CompetitionAccount
+    public class CompetitionAccount : BaseDeletableModel
     {
         public string AccountId { get; set; }
 
