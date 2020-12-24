@@ -18,36 +18,62 @@
         }
         else
         {
+            <div class="text-warning text-center background-admin">
+                <h1>POSTS STATS</h1>
+                <div >
+                    <h4>Total posts: <span class="text-danger">@Model.FirstOrDefault().TotalPosts</span></h4>
+                    <h4>Posts made today: <span class="text-danger">@Model.FirstOrDefault().PostsMadeToday</span></h4>
+                    <h4>Not deleted posts: <span class="text-danger">@Model.FirstOrDefault().NotDeletedPosts</span></h4>
+                    <h4>Deleted posts: <span class="text-danger">@Model.FirstOrDefault().DeletedPosts</span></h4>
+                </div>
+            </div>
+
+            <hr class="bg-warning" />
             @foreach (var item in Model)
             {
-                <div class="card mb-4 bg-dark">
+                <div class="card mb-4 background-modal-topbottom border-dark">
                     <div class="card-header">
-                        <div class="media flex-wrap w-100 align-items-center">
-                            @if (item.AccountAvatarImagePath != null)
-                            {
-                                <img src="/Images/AvatarImages/@item.AccountAvatarImagePath?random=@ViewData["random"].ToString()" class="d-block ui-w-40 rounded-circle border border-warning" height="100" width="100" alt="">
-                            }
-                            else
-                            {
-                                <img src="/Images/AvatarImages/defaultAvatar.jpg?random=@ViewData["random"].ToString()" class="d-block ui-w-40 rounded-circle border border-warning" height="100" width="100" alt="">
-                            }
+                        <div class="media flex-wrap w-100 align-items-center ">
+                            <img src="/Images/AvatarImages/@item.AccountAvatarImagePath?random=@ViewData["random"].ToString()" class="d-block ui-w-40 rounded-circle border border-warning" height="100" width="100" alt="">
+
                             <div class="media-body ml-3">
                                 <div class="float-right">
-                                    <a href="/Threads/ById?threadId=@item.ThreadId" class="text-decoration-none text-warning">@item.ShortedThreadTitle</a>
+                                    <a href="/Threads/ById?threadId=@item.ThreadId" class="text-decoration-none text-warning"><span class="text-white">Original thread: </span>@item.ShortedThreadTitle</a>
                                 </div>
-                                <label class="text-warning">@item.AccountUserName</label>
-                                <div class="text-info small">Created on <strong>@item.NormalizedCreatedOn</strong></div>
+                                <br />
+                                @if (!item.IsDeleted)
+                                {
+                                    <a href="/Administration/Posts/Delete?postId=@item.Id" class="btn btn-outline-danger btn-sm row float-right">Delete</a>
+                                }
+
+                                <label class="text-warning">
+                                    @item.AccountUserName
+                                @if (item.AccountIsBanned)
+                                {
+                                    <span class="text-danger font-weight-bolder">(BANNED)</span>
+                                }
+                            </label>
+                            <div class="small">Created on <strong>@item.NormalizedCreatedOn</strong></div>
+                            @if (item.IsDeleted)
+                            {
+                                <div>
+                                    <label class="text-danger font-weight-bolder">DELETED</label>
+                                    <label class="text-danger">Deleted on: <span class="font-weight-bold">@item.NormalizedDeletedOn</span></label>
+                                </div>
+                            }
                             </div>
                         </div>
                     </div>
-                    <div class="card-body" style="background-color: #384047;">
+                    <div class="card-body background-modal-body">
                         @Html.Raw(item.SanitizedDescription)
                     </div>
-                    <div class="card-footer">
+                    <div class="card-footer border-top border-warning">
                         @Html.Raw(item.SanitizedForumSignature)
                     </div>
                 </div>
             }
+
+            <hr class="bg-warning" />
             @if (pager.EndPage > 1)
             {
                 <div class="float-left">
@@ -55,27 +81,27 @@
                         @if (pager.CurrentPage > 1)
                         {
                             <li class="float-left mr-1">
-                                <a href="/Administration/Posts/NewestPosts" class="btn btn-info">First</a>
+                                <a href="/Administration/Posts/NewestPosts" class="btn btn-warning">First</a>
                             </li>
                             <li class="float-left mr-1">
-                                <a href="/Administration/Posts/NewestPosts?page=@(pager.CurrentPage - 1)" class="btn btn-info">Previous</a>
+                                <a href="/Administration/Posts/NewestPosts?page=@(pager.CurrentPage - 1)" class="btn btn-warning">Previous</a>
                             </li>
                         }
 
                         @for (var page = pager.StartPage; page <= pager.EndPage; page++)
                         {
                             <li class="@(page == pager.CurrentPage ? "active" : "") float-right mr-1">
-                                <a href="/Administration/Posts/NewestPosts?page=@(page)" class="btn btn-info">@(page)</a>
+                                <a href="/Administration/Posts/NewestPosts?page=@(page)" class="btn btn-outline-warning">@(page)</a>
                             </li>
                         }
 
                         @if (pager.CurrentPage < pager.TotalPages)
                         {
                             <li class="float-right mr-1">
-                                <a href="/Administration/Posts/NewestPosts?page=@(pager.CurrentPage + 1)" class="btn btn-info">Next</a>
+                                <a href="/Administration/Posts/NewestPosts?page=@(pager.CurrentPage + 1)" class="btn btn-warning">Next</a>
                             </li>
                             <li class="float-right mr-1">
-                                <a href="/Administration/Posts/NewestPosts?page=@(pager.TotalPages)" class="btn btn-info">Last</a>
+                                <a href="/Administration/Posts/NewestPosts?page=@(pager.TotalPages)" class="btn btn-warning">Last</a>
                             </li>
                         }
                     </ul>

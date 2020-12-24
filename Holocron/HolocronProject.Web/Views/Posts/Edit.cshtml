@@ -6,8 +6,9 @@
     tinymce.init({
         selector: "textarea",
         plugins: [
-            "image table link media"
-        ]
+            "image link media"
+        ],
+        content_style: "body { background-color: #292b2c; color: #fff }"
     });
 </script>
 
@@ -17,13 +18,14 @@
     <hr class="bg-warning" />
 
     <div class="form-group ">
-        <label asp-for="Description" class="font-weight-bold"></label>
+        <label asp-for="Description" class="font-weight-bold text-warning"></label>
         <label class="text-danger">*</label>
-        <textarea asp-for="Description" class="form-control" rows="15"></textarea>
+        <textarea asp-for="Description" class="form-contro bg-dark text-white border border-dark" rows="15"></textarea>
         <span asp-validation-for="Description" class="text-danger"></span>
     </div>
 
-    <input type="submit" class="btn btn-primary" value="Save" />
+    <hr class="bg-warning" />
+    <input type="submit" class="btn btn-outline-warning" value="Save" />
 </form>
 
 

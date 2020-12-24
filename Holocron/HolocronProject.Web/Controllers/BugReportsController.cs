@@ -55,7 +55,6 @@ namespace HolocronProject.Web.Controllers
             if (bugReportsViewModel.Count() > 0)
             {
                 bugReportsViewModel = BugReportsPager(page, bugReportsViewModel);
-                BugReportUTCToLocalTime(bugReportsViewModel);
             }
 
             return this.View(bugReportsViewModel.ToList());
@@ -71,16 +70,9 @@ namespace HolocronProject.Web.Controllers
             if (bugReportsViewModel.Count() > 0)
             {
                 bugReportsViewModel = BugReportsPager(page, bugReportsViewModel);
-                BugReportUTCToLocalTime(bugReportsViewModel);
             }
 
             return this.View(bugReportsViewModel.ToList());
-        }
-
-        private static void BugReportUTCToLocalTime(IEnumerable<BugReportListViewModel> bugReportsViewModel)
-        {
-            bugReportsViewModel.AsParallel().ForAll(x => x.NormalizedCreatedOn = x.CreatedOn.ToLocalTime().ToString("MM/dd/yyyy h:mm tt"));
-            bugReportsViewModel.AsParallel().ForAll(x => x.NormalizedResolvedOn = x.ResolvedOn.ToLocalTime().ToString("MM/dd/yyyy h:mm tt"));
         }
 
         private static IEnumerable<BugReportListViewModel> BugReportsPager(int? page, IEnumerable<BugReportListViewModel> bugReportsViewModel)

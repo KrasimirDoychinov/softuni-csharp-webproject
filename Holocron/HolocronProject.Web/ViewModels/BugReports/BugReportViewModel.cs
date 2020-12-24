@@ -15,7 +15,7 @@ namespace HolocronProject.Web.ViewModels.BugReports
 
         public DateTime CreatedOn { get; set; }
 
-        public string NormalizedCreatedOn { get; set; }
+        public string NormalizedCreatedOn => this.CreatedOn.ToLocalTime().ToString("MM/dd/yyyy h:mm tt");
 
         public string Title { get; set; }
 

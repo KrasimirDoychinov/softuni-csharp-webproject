@@ -73,13 +73,13 @@ namespace HolocronProject.Services.Implementations
             await this.context.SaveChangesAsync();
         }
 
-        public async Task CreateAvatarImageAsync(string accountId, IFormFile image)
+        public async Task CreateAvatarImageAsync(string webRootFolder, string accountId, IFormFile image)
         {
             var account = this.GetAccountById(accountId);
 
             account.AvatarImagePath = $"{account.Id}(Account).png";
             using (var fs = new FileStream(
-                 $"wwwroot/Images/AvatarImages/{account.AvatarImagePath}", FileMode.Create))
+                 $"{webRootFolder}/Images/AvatarImages/{account.AvatarImagePath}", FileMode.Create))
             {
                 await image.CopyToAsync(fs);
             }
@@ -96,18 +96,18 @@ namespace HolocronProject.Services.Implementations
             await this.context.SaveChangesAsync();
         }
 
-        public async Task UpdateAvatarImageAsync(string accountId, IFormFile avatarImage)
+        public async Task UpdateAvatarImageAsync(string webRootFolder, string accountId, IFormFile avatarImage)
         {
             var account = this.GetAccountById(accountId);
 
-            if (File.Exists($"wwwroot/Images/AvatarImages/{account.AvatarImagePath}"))
+            if (File.Exists($"{webRootFolder}/Images/AvatarImages/{account.AvatarImagePath}"))
             {
-                File.Delete($"wwwroot/Images/AvatarImages/{account.AvatarImagePath}");
+                File.Delete($"{webRootFolder}/Images/AvatarImages/{account.AvatarImagePath}");
             }
             
             account.AvatarImagePath = $"{account.Id}(Account).png";
             using (var fs = new FileStream(
-                $"wwwroot/Images/AvatarImages/{account.AvatarImagePath}", FileMode.Create))
+                $"{webRootFolder}/Images/AvatarImages/{account.AvatarImagePath}", FileMode.Create))
             {
                 await avatarImage.CopyToAsync(fs);
             }
@@ -126,11 +126,11 @@ namespace HolocronProject.Services.Implementations
             return account.AvatarImagePath;
         }
 
-        public bool IsAvatarImageSet(string accountId)
+        public bool IsAvatarImageSet(string webRootFolder, string accountId)
         {
             var account = GetAccountById(accountId);
 
-            return File.Exists($"wwwroot/Images/AvatarImages/{account.AvatarImagePath}");
+            return File.Exists($"{webRootFolder}/Images/AvatarImages/{account.AvatarImagePath}");
         }
 
         public async Task NotifyAccountOfApprovedCharactersAsync(string accountId)
@@ -185,9 +185,9 @@ namespace HolocronProject.Services.Implementations
             .To<T>(mapper)
             .FirstOrDefault();
 
-        public IEnumerable<T> GetLatestAccounts<T>(string accountId, IMapper mapper = null)
+        public IEnumerable<T> GetAllAccounts<T>(string accountId, IMapper mapper = null)
             => this.context.Accounts
-            .Where(x => !x.IsBanned && x.Id != accountId)
+            .Where(x => x.Id != accountId)
             .OrderByDescending(x => x.CreatedOn)
             .To<T>()
             .ToList();

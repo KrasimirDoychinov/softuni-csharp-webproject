@@ -1,5 +1,5 @@
 ﻿
-@model List<CharacterListViewModel>
+@model List<NewestCharactersViewModel>
 
 @inject UserManager<Account> userManager
 
@@ -10,68 +10,62 @@
 
 @if (Model.Count() <= 0)
 {
-    <div class="text-center">
+    <div class="text-center text-warning">
         <h1>There are currently no pending characters.</h1>
     </div>
 }
 else
 {
+    <h1 class="text-center text-warning">There are currently <span class="text-danger">@Model.Count()</span> pending characters</h1>
 
+    <hr class="bg-warning"/>
+    <h1 class="text-warning"></h1>
     <div class="row text-center">
         <div class="col-md-12 ">
-            @if (Model.Count <= 0)
+            @foreach (var item in Model)
             {
-                <div class="text-center">
-                    <h3>
-                        The user has no characters.
-                    </h3>
+                <div class="d-inline-block grid">
+                    <a href="/Administration/Characters/CharacterInfo?characterId=@item.Id"><img src="~/Images/CharacterImages/@item.CharacterImagePath" class="ml-3 border border-warning rounded-pill" style="width: 325px; height:300px" /></a>
+                    <h4><span class="font-weight-bold text-warning">Name: </span>@item.Name</h4>
+                    <h5><span class="font-weight-bold text-warning">Title: </span>@item.Title</h5>
+                    <h5><span class="font-weight-bold text-warning">Gender: </span>@item.Gender</h5>
+                    <h5><span class="font-weight-bold text-warning">Class: </span>@item.ClassName</h5>
                 </div>
-            }
-            else
-            {
-                @foreach (var item in Model)
-                {
-                    <div class="d-inline-block grid">
-                        <a href="/Administration/Characters/CharacterInfo?characterId=@item.Id"><img src="~/Images/CharacterImages/@item.CharacterImagePath" class="ml-3" style="width: 325px; height:300px" /></a>
-                        <h4><span class="font-weight-bold">Name: </span>@item.Name</h4>
-                        <h5><span class="font-weight-bold">Title: </span>@item.Title</h5>
-                        <h5><span class="font-weight-bold">Gender: </span>@item.Gender</h5>
-                        <h5><span class="font-weight-bold">Class: </span>@item.ClassName</h5>
-                    </div>
-                }
             }
         </div>
     </div>
+
+    <hr class="bg-warning"/>
     <div class="d-flex justify-content-between">
         <div>
             @if (pager.EndPage > 1)
             {
-                <div >
+                <div>
                     <ul class="pagination">
                         @if (pager.CurrentPage > 1)
                         {
                             <li class="float-left mr-1">
-                                <a href="/Administration/Characters/AllPendingCharacters" class="btn btn-info">First</a>
+                                <a href="/Administration/Characters/AllPendingCharacters" class="btn btn-warning">First</a>
                             </li>
                             <li class="float-left mr-1">
-                                <a href="/Administration/Characters/AllPendingCharacters?page=@(pager.CurrentPage - 1)" class="btn btn-info">Previous</a>
+                                <a href="/Administration/Characters/AllPendingCharacters?page=@(pager.CurrentPage - 1)" class="btn btn-warning">Previous</a>
                             </li>
                         }
 
                         @for (var page = pager.StartPage; page <= pager.EndPage; page++)
                         {
                             <li class="@(page == pager.CurrentPage ? "active" : "") float-right mr-1">
-                                <a href="/Administration/Characters/AllPendingCharacters?&page=@(page)" class="btn btn-info">@(page)</a>
+                                <a href="/Administration/Characters/AllPendingCharacters?&page=@(page)" class="btn btn-outline-warning">@(page)</a>
                             </li>
                         }
 
                         @if (pager.CurrentPage < pager.TotalPages)
                         {
                             <li class="float-right mr-1">
-                                <a href="/Administration/Characters/AllPendingCharacters?page=@(pager.CurrentPage + 1)" class="btn btn-info">Next</a>
+                                <a href="/Administration/Characters/AllPendingCharacters?page=@(pager.CurrentPage + 1)" class="btn btn-warning">Next</a>
                             </li>
                             <li class="float-right mr-1">
-                                <a href="/Administration/Characters/AllPendingCharacters?page=@(pager.TotalPages)" class="btn btn-info">Last</a>
+                                <a href="/Administration/Characters/AllPendingCharacters?page=@(pager.TotalPages)" class="btn btn-warning">Last</a>
                             </li>
                         }
                     </ul>
@@ -79,7 +73,6 @@ else
             }
         </div>
     </div>
-
 }
 
 

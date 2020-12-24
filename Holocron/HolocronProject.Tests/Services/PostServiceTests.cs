@@ -66,7 +66,7 @@ namespace HolocronProject.Tests.Services
 
             await this.postsService.CreatePostAsync("Test", "1", "1");
 
-            var postCount = this.postsService.TotalNotDeletedPosts();
+            var postCount = this.postsService.TotalPosts();
 
             Assert.AreEqual(1, postCount);
         }
@@ -85,7 +85,7 @@ namespace HolocronProject.Tests.Services
 
             await this.postsService.DeletePostAsync("1");
 
-            var postCount = this.postsService.TotalNotDeletedPosts();
+            var postCount = this.postsService.TotalPosts();
 
             Assert.AreEqual(0, postCount);
         }
@@ -137,7 +137,7 @@ namespace HolocronProject.Tests.Services
             await this.context.Posts.AddAsync(secondPost);
             await this.context.SaveChangesAsync();
 
-            var mappedEntity =  this.postsService.GetAllNotDeletedPosts<PostViewModel>(this.mapper);
+            var mappedEntity =  this.postsService.GetAllPosts<PostViewModel>(this.mapper);
 
             Assert.AreEqual(1, mappedEntity.Count());
         }
@@ -171,7 +171,7 @@ namespace HolocronProject.Tests.Services
             await this.context.Posts.AddAsync(secondPost);
             await this.context.SaveChangesAsync();
 
-            var mappedEntity = this.postsService.GetAllNotDeletedPosts<PostViewModel>(this.mapper);
+            var mappedEntity = this.postsService.GetAllPosts<PostViewModel>(this.mapper);
 
             Assert.AreEqual(0, mappedEntity.Count());
         }
@@ -295,7 +295,7 @@ namespace HolocronProject.Tests.Services
             await this.context.Posts.AddAsync(secondPost);
             await this.context.SaveChangesAsync();
 
-            var totalNotDeletedPosts = this.postsService.TotalNotDeletedPosts();
+            var totalNotDeletedPosts = this.postsService.TotalPosts();
 
             Assert.AreEqual(1, totalNotDeletedPosts);
         }

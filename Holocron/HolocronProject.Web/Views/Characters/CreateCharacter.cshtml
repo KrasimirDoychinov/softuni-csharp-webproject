@@ -8,7 +8,7 @@
     var servers = Model.Servers.Select(x => new SelectListItem(x.Name, x.Id));
 }
 
-<div class="row">
+<div class="row ">
     <div class="col">
         <form method="post" enctype="multipart/form-data">
             <div asp-validation-summary="All" class="text-danger"></div>
@@ -16,93 +16,94 @@
             <hr class="bg-warning" />
 
             <div class="form-group ">
-                <label asp-for="Name" class="font-weight-bold"></label>
+                <label asp-for="Name" class="font-weight-bold text-warning"></label>
                 <label class="text-danger">*</label>
-                <input asp-for="Name" class="form-control" />
+                <input asp-for="Name" class="form-control bg-dark text-white border border-dark" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="Backstory" class="font-weight-bold"></label>
-                <textarea asp-for="Backstory" class="form-control" rows="10"></textarea>
+                <label asp-for="Backstory" class="font-weight-bold text-warning"></label>
+                <textarea asp-for="Backstory" class="form-control bg-dark text-white border border-dark" rows="10"></textarea>
                 <span asp-validation-for="Backstory" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="Description" class="font-weight-bold"></label>
-                <textarea asp-for="Description" class="form-control" rows="10"></textarea>
+                <label asp-for="Description" class="font-weight-bold text-warning"></label>
+                <textarea asp-for="Description" class="form-control bg-dark text-white border border-dark" rows="10"></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
 
 
             <div class="form-group">
-                <label asp-for="Title" class="font-weight-bold"></label>
-                <input asp-for="Title" class="form-control" />
+                <label asp-for="Title" class="font-weight-bold text-warning"></label>
+                <input asp-for="Title" class="form-control bg-dark text-white border border-dark" />
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="Gender" class="font-weight-bold"></label>
+                <label asp-for="Gender" class="font-weight-bold text-warning"></label>
                 <label class="text-danger">*</label>
-                <select asp-for="Gender" class="form-control"
+                <select asp-for="Gender" class="form-control bg-dark text-white border border-dark"
                         asp-items="@Html.GetEnumSelectList<Gender>()">
                 </select>
                 <span asp-validation-for="Gender" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="CharacterType" class="font-weight-bold"></label>
+                <label asp-for="CharacterType" class="font-weight-bold text-warning"></label>
                 <label class="text-danger">*</label>
-                <select asp-for="CharacterType" class="form-control"
+                <select asp-for="CharacterType" class="form-control bg-dark text-white border border-dark"
                         asp-items="@Html.GetEnumSelectList<CharacterType>()">
                 </select>
                 <span asp-validation-for="CharacterType" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="ForceAffiliation" class="font-weight-bold"></label>
+                <label asp-for="ForceAffiliation" class="font-weight-bold text-warning"></label>
                 <label class="text-danger">*</label>
-                <select asp-for="ForceAffiliation" class="form-control"
+                <select asp-for="ForceAffiliation" class="form-control bg-dark text-white border border-dark"
                         asp-items="@Html.GetEnumSelectList<ForceAffiliation>()">
                 </select>
                 <span asp-validation-for="ForceAffiliation" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="ClassId" class="font-weight-bold"></label>
+                <label asp-for="ClassId" class="font-weight-bold text-warning"></label>
                 <label class="text-danger">*</label>
-                <select asp-for="ClassId" class="form-control"
+                <select asp-for="ClassId" class="form-control bg-dark text-white border border-dark"
                         asp-items="classes">
                 </select>
                 <span asp-validation-for="ClassId" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="RaceId" class="font-weight-bold"></label>
+                <label asp-for="RaceId" class="font-weight-bold text-warning"></label>
                 <label class="text-danger">*</label>
-                <select asp-for="RaceId" class="form-control"
+                <select asp-for="RaceId" class="form-control bg-dark text-white border border-dark"
                         asp-items="races">
                 </select>
-                <span asp-validation-for="RaceId" class="text-danger"></span>
+                <span asp-validation-for="RaceId" class="text-danger text-warning"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="ServerId" class="font-weight-bold"></label>
+                <label asp-for="ServerId" class="font-weight-bold text-warning"></label>
                 <label class="text-danger">*</label>
-                <select asp-for="ServerId" class="form-control"
+                <select asp-for="ServerId" class="form-control bg-dark text-white border border-dark"
                         asp-items="servers">
                 </select>
                 <span asp-validation-for="ServerId" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="Image" class="font-weight-bold "></label>
+                <label asp-for="Image" class="font-weight-bold text-warning"></label>
                 <label class="text-danger">*</label>
-                <input asp-for="Image" class="form-control" />
+                <input asp-for="Image" class="form-control bg-dark text-white border border-dark" />
                 <span asp-validation-for="Image" class="text-danger"></span>
             </div>
 
-            <input type="submit" class="btn btn-primary" value="Create character" />
+            <hr class="bg-warning" />
+            <input type="submit" class="btn btn-outline-warning" value="Create character" />
 
         </form>
     </div>

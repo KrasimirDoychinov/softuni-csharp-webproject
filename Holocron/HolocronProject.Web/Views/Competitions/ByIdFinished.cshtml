@@ -11,10 +11,10 @@
     }
 }
 <div class="text-center">
-    <h2><span class="text-warning">Title: </span>@Model.Title</h2>
-    <h4><span class="text-warning">Start date: </span>@Model.NormalizedStartDate</h4>
-    <h4><span class="text-warning">End date: </span>@Model.NormalizedEndDate</h4>
-    <h5 class="text-warning">Description</h5>
+    <h2 class="text-warning font-weight-bold">@Model.Title</h2>
+    <h4><span class="text-warning font-weight-bold">Start date: </span>@Model.NormalizedStartDate</h4>
+    <h4><span class="text-warning font-weight-bold">End date: </span>@Model.NormalizedEndDate</h4>
+    <h5 class="text-warning font-weight-bold">Description</h5>
     <p class="text-break">@Model.Description</p>
 </div>
 
@@ -24,36 +24,28 @@
         @foreach (var item in Model.Characters)
         {
             <div class="d-inline-block grid mb-5">
-                <a href="/Characters/CharacterInfo?characterId=@item.Character.Id&accountId=@item.Character.AccountId"><img src="~/Images/CharacterImages/@item.Character.CharacterImagePath?random=@ViewData["random"].ToString()" class="ml-3" style="width: 325px; height:300px" /></a>
+                <a href="/Characters/CharacterInfo?characterId=@item.Character.Id&accountId=@item.Character.AccountId"><img src="~/Images/CharacterImages/@item.Character.CharacterImagePath?random=@ViewData["random"].ToString()" class="ml-3 mb-3 border border-warning rounded-pill" style="width: 325px; height:300px" /></a>
                 @if (counter == 1)
                 {
-                    <h3 class="font-weight-bold">First place</h3>
+                    <h3 class="font-weight-bolder text-warning">First place</h3>
                 }
 
                 else if (counter == 2)
                 {
-                    <h3 class="font-weight-bold">Second place</h3>
+                    <h3 class="font-weight-bold text-warning">Second place</h3>
                 }
 
                 else if (counter == 3)
                 {
-                    <h3 class="font-weight-bold">Third place</h3>
+                    <h3 class="font-weight-bold text-warning">Third place</h3>
                 }
 
-                @if (counter > 3)
-                {
-                    counter = 100;
-                }
+                <h4 class="text-warning"><span class="font-weight-bold">@item.Character.Title</span> @item.Character.Name</h4>
+                <h5 class="text-warning"><span class="text-danger">@item.Votes</span> votes</h5>
 
-                @if (counter <= 3)
-                {
+                @{
                     counter++;
                 }
-                <h4><span class="font-weight-bold">Name: </span>@item.Character.Name</h4>
-                <h5><span class="font-weight-bold">Title: </span>@item.Character.Title</h5>
-                <h5><span class="font-weight-bold">Gender: </span>@item.Character.Gender</h5>
-                <h5><span class="font-weight-bold">Class: </span>@item.Character.ClassName</h5>
-                <h5><span class="font-weight-bold">Votes: </span><span id="vote@(counter)" class="@item.Character.Id">@item.Votes</span></h5>
             </div>
         }
     </div>

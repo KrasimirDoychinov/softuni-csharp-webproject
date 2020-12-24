@@ -1,7 +1,7 @@
 ﻿
 @model List<NewestAccountsViewModel>
 
-@{ 
+@{
     var pager = Model.Select(x => x.Pager).FirstOrDefault();
 }
 
@@ -13,20 +13,55 @@
 }
 else
 {
+    <div class="text-warning text-center background-admin">
+        <h1>ACCOUNT STATS</h1>
+        <div>
+            <h4>Total accounts: <span class="text-danger">@Model.FirstOrDefault().TotalAccounts</span></h4>
+            <h4>Accounts made today: <span class="text-danger">@Model.FirstOrDefault().AccountsMadeToday</span></h4>
+            <h4>Not deleted accounts: <span class="text-danger">@Model.FirstOrDefault().NotBannedAccounts</span></h4>
+            <h4>Deleted accounts: <span class="text-danger">@Model.FirstOrDefault().BannedAccounts</span></h4>
+            <h4>Confirmed accounts: <span class="text-danger">@Model.FirstOrDefault().ConfirmedAccounts</span></h4>
+            <h4>Pending accounts: <span class="text-danger">@Model.FirstOrDefault().PendingAccounts</span></h4>
+        </div>
+    </div>
+
+    <hr class="bg-warning" />
     <div class="row text-center">
         <div class="col-md-12">
             @foreach (var item in Model)
             {
-                <div class="d-inline-block grid">
-                    <img src="~/Images/AvatarImages/@item.AvatarImagePath?random=@ViewData["random"].ToString()" width="325" ; height="300" />
-                    <h4><span class="font-weight-bold">Username: </span>@item.UserName</h4>
-                    <h5><span class="font-weight-bold">Created on: </span>@item.CreatedOn</h5>
-                    <a href="/Administration/Accounts/Ban?accountId=@item.Id" class="btn btn-danger">Ban</a>
+                <div class="d-inline-block grid m-3">
+                    <img src="~/Images/AvatarImages/@item.AvatarImagePath?random=@ViewData["random"].ToString()" class="border border-warning rounded-circle" width="325" ; height="300" />
+                    <h4><span class="font-weight-bold text-warning">Username: </span>@item.UserName</h4>
+                    <h5><span class="font-weight-bold text-warning">Created on: </span>@item.NormalizedCreatedOn</h5>
+                    <h5><span class="font-weight-bold text-warning">Email: </span>@item.Email</h5>
+
+                    @if (item.EmailConfirmed)
+                    {
+                        <h5 class="font-weight-bold text-warning">Email confirmed: <span class="text-success">CONFIRMED</span></h5>
+                    }
+
+                    else
+                    {
+                        <h5 class="font-weight-bold text-warning">Email confirmed: <span class="text-info">PENDING CONFIRMATION</span></h5>
+                    }
+
+                    @if (!item.IsBanned)
+                    {
+                        <a href="/Administration/Accounts/Ban?accountId=@item.Id" class="btn btn-outline-danger mt-3 mb-3">Ban</a>
+                    }
+
+                    else
+                    {
+                        <h5 class="text-danger font-weight-bolder">BANNED</h5>
+                        <h5 class="text-danger">Banned on: <span class="font-weight-bolder">@item.NormalizedBannedOn</span></h5>
+                    }
                 </div>
             }
         </div>
     </div>
 
+    <hr class="bg-warning" />
     @if (pager.EndPage > 1)
     {
         <div class="">
@@ -34,27 +69,27 @@ else
                 @if (pager.CurrentPage > 1)
                 {
                     <li class="float-left mr-1">
-                        <a href="/Administration/Characters/NewestCharacters" class="btn btn-info">First</a>
+                        <a href="/Administration/Characters/NewestCharacters" class="btn btn-warning">First</a>
                     </li>
                     <li class="float-left mr-1">
-                        <a href="/Administration/Characters/NewestCharacters?page=@(pager.CurrentPage - 1)" class="btn btn-info">Previous</a>
+                        <a href="/Administration/Characters/NewestCharacters?page=@(pager.CurrentPage - 1)" class="btn btn-warning">Previous</a>
                     </li>
                 }
 
                 @for (var page = pager.StartPage; page <= pager.EndPage; page++)
                 {
                     <li class="@(page == pager.CurrentPage ? "active" : "") float-right mr-1">
-                        <a href="/Administration/Characters/NewestCharacters?page=@(page)" class="btn btn-info">@(page)</a>
+                        <a href="/Administration/Characters/NewestCharacters?page=@(page)" class="btn btn-outline-warning">@(page)</a>
                     </li>
                 }
 
                 @if (pager.CurrentPage < pager.TotalPages)
                 {
                     <li class="float-right mr-1">
-                        <a href="/Administration/Characters/NewestCharacters?page=@(pager.CurrentPage + 1)" class="btn btn-info">Next</a>
+                        <a href="/Administration/Characters/NewestCharacters?page=@(pager.CurrentPage + 1)" class="btn btn-warning">Next</a>
                     </li>
                     <li class="float-right mr-1">
-                        <a href="/Administration/Characters/NewestCharacters?page=@(pager.TotalPages)" class="btn btn-info">Last</a>
+                        <a href="/Administration/Characters/NewestCharacters?page=@(pager.TotalPages)" class="btn btn-warning">Last</a>
                     </li>
                 }
             </ul>

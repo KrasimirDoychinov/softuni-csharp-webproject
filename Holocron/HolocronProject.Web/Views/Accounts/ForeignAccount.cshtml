@@ -18,7 +18,7 @@
         }
         @Model.UserName
     </h3>
-    <img src="~/Images/AvatarImages/@Model.AvatarImagePath?random=@ViewData["random"].ToString()" class="rounded-circle border border-warning border" height="150" width="150" alt="" />
+    <img src="~/Images/AvatarImages/@Model.AvatarImagePath?random=@ViewData["random"].ToString()" class="rounded-circle border border-warning border" height="250" width="250" alt="" />
 
 
 </div>
@@ -27,17 +27,17 @@
     <div class="col-md-12">
         <div class="float-left">
             <ul class="nav nav-pills flex-column">
-                <li class="nav-item"><a class="nav-link btn btn-info text-white mb-1" href="/Characters/AllCharacters?accountId=@Model.Id">Characters</a></li>
-                <li class="nav-item"><a class="nav-link btn btn-info text-white mb-1" href="/Posts/LastPosts?accountId=@Model.Id">Last posts</a></li>
-                <li class="nav-item"><a class="nav-link btn btn-info text-white mb-1" href="/Threads/LastThreads?accountId=@Model.Id">Last threads</a></li>
+                <li class="nav-item"><a class="nav-link btn btn-outline-warning mb-1" href="/Characters/AllCharacters?accountId=@Model.Id">Characters</a></li>
+                <li class="nav-item"><a class="nav-link btn btn-outline-warning mb-1" href="/Posts/LastPosts?accountId=@Model.Id">Posts</a></li>
+                <li class="nav-item"><a class="nav-link btn btn-outline-warning mb-1" href="/Threads/LastThreads?accountId=@Model.Id">Threads</a></li>
             </ul>
         </div>
 
         <div class="float-left col-md-6">
-            <div><label><span class="font-weight-bold">Username: </span>@Model.UserName</label></div>
-            <div><label><span class="font-weight-bold">Created on: </span>@Model.NormalizedCreatedOn</label></div>
-            <div><label><span class="font-weight-bold">Threads: </span>@Model.ThreadsCount</label></div>
-            <div><label><span class="font-weight-bold">Posts: </span>@Model.PostsCount</label></div>
+            <div><label><span class="font-weight-bold text-warning">Username: </span>@Model.UserName</label></div>
+            <div><label><span class="font-weight-bold text-warning">Created on: </span>@Model.NormalizedCreatedOn</label></div>
+            <div><label><span class="font-weight-bold text-warning">Posts: </span>@Model.PostsCount</label></div>
+            <div><label><span class="font-weight-bold text-warning">Threads: </span>@Model.ThreadsCount</label></div>
         </div>
     </div>
 </div>

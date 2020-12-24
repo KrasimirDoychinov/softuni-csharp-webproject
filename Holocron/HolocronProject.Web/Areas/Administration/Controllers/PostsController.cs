@@ -33,7 +33,12 @@ namespace HolocronProject.Web.Areas.Administration.Controllers
 
         public IActionResult NewestPosts(int? page)
         {
-            var lastPosts = this.postService.GetAllNotDeletedPosts<LastPostsViewModel>();
+            var lastPosts = this.postService.GetAllPosts<LastPostsViewModel>();
+
+            lastPosts.AsParallel().ForAll(x => x.TotalPosts = lastPosts.Count());
+            lastPosts.AsParallel().ForAll(x => x.PostsMadeToday = lastPosts.Where(x => x.CreatedOn.DayOfYear == DateTime.UtcNow.DayOfYear).Count());
+            lastPosts.AsParallel().ForAll(x => x.DeletedPosts = lastPosts.Where(x => x.IsDeleted).Count());
+            lastPosts.AsParallel().ForAll(x => x.NotDeletedPosts = lastPosts.Where(x => !x.IsDeleted).Count());
 
             if (lastPosts.Count() > 0)
             {
@@ -42,6 +47,13 @@ namespace HolocronProject.Web.Areas.Administration.Controllers
             }
 
             return this.View(lastPosts.ToList());
+        }
+
+        public async Task<IActionResult> Delete(string postId)
+        {
+            await this.postService.DeletePostAsync(postId);
+
+            return RedirectToAction(nameof(NewestPosts));
         }
 
         private static IEnumerable<LastPostsViewModel> LastPostsPager(int? page, IEnumerable<LastPostsViewModel> lastPosts)

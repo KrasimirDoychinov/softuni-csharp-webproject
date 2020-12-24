@@ -386,7 +386,7 @@ namespace HolocronProject.Tests.Services
 
             var test = context.Characters
                 .FirstOrDefault(x => x.Name == "Test" && x.Server.Id == "1");
-            await charactersService.UpdateCharacterImageAsync("Test", "1", this.file);
+            await charactersService.UpdateCharacterImageAsync("Test", "Test", "1", this.file);
             Assert.AreEqual("1(Character).png", character.CharacterImagePath);
         }
 
@@ -471,7 +471,7 @@ namespace HolocronProject.Tests.Services
             await context.Characters.AddAsync(character);
             await context.SaveChangesAsync();
 
-            var totalApprovedCharacters = charactersService.TotalApprovedCharacters();
+            var totalApprovedCharacters = charactersService.TotalCharacters();
 
             Assert.AreEqual(1, totalApprovedCharacters);
         }
@@ -525,7 +525,7 @@ namespace HolocronProject.Tests.Services
             await context.Characters.AddAsync(character);
             await context.SaveChangesAsync();
 
-            var mappedEntity = charactersService.GetNewestCharacters<CharacterListViewModel>(mapper);
+            var mappedEntity = charactersService.GetAllCharacters<CharacterListViewModel>(mapper);
 
 
             Assert.AreEqual(1, mappedEntity.Count());

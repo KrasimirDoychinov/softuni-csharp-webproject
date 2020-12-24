@@ -101,7 +101,7 @@ namespace HolocronProject.Services.Implementations
 
         public IEnumerable<T> GetAllFinished<T>()
             => this.context.Competitions
-            .Where(x => x.IsFinished)
+            .Where(x => x.IsFinished && x.Characters.Count() > 0)
             .To<T>()
             .ToList();
         public T GetCompetitionByIdGeneric<T>(string competitionId)
@@ -110,5 +110,25 @@ namespace HolocronProject.Services.Implementations
             .To<T>()
             .FirstOrDefault();
 
+        public int GetCharactersSignedId(string competitionId)
+            => this.context.Competitions
+            .FirstOrDefault(x => x.Id == competitionId)
+            .Characters.Count();
+
+        public string GetWinner(string competitionId)
+        {
+            var competition = this.context.Competitions
+                .FirstOrDefault(x => x.Id == competitionId);
+
+            if (competition.Characters.Count() <= 0)
+            {
+                throw new ArgumentNullException($"There are no characters in competition with ID {competitionId}");
+            }
+            
+            return competition.Characters
+                .OrderByDescending(x => x.Votes)
+                .FirstOrDefault()
+                .Character.Name;
+        }
     }
 }

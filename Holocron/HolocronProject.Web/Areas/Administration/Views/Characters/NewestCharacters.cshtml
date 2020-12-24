@@ -1,5 +1,5 @@
 ﻿
-@model List<CharacterListViewModel>
+@model List<NewestCharactersViewModel>
 
 @inject UserManager<Account> userManager
 @{
@@ -9,28 +9,62 @@
 }
 @if (Model.Count() <= 0)
 {
-    <div class="text-center">
+    <div class="text-center text-warning">
         <h1>The are currently no characters on the forum.</h1>
     </div>
 }
+
 else
 {
-    <div class="row text-center">
-        <div class="col-md-12 ">
+    <div class="text-warning text-center background-admin">
+        <h1>CHARACTER STATS</h1>
+        <div>
+            <h4>Total characters: <span class="text-danger">@Model.FirstOrDefault().TotalCharacters</span></h4>
+            <h4>Characters made today: <span class="text-danger">@Model.FirstOrDefault().CharactersMadeToday</span></h4>
+            <h4>Not deleted characters: <span class="text-danger">@Model.FirstOrDefault().NotDeletedCharacters</span></h4>
+            <h4>Deleted characters: <span class="text-danger">@Model.FirstOrDefault().DeletedCharacters</span></h4>
+            <h4>Approved characters: <span class="text-danger">@Model.FirstOrDefault().ApprovedCharacters</span></h4>
+            <h4>Pending characters: <span class="text-danger">@Model.FirstOrDefault().PendingCharacters</span></h4>
+        </div>
+    </div>
+
+    <hr class="bg-warning"/>
+    <div class="">
+        <div class="col-md-12">
             @foreach (var item in Model)
             {
-                <div class="d-inline-block grid">
-                    <a href="/Characters/CharacterInfo?characterId=@item.Id&accountId=@item.AccountId"><img src="~/Images/CharacterImages/@item.CharacterImagePath" class="ml-3" style="width: 325px; height:300px" /></a>
-                    <h4><span class="font-weight-bold">Name: </span>@item.Name</h4>
-                    <h5><span class="font-weight-bold">User: </span>@item.AccountUserName</h5>
-                    <h5><span class="font-weight-bold">Title: </span>@item.Title</h5>
-                    <h5><span class="font-weight-bold">Gender: </span>@item.Gender</h5>
-                    <h5><span class="font-weight-bold">Class: </span>@item.ClassName</h5>
-                    <h5><span class="font-weight-bold">Created on: </span>@item.NormalizedCreatedOn</h5>
+                <div class="row mb-4 ">
+                    <div>
+                        <a href="/Characters/CharacterInfo?characterId=@item.Id&accountId=@item.AccountId"><img src="~/Images/CharacterImages/@item.CharacterImagePath" class="ml-3 border rounded-pill border-warning" style="width: 325px; height:300px" /></a>
+                    </div>
+                    <div class="col-md-4 mt-5">
+                        <h4><span class="font-weight-bold text-warning">Name: </span>@item.Name</h4>
+                        <h5><span class="font-weight-bold text-warning">User: </span>@item.AccountUserName</h5>
+                        <h5><span class="font-weight-bold text-warning">Title: </span>@item.Title</h5>
+                        <h5><span class="font-weight-bold text-warning">Gender: </span>@item.Gender</h5>
+                        <h5><span class="font-weight-bold text-warning">Class: </span>@item.ClassName</h5>
+                        <h5><span class="font-weight-bold text-warning">Created on: </span>@item.NormalizedCreatedOn</h5>
+
+                        @if (item.IsDeleted)
+                        {
+                            <h5 class="text-danger font-weight-bolder">DELETED</h5>
+                        }
+
+                        @if (item.CharacterStatus == CharacterStatus.Approved)
+                        {
+                            <h5 class="text-success font-weight-bolder">APPROVED</h5>
+                        }
+
+                        @if (item.CharacterStatus == CharacterStatus.Pending)
+                        {
+                            <h5 class="text-info font-weight-bolder">PENDING</h5>
+                        }
+                    </div>
                 </div>
             }
         </div>
     </div>
+    <hr class="bg-warning"/>
     @if (pager.EndPage > 1)
     {
         <div class="">
@@ -38,27 +72,27 @@ else
                 @if (pager.CurrentPage > 1)
                 {
                     <li class="float-left mr-1">
-                        <a href="/Administration/Characters/NewestCharacters" class="btn btn-info">First</a>
+                        <a href="/Administration/Characters/NewestCharacters" class="btn btn-warning">First</a>
                     </li>
                     <li class="float-left mr-1">
-                        <a href="/Administration/Characters/NewestCharacters?page=@(pager.CurrentPage - 1)" class="btn btn-info">Previous</a>
+                        <a href="/Administration/Characters/NewestCharacters?page=@(pager.CurrentPage - 1)" class="btn btn-warning">Previous</a>
                     </li>
                 }
 
                 @for (var page = pager.StartPage; page <= pager.EndPage; page++)
                 {
                     <li class="@(page == pager.CurrentPage ? "active" : "") float-right mr-1">
-                        <a href="/Administration/Characters/NewestCharacters?page=@(page)" class="btn btn-info">@(page)</a>
+                        <a href="/Administration/Characters/NewestCharacters?page=@(page)" class="btn btn-outline-warning">@(page)</a>
                     </li>
                 }
 
                 @if (pager.CurrentPage < pager.TotalPages)
                 {
                     <li class="float-right mr-1">
-                        <a href="/Administration/Characters/NewestCharacters?page=@(pager.CurrentPage + 1)" class="btn btn-info">Next</a>
+                        <a href="/Administration/Characters/NewestCharacters?page=@(pager.CurrentPage + 1)" class="btn btn-warning">Next</a>
                     </li>
                     <li class="float-right mr-1">
-                        <a href="/Administration/Characters/NewestCharacters?page=@(pager.TotalPages)" class="btn btn-info">Last</a>
+                        <a href="/Administration/Characters/NewestCharacters?page=@(pager.TotalPages)" class="btn btn-warning">Last</a>
                     </li>
                 }
             </ul>

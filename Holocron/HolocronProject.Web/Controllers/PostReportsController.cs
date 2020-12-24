@@ -58,7 +58,6 @@ namespace HolocronProject.Web.Controllers
             if (postReportListViewModel.Count() > 0)
             {
                 postReportListViewModel = PostReportsPager(page, postReportListViewModel);
-                PostReportsUTCToLocalTime(postReportListViewModel);
             }
 
             return this.View(postReportListViewModel.ToList());
@@ -74,7 +73,6 @@ namespace HolocronProject.Web.Controllers
             if (postReportListViewModel.Count() > 0)
             {
                 postReportListViewModel = PostReportsPager(page, postReportListViewModel);
-                PostReportsUTCToLocalTime(postReportListViewModel);
             }
 
             return this.View(postReportListViewModel.ToList());
@@ -89,10 +87,5 @@ namespace HolocronProject.Web.Controllers
             return postReportListViewModel;
         }
 
-        private static void PostReportsUTCToLocalTime(IEnumerable<PostReportListViewModel> postReportListViewModel)
-        {
-            postReportListViewModel.AsParallel().ForAll(x => x.NormalizedCreatedOn = x.CreatedOn.ToLocalTime().ToString("MM/dd/yyyy h:mm tt"));
-            postReportListViewModel.AsParallel().ForAll(x => x.NormalizedResolvedOn = x.ResolvedOn.ToLocalTime().ToString("MM/dd/yyyy h:mm tt"));
-        }
     }
 }

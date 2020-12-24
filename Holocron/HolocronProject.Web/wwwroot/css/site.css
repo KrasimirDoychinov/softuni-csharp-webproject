@@ -13,6 +13,32 @@ a.navbar-brand {
     background-image: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(91,7,16,1) 0%, rgba(0,0,0,0.7973564425770308) 0%), url(https://4kwallpaper.wiki/wp-content/uploads/2019/07/229964.jpg);
 }
 
+.background-table {
+    background-color: #1a1a1a;
+}
+
+.background-modal-topbottom {
+    background-color: #1a1a1a;
+}
+
+.background-modal-body {
+    background-color: #262626;
+}
+
+.background-admin {
+    background-color: #1a1a1a;
+}
+
+.background-admin-panels {
+    background-color: #4d2e00;
+}
+
+
+div.rte, .mceContentBody {
+    background-color: #000 !important;
+    color: #fff !important;
+}
+
 .background-color {
     background-color: #0d0d0d;
 }

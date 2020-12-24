@@ -40,9 +40,13 @@ namespace HolocronProject.Web.Controllers
             if (competitions.Count() > 0)
             {
                 competitions = AllCompetitionsPaging(page, competitions);
-                CompetitionsUTCToLocalTime(competitions);
             }
-            
+
+            foreach (var competition in competitions)
+            {
+                competition.CharactersSignedIn = this.competitionsService.GetCharactersSignedId(competition.Id);
+            }
+
             return this.View(competitions);
         }
 
@@ -53,7 +57,12 @@ namespace HolocronProject.Web.Controllers
             if (competitions.Count() > 0)
             {
                 competitions = AllCompetitionsPaging(page, competitions);
-                CompetitionsUTCToLocalTime(competitions);
+            }
+
+            foreach (var competition in competitions)
+            {
+                competition.Winner = this.competitionsService.GetWinner(competition.Id);
+                competition.CharactersSignedIn = this.competitionsService.GetCharactersSignedId(competition.Id);
             }
 
             return this.View(competitions);
@@ -62,7 +71,7 @@ namespace HolocronProject.Web.Controllers
         public IActionResult ById(string competitionId, int? page)
         {
             var competition = this.competitionsService.GetCompetitionByIdGeneric<CompetitionViewModel>(competitionId);
-
+            
             if (competition.IsFinished)
             {
                 return this.Redirect($"/Competitions/ByIdFinished/?competitionId={competitionId}");
@@ -72,7 +81,6 @@ namespace HolocronProject.Web.Controllers
 
             competition.HasAccountVoted = this.competitionAccountsService.HasAccountVoted(competitionId, loggedInUserId);
             AllCompetitionCharactersPaging(page, competition);
-            CompetitionUTCToLocalTime(competition);
 
             return this.View(competition);
         }
@@ -84,8 +92,8 @@ namespace HolocronProject.Web.Controllers
             AllCompetitionCharactersPaging(page, competition);
 
             competition.Characters = competition.Characters
-                .OrderByDescending(x => x.Votes);
-            CompetitionUTCToLocalTime(competition);
+                .OrderByDescending(x => x.Votes)
+                .Take(3);
 
             return this.View(competition);
         }
@@ -114,18 +122,6 @@ namespace HolocronProject.Web.Controllers
 
             competitions.AsParallel().ForAll(x => x.Pager = pager);
             return competitions.ToList();
-        }
-
-        private static void CompetitionsUTCToLocalTime(IEnumerable<CompetitionListViewModel> competitions)
-        {
-            competitions.AsParallel().ForAll(x => x.NormalizedStartDate = x.StartDate.ToLocalTime().ToString("MM/dd/yyyy h:mm tt"));
-            competitions.AsParallel().ForAll(x => x.NormalizedEndDate = x.EndDate.ToLocalTime().ToString("MM/dd/yyyy h:mm tt"));
-        }
-
-        private static void CompetitionUTCToLocalTime(CompetitionViewModel competition)
-        {
-            competition.NormalizedStartDate = competition.StartDate.ToLocalTime().ToString("MM/dd/yyyy h:mm tt");
-            competition.NormalizedEndDate = competition.EndDate.ToLocalTime().ToString("MM/dd/yyyy h:mm tt");
         }
     }
 }

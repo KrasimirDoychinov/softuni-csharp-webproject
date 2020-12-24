@@ -9,73 +9,114 @@
     {
         var currAccountId = Model.Characters.FirstOrDefault().Character.AccountId;
     }
+
+    var counterForCharacters = 0;
+
 }
 <div class="text-center">
-    <h2><span class="text-warning">Title: </span>@Model.Title</h2>
-    <h4><span class="text-warning">Start date: </span>@Model.NormalizedStartDate</h4>
-    <h4><span class="text-warning">End date: </span>@Model.NormalizedEndDate</h4>
-    <h5 class="text-warning">Description</h5>
+    <h2 class="text-warning font-weight-bold">@Model.Title</h2>
+    <h4><span class="text-warning font-weight-bold">Start date: </span>@Model.NormalizedStartDate</h4>
+    <h4><span class="text-warning font-weight-bold">End date: </span>@Model.NormalizedEndDate</h4>
+    <h5 class="text-warning font-weight-bold">Description</h5>
     <p class="text-break">@Model.Description</p>
 </div>
 
+<hr class="bg-warning" />
+
 @if (Model.Characters.Count() <= 0)
 {
-    <h1 class="text-center">There are currently no characters competing in this competition. <span class="text-primary"><a class="text-decoration-none" href="/Characters/CharactersToPick?accountId=@loggedInAccountId&competitionId=@Model.Id">Be the first!</a></span></h1>
+    <h1 class="text-center">There are currently no characters competing in this competition. <span class="text-primary"><a class="text-decoration-none text-warning" href="/Characters/CharactersToPick?accountId=@loggedInAccountId&competitionId=@Model.Id">Be the first!</a></span></h1>
 }
 
 else
 {
-    <hr class="bg-warning" />
     <div class="row text-center">
-        <div class="col-md-12">
+        <div class="col-md-12 d-inline-block grid">
             @foreach (var item in Model.Characters)
             {
-                <div class="d-inline-block grid mb-5">
-                    <a href="/Characters/CharacterInfo?characterId=@item.Character.Id&accountId=@item.Character.AccountId"><img src="~/Images/CharacterImages/@item.Character.CharacterImagePath?random=@ViewData["random"].ToString()" class="ml-3" style="width: 325px; height:300px" /></a>
-                    <h4><span class="font-weight-bold">Name: </span>@item.Character.Name</h4>
-                    <h5><span class="font-weight-bold">Title: </span>@item.Character.Title</h5>
-                    <h5><span class="font-weight-bold">Gender: </span>@item.Character.Gender</h5>
-                    <h5><span class="font-weight-bold">Class: </span>@item.Character.ClassName</h5>
-                    <h5><span class="font-weight-bold">Votes: </span><span id="vote@(counter)" class="@item.Character.Id">@item.Votes</span></h5>
-                    @if (!Model.HasAccountVoted)
-                    {
-                        <button id="voteButton@(counter)" class="btn btn-primary">Vote</button>
-                        <p id="test@(counter)" hidden="hidden">@item.Character.Id</p>
+                @if (counterForCharacters % 2 == 0)
+                {
+                    <div class="mb-5 row float-right">
+                        <div class="d-block mr-3">
+                            <h4 class="text-warning font-weight-bolder text-uppercase">@item.Character.Name</h4>
+                            <h5><span class="font-weight-bold text-warning ">Title: </span>@item.Character.Title</h5>
+                            <h5><span class="font-weight-bold text-warning ">Gender: </span>@item.Character.Gender</h5>
+                            <h5><span class="font-weight-bold text-warning ">Class: </span>@item.Character.ClassName</h5>
+                            <h5><span class="font-weight-bold text-warning ">Votes: </span><span id="vote@(counter)" class="@item.Character.Id">@item.Votes</span></h5>
+                            @if (!Model.HasAccountVoted)
+                            {
+                                <button id="voteButton@(counter)" class="btn btn-outline-warning">Vote</button>
+                                <p id="test@(counter)" hidden="hidden">@item.Character.Id</p>
+                            }
 
+                            else
+                            {
+                                <button id="voteButton@(counter)" class="btn btn-outline-warning" hidden="hidden">Vote</button>
+                                <p id="test@(counter)" hidden="hidden">@item.Character.Id</p>
+                            }
+                        </div>
 
-                    }
+                        <div class="mb-2">
+                            <a href="/Characters/CharacterInfo?characterId=@item.Character.Id&accountId=@item.Character.AccountId"><img src="~/Images/CharacterImages/@item.Character.CharacterImagePath?random=@ViewData["random"].ToString()" class="mr-3 border-warning border rounded-pill" width="200" height="200" /></a>
+                        </div>
+                    </div>
 
-                    else
-                    {
-                        <button id="voteButton@(counter)" class="btn btn-primary" hidden="hidden">Vote</button>
-                        <p id="test@(counter)" hidden="hidden">@item.Character.Id</p>
-                    }
-                </div>
+                }
+
+                else
+                {
+                    <div class="grid mb-5 row">
+                        <div class="mb-2">
+                            <a href="/Characters/CharacterInfo?characterId=@item.Character.Id&accountId=@item.Character.AccountId"><img src="~/Images/CharacterImages/@item.Character.CharacterImagePath?random=@ViewData["random"].ToString()" class="mr-3 border-warning border rounded-pill" width="200" height="200" /></a>
+                        </div>
+                        <div class="d-block">
+                            <h4 class="text-warning font-weight-bolder text-uppercase">@item.Character.Name</h4>
+                            <h5><span class="font-weight-bold text-warning">Title: </span>@item.Character.Title</h5>
+                            <h5><span class="font-weight-bold text-warning">Gender: </span>@item.Character.Gender</h5>
+                            <h5><span class="font-weight-bold text-warning">Class: </span>@item.Character.ClassName</h5>
+                            <h5><span class="font-weight-bold text-warning">Votes: </span><span id="vote@(counter)" class="@item.Character.Id">@item.Votes</span></h5>
+                            @if (!Model.HasAccountVoted)
+                            {
+                                <button id="voteButton@(counter)" class="btn btn-outline-warning">Vote</button>
+                                <p id="test@(counter)" hidden="hidden">@item.Character.Id</p>
+                            }
+
+                            else
+                            {
+                                <button id="voteButton@(counter)" class="btn btn-outline-warning" hidden="hidden">Vote</button>
+                                <p id="test@(counter)" hidden="hidden">@item.Character.Id</p>
+                            }
+                        </div>
+                    </div>
+                }
+                counterForCharacters++;
                 counter++;
             }
         </div>
     </div>
 }
+
+<hr class="bg-warning" />
 <div class="d-flex justify-content-between">
     <div>
         @if (Model.Characters.Count() > 0)
         {
-            <a href="/Characters/CharactersToPick?accountId=@loggedInAccountId&competitionId=@Model.Id" class="btn btn-primary">Add character</a>
+            <a href="/Characters/CharactersToPick?accountId=@loggedInAccountId&competitionId=@Model.Id" class="btn btn-outline-warning">Add character</a>
         }
 
         @if (this.User.IsInRole("Admin"))
         {
-            <a href="/Administration/Competitions/Finish?competitionId=@Model.Id" class="btn btn-danger">Finish</a>
+            <a href="/Administration/Competitions/Finish?competitionId=@Model.Id" class="btn btn-outline-danger">Finish</a>
         }
 
         @if (Model.HasAccountVoted)
         {
-            <button class="btn btn-danger" id="unvoteButton">Unvote</button>
+            <button class="btn btn-outline-danger" id="unvoteButton">Unvote</button>
         }
 
         else
         {
-            <button class="btn btn-danger" id="unvoteButton" hidden="hidden">Unvote</button>
+            <button class="btn btn-outline-danger" id="unvoteButton" hidden="hidden">Unvote</button>
         }
     </div>
     <div>

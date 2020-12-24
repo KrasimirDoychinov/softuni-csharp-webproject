@@ -27,9 +27,9 @@ namespace HolocronProject.Services
 
         Task RemoveNotificationAsync(string accountId);
         
-        Task CreateAvatarImageAsync(string accountId, IFormFile image);
+        Task CreateAvatarImageAsync(string webRootFolder, string accountId, IFormFile image);
 
-        Task UpdateAvatarImageAsync(string accountId, IFormFile avatarImage);
+        Task UpdateAvatarImageAsync(string webRootFolder, string accountId, IFormFile avatarImage);
 
         Task AddDefaultAvatarImagePathAsync(string accountId);
 
@@ -37,13 +37,13 @@ namespace HolocronProject.Services
 
         T GetAccountByIdGeneric<T>(string accountId, IMapper mapper = null);
 
-        IEnumerable<T> GetLatestAccounts<T>(string accountId, IMapper mapper = null);
+        IEnumerable<T> GetAllAccounts<T>(string accountId, IMapper mapper = null);
 
         NotificationStatus IsUserNotified(string accountId);
 
         string GetAccountAvatarImagePath(string accountId);
 
-        bool IsAvatarImageSet(string accountId);
+        bool IsAvatarImageSet(string webRootFolder, string accountId);
 
         bool IsAccountBanned(string accountId);
 

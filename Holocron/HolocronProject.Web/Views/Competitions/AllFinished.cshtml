@@ -7,14 +7,19 @@
 
 @if (Model.Count() <= 0)
 {
-    <h1 class="text-center">There are currently no active competitions.</h1>
+    <h1 class="text-center text-warning">There are currently no finished competitions.</h1>
 }
 else
 {
-    <table class="table text-white table-striped table-hover table-dark">
+    <h1 class="text-center text-warning">Finished competitions</h1>
+
+    <hr class="bg-warning" />
+    <table class="table text-white table-striped table-hover table-dark background-table">
         <thead>
-            <tr>
+            <tr class="text-warning">
                 <th scope="col" class="col">Title</th>
+                <th scope="col">Winner</th>
+                <th scope="col">Characters</th>
                 <th scope="col">Start date</th>
                 <th scope="col">End date</th>
             </tr>
@@ -24,6 +29,8 @@ else
             {
                 <tr>
                     <td><a href="/Competitions/ByIdFinished?competitionId=@item.Id" class="text-decoration-none text-warning" role="button">@item.ShortTitle</a><br />@item.ShortDescription</td>
+                    <td class="text-uppercase">@item.Winner</td>
+                    <td>@item.CharactersSignedIn</td>
                     <td>@item.NormalizedStartDate</td>
                     <td>@item.NormalizedEndDate</td>
                 </tr>
@@ -31,9 +38,10 @@ else
         </tbody>
     </table>
 
+    <hr class="bg-warning" />
     <div class="d-flex justify-content-between">
         <div>
-            <a class="btn btn-primary" href="/Competitions/All">Ongoing competitions</a>
+            <a class="btn btn-outline-warning" href="/Competitions/All">Ongoing competitions</a>
         </div>
         <div>
             @if (pager.EndPage > 1)
@@ -43,27 +51,27 @@ else
                         @if (pager.CurrentPage > 1)
                         {
                             <li class="float-left mr-1">
-                                <a href="/Competitions/AllFinished" class="btn btn-info">First</a>
+                                <a href="/Competitions/AllFinished" class="btn btn-warning">First</a>
                             </li>
                             <li class="float-left mr-1">
-                                <a href="/Competitions/AllFinished?page=@(pager.CurrentPage - 1)" class="btn btn-info">Previous</a>
+                                <a href="/Competitions/AllFinished?page=@(pager.CurrentPage - 1)" class="btn btn-warning">Previous</a>
                             </li>
                         }
 
                         @for (var page = pager.StartPage; page <= pager.EndPage; page++)
                         {
                             <li class="@(page == pager.CurrentPage ? "active" : "") float-right mr-1">
-                                <a href="/Competitions/AllFinished?page=@(page)" class="btn btn-info">@(page)</a>
+                                <a href="/Competitions/AllFinished?page=@(page)" class="btn btn-outline-warning">@(page)</a>
                             </li>
                         }
 
                         @if (pager.CurrentPage < pager.TotalPages)
                         {
                             <li class="float-right mr-1">
-                                <a href="/Competitions/AllFinished?page=@(pager.CurrentPage + 1)" class="btn btn-info">Next</a>
+                                <a href="/Competitions/AllFinished?page=@(pager.CurrentPage + 1)" class="btn btn-warning">Next</a>
                             </li>
                             <li class="float-right mr-1">
-                                <a href="/Competitions/AllFinished?page=@(pager.TotalPages)" class="btn btn-info">Last</a>
+                                <a href="/Competitions/AllFinished?page=@(pager.TotalPages)" class="btn btn-warning">Last</a>
                             </li>
                         }
                     </ul>

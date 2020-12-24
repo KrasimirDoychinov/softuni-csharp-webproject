@@ -52,7 +52,7 @@ namespace HolocronProject.Services.Implementations
             await this.context.SaveChangesAsync();
         }
 
-        public async Task UpdateCharacterImageAsync(string characterName, string serverId, IFormFile image)
+        public async Task UpdateCharacterImageAsync(string webRootPath, string characterName, string serverId, IFormFile image)
         {
             if (image == null)
             {
@@ -62,14 +62,15 @@ namespace HolocronProject.Services.Implementations
             {
                 var character = this.context.Characters
                 .FirstOrDefault(x => x.Name == characterName && x.Server.Id == serverId);
+                character.CharacterImagePath = $"{character.Id}(Character).png";
 
                 using (var fs = new FileStream(
-                   $"wwwroot/Images/CharacterImages/{character.Id}(Character).png", FileMode.Create))
+                   $"{webRootPath}/Images/CharacterImages/{character.CharacterImagePath}", FileMode.Create))
                 {
                     await image.CopyToAsync(fs);
                 }
 
-                character.CharacterImagePath = $"{character.Id}(Character).png";
+                
                 await this.context.SaveChangesAsync();
             }
         }
@@ -122,14 +123,12 @@ namespace HolocronProject.Services.Implementations
             => this.context.Characters
             .FirstOrDefault(x => x.Id == characterId);
 
-        public int TotalApprovedCharacters()
+        public int TotalCharacters()
             => this.context.Characters
-            .Where(x => x.CharacterStatus == CharacterStatus.Approved)
             .Count();
 
-        public IEnumerable<T> GetNewestCharacters<T>(IMapper mapper = null)
+        public IEnumerable<T> GetAllCharacters<T>(IMapper mapper = null)
             => this.context.Characters
-            .Where(x => x.CharacterStatus == CharacterStatus.Approved)
             .OrderByDescending(x => x.CreatedOn)
             .To<T>(mapper)
             .ToList();
@@ -170,5 +169,15 @@ namespace HolocronProject.Services.Implementations
                 .Where(x => x.Id == characterId)
                 .To<T>(mapper)
             .FirstOrDefault();
+
+        public int DeletedCharactersByAccount(string accountId)
+            => this.context.Characters
+            .Where(x => x.AccountId == accountId && x.IsDeleted)
+            .Count();
+
+        public int NotDeletedCharactersByAccount(string accountId)
+            => this.context.Characters
+            .Where(x => x.AccountId == accountId && !x.IsDeleted)
+            .Count();
     }
 }

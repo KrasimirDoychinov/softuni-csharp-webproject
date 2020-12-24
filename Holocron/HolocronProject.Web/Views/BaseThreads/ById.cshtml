@@ -1,35 +1,56 @@
 ﻿@model BaseThreadViewModel
 
-<div class="container-fluid">
-    <h1 class="display-4 text-center text-warning">@Model.Title</h1>
-    <table class="table text-white table-striped table-hover table-dark">
-        <thead>
-            <tr>
-                <th scope="col" class="col">Thread title</th>
-                <th scope="col">Created on</th>
-                <th scope="col">Replies</th>
-                <th scope="col">Votes</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.Threads)
-            {
-                <tr>
-                    <td><a href="/Threads/ById?threadId=@item.Id" class="text-decoration-none text-warning" role="button">@item.ShortenedTitle</a><br />@item.AccountUserName</td>
-                    <td>@item.NormalizedCreatedOn</td>
-                    <td>@item.PostsCount</td>
-                    <td>@item.VotesCount</td>
-                </tr>
-            }
-        </tbody>
+@if (Model.ThreadsCount <= 0)
+{
+    <h1 class="text-center">There are currently no @Model.Title threads.</h1>
+    <div>
+        <h5 class="text-center"><a href="/Threads/Create/?baseThreadId=@Model.Id" class="text-decoration-none">Be the first!</a></h5>
+    </div>
+}
 
-    </table>
-    <div class="d-flex justify-content-between">
-        <div>
-            <a href="/Threads/Create/?baseThreadId=@Model.Id" class="btn btn-primary float-right">Create new thread</a>
+else
+{
+    <div class="container-fluid">
+        <div class="row ml-1">
+            <img src="@Model.ImageUrl" />
+            <h1 class="display-4 text-warning text-left ml-2">@Model.Title</h1>
+            <br />
+            <h5 class="mt-1">@Model.Description</h5>
         </div>
-        <div>
-            <partial name="PaginationView" model="Model" />
+        <hr class="bg-warning" />
+        <table class="table text-white table-striped table-hover table-dark background-table border border-dark">
+            <thead>
+                <tr>
+                    <th scope="col" class="col text-warning">Title</th>
+                    <th scope="col" class="text-warning">Created on</th>
+                    <th scope="col" class="text-warning">Replies</th>
+                    <th scope="col" class="text-warning">Votes</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Threads)
+                {
+                    <tr>
+                        <td>
+                            <a href="/Threads/ById?threadId=@item.Id" class="text-decoration-none text-warning" role="button">@item.ShortenedTitle</a>
+                            <br />by @item.AccountUserName
+                        </td>
+                        <td>@item.NormalizedCreatedOn</td>
+                        <td>@item.PostsCount</td>
+                        <td>@item.VotesCount</td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+        <hr class="bg-warning" />
+        <div class="d-flex justify-content-between">
+            <div>
+                <a href="/Threads/Create/?baseThreadId=@Model.Id" class="btn btn-outline-warning float-right">Create new thread</a>
+            </div>
+            <div>
+                <partial name="PaginationView" model="Model" />
+            </div>
         </div>
     </div>
-</div>
+}

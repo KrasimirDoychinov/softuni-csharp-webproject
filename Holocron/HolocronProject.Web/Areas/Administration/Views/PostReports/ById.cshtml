@@ -6,23 +6,27 @@
     var currAccountId = this.userManager.GetUserAsync(this.User).Result.Id;
 }
 
-<div class="mb-3">
-    <h5 class="text-center"><span class="font-weight-bold">Title: </span>@Model.Title</h5>
-    <h5 class="text-center"><span class="font-weight-bold">Created on: </span>@Model.NormalizedCreatedOn</h5>
-    <h5 class="text-center"><span class="font-weight-bold">Reported account: </span>@Model.AccountUserName</h5>
-    <h6 class="font-weight-bold">Description</h6>
-    <p class="text-break">@Model.Description</p>
-    @if (Model.Notes != null)
-    {
-        <h6 class="font-weight-bold text-break">Notes</h6>
-        <p class="text-break">@Model.Notes</p>
-    }
+<div class="background-admin p-3 mb-3">
+    <div class="text-center">
+        <h5><span class="font-weight-bold text-warning">Title: </span>@Model.Title</h5>
+        <h5><span class="font-weight-bold text-warning">Reported by: </span>@Model.AccountUserName</h5>
+        <h5><span class="font-weight-bold text-warning">Created on: </span>@Model.NormalizedCreatedOn</h5>
 
+    </div>
+    <div>
+        <h6 class="font-weight-bold text-warning">Description</h6>
+        <p class="text-break">@Model.Description</p>
+        @if (!string.IsNullOrWhiteSpace(Model.Notes))
+        {
+            <h6 class="font-weight-bold text-warning">Notes</h6>
+            <p class="text-break">@Model.Notes</p>
+        }
+    </div>
 </div>
 
 <div class="row">
     <div class="col-md-12">
-        <div class="card mb-4 bg-dark">
+        <div class="card mb-4 background-modal-topbottom border border-dark">
             <div class="card-header">
                 <div class="media flex-wrap w-100 align-items-center">
                     <img src="/Images/AvatarImages/@Model.Post.AccountAvatarImagePath?random=@ViewData["random"].ToString()" class="d-block ui-w-40 rounded-circle border border-warning" height="100" width="100" alt="">
@@ -37,22 +41,23 @@
                         {
                             <a href="/Accounts/ForeignAccount?accountId=@Model.Post.AccountId" class="text-decoration-none text-warning" data-abc="true">@Model.Post.AccountUserName</a>
                         }
-                        <div class="text-info small">Created on <strong>@Model.Post.CreatedOn</strong></div>
+                        <div class="small">Created on <strong>@Model.Post.CreatedOn</strong></div>
                     </div>
                 </div>
             </div>
-            <div class="card-body" style="background-color: #384047;">
+            <div class="card-body background-modal-body">
                 @Html.Raw(Model.Post.SanitizedDescription)
             </div>
-            <div class="card-footer">
+            <div class="card-footer border-top border-warning">
                 @Html.Raw(Model.Post.SanitizedForumSignature)
             </div>
         </div>
     </div>
 </div>
 
+<hr class="bg-warning" />
 <div>
-    <a class="btn btn-primary" href="/Administration/PostReports/Resolve?id=@Model.Id">Resolve</a>
-    <a class="btn btn-danger" href="/Administration/PostReports/Delete?id=@Model.Id">Delete</a>
+    <a class="btn btn-outline-warning" href="/Administration/PostReports/Resolve?id=@Model.Id">Resolve</a>
+    <a class="btn btn-outline-danger" href="/Administration/PostReports/Delete?id=@Model.Id">Delete</a>
 </div>
 

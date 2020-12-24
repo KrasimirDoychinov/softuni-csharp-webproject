@@ -58,6 +58,11 @@ namespace HolocronProject.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(PostEditViewModel input)
         {
+            if (!ModelState.IsValid)
+            {
+                return this.View(input);
+            }
+
             await this.postService.EditPostByIdAsync(input.PostId, input.Description);
 
             return this.Redirect($"/Threads/ById?threadId={input.ThreadId}");

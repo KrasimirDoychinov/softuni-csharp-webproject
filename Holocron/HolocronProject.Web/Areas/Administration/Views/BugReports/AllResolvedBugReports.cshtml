@@ -7,18 +7,24 @@
 
 @if (Model.Count() <= 0)
 {
-    <h1 class="text-center">There are currently no resolved bug reports.</h1>
-    <a asp-controller="BugReports" asp-action="AllBugReports" class="btn btn-primary float-right">Unresolved</a>
+    <div class="text-center">
+        <h1 class="text-warning">There are currently no resolved bug reports.</h1>
+        <a asp-controller="BugReports" asp-action="AllBugReports" class="btn btn-outline-warning">Unresolved</a>
+    </div>
 }
 else
 {
-    <table class="table table-dark table-striped table-hover text-white">
+    <h1 class="text-center text-warning">There are currently <span class="text-danger">@Model.Count()</span> resolved bug reports</h1>
+
+    <hr class="bg-warning"/>
+    <table class="table table-dark table-striped table-hover text-white background-table">
         <thead>
-            <tr>
+            <tr class="text-warning">
                 <th scope="col" class="col">Title</th>
-                <th scope="col">Status</th>
+                <th scope="col">Reported by</th>
                 <th scope="col">Created on</th>
                 <th scope="col">Resolved on</th>
+                <th scope="col">Status</th>
             </tr>
         </thead>
         <tbody>
@@ -26,17 +32,20 @@ else
             @foreach (var item in Model)
             {
                 <tr>
-                    <td class="text-warning">@item.Title<span class="text-info float-right">@item.AccountUserName</span><br /><span class="text-white">@item.ShortDescription</span></td>
-                    <td>@item.IsResolvedString</td>
+                    <td class="text-warning">@item.ShortTitle<br /><span class="text-white">@item.ShortDescription</span></td>
+                    <td class="text-info">@item.AccountUserName</td>
                     <td>@item.NormalizedCreatedOn</td>
                     <td>@item.NormalizedResolvedOn</td>
+                    <td class="text-success font-weight-bold">@item.IsResolvedString</td>
                 </tr>
             }
         </tbody>
     </table>
+    
+    <hr class="bg-warning"/>
     <div class="d-flex justify-content-between">
         <div>
-            <a asp-controller="BugReports" asp-action="AllBugReports" class="btn btn-primary">Unresolved</a>
+            <a asp-controller="BugReports" asp-action="AllBugReports" class="btn btn-outline-warning">Unresolved</a>
         </div>
         <div>
             @if (pager.EndPage > 1)
@@ -46,27 +55,27 @@ else
                         @if (pager.CurrentPage > 1)
                         {
                             <li class="float-left mr-1">
-                                <a href="/Administration/BugReports/AllResolvedBugReports" class="btn btn-info">First</a>
+                                <a href="/Administration/BugReports/AllResolvedBugReports" class="btn btn-warning">First</a>
                             </li>
                             <li class="float-left mr-1">
-                                <a href="/Administration/BugReports/AllResolvedBugReports?page=@(pager.CurrentPage - 1)" class="btn btn-info">Previous</a>
+                                <a href="/Administration/BugReports/AllResolvedBugReports?page=@(pager.CurrentPage - 1)" class="btn btn-warning">Previous</a>
                             </li>
                         }
 
                         @for (var page = pager.StartPage; page <= pager.EndPage; page++)
                         {
                             <li class="@(page == pager.CurrentPage ? "active" : "") float-right mr-1">
-                                <a href="/Administration/BugReports/AllResolvedBugReports?page=@(page)" class="btn btn-info">@(page)</a>
+                                <a href="/Administration/BugReports/AllResolvedBugReports?page=@(page)" class="btn btn-outline-warning">@(page)</a>
                             </li>
                         }
 
                         @if (pager.CurrentPage < pager.TotalPages)
                         {
                             <li class="float-right mr-1">
-                                <a href="/Administration/BugReports/AllResolvedBugReports?page=@(pager.CurrentPage + 1)" class="btn btn-info">Next</a>
+                                <a href="/Administration/BugReports/AllResolvedBugReports?page=@(pager.CurrentPage + 1)" class="btn btn-warning">Next</a>
                             </li>
                             <li class="float-right mr-1">
-                                <a href="/Administration/BugReports/AllResolvedBugReports?page=@(pager.TotalPages)" class="btn btn-info">Last</a>
+                                <a href="/Administration/BugReports/AllResolvedBugReports?page=@(pager.TotalPages)" class="btn btn-warning">Last</a>
                             </li>
                         }
                     </ul>

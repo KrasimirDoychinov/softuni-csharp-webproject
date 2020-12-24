@@ -35,7 +35,6 @@ namespace HolocronProject.Web.Areas.Administration.Controllers
             if (bugReportsList.Count() > 0)
             {
                 bugReportsList = BugReportsListPager(page, bugReportsList);
-                BugReportsListUTCToLocalTime(bugReportsList);
             }
 
             return this.View(bugReportsList.ToList());
@@ -50,7 +49,6 @@ namespace HolocronProject.Web.Areas.Administration.Controllers
             if (bugReportsList.Count() > 0)
             {
                 bugReportsList = BugReportsListPager(page, bugReportsList);
-                BugReportsListUTCToLocalTime(bugReportsList);
             }
             
             return this.View(bugReportsList.ToList());
@@ -79,10 +77,5 @@ namespace HolocronProject.Web.Areas.Administration.Controllers
             return bugReportsList;
         }
 
-        private static void BugReportsListUTCToLocalTime(IEnumerable<BugReportListViewModel> bugReportsList)
-        {
-            bugReportsList.AsParallel().ForAll(x => x.NormalizedCreatedOn = x.CreatedOn.ToLocalTime().ToString("MM/dd/yyyy h:mm tt"));
-            bugReportsList.AsParallel().ForAll(x => x.NormalizedResolvedOn = x.ResolvedOn.ToLocalTime().ToString("MM/dd/yyyy h:mm tt"));
-        }
     }
 }

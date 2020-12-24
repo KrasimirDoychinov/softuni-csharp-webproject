@@ -90,7 +90,7 @@ namespace HolocronProject.Web.Controllers
             };
 
             await this.characterService.CreateCharacterAsync(characterInputDto);
-            await this.characterService.UpdateCharacterImageAsync(input.Name, input.ServerId, input.Image);
+            await this.characterService.UpdateCharacterImageAsync(this.webHostEnvironment.WebRootPath, input.Name, input.ServerId, input.Image);
 
             await this.accountsService.NotifyAccountOfPendingCharactersAsync(accountId);
             return this.Redirect($"/");
@@ -138,7 +138,7 @@ namespace HolocronProject.Web.Controllers
             };
 
             await this.characterService.EditCharacterAsync(characterInputDto);
-            await this.characterService.UpdateCharacterImageAsync(input.Name, input.ServerId, input.Image);
+            await this.characterService.UpdateCharacterImageAsync(this.webHostEnvironment.WebRootPath, input.Name, input.ServerId, input.Image);
             return this.Redirect($"/Characters/CharacterInfo?characterId={input.CharacterId}&accountId={accountId}");
         }
 
@@ -149,7 +149,6 @@ namespace HolocronProject.Web.Controllers
             if (charListViewModel.Count() > 0)
             {
                 charListViewModel = CharListPager(page, charListViewModel);
-                CharListUTCToLocalTime(charListViewModel);
             }
 
             await this.accountsService.RemoveNotificationAsync(accountId);
@@ -183,7 +182,6 @@ namespace HolocronProject.Web.Controllers
                 charViewModel.ForceAffiliationString = "Unknown";
             }
 
-            charViewModel.NormalizedCreatedOn = charViewModel.CreatedOn.ToLocalTime().ToString("MM/dd/yyyy h:mm tt");
 
             return this.View(charViewModel);
         }
@@ -195,7 +193,6 @@ namespace HolocronProject.Web.Controllers
             if (pendingCharacters.Count() > 0)
             {
                 pendingCharacters = CharListPager(page, pendingCharacters);
-                pendingCharacters.AsParallel().ForAll(x => x.NormalizedCreatedOn = x.CreatedOn.ToLocalTime().ToString("MM/dd/yyyy h:mm tt"));
             }
 
             ViewData["charactersAccountId"] = accountId;
@@ -212,7 +209,6 @@ namespace HolocronProject.Web.Controllers
             if (charListViewModel.Count() > 0)
             {
                 charListViewModel = CharListToPickPager(page, charListViewModel);
-                CharListUTCToLocalTime(charListViewModel);
             }
 
             ViewData["charactersAccountId"] = accountId;
@@ -237,9 +233,5 @@ namespace HolocronProject.Web.Controllers
             return charListViewModel;
         }
 
-        private static void CharListUTCToLocalTime(IEnumerable<CharacterListViewModel> charListViewModel)
-        {
-            charListViewModel.AsParallel().ForAll(x => x.NormalizedCreatedOn = x.CreatedOn.ToLocalTime().ToString("MM/dd/yyyy h:mm tt"));
-        }
     }
 }

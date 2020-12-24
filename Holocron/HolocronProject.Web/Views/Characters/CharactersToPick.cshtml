@@ -30,7 +30,7 @@ else
             @foreach (var item in Model)
             {
                 <div class="d-inline-block grid">
-                    <a href="/Competitions/Pick?characterId=@item.Id&competitionId=@item.CompetitionId"><img src="~/Images/CharacterImages/@item.CharacterImagePath?random=@ViewData["random"].ToString()" class="ml-3" style="width: 325px; height:300px" /></a>
+                    <a href="/Competitions/Pick?characterId=@item.Id&competitionId=@item.CompetitionId"><img src="~/Images/CharacterImages/@item.CharacterImagePath?random=@ViewData["random"].ToString()" class="ml-3 border border-warning rounded-pill" style="width: 325px; height:300px" /></a>
                     <h4><span class="font-weight-bold">Name: </span>@item.Name</h4>
                     <h5><span class="font-weight-bold">Title: </span>@item.Title</h5>
                     <h5><span class="font-weight-bold">Gender: </span>@item.Gender</h5>
@@ -39,6 +39,7 @@ else
             }
         </div>
     </div>
+    <hr class="bg-warning" />
     <div class="d-flex justify-content-between">
         <div>
             @if (pager.EndPage > 1)

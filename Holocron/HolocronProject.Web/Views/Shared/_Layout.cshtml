@@ -31,7 +31,7 @@
     <div class="container background-color">
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm mb-3 ">
             <div class="container">
-                <a class="navbar-brand text-warning" asp-area="" asp-controller="Home" asp-action="Index">Holocron</a>
+                <a class="navbar-brand text-warning font-weight-bolder" asp-area="" asp-controller="Home" asp-action="Index">HOLOCRON</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon">
@@ -40,7 +40,7 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <partial name="_LoginPartial" />
-                    <ul class="navbar-nav flex-grow-1">
+                    <ul class="navbar-nav flex-grow-1 text-warning">
                         @if (this.User.IsInRole("Admin"))
                         {
                             <li class="nav-item">

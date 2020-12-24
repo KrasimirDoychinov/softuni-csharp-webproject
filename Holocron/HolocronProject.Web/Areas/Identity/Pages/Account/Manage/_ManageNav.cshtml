@@ -5,12 +5,12 @@
     var accountId = this.userManager.GetUserAsync(this.User).Result.Id;
 }
 <ul class="nav nav-pills flex-column">
-    <li class="nav-item"><a class="nav-link btn btn-info mb-1 text-white @ManageNavPages.IndexNavClass(ViewContext)" id="profile" asp-page="./Index">Profile</a></li>
-    <li class="nav-item"><a class="nav-link btn btn-info mb-1 text-white" href="/Characters/AllCharacters?accountId=@accountId">Characters</a></li>
-    <li class="nav-item"><a class="nav-link btn btn-info mb-1 text-white" href="/Posts/LastPosts?accountId=@accountId">Last posts</a></li>
-    <li class="nav-item"><a class="nav-link btn btn-info mb-1 text-white" href="/Threads/LastThreads?accountId=@accountId">Last threads</a></li>
-    <li class="nav-item"><a class="nav-link btn btn-info mb-1 text-white" asp-area="" asp-controller="BugReports" asp-action="AllBugReports">Bug reports</a></li>
-    <li class="nav-item"><a class="nav-link btn btn-info mb-1 text-white" asp-area="" asp-controller="PostReports" asp-action="AllPostReports">Post reports</a></li>
-    <li class="nav-item"><a class="nav-link btn btn-info mb-1 text-white @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./ChangePassword">Password</a></li>
-    <li class="nav-item"><a class="nav-link btn btn-info mb-1 text-white @ManageNavPages.PersonalDataNavClass(ViewContext)" id="personal-data" asp-page="./PersonalData">Personal data</a></li>
+    <li class="nav-item"><a class="nav-link btn btn-outline-warning mb-1 @ManageNavPages.IndexNavClass(ViewContext)" id="profile" asp-page="./Index">Profile</a></li>
+    <li class="nav-item"><a class="nav-link btn btn-outline-warning mb-1" href="/Characters/AllCharacters?accountId=@accountId">Your characters</a></li>
+    <li class="nav-item"><a class="nav-link btn btn-outline-warning mb-1" href="/Posts/LastPosts?accountId=@accountId">Your posts</a></li>
+    <li class="nav-item"><a class="nav-link btn btn-outline-warning mb-1" href="/Threads/LastThreads?accountId=@accountId">Your threads</a></li>
+    <li class="nav-item"><a class="nav-link btn btn-outline-warning mb-1" asp-area="" asp-controller="BugReports" asp-action="AllBugReports">Your bug reports</a></li>
+    <li class="nav-item"><a class="nav-link btn btn-outline-warning mb-1" asp-area="" asp-controller="PostReports" asp-action="AllPostReports">Your post reports</a></li>
+    <li class="nav-item"><a class="nav-link btn btn-outline-warning mb-1 @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./ChangePassword">Password</a></li>
+    <li class="nav-item"><a class="nav-link btn btn-outline-warning mb-1 @ManageNavPages.PersonalDataNavClass(ViewContext)" id="personal-data" asp-page="./PersonalData">Personal data</a></li>
 </ul>

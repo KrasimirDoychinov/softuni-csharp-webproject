@@ -28,11 +28,17 @@ namespace HolocronProject.Web.Areas.Administration.Controllers
         public IActionResult NewestAccounts(int? page)
         {
             var loggedInAccountId = this.userManager.GetUserAsync(this.User).Result.Id;
+            var accounts = this.accountsService.GetAllAccounts<NewestAccountsViewModel>(loggedInAccountId);
 
-            var newestAccounts = this.accountsService.GetLatestAccounts<NewestAccountsViewModel>(loggedInAccountId);
-            newestAccounts = NewestAccountsPager(page, newestAccounts);
-
-            return this.View(newestAccounts);
+            accounts.AsParallel().ForAll(x => x.TotalAccounts = accounts.Count());
+            accounts.AsParallel().ForAll(x => x.BannedAccounts = accounts.Where(x => x.IsBanned).Count());
+            accounts.AsParallel().ForAll(x => x.NotBannedAccounts = accounts.Where(x => !x.IsBanned).Count());
+            accounts.AsParallel().ForAll(x => x.AccountsMadeToday = accounts.Where(x => x.CreatedOn.DayOfYear == DateTime.UtcNow.DayOfYear).Count());
+            accounts.AsParallel().ForAll(x => x.ConfirmedAccounts = accounts.Where(x => x.EmailConfirmed).Count());
+            accounts.AsParallel().ForAll(x => x.PendingAccounts = accounts.Where(x => !x.EmailConfirmed).Count());
+            
+            accounts = NewestAccountsPager(page, accounts);
+            return this.View(accounts);
         }
 
         public async Task<IActionResult> Ban(string accountId)

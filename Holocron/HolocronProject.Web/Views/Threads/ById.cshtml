@@ -8,15 +8,21 @@
 <div class="container-fluid mt-100">
     <div class="row">
         <div class="col-md-12">
-            <div class="card mb-4 bg-dark">
+            <div class="row ml-1">
+                <i class="fab fa-old-republic text-warning mr-2" style="font-size: 50px;"></i>
+                <h2 class="text-break">@Model.Title</h2>
+            </div>
+
+            <hr class="bg-warning" />
+            <div class="card mb-4 background-modal-topbottom border border-warning rounded-lg">
                 <div class="card-header">
                     <div class="media flex-wrap w-100 align-items-center">
                         <img src="/Images/AvatarImages/@Model.AccountAvatarImagePath?random=@ViewData["random"].ToString()" class="d-block ui-w-40 rounded-circle border border-warning" height="100" width="100" alt="">
 
                         <div class="media-body ml-3">
                             <a href="/Accounts/ForeignAccount?accountId=@Model.AccountId" class="text-decoration-none text-warning" data-abc="true">@Model.AccountUserName</a>
-                            <div class="text-info small" id="testDate">Created on <strong>@Model.NormalizedCreatedOn.ToString()</strong></div>
-                            <div class="text-info small">
+                            <div class="small" id="testDate">Created on <strong>@Model.NormalizedCreatedOn.ToString()</strong></div>
+                            <div class="small">
                                 <strong>@Model.PostsCount</strong>
                                 @if (Model.PostsCount == 1)
                                 {
@@ -32,13 +38,13 @@
 
                         <div>
                             <form id="votesForm" method="post">
-                                <div class="row">
+                                <div class="row justify-content-center">
                                     <a href="#" class="text-decoration-none text-warning" onclick="sendVote('@Model.Id', true)">
                                         <i class="fas fa-chevron-up"></i>
                                     </a>
                                 </div>
-                                <div id="votesCount" class="text-center row">@Model.VotesCount</div>
-                                <div class="row">
+                                <div id="votesCount" class="text-center row justify-content-center">@Model.VotesCount</div>
+                                <div class="row justify-content-center">
                                     <a href="#" class="text-decoration-none text-warning" onclick="sendVote('@Model.Id', false)">
                                         <i class="fas fa-chevron-down"></i>
                                     </a>
@@ -47,14 +53,14 @@
                             <div class="row">
                                 @if (Model.AccountId == currAccountId)
                                 {
-                                    <a href="/Threads/Edit?threadId=@Model.Id" class="btn btn-primary btn-sm mr-2">
+                                    <a href="/Threads/Edit?threadId=@Model.Id" class="btn btn-outline-warning btn-sm mr-2">
                                         Edit
                                     </a>
                                 }
 
                                 @if (this.User.IsInRole("Admin"))
                                 {
-                                    <a href="/Administration/Threads/Delete?threadId=@Model.Id" class="btn btn-danger btn-sm">
+                                    <a href="/Administration/Threads/Delete?threadId=@Model.Id" class="btn btn-outline-danger btn-sm">
                                         Delete
                                     </a>
                                 }
@@ -62,10 +68,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="card-body" style="background-color: #384047;">
+                <div class="card-body background-modal-body">
                     @Html.Raw(Model.SanitizedDescription)
                 </div>
-                <div class="card-footer">
+                <div class="card-footer border-top border-warning">
                     @Html.Raw(Model.SanitizedForumSignature)
                 </div>
             </div>
@@ -73,50 +79,41 @@
             {
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="card mb-4 bg-dark">
+                        <div class="card mb-3 background-modal-topbottom border border-dark rounded-lg m-2">
                             <div class="card-header">
-
                                 <div class="media flex-wrap w-100 align-items-center">
-
-                                    @if (item.AccountAvatarImagePath != null)
-                                    {
-                                        <img src="/Images/AvatarImages/@item.AccountAvatarImagePath?random=@ViewData["random"].ToString()" class="d-block ui-w-40 rounded-circle border border-warning" height="100" width="100" alt="">
-                                    }
-                                    else
-                                    {
-                                        <img src="/Images/AvatarImages/defaultAvatar.jpg?random=@ViewData["random"].ToString()" class="d-block ui-w-40 rounded-circle border border-warning" height="100" width="100" alt="">
-                                    }
+                                    <img src="/Images/AvatarImages/@item.AccountAvatarImagePath?random=@ViewData["random"].ToString()" class="d-block ui-w-40 rounded-circle border border-warning" height="100" width="100" alt="">
                                     <div class="media-body ml-3">
-
                                         @if (item.AccountId == currAccountId)
                                         {
                                             <a asp-area="Identity" asp-page="/Account/Manage/Index" class="text-decoration-none text-warning" data-abc="true">@item.AccountUserName</a>
-                                            <a href="/Posts/Edit?postId=@item.Id&threadId=@Model.Id" class="btn btn-primary btn-sm float-right">Edit</a>
+                                            <a href="/Posts/Edit?postId=@item.Id&threadId=@Model.Id" class="btn btn-outline-warning btn-sm float-right">Edit</a>
                                         }
+
                                         else
                                         {
                                             <a href="/Accounts/ForeignAccount?accountId=@item.AccountId" class="text-decoration-none text-warning" data-abc="true">@item.AccountUserName</a>
-                                            <a href="/PostReports/Create?postId=@item.Id" class="btn btn-danger btn-sm float-right">Report post</a>
+                                            <a href="/PostReports/Create?postId=@item.Id" class="btn btn-outline-danger btn-sm float-right">Report post</a>
                                         }
-                                        <div class="text-info small">Created on <strong>@item.NormalizedCreatedOn</strong></div>
-
+                                        <div class="small">Created on <strong>@item.NormalizedCreatedOn</strong></div>
                                     </div>
-
                                 </div>
                             </div>
-                            <div class="card-body" style="background-color: #384047;">
+                            <div class="card-body background-modal-body">
                                 @Html.Raw(item.SanitizedDescription)
                             </div>
-                            <div class="card-footer">
+                            <div class="card-footer border-top border-warning">
                                 @Html.Raw(item.SanitizedForumSignature)
                             </div>
                         </div>
                     </div>
                 </div>
             }
+
+            <hr class="bg-warning" />
             <div class="d-flex justify-content-between">
+                <div><a href="/Posts/Create?threadId=@Model.Id" class="btn btn-outline-warning">Reply</a></div>
                 <div><partial name="PaginationView" model="Model" /></div>
-                <div><a href="/Posts/Create?threadId=@Model.Id" class="btn btn-primary">Reply</a></div>
             </div>
 
         </div>

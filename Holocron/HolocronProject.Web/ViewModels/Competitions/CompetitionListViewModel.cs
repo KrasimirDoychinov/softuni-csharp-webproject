@@ -21,11 +21,15 @@ namespace HolocronProject.Web.ViewModels.Competitions
 
         public DateTime StartDate { get; set; }
 
-        public string NormalizedStartDate { get; set; }
+        public string NormalizedStartDate => this.StartDate.ToLocalTime().ToString("MM/dd/yyyy h:mm tt");
 
         public DateTime EndDate { get; set; }
 
-        public string NormalizedEndDate { get; set; }
+        public string NormalizedEndDate => this.EndDate.ToLocalTime().ToString("MM/dd/yyyy h:mm tt");
+
+        public string Winner { get; set; }
+
+        public int CharactersSignedIn { get; set; }
 
         public Pager.Pager Pager { get; set; }
     }

@@ -54,9 +54,8 @@ namespace HolocronProject.Services.Implementations
             await this.context.SaveChangesAsync();
         }
 
-        public int TotalNotDeletedPosts()
+        public int TotalPosts()
             => this.context.Posts
-            .Where(x => !x.IsDeleted)
             .Count();
 
         public int TotalNotDeletedPostInThread(string threadId)
@@ -64,10 +63,9 @@ namespace HolocronProject.Services.Implementations
             .Where(x => x.ThreadId == threadId && !x.IsDeleted)
             .Count();
 
-        public IEnumerable<T> GetAllNotDeletedPosts<T>(IMapper mapper = null)
+        public IEnumerable<T> GetAllPosts<T>(IMapper mapper = null)
             => this.context.Posts
             .OrderByDescending(x => x.CreatedOn)
-            .Where(x => !x.IsDeleted)
             .To<T>(mapper)
             .ToList();
 

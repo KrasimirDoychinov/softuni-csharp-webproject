@@ -5,43 +5,47 @@
     ViewData["Title"] = "Log in";
 }
 
-<h1 class="text-center">@ViewData["Title"]</h1>
+<div class="text-center text-warning">
+    <h1 >@ViewData["Title"]</h1>
+    <h4 >Use a local account to log in.</h4>
+    <hr class="bg-warning"/>
+</div>
+
 <div class="row align-items-center justify-content-center">
     <div class="col-md-4">
         <section>
             <form id="account" method="post">
-                <h4 class="text-center">Use a local account to log in.</h4>
-                <hr />
-
 
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="form-group">
-                    <label asp-for="Input.UserName"></label>
-                    <input asp-for="Input.UserName" class="form-control" />
+                    <label asp-for="Input.UserName" class="font-weight-bold text-warning"></label>
+                    <input asp-for="Input.UserName" class="form-control bg-dark text-white border border-dark" />
                     <span asp-validation-for="Input.UserName" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Input.Password"></label>
-                    <input asp-for="Input.Password" class="form-control" />
+                    <label asp-for="Input.Password" class="font-weight-bold text-warning"></label>
+                    <input asp-for="Input.Password" class="form-control bg-dark text-white border border-dark" />
                     <span asp-validation-for="Input.Password" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <div class="checkbox">
-                        <label asp-for="Input.RememberMe">
+                        <label asp-for="Input.RememberMe" class="text-warning">
                             <input asp-for="Input.RememberMe" />
                             @Html.DisplayNameFor(m => m.Input.RememberMe)
                         </label>
                     </div>
                 </div>
+                <hr class="bg-warning"/>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Log in</button>
+                    <button type="submit" class="btn btn-outline-warning">Log in</button>
                 </div>
+
                 <div class="form-group">
                     <p>
-                        <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
+                        <a id="forgot-password" asp-page="./ForgotPassword" class="text-warning">Forgot your password?</a>
                     </p>
                     <p>
-                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
+                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="text-warning">Register as a new user</a>
                     </p>
                 </div>
             </form>

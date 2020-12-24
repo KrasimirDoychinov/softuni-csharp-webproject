@@ -10,6 +10,8 @@ using Ganss.XSS;
 using HolocronProject.Web.ViewModels.Pager;
 using HolocronProject.Web.Controllers;
 using System.Threading.Tasks;
+using HolocronProject.Web.Areas.Administration.ViewModels.Threads;
+using System;
 
 namespace HolocronProject.Web.Areas.Administration.Controllers
 {
@@ -31,7 +33,13 @@ namespace HolocronProject.Web.Areas.Administration.Controllers
 
         public IActionResult NewestThreads(int? page)
         {
-            var lastThreads = this.threadService.GetAllNotDeletedThreads<ThreadViewModel>();
+            var lastThreads = this.threadService.GetAllThreads<NewestThreadsViewModel>();
+
+            lastThreads.AsParallel().ForAll(x => x.TotalThreads = lastThreads.Count());
+            lastThreads.AsParallel().ForAll(x => x.DeletedThreads = lastThreads.Where(x => x.IsDeleted).Count());
+            lastThreads.AsParallel().ForAll(x => x.NotDeletedThreads = lastThreads.Where(x => !x.IsDeleted).Count());
+            lastThreads.AsParallel().ForAll(x => x.ThreadsMadeToday = lastThreads.Where(x => x.CreatedOn.DayOfYear == DateTime.UtcNow.DayOfYear).Count());
+
 
             if (lastThreads.Count() > 0)
             {
@@ -53,7 +61,7 @@ namespace HolocronProject.Web.Areas.Administration.Controllers
             return this.RedirectToAction(nameof(NewestThreads));
         }
 
-        private static IEnumerable<ThreadViewModel> LastThreadsPager(int? page, IEnumerable<ThreadViewModel> lastThreads)
+        private static IEnumerable<NewestThreadsViewModel> LastThreadsPager(int? page, IEnumerable<NewestThreadsViewModel> lastThreads)
         {
             var pager = new Pager(lastThreads.Count(), page);
             lastThreads = lastThreads.OrderByDescending(x => x.CreatedOn);
@@ -63,7 +71,7 @@ namespace HolocronProject.Web.Areas.Administration.Controllers
             return lastThreads;
         }
 
-        private void LastThreadsSanitizer(IEnumerable<ThreadViewModel> lastThreads)
+        private void LastThreadsSanitizer(IEnumerable<NewestThreadsViewModel> lastThreads)
         {
             var sanitizer = new HtmlSanitizer();
             sanitizer.AllowedTags.Add("iframe");

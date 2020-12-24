@@ -136,7 +136,7 @@ namespace HolocronProject.Tests.Services
             await this.context.Threads.AddAsync(secondThread);
             await this.context.SaveChangesAsync();
 
-            var mappedEntity = this.threadsService.GetAllNotDeletedThreads<ThreadListViewModel>(this.mapper).ToList();
+            var mappedEntity = this.threadsService.GetAllThreads<ThreadListViewModel>(this.mapper).ToList();
 
             Assert.AreEqual(thread.Id, mappedEntity[0].Id);
         }
@@ -160,7 +160,7 @@ namespace HolocronProject.Tests.Services
             await this.context.Threads.AddAsync(secondThread);
             await this.context.SaveChangesAsync();
 
-            var mappedEntity = this.threadsService.GetAllNotDeletedThreads<ThreadListViewModel>(this.mapper).ToList();
+            var mappedEntity = this.threadsService.GetAllThreads<ThreadListViewModel>(this.mapper).ToList();
 
             Assert.AreEqual(0, mappedEntity.Count());
         }
@@ -256,7 +256,7 @@ namespace HolocronProject.Tests.Services
             await this.context.Threads.AddAsync(secondThread);
             await this.context.SaveChangesAsync();
 
-            var totalNotDeletedThreads = this.threadsService.TotalNotDeletedThreads();
+            var totalNotDeletedThreads = this.threadsService.TotalThreads();
 
             Assert.AreEqual(1, totalNotDeletedThreads);
         }

@@ -20,9 +20,9 @@ namespace HolocronProject.Services
 
         IEnumerable<T> GetLastNotDeletedPostsByAccountId<T>(string accountId, IMapper mapper = null);
 
-        IEnumerable<T> GetAllNotDeletedPosts<T>(IMapper mapper = null);
+        IEnumerable<T> GetAllPosts<T>(IMapper mapper = null);
 
-        int TotalNotDeletedPosts();
+        int TotalPosts();
 
         int TotalNotDeletedPostInThread(string threadId);
     }

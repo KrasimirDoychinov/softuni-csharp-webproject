@@ -26,17 +26,11 @@ namespace HolocronProject.Web.ViewModels.Characters
 
         public string ForceAffiliationString { get; set; }
 
-        public string AchievementsCount { get; set; }
-
-        public string CompetitionsCount { get; set; }
-
         public string RaceName { get; set; }
 
         public string ServerName { get; set; }
 
         public string ClassName { get; set; }
-
-        public string ClassFaction { get; set; }
 
         public string Description { get; set; }
 
@@ -44,14 +38,7 @@ namespace HolocronProject.Web.ViewModels.Characters
 
         public string CharacterImagePath { get; set; }
 
-        public string AccountUserName { get; set; }
-
         public string AccountId { get; set; }
 
-        public bool IsApproved { get; set; }
-
-        public DateTime CreatedOn { get; set; }
-
-        public string NormalizedCreatedOn { get; set; }
     }
 }

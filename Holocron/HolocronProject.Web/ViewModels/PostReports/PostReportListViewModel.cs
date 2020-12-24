@@ -15,13 +15,15 @@ namespace HolocronProject.Web.ViewModels.PostReports
 
         public string Title { get; set; }
 
+        public string ShortTitle => this.Title.Length <= 50 ? this.Title : this.Title.Substring(0, 50) + "...";
+
         public DateTime CreatedOn { get; set; }
 
         public DateTime ResolvedOn { get; set; }
 
-        public string NormalizedCreatedOn { get; set; }
+        public string NormalizedCreatedOn => this.CreatedOn.ToLocalTime().ToString("MM/dd/yyyy h:mm tt");
 
-        public string NormalizedResolvedOn { get; set; }
+        public string NormalizedResolvedOn => this.ResolvedOn.ToLocalTime().ToString("MM/dd/yyyy h:mm tt");
 
         public string Description { get; set; }
 
@@ -29,7 +31,7 @@ namespace HolocronProject.Web.ViewModels.PostReports
 
         public bool IsResolved { get; set; }
 
-        public string IsResolvedString => this.IsResolved == true ? "Resolved" : "Pending";
+        public string IsResolvedString => this.IsResolved == true ? "RESOLVED" : "PENDING";
 
         public Pager.Pager Pager { get; set; }
     }

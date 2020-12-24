@@ -46,7 +46,7 @@
 
         public static class ReportConstants
         {
-            public const int TitleMaxLength = 200;
+            public const int TitleMaxLength = 100;
 
             public const int DescriptionMaxLength = 20000;
 

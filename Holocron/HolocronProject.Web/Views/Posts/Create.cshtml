@@ -5,10 +5,10 @@
 <script type="text/javascript">
     tinymce.init({
         selector: "textarea",
-        content_style: 'img {max-width: 100%; max-height: 50%}',
         plugins: [
-            "image table link media"
-        ]
+            "image link media"
+        ],
+        content_style: "body { background-color: #292b2c; color: #fff }"
     });
 </script>
 
@@ -20,13 +20,14 @@
             <hr class="bg-warning" />
 
             <div class="form-group ">
-                <label asp-for="Description" class="font-weight-bold"></label>
+                <label asp-for="Description" class="font-weight-bold text-warning"></label>
                 <label class="text-danger">*</label>
                 <textarea asp-for="Description" class="form-control" rows="15"></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
 
-            <input type="submit" class="btn btn-primary" value="Reply" />
+            <hr class="bg-warning" />
+            <input type="submit" class="btn btn-outline-warning" value="Reply" />
         </form>
     </div>
     <div class="col-md-3">

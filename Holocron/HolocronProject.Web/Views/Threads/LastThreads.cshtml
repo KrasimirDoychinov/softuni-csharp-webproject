@@ -9,40 +9,62 @@
     <div class="col-md-12">
         @if (Model.Count <= 0)
         {
-            <div class="text-center">
+            <div class="text-center text-warning">
                 <h2>
                     The user has no threads.
                 </h2>
             </div>
         }
+
         else
         {
+            if (Model.Count() <= 1)
+            {
+                <h1 class="text-warning text-center mb-3">@Model.FirstOrDefault().AccountUserName thread</h1>
+            }
+
+            else
+            {
+                <h1 class="text-warning text-center mb-3">@Model.FirstOrDefault().AccountUserName threads</h1>
+            }
+            <hr class="bg-warning" />
             @foreach (var item in Model)
             {
-                <div class="card mb-4 bg-dark">
+                <div class="card mb-4 background-modal-topbottom border border-dark accordion-item">
                     <div class="card-header">
                         <div class="media flex-wrap w-100 align-items-center">
                             <img src="/Images/AvatarImages/@item.AccountAvatarImagePath?random=@ViewData["random"].ToString()" class="d-block ui-w-40 rounded-circle border border-warning" height="100" width="100" alt="">
 
-
-                            <div class="media-body ml-3">
+                            <div class="media-body ml-3 ">
                                 <div class="float-right">
-                                    <a href="/Threads/ById?threadId=@item.Id" class="text-decoration-none text-warning">@item.ShortenedTitle</a>
+                                    <a href="/Threads/ById?threadId=@item.Id" class="text-decoration-none text-warning"><span class="text-white">Original thread: </span>@item.ShortenedTitle</a>
                                 </div>
                                 <label class="text-warning">@item.AccountUserName</label>
-                                <div class="text-info small">Created on <strong>@item.NormalizedCreatedOn</strong></div>
-                                <label class="text-info small">@item.PostsCount <span class="font-weight-bold">posts</span></label>
+                                <div class="small">Created on <strong>@item.NormalizedCreatedOn</strong></div>
+                                <label class="small">
+                                    @item.PostsCount
+                                    @if (item.Posts.Count() <= 1)
+                                    {
+                                        <span class="font-weight-bold">post</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="font-weight-bold">posts</span>
+                                    }
+                                </label>
                             </div>
                         </div>
                     </div>
-                    <div class="card-body" style="background-color: #384047;">
+                    <div class="card-body background-modal-body">
                         @Html.Raw(item.SanitizedDescription)
                     </div>
-                    <div class="card-footer">
+                    <div class="card-footer border-top border-warning">
                         @Html.Raw(item.SanitizedForumSignature)
                     </div>
                 </div>
             }
+
+            <hr class="bg-warning" />
             @if (pager.EndPage > 1)
             {
                 <div>
@@ -50,27 +72,27 @@
                         @if (pager.CurrentPage > 1)
                         {
                             <li class="float-left mr-1">
-                                <a href="/Threads/LastThreads?accountId=@accountId" class="btn btn-info">First</a>
+                                <a href="/Threads/LastThreads?accountId=@accountId" class="btn btn-warning">First</a>
                             </li>
                             <li class="float-left mr-1">
-                                <a href="/Threads/LastThreads?accountId=@accountId&page=@(pager.CurrentPage - 1)" class="btn btn-info">Previous</a>
+                                <a href="/Threads/LastThreads?accountId=@accountId&page=@(pager.CurrentPage - 1)" class="btn btn-warning">Previous</a>
                             </li>
                         }
 
                         @for (var page = pager.StartPage; page <= pager.EndPage; page++)
                         {
                             <li class="@(page == pager.CurrentPage ? "active" : "") float-right mr-1">
-                                <a href="/Threads/LastThreads?accountId=@accountId&page=@(page)" class="btn btn-info">@(page)</a>
+                                <a href="/Threads/LastThreads?accountId=@accountId&page=@(page)" class="btn btn-outline-warning">@(page)</a>
                             </li>
                         }
 
                         @if (pager.CurrentPage < pager.TotalPages)
                         {
                             <li class="float-right mr-1">
-                                <a href="/Threads/LastThreads?accountId=@accountId&page=@(pager.CurrentPage + 1)" class="btn btn-info">Next</a>
+                                <a href="/Threads/LastThreads?accountId=@accountId&page=@(pager.CurrentPage + 1)" class="btn btn-warning">Next</a>
                             </li>
                             <li class="float-right mr-1">
-                                <a href="/Threads/LastThreads?accountId=@accountId&page=@(pager.TotalPages)" class="btn btn-info">Last</a>
+                                <a href="/Threads/LastThreads?accountId=@accountId&page=@(pager.TotalPages)" class="btn btn-warning">Last</a>
                             </li>
                         }
                     </ul>

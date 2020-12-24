@@ -21,13 +21,17 @@ namespace HolocronProject.Services
 
         IEnumerable<T> GetCurrentAccountCharacterForCompetition<T>(string accountId, string competitionId, IMapper mapper = null);
 
-        IEnumerable<T> GetNewestCharacters<T>(IMapper mapper = null);
+        IEnumerable<T> GetAllCharacters<T>(IMapper mapper = null);
 
         T GetCharacterByIdGeneric<T>(string characterId, IMapper mapper = null);
 
-        Task UpdateCharacterImageAsync(string characterName, string serverId, IFormFile image);
+        Task UpdateCharacterImageAsync(string webRootPath, string characterName, string serverId, IFormFile image);
 
-        int TotalApprovedCharacters();
+        int TotalCharacters();
+
+        int DeletedCharactersByAccount(string accountId);
+
+        int NotDeletedCharactersByAccount(string accountId);
 
         int TotalPendingCharacters();
 

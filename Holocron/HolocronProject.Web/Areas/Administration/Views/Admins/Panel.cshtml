@@ -6,29 +6,31 @@
 <div class="container justify-content-md-start ">
     <div class="row">
         <div class="col-md col-md-3">
-            <ul class="nav nav-pills flex-column">
-                <li class="nav-item"><a class="nav-link btn btn-info mb-1" asp-controller="BugReports" asp-action="AllBugReports">Pending bug reports</a></li>
-                <li class="nav-item"><a class="nav-link btn btn-info mb-1" asp-controller="PostReports" asp-action="AllPostReports">Pending post reports</a></li>
-                <li class="nav-item"><a class="nav-link btn btn-info mb-1" asp-controller="Characters" asp-action="AllPendingCharacters">Pending characters</a></li>
-                <li class="nav-item"><a class="nav-link btn btn-info mb-1" asp-controller="Competitions" asp-action="Create">Create competition</a></li>
+            <ul class="nav nav-pills flex-column mt-3">
+                <li class="nav-item"><a class="nav-link btn btn-warning mb-1" asp-controller="BugReports" asp-action="AllBugReports">Pending bug reports</a></li>
+                <li class="nav-item"><a class="nav-link btn btn-warning mb-1" asp-controller="PostReports" asp-action="AllPostReports">Pending post reports</a></li>
+                <li class="nav-item"><a class="nav-link btn btn-warning mb-1" asp-controller="Characters" asp-action="AllPendingCharacters">Pending characters</a></li>
+                <li class="nav-item"><a class="nav-link btn btn-warning mb-1" asp-controller="Competitions" asp-action="Create">Create competition</a></li>
             </ul>
         </div>
-        <div class="text-center col-md col-md-6">
-            <h2 class="text-warning mb-2">Forum stats</h2>
-            <h5>Total accounts: @Model.TotalAccounts</h5>
-            <h5>Total characers: @Model.TotalCharacters</h5>
-            <h5>Total posts: @Model.TotalPosts</h5>
-            <h5>Total threads: @Model.TotalThreads</h5>
-            <h5>Total unresolved bug reports: @Model.TotalUnresolvedBugReports</h5>
-            <h5>Total unresolved post reports: @Model.TotalUnresolvedPostReports</h5>
-            <h5>Total pending characters: @Model.TotalPendingCharacters</h5>
+        <div class="text-center col-md col-md-6 ">
+            <h2 class="mb-2 text-warning">FORUM STATS</h2>
+            <h5 class="text-warning">Total accounts: <span class="text-danger">@Model.TotalAccounts</span></h5>
+            <h5 class="text-warning">Total characers: <span class="text-danger"> @Model.TotalCharacters</span></h5>
+            <h5 class="text-warning">Total posts: <span class="text-danger"> @Model.TotalPosts</span></h5>
+            <h5 class="text-warning">Total threads: <span class="text-danger"> @Model.TotalThreads</span></h5>
+            <br />
+
+            <h5 class="text-warning">Total unresolved bug reports: <span class="text-danger"> @Model.TotalUnresolvedBugReports</span></h5>
+            <h5 class="text-warning">Total unresolved post reports: <span class="text-danger"> @Model.TotalUnresolvedPostReports</span></h5>
+            <h5 class="text-warning">Total pending characters: <span class="text-danger"> @Model.TotalPendingCharacters</span></h5>
         </div>
-        <div class="col-md col-md-3">
+        <div class="col-md col-md-3 mt-3">
             <ul class="nav nav-pills flex-column">
-                <li class="nav-item"><a class="nav-link btn btn-info mb-1" asp-controller="Posts" asp-action="NewestPosts">Newest posts</a></li>
-                <li class="nav-item"><a class="nav-link btn btn-info mb-1" asp-controller="Threads" asp-action="NewestThreads">Newest threads</a></li>
-                <li class="nav-item"><a class="nav-link btn btn-info mb-1" asp-controller="Characters" asp-action="NewestCharacters">Newest characters</a></li>
-                <li class="nav-item"><a class="nav-link btn btn-info mb-1" asp-controller="Accounts" asp-action="NewestAccounts">Newest accounts</a></li>
+                <li class="nav-item"><a class="nav-link btn btn-warning mb-1" asp-controller="Posts" asp-action="NewestPosts">Posts</a></li>
+                <li class="nav-item"><a class="nav-link btn btn-warning mb-1" asp-controller="Threads" asp-action="NewestThreads">Threads</a></li>
+                <li class="nav-item"><a class="nav-link btn btn-warning mb-1" asp-controller="Characters" asp-action="NewestCharacters">Characters</a></li>
+                <li class="nav-item"><a class="nav-link btn btn-warning mb-1" asp-controller="Accounts" asp-action="NewestAccounts">Accounts</a></li>
             </ul>
         </div>
     </div>

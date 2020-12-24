@@ -30,7 +30,7 @@ namespace HolocronProject.Web.ViewModels.Threads
 
         public DateTime CreatedOn { get; set; }
 
-        public string NormalizedCreatedOn { get; set; }
+        public string NormalizedCreatedOn => this.CreatedOn.ToLocalTime().ToString("MM/dd/yyyy h:mm tt");
 
         public int PostsCount { get; set; }
 

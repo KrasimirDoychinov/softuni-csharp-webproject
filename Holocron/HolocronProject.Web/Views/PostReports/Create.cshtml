@@ -10,26 +10,27 @@
             <hr class="bg-warning" />
 
             <div class="form-group ">
-                <label asp-for="Title" class="font-weight-bold"></label>
+                <label asp-for="Title" class="font-weight-bold text-warning"></label>
                 <label class="text-danger">*</label>
-                <input asp-for="Title" class="form-control" />
+                <input asp-for="Title" class="form-control bg-dark text-white border border-dark" />
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
 
             <div class="form-group ">
-                <label asp-for="Description" class="font-weight-bold"></label>
+                <label asp-for="Description" class="font-weight-bold text-warning"></label>
                 <label class="text-danger">*</label>
-                <textarea asp-for="Description" class="form-control" rows="10"></textarea>
+                <textarea asp-for="Description" class="form-control bg-dark text-white border border-dark" rows="10"></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
 
             <div class="form-group ">
-                <label asp-for="Notes" class="font-weight-bold"></label>
-                <textarea asp-for="Notes" class="form-control" rows="5"></textarea>
+                <label asp-for="Notes" class="font-weight-bold text-warning"></label>
+                <textarea asp-for="Notes" class="form-control bg-dark text-white border border-dark" rows="5"></textarea>
                 <span asp-validation-for="Notes" class="text-danger"></span>
             </div>
 
-            <input type="submit" class="btn btn-primary" value="Create" />
+            <hr class="bg-warning" />
+            <input type="submit" class="btn btn-outline-warning" value="Create" />
 
         </form>
     </div>

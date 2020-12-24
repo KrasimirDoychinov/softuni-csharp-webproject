@@ -1,31 +1,49 @@
-﻿@model CharacterUserViewModel
+﻿@model CharacterAdminViewModel
 
-<div class="text-center">
-    <div class="col-md-12 ">
-        <img src="~/Images/CharacterImages/@Model.CharacterImagePath?random=@ViewData["random"].ToString()"  width="400" height="400" />
-        <div class="col-md-12 text-left mt-5 background-color">
-            <div class="text-center">
-                <h4><span class="font-weight-bold">Name: </span>@Model.Name</h4>
-                <h4><span class="font-weight-bold">Title: </span>@Model.Title</h4>
-                <h5><span class="font-weight-bold">Gender: </span>@Model.Gender</h5>
-                <h5><span class="font-weight-bold">Type: </span>@Model.CharacterType</h5>
-                <h5><span class="font-weight-bold">Force affiliation: </span>@Model.ForceAffiliationString</h5>
-                <h5><span class="font-weight-bold">Faction: </span>@Model.ClassFaction</h5>
+<div class="mb-3 p-3 background-admin">
+    <div class="text-center">
+        <div class="col-md-12">
+            <img src="~/Images/CharacterImages/@Model.CharacterImagePath?random=@ViewData["random"].ToString()" class="border border-warning rounded-pill" width="400" height="400" />
+            <div class="col-md-12 text-left mt-2">
+                <div class="text-center">
+                    <h4><span class="font-weight-bold text-warning">Created by: </span>@Model.AccountUserName <span class="text-warning">has <span class="text-danger">@Model.NotBannedCharacters</span> characters <span class="text-danger">@Model.BannedCharacters</span> deleted</span></h4>
+                    <h4><span class="font-weight-bold text-warning">Name: </span>@Model.Name</h4
+                    @if (!string.IsNullOrWhiteSpace(Model.Title))
+                    {
+                        <h4><span class="font-weight-bold text-warning">Title: </span>@Model.Title</h4>
+                    }
+                    <h5><span class="font-weight-bold text-warning">Gender: </span>@Model.Gender</h5>
+                    <h5><span class="font-weight-bold text-warning">Type: </span>@Model.CharacterType</h5>
+                    <h5><span class="font-weight-bold text-warning">Force affiliation: </span>@Model.ForceAffiliationString</h5>
+                    <h5><span class="font-weight-bold text-warning">Class: </span>@Model.ClassName</h5>
+                    <h5><span class="font-weight-bold text-warning">Race: </span>@Model.RaceName</h5>
+                    <h5><span class="font-weight-bold text-warning">Server: </span>@Model.ServerName</h5>
+                    <h5><span class="font-weight-bold text-warning">Created on: </span>@Model.NormalizedCreatedOn</h5>
+                </div>
             </div>
         </div>
     </div>
+
+    <div class="text-break ">
+
+        @if (!string.IsNullOrWhiteSpace(Model.Description))
+        {
+            <h5 class="font-weight-bold text-warning">Description</h5>
+            <p>@Model.Description</p>
+        }
+
+        @if (!string.IsNullOrWhiteSpace(Model.Backstory))
+        {
+            <h5 class="font-weight-bold text-warning">Backstory</h5>
+            <p>@Model.Backstory</p>
+        }
+    </div>
 </div>
 
-<div class="text-break ">
-    <h5 class="font-weight-bold">Description</h5>
-    <p>@Model.Description</p>
-    <h5 class="font-weight-bold">Backstory</h5>
-    <p>@Model.Backstory</p>
-</div>
-
+<hr class="bg-warning" />
 @if (this.User.IsInRole("Admin") && !Model.IsApproved)
 {
-    <a class="btn btn-primary" href="/Administration/Characters/ApproveCharacter/?characterId=@Model.Id&accountId=@Model.AccountId">Approve</a>
-    <a class="btn btn-danger" href="/Administration/Characters/DeleteCharacter/?characterId=@Model.Id&accountId=@Model.AccountId">Delete</a>
+    <a class="btn btn-outline-warning" href="/Administration/Characters/ApproveCharacter/?characterId=@Model.Id&accountId=@Model.AccountId">Approve</a>
+    <a class="btn btn-outline-danger" href="/Administration/Characters/DeleteCharacter/?characterId=@Model.Id&accountId=@Model.AccountId">Delete</a>
 }
 

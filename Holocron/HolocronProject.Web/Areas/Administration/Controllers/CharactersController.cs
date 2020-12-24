@@ -1,10 +1,12 @@
 ﻿using HolocronProject.Data.Enums;
 using HolocronProject.Services;
+using HolocronProject.Web.Areas.Administration.ViewModels.Characters;
 using HolocronProject.Web.ViewModels.Characters;
 using HolocronProject.Web.ViewModels.Pager;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SixLabors.ImageSharp;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,56 +19,65 @@ namespace HolocronProject.Web.Areas.Administration.Controllers
     {
         private readonly ICharactersService characterService;
 
-        public CharactersController( ICharactersService characterService)
+        public CharactersController(ICharactersService characterService)
         {
             this.characterService = characterService;
         }
 
         public IActionResult CharacterInfo(string characterId)
         {
-            var charViewModel = this.characterService.GetCharacterByIdGeneric<CharacterUserViewModel>(characterId);
+            var character = this.characterService.GetCharacterByIdGeneric<CharacterAdminViewModel>(characterId);
+            
 
-            if (charViewModel.ForceAffiliation == ForceAffiliation.LightSide)
+            if (character.ForceAffiliation == ForceAffiliation.LightSide)
             {
-                charViewModel.ForceAffiliationString = "Light side";
+                character.ForceAffiliationString = "Light side";
             }
-            else if (charViewModel.ForceAffiliation == ForceAffiliation.DarkSide)
+            else if (character.ForceAffiliation == ForceAffiliation.DarkSide)
             {
-                charViewModel.ForceAffiliationString = "Dark side";
+                character.ForceAffiliationString = "Dark side";
             }
-            else if (charViewModel.ForceAffiliation == ForceAffiliation.None)
+            else if (character.ForceAffiliation == ForceAffiliation.None)
             {
-                charViewModel.ForceAffiliationString = "None";
+                character.ForceAffiliationString = "None";
             }
             else
             {
-                charViewModel.ForceAffiliationString = "Unknown";
+                character.ForceAffiliationString = "Unknown";
             }
 
-            return this.View(charViewModel);
+            character.BannedCharacters = this.characterService.DeletedCharactersByAccount(character.AccountId);
+            character.NotBannedCharacters = this.characterService.NotDeletedCharactersByAccount(character.AccountId);
+
+            return this.View(character);
         }
 
         public IActionResult NewestCharacters(int? page)
         {
-            var charListViewModel = this.characterService.GetNewestCharacters<CharacterListViewModel>();
+            var characters = this.characterService.GetAllCharacters<NewestCharactersViewModel>();
 
-            if (charListViewModel.Count() > 0)
+            characters.AsParallel().ForAll(x => x.TotalCharacters = characters.Count());
+            characters.AsParallel().ForAll(x => x.DeletedCharacters = characters.Where(x => x.IsDeleted).Count());
+            characters.AsParallel().ForAll(x => x.NotDeletedCharacters = characters.Where(x => !x.IsDeleted).Count());
+            characters.AsParallel().ForAll(x => x.ApprovedCharacters = characters.Where(x => x.CharacterStatus == CharacterStatus.Approved).Count());
+            characters.AsParallel().ForAll(x => x.PendingCharacters = characters.Where(x => x.CharacterStatus == CharacterStatus.Pending).Count());
+            characters.AsParallel().ForAll(x => x.CharactersMadeToday = characters.Where(x => x.CreatedOn.DayOfYear == DateTime.UtcNow.DayOfYear).Count());
+
+            if (characters.Count() > 0)
             {
-                charListViewModel = CharListPager(page, charListViewModel);
-                CharListUTCToLocalTime(charListViewModel);
+                characters = CharListPager(page, characters);
             }
 
-            return this.View(charListViewModel.ToList());
+            return this.View(characters.ToList());
         }
 
         public IActionResult AllPendingCharacters(int? page)
         {
-            var charListViewModel = this.characterService.GetAllPendingCharacters<CharacterListViewModel>();
+            var charListViewModel = this.characterService.GetAllPendingCharacters<NewestCharactersViewModel>();
 
             if (charListViewModel.Count() > 0)
             {
                 charListViewModel = CharListPager(page, charListViewModel);
-                CharListUTCToLocalTime(charListViewModel);
             }
 
             return this.View(charListViewModel.ToList());
@@ -86,7 +97,7 @@ namespace HolocronProject.Web.Areas.Administration.Controllers
             return this.RedirectToAction(nameof(AllPendingCharacters));
         }
 
-        private static IEnumerable<CharacterListViewModel> CharListPager(int? page, IEnumerable<CharacterListViewModel> charListViewModel)
+        private static IEnumerable<NewestCharactersViewModel> CharListPager(int? page, IEnumerable<NewestCharactersViewModel> charListViewModel)
         {
             charListViewModel = charListViewModel.OrderByDescending(x => x.NormalizedCreatedOn);
             var pager = new Pager(charListViewModel.Count(), page);
@@ -95,9 +106,5 @@ namespace HolocronProject.Web.Areas.Administration.Controllers
             return charListViewModel;
         }
 
-        private static void CharListUTCToLocalTime(IEnumerable<CharacterListViewModel> charList)
-        {
-            charList.AsParallel().ForAll(x => x.NormalizedCreatedOn = x.CreatedOn.ToLocalTime().ToString("MM/dd/yyyy h:mm tt"));
-        }
     }
 }

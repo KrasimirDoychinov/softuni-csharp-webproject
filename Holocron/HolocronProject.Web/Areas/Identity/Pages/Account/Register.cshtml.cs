@@ -117,7 +117,7 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account
 
                     if (Input.AvatarImage != null)
                     {
-                        await this.userService.CreateAvatarImageAsync(user.Id, Input.AvatarImage);
+                        await this.userService.CreateAvatarImageAsync(this.webHostEnvironment.WebRootPath, user.Id, Input.AvatarImage);
                     }
 
                     else

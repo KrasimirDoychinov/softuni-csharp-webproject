@@ -5,27 +5,27 @@
             @if (Model.Pager.CurrentPage > 1)
             {
                 <li class="float-left mr-1">
-                    <a href="/@Model.ControllerName/@Model.ActionName?@Model.QueryId=@Model.Id" class="btn btn-info">First</a>
+                    <a href="/@Model.ControllerName/@Model.ActionName?@Model.QueryId=@Model.Id" class="btn btn-warning">First</a>
                 </li>
                 <li class="float-left mr-1">
-                    <a href="/@Model.ControllerName/@Model.ActionName?@Model.QueryId=@Model.Id&page=@(Model.Pager.CurrentPage - 1)" class="btn btn-info">Previous</a>
+                    <a href="/@Model.ControllerName/@Model.ActionName?@Model.QueryId=@Model.Id&page=@(Model.Pager.CurrentPage - 1)" class="btn btn-warning">Previous</a>
                 </li>
             }
 
             @for (var page = Model.Pager.StartPage; page <= Model.Pager.EndPage; page++)
             {
                 <li class="@(page == Model.Pager.CurrentPage ? "active" : "") float-right mr-1">
-                    <a href="/@Model.ControllerName/@Model.ActionName?@Model.QueryId=@Model.Id&page=@(page)" class="btn btn-info">@(page)</a>
+                    <a href="/@Model.ControllerName/@Model.ActionName?@Model.QueryId=@Model.Id&page=@(page)" class="btn btn-outline-warning">@(page)</a>
                 </li>
             }
 
             @if (Model.Pager.CurrentPage < Model.Pager.TotalPages)
             {
                 <li class="float-right mr-1">
-                    <a href="/@Model.ControllerName/@Model.ActionName?@Model.QueryId=@Model.Id&page=@(Model.Pager.CurrentPage + 1)" class="btn btn-info">Next</a>
+                    <a href="/@Model.ControllerName/@Model.ActionName?@Model.QueryId=@Model.Id&page=@(Model.Pager.CurrentPage + 1)" class="btn btn-warning">Next</a>
                 </li>
                 <li class="float-right mr-1">
-                    <a href="/@Model.ControllerName/@Model.ActionName?@Model.QueryId=@Model.Id&page=@(Model.Pager.TotalPages)" class="btn btn-info">Last</a>
+                    <a href="/@Model.ControllerName/@Model.ActionName?@Model.QueryId=@Model.Id&page=@(Model.Pager.TotalPages)" class="btn btn-warning">Last</a>
                 </li>
             }
         </ul>

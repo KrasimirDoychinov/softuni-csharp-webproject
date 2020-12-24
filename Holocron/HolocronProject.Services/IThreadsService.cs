@@ -19,9 +19,9 @@ namespace HolocronProject.Services
 
         IEnumerable<T> GetLastNotDeletedThreadsByAccountId<T>(string accountId, IMapper mapper = null);
 
-        IEnumerable<T> GetAllNotDeletedThreads<T>(IMapper mapper = null);
+        IEnumerable<T> GetAllThreads<T>(IMapper mapper = null);
 
-        int TotalNotDeletedThreads();
+        int TotalThreads();
 
     }
 }

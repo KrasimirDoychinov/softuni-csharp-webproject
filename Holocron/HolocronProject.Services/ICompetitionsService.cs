@@ -20,5 +20,8 @@ namespace HolocronProject.Services
 
         T GetCompetitionByIdGeneric<T>(string competitionId);
 
+        string GetWinner(string competitionId);
+
+        int GetCharactersSignedId(string competitionId);
     }
 }
