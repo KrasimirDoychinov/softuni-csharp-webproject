@@ -8,8 +8,7 @@ namespace HolocronProject.Web
 
     // TODO: Review the code each day at the beginning of the code session and at the end of the session
 
-    // TODO: !!!Work on the views so they look different
-    // TODO: !!!Add more tests for the new code (email and deletion)!!!
+    // TODO: !!!Look over all the views and see if I missed anything!!!
     // TODO: !!!Look over all the tests and fix small bugs and try to add edge cases!!
     // TODO: Look over all controllers and views
 

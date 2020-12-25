@@ -17,6 +17,8 @@ using HolocronProject.Services.Mapper;
 using HolocronProject.Data.Enums;
 using HolocronProject.Services.Models.Character;
 using HolocronProject.Services;
+using HolocronProject.Web.Areas.Administration.ViewModels.Accounts;
+using System.Linq;
 
 namespace HolocronProject.Tests.Services
 {
@@ -26,6 +28,12 @@ namespace HolocronProject.Tests.Services
         private ApplicationDbContext context;
         private IAccountsService accountService;
         private IFormFile file;
+        private string testRootFilePath = "/TestFiles";
+
+        private int postCount = 10;
+        private int threadCount = 10;
+        private int competitionAccountsCount = 10;
+        private int competitionCharactersCount = 10;
 
         [SetUp]
         public async Task SetUp()
@@ -34,7 +42,28 @@ namespace HolocronProject.Tests.Services
                 .UseInMemoryDatabase(Guid.NewGuid().ToString())
                 .Options;
             this.context = new ApplicationDbContext(optionsBuilder);
-            this.accountService = new AccountsService(context, null, null, null);
+
+            var mockedIPostsService = new Mock<IPostsService>();
+            var mockedIThreadsService = new Mock<IThreadsService>();
+            var mockedICompetitionsAccountsService = new Mock<ICompetitionAccountsService>();
+            var mockedICompetitionsCharactersService = new Mock<ICompetitionCharactersService>();
+
+            mockedIPostsService.Setup(x => x.DeleteAllPostsByAccountIdAsync(It.IsAny<string>()))
+                .Returns(async () => this.postCount = 0);
+
+            mockedIThreadsService.Setup(x => x.DeleteAllThreadsByAccountId(It.IsAny<string>()))
+                .Returns(async () => this.threadCount = 0);
+
+            mockedICompetitionsAccountsService.Setup(x => x.DeleteAllCompetitionAccountsByAccountId(It.IsAny<string>()))
+                .Returns(async () => this.competitionAccountsCount = 0);
+
+            mockedICompetitionsCharactersService.Setup(x => x.DeleteAllCompetitionCharactersByAccountId(It.IsAny<string>()))
+               .Returns(async () => this.competitionCharactersCount = 0);
+
+            this.accountService = new AccountsService(context, mockedIPostsService.Object, 
+                mockedIThreadsService.Object, 
+                mockedICompetitionsAccountsService.Object,
+                mockedICompetitionsCharactersService.Object);
             await context.Database.EnsureDeletedAsync();
             await context.Database.EnsureCreatedAsync();
 
@@ -112,7 +141,7 @@ namespace HolocronProject.Tests.Services
             await this.context.Accounts.AddAsync(account);
             await this.context.SaveChangesAsync();
 
-            await this.accountService.CreateAvatarImageAsync("1", this.file);
+            await this.accountService.CreateAvatarImageAsync(this.testRootFilePath, "1", this.file);
 
             Assert.AreEqual("1(Account).png", account.AvatarImagePath);
         }
@@ -129,7 +158,7 @@ namespace HolocronProject.Tests.Services
             await this.context.Accounts.AddAsync(account);
             await this.context.SaveChangesAsync();
 
-            await this.accountService.UpdateAvatarImageAsync("1", this.file);
+            await this.accountService.UpdateAvatarImageAsync(this.testRootFilePath, "1", this.file);
 
             Assert.AreEqual("1(Account).png", account.AvatarImagePath);
         }
@@ -179,8 +208,8 @@ namespace HolocronProject.Tests.Services
             await this.context.Accounts.AddAsync(account);
             await this.context.SaveChangesAsync();
 
-            await this.accountService.CreateAvatarImageAsync("1", this.file);
-            var isSet = accountService.IsAvatarImageSet("1");
+            await this.accountService.CreateAvatarImageAsync(this.testRootFilePath, "1", this.file);
+            var isSet = accountService.IsAvatarImageSet(this.testRootFilePath, "1");
 
             Assert.True(isSet);
         }
@@ -196,7 +225,7 @@ namespace HolocronProject.Tests.Services
             await this.context.Accounts.AddAsync(account);
             await this.context.SaveChangesAsync();
 
-            var isSet = this.accountService.IsAvatarImageSet("1");
+            var isSet = this.accountService.IsAvatarImageSet(null, "1");
 
             Assert.False(isSet);
         }
@@ -308,7 +337,6 @@ namespace HolocronProject.Tests.Services
         [Test]
         public async Task IsUserNotifiedShouldReturnCorrectNotificationStatus()
         {
-
             var account = new Account
             {
                 Id = "1"
@@ -377,6 +405,89 @@ namespace HolocronProject.Tests.Services
             var serviceAccountCount = this.accountService.TotalAccounts();
 
             Assert.AreEqual(1, serviceAccountCount);
+        }
+
+        [Test]
+        public async Task BanAccountBansAccount()
+        {
+            var account = new Account
+            {
+                Id = "1"
+            };
+
+            await this.context.Accounts.AddAsync(account);
+            await this.context.SaveChangesAsync();
+
+            await this.accountService.BanAccountAsync("1");
+
+            Assert.True(account.IsBanned);
+            Assert.AreEqual(0, this.postCount);
+            Assert.AreEqual(0, this.threadCount);
+            Assert.AreEqual(0, this.competitionAccountsCount);
+        }
+
+        [Test]
+        public async Task AddDefaultAvatarImagePathAddsDefaultAvatarAsImagePath()
+        {
+            var account = new Account
+            {
+                Id = "1"
+            };
+
+            await this.context.Accounts.AddAsync(account);
+            await this.context.SaveChangesAsync();
+
+            await this.accountService.AddDefaultAvatarImagePathAsync("1");
+
+            Assert.AreEqual("defaultAvatar.jpg", account.AvatarImagePath);
+        }
+
+        [Test]
+        public async Task GetAllAccountsReturnsAllAccountsExceptGivenOne()
+        {
+            var config = new MapperConfiguration(opts =>
+            {
+                opts.CreateMap<Account, NewestAccountsViewModel>();
+            });
+
+            var mapper = config.CreateMapper();
+
+            var account = new Account
+            {
+                Id = "1"
+            };
+
+            await this.context.Accounts.AddAsync(account);
+            await this.context.SaveChangesAsync();
+
+            var mappedEntity =  this.accountService.GetAllAccounts<NewestAccountsViewModel>("1", mapper);
+
+            Assert.AreEqual(0, mappedEntity.Count());
+        }
+
+        [Test]
+        public async Task IsAccountBannedReturnsCorrectValue()
+        {
+            var config = new MapperConfiguration(opts =>
+            {
+                opts.CreateMap<Account, NewestAccountsViewModel>();
+            });
+
+            var mapper = config.CreateMapper();
+
+            var account = new Account
+            {
+                Id = "1",
+                UserName = "Test"
+            };
+
+            await this.context.Accounts.AddAsync(account);
+            await this.context.SaveChangesAsync();
+
+            await this.accountService.BanAccountAsync("1");
+            var isAccountBanned = this.accountService.IsAccountBanned("Test");
+
+            Assert.True(isAccountBanned);
         }
     }
 }

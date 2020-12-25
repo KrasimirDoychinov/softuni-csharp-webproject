@@ -15,7 +15,7 @@ namespace HolocronProject.Web.ViewModels.Posts
 
         public DateTime CreatedOn { get; set; }
 
-        public string NormalizedCreatedOn { get; set; }
+        public string NormalizedCreatedOn => this.CreatedOn.ToLocalTime().ToString("MM/dd/yyyy h:mm tt");
 
         public string Description { get; set; }
 

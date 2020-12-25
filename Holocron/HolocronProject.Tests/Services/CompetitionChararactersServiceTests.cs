@@ -175,5 +175,71 @@ namespace HolocronProject.Tests.Services
 
             Assert.AreEqual(2, votesCount);
         }
+
+        [Test]
+        public async Task DeleteAllCompetitionCharactersByAccountIdDeletesAll()
+        {
+            var character = new Character
+            {
+                Id = "1",
+                Account = new Account { Id ="1"},
+                Name = "Test"
+            };
+
+            var competition = new Competition
+            {
+                Id = "1",
+                Title = "Test"
+            };
+
+            var secondAccount = new Account
+            {
+                Id = "2",
+                UserName = ""
+            };
+
+            await this.context.Characters.AddAsync(character);
+            await this.context.Competitions.AddAsync(competition);
+            await this.context.Accounts.AddAsync(secondAccount);
+            await this.context.SaveChangesAsync();
+
+            await this.competitionCharactersService.AddCharacterToCompetitionAsync("1", "1");
+            await this.competitionCharactersService.DeleteAllCompetitionCharactersByAccountId("1");
+
+            Assert.AreEqual(1, this.context.CompetitionsCharacters.Where(x => x.IsDeleted).Count());
+        }
+
+        [Test]
+        public async Task GetAllNotDeletedCharactersReturnsAllNotDeleted()
+        {
+            var character = new Character
+            {
+                Id = "1",
+                Account = new Account { Id = "1" },
+                Name = "Test"
+            };
+
+            var competition = new Competition
+            {
+                Id = "1",
+                Title = "Test"
+            };
+
+            var secondAccount = new Account
+            {
+                Id = "2",
+                UserName = ""
+            };
+
+            await this.context.Characters.AddAsync(character);
+            await this.context.Competitions.AddAsync(competition);
+            await this.context.Accounts.AddAsync(secondAccount);
+            await this.context.SaveChangesAsync();
+
+            await this.competitionCharactersService.AddCharacterToCompetitionAsync("1", "1");
+            var allNotDeletedCharacters = this.competitionCharactersService.GetAllNotDeletedCharacters("1");
+
+            Assert.AreEqual(1, allNotDeletedCharacters.Count());
+        }
     }
 }

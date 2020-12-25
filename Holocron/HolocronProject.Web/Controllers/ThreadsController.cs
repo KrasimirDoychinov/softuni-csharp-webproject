@@ -89,7 +89,6 @@ namespace HolocronProject.Web.Controllers
             ThreadPager(page, threadViewModel);
             ThreadSanitizer(threadViewModel);
 
-            threadViewModel.Posts.AsParallel().ForAll(x => x.NormalizedCreatedOn = x.CreatedOn.ToLocalTime().ToString("MM/dd/yyyy h:mm tt"));
 
             return this.View(threadViewModel);
             

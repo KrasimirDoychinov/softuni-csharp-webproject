@@ -48,6 +48,7 @@ else
                         @if (item.IsDeleted)
                         {
                             <h5 class="text-danger font-weight-bolder">DELETED</h5>
+                            <h5 class="text-danger">Deleted on: <span class="font-weight-bolder">@item.NormalizedDeletedOn</span></h5>
                         }
 
                         @if (item.CharacterStatus == CharacterStatus.Approved)

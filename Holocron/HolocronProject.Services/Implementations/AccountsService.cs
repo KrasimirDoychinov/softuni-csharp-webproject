@@ -19,16 +19,19 @@ namespace HolocronProject.Services.Implementations
         private readonly IPostsService postsService;
         private readonly IThreadsService threadsService;
         private readonly ICompetitionAccountsService competitionAccountsService;
+        private readonly ICompetitionCharactersService competitionCharactersService;
 
         public AccountsService(ApplicationDbContext context,
             IPostsService postsService,
             IThreadsService threadsService,
-            ICompetitionAccountsService competitionAccountsService)
+            ICompetitionAccountsService competitionAccountsService,
+            ICompetitionCharactersService competitionCharactersService)
         {
             this.context = context;
             this.postsService = postsService;
             this.threadsService = threadsService;
             this.competitionAccountsService = competitionAccountsService;
+            this.competitionCharactersService = competitionCharactersService;
         }
 
         public async Task BanAccountAsync(string accountId)
@@ -40,6 +43,7 @@ namespace HolocronProject.Services.Implementations
 
             await this.postsService.DeleteAllPostsByAccountIdAsync(accountId);
             await this.threadsService.DeleteAllThreadsByAccountId(accountId);
+            await this.competitionCharactersService.DeleteAllCompetitionCharactersByAccountId(accountId);
             await this.competitionAccountsService.DeleteAllCompetitionAccountsByAccountId(accountId);
 
             await this.context.SaveChangesAsync();
@@ -100,11 +104,14 @@ namespace HolocronProject.Services.Implementations
         {
             var account = this.GetAccountById(accountId);
 
-            if (File.Exists($"{webRootFolder}/Images/AvatarImages/{account.AvatarImagePath}"))
+            if (account.AvatarImagePath != "defaultAvatar.jpg")
             {
-                File.Delete($"{webRootFolder}/Images/AvatarImages/{account.AvatarImagePath}");
+                if (File.Exists($"{webRootFolder}/Images/AvatarImages/{account.AvatarImagePath}"))
+                {
+                    File.Delete($"{webRootFolder}/Images/AvatarImages/{account.AvatarImagePath}");
+                }
             }
-            
+
             account.AvatarImagePath = $"{account.Id}(Account).png";
             using (var fs = new FileStream(
                 $"{webRootFolder}/Images/AvatarImages/{account.AvatarImagePath}", FileMode.Create))
@@ -189,7 +196,7 @@ namespace HolocronProject.Services.Implementations
             => this.context.Accounts
             .Where(x => x.Id != accountId)
             .OrderByDescending(x => x.CreatedOn)
-            .To<T>()
+            .To<T>(mapper)
             .ToList();
 
         public int TotalAccounts()

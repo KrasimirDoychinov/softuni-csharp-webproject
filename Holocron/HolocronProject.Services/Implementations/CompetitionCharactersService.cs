@@ -42,15 +42,6 @@ namespace HolocronProject.Services.Implementations
             await this.context.SaveChangesAsync();
         }
 
-        public async Task RemoveCharacterFromCompetitionAsync(string characterId, string competitionId)
-        {
-            var competitionCharacter = this.context.CompetitionsCharacters
-                .FirstOrDefault(x => x.CharacterId == characterId && x.CompetitionId == competitionId);
-
-            competitionCharacter.IsDeleted = true;
-            competitionCharacter.DeletedOn = DateTime.UtcNow;
-        }
-
         public IEnumerable<CompetitionCharacter> GetAllNotDeletedCharacters(string competitionId)
             => this.context.CompetitionsCharacters
             .Where(x => x.CompetitionId == competitionId && !x.IsDeleted)

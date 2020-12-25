@@ -313,5 +313,38 @@ namespace HolocronProject.Tests.Services
 
             Assert.True(doesAccountVoteExist);
         }
+
+        [Test]
+        public async Task DeleteAllCompetitionAccountsByAccountIdDeletesAll()
+        {
+            var account = new Account
+            {
+                Id = "1",
+                UserName = "Test"
+            };
+
+            var character = new Character
+            {
+                Id = "1",
+                Name = "Test"
+            };
+
+            var competition = new Competition
+            {
+                Id = "1",
+                Title = "Test"
+            };
+
+            await this.context.Characters.AddAsync(character);
+            await this.context.Accounts.AddAsync(account);
+            await this.context.Competitions.AddAsync(competition);
+            await this.context.SaveChangesAsync();
+
+            await this.competitionCharactersService.AddCharacterToCompetitionAsync("1", "1");
+            await this.competitionAccountsService.VoteAsync("1", "1", "1");
+            await this.competitionAccountsService.DeleteAllCompetitionAccountsByAccountId("1");
+
+            Assert.AreEqual(0, this.context.CompetitionAccounts.Where(x => !x.IsDeleted).Count());
+        }
     }
 }

@@ -85,9 +85,7 @@ namespace HolocronProject.Tests.Services
 
             await this.postsService.DeletePostAsync("1");
 
-            var postCount = this.postsService.TotalPosts();
-
-            Assert.AreEqual(0, postCount);
+            Assert.True(post.IsDeleted);
         }
 
         [Test]
@@ -109,7 +107,7 @@ namespace HolocronProject.Tests.Services
         }
 
         [Test]
-        public async Task GetAllNotDeletedPostsShouldReturnAllNotDeleted()
+        public async Task GetAllPostsReturnsAllPosts()
         {
             var post = new Post
             {
@@ -139,41 +137,7 @@ namespace HolocronProject.Tests.Services
 
             var mappedEntity =  this.postsService.GetAllPosts<PostViewModel>(this.mapper);
 
-            Assert.AreEqual(1, mappedEntity.Count());
-        }
-
-        [Test]
-        public async Task GetAllNotDeletedPostsShouldReturnNothingBecauseAllAreDeleted()
-        {
-            var post = new Post
-            {
-                Id = "1",
-                Description = "OldDesc",
-                IsDeleted = true,
-                Account = new Account { Id = "1" },
-                CreatedOn = DateTime.UtcNow,
-                DeletedOn = DateTime.UtcNow.AddDays(1),
-                Thread = new Thread { Id = "1" }
-            };
-
-            var secondPost = new Post
-            {
-                Id = "2",
-                Description = "OldDesc",
-                IsDeleted = true,
-                Account = new Account { Id = "2" },
-                CreatedOn = DateTime.UtcNow,
-                DeletedOn = DateTime.UtcNow.AddDays(1),
-                Thread = new Thread { Id = "2" }
-            };
-
-            await this.context.Posts.AddAsync(post);
-            await this.context.Posts.AddAsync(secondPost);
-            await this.context.SaveChangesAsync();
-
-            var mappedEntity = this.postsService.GetAllPosts<PostViewModel>(this.mapper);
-
-            Assert.AreEqual(0, mappedEntity.Count());
+            Assert.AreEqual(2, mappedEntity.Count());
         }
 
         [Test]
@@ -267,7 +231,7 @@ namespace HolocronProject.Tests.Services
         }
 
         [Test]
-        public async Task TotalNotDeletedPostsShouldReturnCorrectCount()
+        public async Task TotalPostsShouldReturnAllPostsCount()
         {
             var post = new Post
             {
@@ -297,7 +261,7 @@ namespace HolocronProject.Tests.Services
 
             var totalNotDeletedPosts = this.postsService.TotalPosts();
 
-            Assert.AreEqual(1, totalNotDeletedPosts);
+            Assert.AreEqual(2, totalNotDeletedPosts);
         }
 
         [Test]
@@ -333,6 +297,42 @@ namespace HolocronProject.Tests.Services
             var totalNotDeletedPosts = this.postsService.TotalNotDeletedPostInThread("1");
 
             Assert.AreEqual(1, totalNotDeletedPosts);
+        }
+
+        [Test]
+        public async Task DeleteAllPostsByAccountIdDeletesAllPostsByAccountId()
+        {
+            var post = new Post
+            {
+                Id = "1",
+                Description = "OldDesc",
+                IsDeleted = false,
+                Account = new Account { Id = "1" },
+                CreatedOn = DateTime.UtcNow,
+                DeletedOn = DateTime.UtcNow.AddDays(1),
+                Thread = new Thread { Id = "1" }
+            };
+
+            await this.context.Posts.AddAsync(post);
+
+            var secondPost = new Post
+            {
+                Id = "2",
+                Description = "OldDesc",
+                IsDeleted = false,
+                Account = new Account { Id = "2" },
+                CreatedOn = DateTime.UtcNow,
+                DeletedOn = DateTime.UtcNow.AddDays(1),
+                Thread = this.context.Threads.FirstOrDefault(x => x.Id == "1")
+            };
+
+            await this.context.Posts.AddAsync(secondPost);
+            await this.context.SaveChangesAsync();
+
+            await this.postsService.DeleteAllPostsByAccountIdAsync("1");
+
+            Assert.True(post.IsDeleted);
+            Assert.False(secondPost.IsDeleted);
         }
     }
 }

@@ -170,12 +170,12 @@ namespace HolocronProject.Services.Implementations
                 .To<T>(mapper)
             .FirstOrDefault();
 
-        public int DeletedCharactersByAccount(string accountId)
+        public int GetDeletedCharactersByAccount(string accountId)
             => this.context.Characters
             .Where(x => x.AccountId == accountId && x.IsDeleted)
             .Count();
 
-        public int NotDeletedCharactersByAccount(string accountId)
+        public int GetNotDeletedCharactersByAccount(string accountId)
             => this.context.Characters
             .Where(x => x.AccountId == accountId && !x.IsDeleted)
             .Count();

@@ -386,7 +386,7 @@ namespace HolocronProject.Tests.Services
 
             var test = context.Characters
                 .FirstOrDefault(x => x.Name == "Test" && x.Server.Id == "1");
-            await charactersService.UpdateCharacterImageAsync("Test", "Test", "1", this.file);
+            await charactersService.UpdateCharacterImageAsync("/TestFiles", "Test", "1", this.file);
             Assert.AreEqual("1(Character).png", character.CharacterImagePath);
         }
 
@@ -423,7 +423,7 @@ namespace HolocronProject.Tests.Services
         }
         
         [Test]
-        public async Task TotalApprovedCharactersShouldReturnCorrectCount()
+        public async Task TotalCharactersShouldReturnAllCharactersCount()
         {
             var character = new Character
             {
@@ -473,11 +473,11 @@ namespace HolocronProject.Tests.Services
 
             var totalApprovedCharacters = charactersService.TotalCharacters();
 
-            Assert.AreEqual(1, totalApprovedCharacters);
+            Assert.AreEqual(2, totalApprovedCharacters);
         }
 
         [Test]
-        public async Task GetNewestCharactersShouldReturnNewestCharactersThatAreApproved()
+        public async Task GetAllCharactersShouldReturnAllCharacters()
         {
             var character = new Character
             {
@@ -528,7 +528,7 @@ namespace HolocronProject.Tests.Services
             var mappedEntity = charactersService.GetAllCharacters<CharacterListViewModel>(mapper);
 
 
-            Assert.AreEqual(1, mappedEntity.Count());
+            Assert.AreEqual(2, mappedEntity.Count());
         }
 
         [Test]
@@ -791,6 +791,70 @@ namespace HolocronProject.Tests.Services
             await this.charactersService.EditCharacterAsync(characterEditDto);
 
             Assert.AreEqual("New backstory", character.Backstory);
+        }
+
+        [Test]
+        public async Task GetDeletedCharactersByAccountReturnsAllDeletedCharactersByAccount()
+        {
+            var character = new Character
+            {
+                Id = "1",
+                Account = new Account { Id = "1" },
+                Name = "Test",
+                Class = new Class { Name = "Test" },
+                Race = new Race { Name = "Test" },
+                Title = "Test",
+                Gender = Gender.Male,
+                CharacterImagePath = "Test",
+                Server = new Server { Id = "1" },
+                IsDeleted = true,
+                Backstory = "Test",
+                CharacterType = CharacterType.Fashion,
+                CreatedOn = DateTime.UtcNow,
+                DeletedOn = DateTime.UtcNow.AddDays(1),
+                Description = "Test",
+                ForceAffiliation = ForceAffiliation.LightSide,
+                CharacterStatus = CharacterStatus.Pending
+            };
+
+            await context.Characters.AddAsync(character);
+            await context.SaveChangesAsync();
+
+            var deletedCharactersCount = this.charactersService.GetDeletedCharactersByAccount("1");
+
+            Assert.AreEqual(1, deletedCharactersCount);
+        }
+
+        [Test]
+        public async Task GetNotDeletedCharactersByAccountReturnsAllNotDeletedByAccount()
+        {
+            var character = new Character
+            {
+                Id = "1",
+                Account = new Account { Id = "1" },
+                Name = "Test",
+                Class = new Class { Name = "Test" },
+                Race = new Race { Name = "Test" },
+                Title = "Test",
+                Gender = Gender.Male,
+                CharacterImagePath = "Test",
+                Server = new Server { Id = "1" },
+                IsDeleted = false,
+                Backstory = "Test",
+                CharacterType = CharacterType.Fashion,
+                CreatedOn = DateTime.UtcNow,
+                DeletedOn = DateTime.UtcNow.AddDays(1),
+                Description = "Test",
+                ForceAffiliation = ForceAffiliation.LightSide,
+                CharacterStatus = CharacterStatus.Pending
+            };
+
+            await context.Characters.AddAsync(character);
+            await context.SaveChangesAsync();
+
+            var deletedCharactersCount = this.charactersService.GetNotDeletedCharactersByAccount("1");
+
+            Assert.AreEqual(1, deletedCharactersCount);
         }
     }
 }

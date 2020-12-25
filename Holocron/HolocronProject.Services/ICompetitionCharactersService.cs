@@ -12,8 +12,6 @@ namespace HolocronProject.Services
 
         Task AddCharacterToCompetitionAsync(string characterId, string competitionId);
 
-        Task RemoveCharacterFromCompetitionAsync(string characterId, string competitionId);
-
         IEnumerable<CompetitionCharacter> GetAllNotDeletedCharacters(string competitionId);
 
         int GetVotesCount(string characterId, string competitionId);

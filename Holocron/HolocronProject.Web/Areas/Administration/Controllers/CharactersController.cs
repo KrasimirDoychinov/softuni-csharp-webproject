@@ -46,8 +46,8 @@ namespace HolocronProject.Web.Areas.Administration.Controllers
                 character.ForceAffiliationString = "Unknown";
             }
 
-            character.BannedCharacters = this.characterService.DeletedCharactersByAccount(character.AccountId);
-            character.NotBannedCharacters = this.characterService.NotDeletedCharactersByAccount(character.AccountId);
+            character.BannedCharacters = this.characterService.GetDeletedCharactersByAccount(character.AccountId);
+            character.NotBannedCharacters = this.characterService.GetNotDeletedCharactersByAccount(character.AccountId);
 
             return this.View(character);
         }

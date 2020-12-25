@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Hangfire;
+using AutoMapper;
 
 namespace HolocronProject.Services.Implementations
 {
@@ -93,24 +94,24 @@ namespace HolocronProject.Services.Implementations
             return competition;
         }
 
-        public IEnumerable<T> GetAll<T>()
+        public IEnumerable<T> GetAllOngoing<T>(IMapper mapper = null)
             => this.context.Competitions
             .Where(x => !x.IsFinished)
-            .To<T>()
+            .To<T>(mapper)
             .ToList();
 
-        public IEnumerable<T> GetAllFinished<T>()
+        public IEnumerable<T> GetAllFinished<T>(IMapper mapper = null)
             => this.context.Competitions
             .Where(x => x.IsFinished && x.Characters.Count() > 0)
-            .To<T>()
+            .To<T>(mapper)
             .ToList();
-        public T GetCompetitionByIdGeneric<T>(string competitionId)
+        public T GetCompetitionByIdGeneric<T>(string competitionId, IMapper mapper = null)
             => this.context.Competitions
             .Where(x => x.Id == competitionId)
-            .To<T>()
+            .To<T>(mapper)
             .FirstOrDefault();
 
-        public int GetCharactersSignedId(string competitionId)
+        public int GetCharactersSignedUp(string competitionId)
             => this.context.Competitions
             .FirstOrDefault(x => x.Id == competitionId)
             .Characters.Count();

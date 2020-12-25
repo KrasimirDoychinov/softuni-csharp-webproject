@@ -29,9 +29,9 @@ namespace HolocronProject.Services
 
         int TotalCharacters();
 
-        int DeletedCharactersByAccount(string accountId);
+        int GetDeletedCharactersByAccount(string accountId);
 
-        int NotDeletedCharactersByAccount(string accountId);
+        int GetNotDeletedCharactersByAccount(string accountId);
 
         int TotalPendingCharacters();
 

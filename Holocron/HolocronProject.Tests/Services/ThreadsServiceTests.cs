@@ -236,7 +236,7 @@ namespace HolocronProject.Tests.Services
         }
 
         [Test]
-        public async Task TotalNotDeletedThreadsShouldReturnCorrectCount()
+        public async Task TotalThreadsShouldReturnAllThreadsCount()
         {
             var thread = new Thread
             {
@@ -258,7 +258,34 @@ namespace HolocronProject.Tests.Services
 
             var totalNotDeletedThreads = this.threadsService.TotalThreads();
 
-            Assert.AreEqual(1, totalNotDeletedThreads);
+            Assert.AreEqual(2, totalNotDeletedThreads);
+        }
+
+        [Test]
+        public async Task DeleteAllThreadsByAccountIdDeletesAllThreadsByAccountId()
+        {
+            var thread = new Thread
+            {
+                Id = "1",
+                IsDeleted = false,
+                Account = new Account { Id = "1" }
+            };
+
+            var secondThread = new Thread
+            {
+                Id = "2",
+                IsDeleted = false,
+                Account = new Account { Id = "2" }
+            };
+
+            await this.context.Threads.AddAsync(thread);
+            await this.context.Threads.AddAsync(secondThread);
+            await this.context.SaveChangesAsync();
+
+            await this.threadsService.DeleteAllThreadsByAccountId("1");
+
+            Assert.True(thread.IsDeleted);
+            Assert.False(secondThread.IsDeleted);
         }
     }
 }

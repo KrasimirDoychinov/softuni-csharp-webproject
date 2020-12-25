@@ -76,7 +76,6 @@ namespace HolocronProject.Web.Controllers
             {
                 lastPosts = LastPostsPager(page, lastPosts);
                 LastPostsSanitizer(lastPosts);
-                lastPosts.AsParallel().ForAll(x => x.NormalizedCreatedOn = x.CreatedOn.ToLocalTime().ToString("MM/dd/yyyy h:mm tt"));
             }
 
             return this.View(lastPosts.ToList());

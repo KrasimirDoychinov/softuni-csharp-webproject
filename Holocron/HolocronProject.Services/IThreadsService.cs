@@ -9,6 +9,7 @@ namespace HolocronProject.Services
     public interface IThreadsService
     {
         Task DeleteAllThreadsByAccountId(string accountId);
+
         Task CreateThreadAsync(ThreadInputDto input);
 
         Task DeleteThreadAsync(string threadId);

@@ -35,7 +35,7 @@ namespace HolocronProject.Web.Controllers
 
         public IActionResult All(int? page)
         {
-            var competitions = this.competitionsService.GetAll<CompetitionListViewModel>();
+            var competitions = this.competitionsService.GetAllOngoing<CompetitionListViewModel>();
 
             if (competitions.Count() > 0)
             {
@@ -44,7 +44,7 @@ namespace HolocronProject.Web.Controllers
 
             foreach (var competition in competitions)
             {
-                competition.CharactersSignedIn = this.competitionsService.GetCharactersSignedId(competition.Id);
+                competition.CharactersSignedIn = this.competitionsService.GetCharactersSignedUp(competition.Id);
             }
 
             return this.View(competitions);
@@ -62,7 +62,7 @@ namespace HolocronProject.Web.Controllers
             foreach (var competition in competitions)
             {
                 competition.Winner = this.competitionsService.GetWinner(competition.Id);
-                competition.CharactersSignedIn = this.competitionsService.GetCharactersSignedId(competition.Id);
+                competition.CharactersSignedIn = this.competitionsService.GetCharactersSignedUp(competition.Id);
             }
 
             return this.View(competitions);
