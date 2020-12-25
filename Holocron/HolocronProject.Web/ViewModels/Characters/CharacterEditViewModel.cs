@@ -21,7 +21,6 @@ namespace HolocronProject.Web.ViewModels.Characters
     {
         public string CharacterId { get; set; }
 
-        [CharacterNameInServer]
         [MaxLength(CharacterConstants.NameMaxLength, ErrorMessage = CharacterErrorMessages.NameMaxLengthError)]
         public string Name { get; set; }
 

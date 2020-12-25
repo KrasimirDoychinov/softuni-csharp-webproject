@@ -207,5 +207,8 @@ namespace HolocronProject.Services.Implementations
             => this.context.Accounts
             .Any(x => x.UserName == accountUsername && x.IsBanned);
 
+        public bool IsEmailTaken(string email)
+            => this.context.Accounts
+            .Any(x => x.Email == email);
     }
 }

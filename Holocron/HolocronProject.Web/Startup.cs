@@ -138,14 +138,13 @@ namespace HolocronProject.Web
             app.UseCookiePolicy();
 
             app.UseHangfireDashboard();
-            backgroundJobs.Enqueue(() => Console.WriteLine("Hello world from Hangfire!"));
 
             app.UseRouting();
 
             app.UseAuthentication();
             app.UseAuthorization();
 
-            DataSeeder.SeedData(userManager, roleManager, accountsService);
+            //DataSeeder.SeedData(userManager, roleManager, accountsService);
 
             app.UseEndpoints(endpoints =>
             {

@@ -856,5 +856,37 @@ namespace HolocronProject.Tests.Services
 
             Assert.AreEqual(1, deletedCharactersCount);
         }
+
+        [Test]
+        public async Task IsCharacterNameTakenInSameServerReturnsCorrectValue()
+        {
+            var character = new Character
+            {
+                Id = "1",
+                Account = new Account { Id = "1" },
+                Name = "Test",
+                Class = new Class { Name = "Test" },
+                Race = new Race { Name = "Test" },
+                Title = "Test",
+                Gender = Gender.Male,
+                CharacterImagePath = "Test",
+                Server = new Server { Id = "1" },
+                IsDeleted = false,
+                Backstory = "Test",
+                CharacterType = CharacterType.Fashion,
+                CreatedOn = DateTime.UtcNow,
+                DeletedOn = DateTime.UtcNow.AddDays(1),
+                Description = "Test",
+                ForceAffiliation = ForceAffiliation.LightSide,
+                CharacterStatus = CharacterStatus.Pending
+            };
+
+            await context.Characters.AddAsync(character);
+            await context.SaveChangesAsync();
+
+            var isCharacterNameTaken = this.charactersService.IsCharacterNameTakenInSameServer("Test", "1");
+
+            Assert.True(isCharacterNameTaken);
+        }
     }
 }

@@ -489,5 +489,23 @@ namespace HolocronProject.Tests.Services
 
             Assert.True(isAccountBanned);
         }
+
+        [Test]
+        public async Task IsEmailTakenShouldReturnCorrectValue()
+        {
+            var account = new Account
+            {
+                Id = "1",
+                Email = "Test@gmail.com"
+            };
+
+            await this.context.Accounts.AddAsync(account);
+            await this.context.SaveChangesAsync();
+
+            await this.accountService.BanAccountAsync("1");
+            var isEmailTaken = this.accountService.IsEmailTaken("Test@gmail.com");
+
+            Assert.True(isEmailTaken);
+        }
     }
 }

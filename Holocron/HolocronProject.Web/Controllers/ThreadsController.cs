@@ -91,7 +91,6 @@ namespace HolocronProject.Web.Controllers
 
 
             return this.View(threadViewModel);
-            
         }
 
         [Authorize]

@@ -66,6 +66,11 @@ namespace HolocronProject.Web.Controllers
         {
             var accountId = this.userManager.GetUserAsync(this.User).Result.Id;
 
+            if (this.characterService.IsCharacterNameTakenInSameServer(input.Name, input.ServerId))
+            {
+                ModelState.AddModelError("Name taken in server", "The name is already taken on this server.");
+            }
+
             if (!ModelState.IsValid)
             {
                 input.Classes = this.classService.GetAll<ClassViewModel>(null);
@@ -110,6 +115,11 @@ namespace HolocronProject.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(CharacterEditViewModel input)
         {
+            if (this.characterService.IsCharacterNameTakenInSameServer(input.Name, input.ServerId))
+            {
+                ModelState.AddModelError("Name taken in server", "The name is already taken on this server.");
+            }
+
             if (!ModelState.IsValid)
             {
                 input.Classes = this.classService.GetAll<ClassViewModel>(null);

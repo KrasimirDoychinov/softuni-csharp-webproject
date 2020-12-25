@@ -88,7 +88,6 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account
             [Required]
             [Display(Name = "Email")]
             [EmailAddress]
-            //[EmailTaken]
             public string Email { get; set; }
 
             [Display(Name = "Avatar")]
@@ -105,6 +104,11 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
+            if (this.accountsService.IsEmailTaken(Input.Email))
+            {
+                ModelState.AddModelError("Email", "The email is already taken.");
+            }
 
             if (ModelState.IsValid)
             {

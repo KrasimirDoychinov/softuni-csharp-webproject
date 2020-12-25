@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HolocronProject.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201221190611_AddDeletedOnAndIsDeletedToAccount")]
-    partial class AddDeletedOnAndIsDeletedToAccount
+    [Migration("20201225140438_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -32,14 +32,14 @@ namespace HolocronProject.Data.Migrations
                     b.Property<string>("AvatarImagePath")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("BannedOn")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DeletedOn")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
@@ -52,7 +52,7 @@ namespace HolocronProject.Data.Migrations
                     b.Property<string>("ForumSignature")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool>("IsBanned")
                         .HasColumnType("bit");
 
                     b.Property<bool>("LockoutEnabled")
@@ -161,8 +161,8 @@ namespace HolocronProject.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "366d7978-7508-4b7c-8ebb-c4089e98f2c0",
-                            CreatedOn = new DateTime(2020, 12, 21, 19, 6, 11, 93, DateTimeKind.Utc).AddTicks(6148),
+                            Id = "97cf1580-f962-4888-84d7-71f7fae84703",
+                            CreatedOn = new DateTime(2020, 12, 25, 14, 4, 38, 303, DateTimeKind.Utc).AddTicks(6911),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "This is the place to discuss everything PVP related. From questions about gear, stats, guides, discussions and everything else related to PVP in SWTOR. You can also post about PVP guilds, recruitment and more.",
                             ImageUrl = "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_76.png",
@@ -171,8 +171,8 @@ namespace HolocronProject.Data.Migrations
                         },
                         new
                         {
-                            Id = "15b00b1c-6a9e-4ed4-8b57-36dc7789cfd5",
-                            CreatedOn = new DateTime(2020, 12, 21, 19, 6, 11, 93, DateTimeKind.Utc).AddTicks(7100),
+                            Id = "bdde1274-de6d-4d4f-a89f-3b0a9660a856",
+                            CreatedOn = new DateTime(2020, 12, 25, 14, 4, 38, 303, DateTimeKind.Utc).AddTicks(7860),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "This is the place to talk about PVE. Best gear and stats for flashpoints, operations. You can post guides about PVE content here from leveling guides to FP and OP guides. You can also post about PVE guild recruitment and give information about your guild here.",
                             ImageUrl = "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_88.png",
@@ -181,8 +181,8 @@ namespace HolocronProject.Data.Migrations
                         },
                         new
                         {
-                            Id = "6c1fa392-584a-483d-b556-98f53686ce42",
-                            CreatedOn = new DateTime(2020, 12, 21, 19, 6, 11, 93, DateTimeKind.Utc).AddTicks(7135),
+                            Id = "fecba674-f6ed-40ee-95e7-32dbe982bc80",
+                            CreatedOn = new DateTime(2020, 12, 25, 14, 4, 38, 303, DateTimeKind.Utc).AddTicks(7897),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "If you want to RP on the site this is the place for you. This is the RP section of the forums where you can find all the forum RP you've ever wanted. You can also post about in-game RP and so on.",
                             ImageUrl = "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_423.png",
@@ -191,8 +191,8 @@ namespace HolocronProject.Data.Migrations
                         },
                         new
                         {
-                            Id = "8e17737d-b2cb-41aa-9546-e64eb0a3396e",
-                            CreatedOn = new DateTime(2020, 12, 21, 19, 6, 11, 93, DateTimeKind.Utc).AddTicks(7138),
+                            Id = "e048cb61-7fe0-4878-b0d3-12199726b1df",
+                            CreatedOn = new DateTime(2020, 12, 25, 14, 4, 38, 303, DateTimeKind.Utc).AddTicks(7900),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "This is where you can talk about anything you want. It doesn't need to be just SWTOR or Star Wars. You can post about other games, cars, IT discussions, politics, and everything that can't be found on the other threads.",
                             ImageUrl = "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_8.png",
@@ -201,8 +201,8 @@ namespace HolocronProject.Data.Migrations
                         },
                         new
                         {
-                            Id = "7dab54eb-3127-454a-a061-7738e6e6a794",
-                            CreatedOn = new DateTime(2020, 12, 21, 19, 6, 11, 93, DateTimeKind.Utc).AddTicks(7141),
+                            Id = "271452b8-2fb5-4795-8007-a61229f90e03",
+                            CreatedOn = new DateTime(2020, 12, 25, 14, 4, 38, 303, DateTimeKind.Utc).AddTicks(7903),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "This is the place to show of your character to other people. You can post cool, more modified images of your character. Here you can ask about items and how to combine them to make a cooler character in-game.",
                             ImageUrl = "https://cdn-www.swtor.com/sites/all/files/en/forums/forum_245.png",
@@ -239,8 +239,8 @@ namespace HolocronProject.Data.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("nvarchar(200)")
-                        .HasMaxLength(200);
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
 
                     b.HasKey("Id");
 
@@ -343,97 +343,97 @@ namespace HolocronProject.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "65f6b6ee-e0fb-4233-8ca9-0981ad77f0ba",
+                            Id = "7bf92325-32f9-45e5-bd42-1da307b8d132",
                             Faction = 2,
                             Name = "Juggernaut"
                         },
                         new
                         {
-                            Id = "407e4253-4b0a-4bec-be4b-b5a9d196dcd9",
+                            Id = "f8b9c9fc-cc8d-4794-b1aa-050de1068127",
                             Faction = 2,
                             Name = "Marauder"
                         },
                         new
                         {
-                            Id = "e6fc2e6e-0408-4c19-b77d-e5b689fe7a1d",
+                            Id = "562d87e3-7dbd-41a9-819d-47d9252b971f",
                             Faction = 2,
                             Name = "Sorcerer"
                         },
                         new
                         {
-                            Id = "e08f68ce-f2a5-431f-a803-bc3e15b8bb90",
+                            Id = "14beff06-91c9-43dc-845c-660f93e5569c",
                             Faction = 2,
                             Name = "Assassin"
                         },
                         new
                         {
-                            Id = "a574e76d-f0d1-4bec-a00a-759f6abdbbb5",
+                            Id = "504e803e-45ae-4f23-a232-797ba66fce29",
                             Faction = 2,
                             Name = "Sniper"
                         },
                         new
                         {
-                            Id = "c48b331e-448b-466f-8718-50aa3ae3225c",
+                            Id = "a4f9af8b-e29f-49ca-9a0a-e559cc3aa632",
                             Faction = 2,
                             Name = "Operative"
                         },
                         new
                         {
-                            Id = "35b03190-03b5-44cd-afac-6bc13f0092a3",
+                            Id = "cbc04c98-efba-4a91-991a-3938bd11c07d",
                             Faction = 2,
                             Name = "Powertech"
                         },
                         new
                         {
-                            Id = "b7c998d8-8239-42a2-b953-64ea79521a0d",
+                            Id = "50d3e36a-1fde-4f2a-a06f-593d4cf38203",
                             Faction = 2,
                             Name = "Mercenary"
                         },
                         new
                         {
-                            Id = "e7f2761c-f42c-4025-a602-86c103d6800c",
+                            Id = "270c8e02-0898-4c69-b26c-cf49084d0a22",
                             Faction = 1,
                             Name = "Gunslinger"
                         },
                         new
                         {
-                            Id = "06b95437-40b1-4023-a278-57d26bf5d845",
+                            Id = "12f42ac9-7372-4328-b358-fd0b93c8ee31",
                             Faction = 1,
                             Name = "Scoundrel"
                         },
                         new
                         {
-                            Id = "724a3253-6ccc-48e0-94e2-133aa41ffcd8",
+                            Id = "ed0bc879-2a79-44a2-b2c1-a8fa3ca6452a",
                             Faction = 1,
                             Name = "Vanguard"
                         },
                         new
                         {
-                            Id = "d8886125-f9af-4adc-adbe-edc5a05396eb",
+                            Id = "d03e79ee-4362-4969-9278-d6a8f8df6d87",
                             Faction = 1,
                             Name = "Commando"
                         },
                         new
                         {
-                            Id = "bed4dc7d-c2a4-4f75-ab05-31975cc8a9ed",
+                            Id = "4a09d598-357e-41c4-8a0f-9ac2162c27bb",
                             Faction = 1,
                             Name = "Sage"
                         },
                         new
                         {
-                            Id = "25a3d451-87a9-4fca-8e1f-42afd932ac71",
+                            Id = "e54865ca-3bde-40e0-afb6-e8af6d8b8c7f",
                             Faction = 1,
                             Name = "Shadow"
                         },
                         new
                         {
-                            Id = "7b0678f9-d7a6-483e-a17b-30194e74e2af",
+                            Id = "5436fb51-8837-4f3f-a969-0be4ec3fd340",
                             Faction = 1,
                             Name = "Sentinel"
                         },
                         new
                         {
-                            Id = "995aa575-b0e1-46f0-811e-52b0aa6b0aef",
+                            Id = "ee481e26-cb05-4acd-93c5-4b83b03b33ed",
                             Faction = 1,
                             Name = "Guardian"
                         });
@@ -488,7 +488,16 @@ namespace HolocronProject.Data.Migrations
                     b.Property<string>("CompetitionCharacterId")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DeletedOn")
+                        .HasColumnType("datetime2");
+
                     b.Property<bool>("HasVoted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.HasKey("AccountId", "CompetitionId");
@@ -508,8 +517,17 @@ namespace HolocronProject.Data.Migrations
                     b.Property<string>("CompetitionId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DeletedOn")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<int>("Votes")
                         .HasColumnType("int");
@@ -589,8 +607,8 @@ namespace HolocronProject.Data.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("nvarchar(200)")
-                        .HasMaxLength(200);
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
 
                     b.HasKey("Id");
 
@@ -617,62 +635,62 @@ namespace HolocronProject.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "da0f3a23-7b6a-42f2-98e1-82e6d4ec126a",
+                            Id = "bbb17000-e687-467f-b282-1771a35054bc",
                             Name = "Chiss"
                         },
                         new
                         {
-                            Id = "43b3263c-b634-46e9-a720-62fdf5cb2a3d",
+                            Id = "91a51bf7-ce0e-41e7-890f-5549a3eb79d7",
                             Name = "Cyborg"
                         },
                         new
                         {
-                            Id = "1ed718b1-274e-4d9f-937f-a9571dfcfacf",
+                            Id = "fb64d06d-bd2d-48dc-99a3-c5b8cdceae2d",
                             Name = "Human"
                         },
                         new
                         {
-                            Id = "3172db37-01e5-4fda-b2aa-32c2dcf3a6e9",
+                            Id = "edfde694-73f6-4417-8cb9-2f6fda9ca47f",
                             Name = "Miraluka"
                         },
                         new
                         {
-                            Id = "089c0b84-d0ea-4efa-87bc-c34f6794d415",
+                            Id = "5ab58af5-deb2-44cb-b061-1a8975c27ddd",
                             Name = "Mirialan"
                         },
                         new
                         {
-                            Id = "13229c5e-bb30-455d-8fba-5f5ab854773d",
+                            Id = "dd3483f8-2760-4ed2-965c-317de3afd747",
                             Name = "Rattaki"
                         },
                         new
                         {
-                            Id = "1eb19ff9-3f57-4288-9bcc-30fe36ec6c1e",
+                            Id = "57bf7120-8d62-4260-82b0-a2eb5a76e947",
                             Name = "Sith Pureblood"
                         },
                         new
                         {
-                            Id = "823882f1-a4b0-45ea-9048-0218e2a375e7",
+                            Id = "3cb982b3-d4e9-47b2-a778-e80784f3a2e0",
                             Name = "Twi'lek"
                         },
                         new
                         {
-                            Id = "f1683fc0-8647-4441-8892-3a17cdce31ea",
+                            Id = "307a3738-9116-4940-a41a-c22b2fb15661",
                             Name = "Zabrak"
                         },
                         new
                         {
-                            Id = "75ac9fe3-11bc-4e78-85f3-011184a337fb",
+                            Id = "af9ba85d-b3f8-4830-acfb-5cb9350a3052",
                             Name = "Cathar"
                         },
                         new
                         {
-                            Id = "7c86d9c7-7f37-41ef-848a-4ccd3c68c1a6",
+                            Id = "ce624672-0184-40d2-a7ba-c49a1c02c75a",
                             Name = "Togruta"
                         },
                         new
                         {
-                            Id = "03f26e12-31bc-4cd1-89a8-df83f2496bed",
+                            Id = "d39e8f97-87e7-402c-ba93-dd251269de07",
                             Name = "Nautolan"
                         });
                 });
@@ -693,27 +711,27 @@ namespace HolocronProject.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "49d3f0c3-b2b8-4747-989d-17d4e76d3078",
+                            Id = "1037189c-fff1-4d19-a3c6-0a15bb3b916e",
                             Name = "Darth Malgus"
                         },
                         new
                         {
-                            Id = "b3285389-38fc-4219-b0ff-6b92ad02bc20",
+                            Id = "3290c538-30ed-4f37-88fa-bb3e60a64c7a",
                             Name = "Star Forge"
                         },
                         new
                         {
-                            Id = "cd78a688-b4e0-428c-94f1-596da6d369c7",
+                            Id = "f4424402-26ad-4ab2-b20c-30768ea1e1f3",
                             Name = "Satele Shan"
                         },
                         new
                         {
-                            Id = "c576c8d7-34ea-4050-a592-975b72fcc4e5",
+                            Id = "24c2109f-85cf-42d9-86a5-6cedfa113e35",
                             Name = "Tulak Hord"
                         },
                         new
                         {
-                            Id = "ccc5328a-8a00-4fb2-ac86-50592ca4e129",
+                            Id = "c15a7613-0a77-4471-977c-75a1201b7aad",
                             Name = "The Leviathan"
                         });
                 });

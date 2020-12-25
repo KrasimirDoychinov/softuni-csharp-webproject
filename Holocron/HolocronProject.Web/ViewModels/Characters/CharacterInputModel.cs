@@ -21,7 +21,6 @@ namespace HolocronProject.Web.ViewModels.Characters
 
     public class CharacterInputModel : IMapFrom<Data.Models.Character>
     {
-        [CharacterNameInServer]
         [MaxLength(CharacterConstants.NameMaxLength, ErrorMessage = CharacterErrorMessages.NameMaxLengthError)]
         public string Name { get; set; }
 
@@ -36,7 +35,7 @@ namespace HolocronProject.Web.ViewModels.Characters
 
         [Required]
         [Display(Name = "Character image")]
-        [ImageValidatorAttribute]
+        [ImageValidator]
         public IFormFile Image { get; set; }
 
         [Required]
@@ -64,7 +63,6 @@ namespace HolocronProject.Web.ViewModels.Characters
         public string RaceId { get; set; }
 
         public IEnumerable<RaceViewModel> Races { get; set; }
-
 
         [Required]
         [Display(Name = "Server")]

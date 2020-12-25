@@ -47,6 +47,8 @@ namespace HolocronProject.Services
 
         bool IsAccountBanned(string accountId);
 
+        bool IsEmailTaken(string email);
+
         int TotalAccounts();
     }
 }
