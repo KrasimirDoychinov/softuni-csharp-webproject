@@ -16,13 +16,9 @@ namespace HolocronProject.Web.Areas.Administration.ViewModels.Accounts
 
         public DateTime CreatedOn { get; set; }
 
-        public string NormalizedCreatedOn => this.CreatedOn.ToLocalTime().ToString("MM/dd/yyyy h:mm tt");
-
         public bool IsBanned { get; set; }
 
         public DateTime BannedOn { get; set; }
-
-        public string NormalizedBannedOn => this.BannedOn.ToLocalTime().ToString("MM/dd/yyyy h:mm tt");
 
         public string AvatarImagePath { get; set; }
 

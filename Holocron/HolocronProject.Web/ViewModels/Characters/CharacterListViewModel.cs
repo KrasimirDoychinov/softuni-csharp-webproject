@@ -28,7 +28,5 @@ namespace HolocronProject.Web.ViewModels.Characters
         
         public DateTime CreatedOn { get; set; }
 
-        public string NormalizedCreatedOn => this.CreatedOn.ToLocalTime().ToString("MM/dd/yyyy h:mm tt");
-
     }
 }

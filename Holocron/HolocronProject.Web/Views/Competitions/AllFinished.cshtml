@@ -15,7 +15,7 @@ else
 
     <hr class="bg-warning" />
     <table class="table text-white table-striped table-hover table-dark background-table">
-        <thead>
+        <thead class="thead-darker">
             <tr class="text-warning">
                 <th scope="col" class="col">Title</th>
                 <th scope="col">Winner</th>
@@ -31,8 +31,8 @@ else
                     <td><a href="/Competitions/ByIdFinished?competitionId=@item.Id" class="text-decoration-none text-warning" role="button">@item.ShortTitle</a><br />@item.ShortDescription</td>
                     <td class="text-uppercase">@item.Winner</td>
                     <td>@item.CharactersSignedIn</td>
-                    <td>@item.NormalizedStartDate</td>
-                    <td>@item.NormalizedEndDate</td>
+                    <td><partial name="ToLocalTime" model="item.StartDate" /></td>
+                    <td><partial name="ToLocalTime" model="item.EndDate" /></td>
                 </tr>
             }
         </tbody>

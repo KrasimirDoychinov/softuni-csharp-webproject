@@ -7,8 +7,11 @@
 
 @if (Model.Count() <= 0)
 {
-    <h1 class="text-center">There are currently no pending bug reports</h1>
-    <a asp-controller="BugReports" asp-action="AllResolvedBugReports" class="btn btn-primary">Resolved</a>
+    <div class="text-center text-warning">
+        <h1>There are currently no pending bug reports</h1>
+        <a asp-controller="BugReports" asp-action="AllResolvedBugReports" class="btn btn-outline-warning">Resolved</a>
+    </div>
+
 }
 else
 {
@@ -16,7 +19,7 @@ else
 
     <hr class="bg-warning" />
     <table class="table table-dark table-striped table-hover text-white background-table border border-dark">
-        <thead>
+        <thead class="thead-darker">
             <tr class="text-warning">
                 <th scope="col" class="col">Title</th>
                 <th scope="col">Created by</th>
@@ -29,8 +32,8 @@ else
             {
                 <tr>
                     <td><a href="/Administration/BugReports/ById?id=@item.Id" class="text-decoration-none text-warning" role="button">@item.Title</a><br />@item.ShortDescription</td>
-                    <td >@item.AccountUserName</td>
-                    <td>@item.NormalizedCreatedOn</td>
+                    <td>@item.AccountUserName</td>
+                    <td><partial name="ToLocalTime" model="item.CreatedOn" /></td>
                     <td class="text-info font-weight-bolder">@item.IsResolvedString</td>
                 </tr>
             }

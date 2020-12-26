@@ -12,8 +12,8 @@
 }
 <div class="text-center">
     <h2 class="text-warning font-weight-bold">@Model.Title</h2>
-    <h4><span class="text-warning font-weight-bold">Start date: </span>@Model.NormalizedStartDate</h4>
-    <h4><span class="text-warning font-weight-bold">End date: </span>@Model.NormalizedEndDate</h4>
+    <h4><span class="text-warning font-weight-bold">Start date: </span><partial name="ToLocalTime" model="Model.StartDate" /></h4>
+    <h4><span class="text-warning font-weight-bold">End date: </span><partial name="ToLocalTime" model="Model.EndDate" /></h4>
     <h5 class="text-warning font-weight-bold">Description</h5>
     <p class="text-break">@Model.Description</p>
 </div>
@@ -24,7 +24,7 @@
         @foreach (var item in Model.Characters)
         {
             <div class="d-inline-block grid mb-5">
-                <a href="/Characters/CharacterInfo?characterId=@item.Character.Id&accountId=@item.Character.AccountId"><img src="~/Images/CharacterImages/@item.Character.CharacterImagePath?random=@ViewData["random"].ToString()" class="ml-3 mb-3 border border-warning rounded-pill" style="width: 325px; height:300px" /></a>
+                <a href="/Characters/CharacterInfo?characterId=@item.Character.Id&accountId=@item.Character.AccountId"><img src="~/Images/CharacterImages/@item.Character.CharacterImagePath?random=@ViewData["random"]" class="ml-3 mb-3 border border-warning rounded-pill" style="width: 325px; height:300px" /></a>
                 @if (counter == 1)
                 {
                     <h3 class="font-weight-bolder text-warning">First place</h3>

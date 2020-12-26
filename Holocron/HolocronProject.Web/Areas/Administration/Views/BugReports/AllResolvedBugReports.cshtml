@@ -18,7 +18,7 @@ else
 
     <hr class="bg-warning"/>
     <table class="table table-dark table-striped table-hover text-white background-table">
-        <thead>
+        <thead class="thead-darker">
             <tr class="text-warning">
                 <th scope="col" class="col">Title</th>
                 <th scope="col">Reported by</th>
@@ -34,8 +34,8 @@ else
                 <tr>
                     <td class="text-warning">@item.ShortTitle<br /><span class="text-white">@item.ShortDescription</span></td>
                     <td class="text-info">@item.AccountUserName</td>
-                    <td>@item.NormalizedCreatedOn</td>
-                    <td>@item.NormalizedResolvedOn</td>
+                    <td><partial name="ToLocalTime" model="item.CreatedOn" /></td>
+                    <td><partial name="ToLocalTime" model="item.ResolvedOn" /></td>
                     <td class="text-success font-weight-bold">@item.IsResolvedString</td>
                 </tr>
             }

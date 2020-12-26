@@ -3,11 +3,11 @@
 <div class="mb-3 p-3 background-admin">
     <div class="text-center">
         <div class="col-md-12">
-            <img src="~/Images/CharacterImages/@Model.CharacterImagePath?random=@ViewData["random"].ToString()" class="border border-warning rounded-pill" width="400" height="400" />
+            <img src="~/Images/CharacterImages/@Model.CharacterImagePath?random=@ViewData["random"]" class="border border-warning rounded-pill" width="400" height="400" />
             <div class="col-md-12 text-left mt-2">
                 <div class="text-center">
                     <h4><span class="font-weight-bold text-warning">Created by: </span>@Model.AccountUserName <span class="text-warning">has <span class="text-danger">@Model.NotBannedCharacters</span> characters <span class="text-danger">@Model.BannedCharacters</span> deleted</span></h4>
-                    <h4><span class="font-weight-bold text-warning">Name: </span>@Model.Name</h4
+                    <h4><span class="font-weight-bold text-warning">Name: </span>@Model.Name</h4>
                     @if (!string.IsNullOrWhiteSpace(Model.Title))
                     {
                         <h4><span class="font-weight-bold text-warning">Title: </span>@Model.Title</h4>
@@ -18,7 +18,7 @@
                     <h5><span class="font-weight-bold text-warning">Class: </span>@Model.ClassName</h5>
                     <h5><span class="font-weight-bold text-warning">Race: </span>@Model.RaceName</h5>
                     <h5><span class="font-weight-bold text-warning">Server: </span>@Model.ServerName</h5>
-                    <h5><span class="font-weight-bold text-warning">Created on: </span>@Model.NormalizedCreatedOn</h5>
+                    <h5><span class="font-weight-bold text-warning">Created on: </span><partial name="ToLocalTime" model="Model.CreatedOn" /></h5>
                 </div>
             </div>
         </div>

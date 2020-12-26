@@ -1,12 +1,10 @@
 ﻿using HolocronProject.Data.Models;
 using HolocronProject.Services;
-using HolocronProject.Web.ViewModels.Characters;
 using HolocronProject.Web.ViewModels.Competitions;
 using HolocronProject.Web.ViewModels.Pager;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -108,7 +106,7 @@ namespace HolocronProject.Web.Controllers
         private static void AllCompetitionCharactersPaging(int? page, CompetitionViewModel competition)
         {
             var pager = new Pager(competition.Characters.Count(), page);
-            competition.Characters = competition.Characters.OrderByDescending(x => x.Character.NormalizedCreatedOn);
+            competition.Characters = competition.Characters.OrderByDescending(x => x.Character.CreatedOn);
             competition.Characters = competition.Characters.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize);
 
             competition.Pager = pager;
@@ -117,7 +115,7 @@ namespace HolocronProject.Web.Controllers
         private static IEnumerable<CompetitionListViewModel> AllCompetitionsPaging(int? page, IEnumerable<CompetitionListViewModel> competitions)
         {
             var pager = new Pager(competitions.Count(), page);
-            competitions = competitions.OrderByDescending(x => x.NormalizedStartDate);
+            competitions = competitions.OrderByDescending(x => x.StartDate);
             competitions = competitions.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize);
 
             competitions.AsParallel().ForAll(x => x.Pager = pager);

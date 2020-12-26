@@ -16,19 +16,11 @@ namespace HolocronProject.Web.ViewModels.Accounts
 
         public DateTime CreatedOn { get; set; }
 
-        public string NormalizedCreatedOn => this.CreatedOn.ToLocalTime().ToString("MM/dd/yyyy h:mm tt");
-
         public string AvatarImagePath { get; set; }
 
         public int PostsCount { get; set; }
 
         public int ThreadsCount { get; set; }
-
-        public int BugReportsCount { get; set; }
-
-        public int PostReportsCount { get; set; }
-
-        public int CharactersCount { get; set; }
 
         public string Role { get; set; }
     }

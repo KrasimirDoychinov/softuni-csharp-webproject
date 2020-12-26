@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using HolocronProject.Web.Models;
-using Microsoft.AspNetCore.Identity;
-using System.Security.Claims;
 using HolocronProject.Services;
-using HolocronProject.Data.Models;
 using HolocronProject.Web.ViewModels.BaseThreads;
 
 namespace HolocronProject.Web.Controllers

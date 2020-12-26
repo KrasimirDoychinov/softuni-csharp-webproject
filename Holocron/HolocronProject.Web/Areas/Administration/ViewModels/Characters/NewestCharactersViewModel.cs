@@ -27,8 +27,6 @@ namespace HolocronProject.Web.Areas.Administration.ViewModels.Characters
 
         public DateTime DeletedOn { get; set; }
 
-        public string NormalizedDeletedOn => this.DeletedOn.ToLocalTime().ToString("MM/dd/yyyy h:mm tt");
-
         public CharacterStatus CharacterStatus { get; set; }
         
         public bool AccountIsBanned { get; set; }

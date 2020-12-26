@@ -15,8 +15,8 @@
 }
 <div class="text-center">
     <h2 class="text-warning font-weight-bold">@Model.Title</h2>
-    <h4><span class="text-warning font-weight-bold">Start date: </span>@Model.NormalizedStartDate</h4>
-    <h4><span class="text-warning font-weight-bold">End date: </span>@Model.NormalizedEndDate</h4>
+    <h4><span class="text-warning font-weight-bold">Start date: </span><partial name="ToLocalTime" model="Model.StartDate" /></h4>
+    <h4><span class="text-warning font-weight-bold">End date: </span><partial name="ToLocalTime" model="Model.EndDate" /></h4>
     <h5 class="text-warning font-weight-bold">Description</h5>
     <p class="text-break">@Model.Description</p>
 </div>
@@ -57,7 +57,7 @@ else
                         </div>
 
                         <div class="mb-2">
-                            <a href="/Characters/CharacterInfo?characterId=@item.Character.Id&accountId=@item.Character.AccountId"><img src="~/Images/CharacterImages/@item.Character.CharacterImagePath?random=@ViewData["random"].ToString()" class="mr-3 border-warning border rounded-pill" width="200" height="200" /></a>
+                            <a href="/Characters/CharacterInfo?characterId=@item.Character.Id&accountId=@item.Character.AccountId"><img src="~/Images/CharacterImages/@item.Character.CharacterImagePath?random=@ViewData["random"]" class="mr-3 border-warning border rounded-pill" width="200" height="200" /></a>
                         </div>
                     </div>
 
@@ -67,7 +67,7 @@ else
                 {
                     <div class="grid mb-5 row">
                         <div class="mb-2">
-                            <a href="/Characters/CharacterInfo?characterId=@item.Character.Id&accountId=@item.Character.AccountId"><img src="~/Images/CharacterImages/@item.Character.CharacterImagePath?random=@ViewData["random"].ToString()" class="mr-3 border-warning border rounded-pill" width="200" height="200" /></a>
+                            <a href="/Characters/CharacterInfo?characterId=@item.Character.Id&accountId=@item.Character.AccountId"><img src="~/Images/CharacterImages/@item.Character.CharacterImagePath?random=@ViewData["random"]" class="mr-3 border-warning border rounded-pill" width="200" height="200" /></a>
                         </div>
                         <div class="d-block">
                             <h4 class="text-warning font-weight-bolder text-uppercase">@item.Character.Name</h4>

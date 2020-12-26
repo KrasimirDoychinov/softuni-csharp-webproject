@@ -1,12 +1,10 @@
-﻿using Ganss.XSS;
-using HolocronProject.Data.Models;
+﻿using HolocronProject.Data.Models;
 using HolocronProject.Services;
 using HolocronProject.Web.ViewModels.Pager;
 using HolocronProject.Web.ViewModels.PostReports;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;

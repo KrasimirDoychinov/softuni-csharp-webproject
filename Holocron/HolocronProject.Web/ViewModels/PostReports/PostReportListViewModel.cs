@@ -21,10 +21,6 @@ namespace HolocronProject.Web.ViewModels.PostReports
 
         public DateTime ResolvedOn { get; set; }
 
-        public string NormalizedCreatedOn => this.CreatedOn.ToLocalTime().ToString("MM/dd/yyyy h:mm tt");
-
-        public string NormalizedResolvedOn => this.ResolvedOn.ToLocalTime().ToString("MM/dd/yyyy h:mm tt");
-
         public string Description { get; set; }
 
         public string ShortDescription => this.Description.Length > 65 ? this.Description.Substring(0, 65) + "..." : this.Description;

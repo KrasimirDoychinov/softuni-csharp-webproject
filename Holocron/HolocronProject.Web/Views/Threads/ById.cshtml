@@ -17,11 +17,11 @@
             <div class="card mb-4 background-modal-topbottom border border-warning rounded-lg">
                 <div class="card-header">
                     <div class="media flex-wrap w-100 align-items-center">
-                        <img src="/Images/AvatarImages/@Model.AccountAvatarImagePath?random=@ViewData["random"].ToString()" class="d-block ui-w-40 rounded-circle border border-warning" height="100" width="100" alt="">
+                        <img src="/Images/AvatarImages/@Model.AccountAvatarImagePath?random=@ViewData["random"]" class="d-block ui-w-40 rounded-circle border border-warning" height="100" width="100" alt="">
 
                         <div class="media-body ml-3">
                             <a href="/Accounts/ForeignAccount?accountId=@Model.AccountId" class="text-decoration-none text-warning" data-abc="true">@Model.AccountUserName</a>
-                            <div class="small" id="testDate">Created on <strong>@Model.NormalizedCreatedOn.ToString()</strong></div>
+                            <div class="small" id="testDate">Created on <strong><partial name="ToLocalTime" model="Model.CreatedOn" /></strong></div>
                             <div class="small">
                                 <strong>@Model.PostsCount</strong>
                                 @if (Model.PostsCount == 1)
@@ -82,7 +82,7 @@
                         <div class="card mb-3 background-modal-topbottom border border-dark rounded-lg m-2">
                             <div class="card-header">
                                 <div class="media flex-wrap w-100 align-items-center">
-                                    <img src="/Images/AvatarImages/@item.AccountAvatarImagePath?random=@ViewData["random"].ToString()" class="d-block ui-w-40 rounded-circle border border-warning" height="100" width="100" alt="">
+                                    <img src="/Images/AvatarImages/@item.AccountAvatarImagePath" class="d-block ui-w-40 rounded-circle border border-warning" height="100" width="100" alt="">
                                     <div class="media-body ml-3">
                                         @if (item.AccountId == currAccountId)
                                         {
@@ -95,7 +95,7 @@
                                             <a href="/Accounts/ForeignAccount?accountId=@item.AccountId" class="text-decoration-none text-warning" data-abc="true">@item.AccountUserName</a>
                                             <a href="/PostReports/Create?postId=@item.Id" class="btn btn-outline-danger btn-sm float-right">Report post</a>
                                         }
-                                        <div class="small">Created on <strong>@item.NormalizedCreatedOn</strong></div>
+                                        <div class="small">Created on <strong><partial name="ToLocalTime" model="item.CreatedOn" /></strong></div>
                                     </div>
                                 </div>
                             </div>

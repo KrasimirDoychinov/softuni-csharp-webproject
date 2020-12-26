@@ -1,10 +1,12 @@
 ﻿@model BaseThreadViewModel
 
+
+
 @if (Model.ThreadsCount <= 0)
 {
-    <h1 class="text-center">There are currently no @Model.Title threads.</h1>
-    <div>
-        <h5 class="text-center"><a href="/Threads/Create/?baseThreadId=@Model.Id" class="text-decoration-none">Be the first!</a></h5>
+    <div class="text-center text-warning">
+        <h1>There are currently no <span class="text-danger">@Model.Title</span> threads.</h1>
+        <h5><a href="/Threads/Create/?baseThreadId=@Model.Id" class="text-decoration-none btn btn-outline-warning">Be the first!</a></h5>
     </div>
 }
 
@@ -18,13 +20,13 @@ else
             <h5 class="mt-1">@Model.Description</h5>
         </div>
         <hr class="bg-warning" />
-        <table class="table text-white table-striped table-hover table-dark background-table border border-dark">
-            <thead>
-                <tr>
-                    <th scope="col" class="col text-warning">Title</th>
-                    <th scope="col" class="text-warning">Created on</th>
-                    <th scope="col" class="text-warning">Replies</th>
-                    <th scope="col" class="text-warning">Votes</th>
+        <table class="table table-responsive-md text-white table-striped table-hover table-dark background-table border border-dark">
+            <thead class="thead-darker">
+                <tr class="text-warning">
+                    <th scope="col" class="col">Title</th>
+                    <th scope="col">Created on</th>
+                    <th scope="col">Replies</th>
+                    <th scope="col">Votes</th>
                 </tr>
             </thead>
             <tbody>
@@ -35,7 +37,9 @@ else
                             <a href="/Threads/ById?threadId=@item.Id" class="text-decoration-none text-warning" role="button">@item.ShortenedTitle</a>
                             <br />by @item.AccountUserName
                         </td>
-                        <td>@item.NormalizedCreatedOn</td>
+                        <td>
+                            <partial name="ToLocalTime" model="item.CreatedOn" />
+                        </td>
                         <td>@item.PostsCount</td>
                         <td>@item.VotesCount</td>
                     </tr>

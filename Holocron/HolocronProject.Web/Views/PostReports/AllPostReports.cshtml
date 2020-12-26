@@ -24,7 +24,7 @@ else
 
     <hr class="bg-warning" />
     <table class="table table-dark table-striped table-hover text-white background-table border border-dark">
-        <thead>
+        <thead class="thead-darker">
             <tr>
                 <th scope="col" class="col text-warning">Title</th>
                 <th scope="col" class="text-warning">Status</th>
@@ -36,8 +36,8 @@ else
             {
                 <tr>
                     <td class="text-warning">@item.ShortTitle<br /><span class="text-white">@item.ShortDescription</span></td>
+                    <td><partial name="ToLocalTime" model="item.CreatedOn" /></td>
                     <td>@item.IsResolvedString</td>
-                    <td>@item.NormalizedCreatedOn</td>
                 </tr>
             }
         </tbody>

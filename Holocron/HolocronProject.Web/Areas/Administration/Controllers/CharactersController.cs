@@ -99,7 +99,7 @@ namespace HolocronProject.Web.Areas.Administration.Controllers
 
         private static IEnumerable<NewestCharactersViewModel> CharListPager(int? page, IEnumerable<NewestCharactersViewModel> charListViewModel)
         {
-            charListViewModel = charListViewModel.OrderByDescending(x => x.NormalizedCreatedOn);
+            charListViewModel = charListViewModel.OrderByDescending(x => x.CreatedOn);
             var pager = new Pager(charListViewModel.Count(), page);
             charListViewModel = charListViewModel.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize);
             charListViewModel.AsParallel().ForAll(x => x.Pager = pager);

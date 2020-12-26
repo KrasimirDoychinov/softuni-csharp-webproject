@@ -19,8 +19,6 @@ namespace HolocronProject.Web.ViewModels.Posts
 
         public DateTime DeletedOn { get; set; }
 
-        public string NormalizedDeletedOn => this.DeletedOn.ToLocalTime().ToString("MM/dd/yyyy h:mm tt");
-
         public bool AccountIsBanned { get; set; }
 
         public int NotDeletedPosts { get; set; }

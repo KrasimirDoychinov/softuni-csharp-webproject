@@ -23,7 +23,7 @@
     <div class="col-md-6">
         <form id="profile-form" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="All" class="text-danger"></div>
-            <label><span class="font-weight-bold text-warning">Created on: </span>@Model.NormalizedCreatedOn</label>
+            <label><span class="font-weight-bold text-warning">Created on: </span><partial name="ToLocalTime" model="Model.CreatedOn" /></label>
 
             <div class="form-group">
                 <label asp-for="UserName" class="font-weight-bold text-warning"></label>
@@ -34,14 +34,11 @@
             <div>
                 <label class="font-weight-bold text-warning">Avatar</label>
                 <div>
-                    <label class="text-info">All images will be resized to 150x150 px.</label>
+                    <label class="text-info">All images will be resized</label>
                 </div>
-
             </div>
 
-            <img src="~/Images/AvatarImages/@Model.AvatarImagePath?random=@ViewData["random"].ToString()" class="rounded-circle border border-warning border" height="150" width="150" alt="@Model.AvatarImagePath?random=@ViewData["random"].ToString()" />
-
-
+            <img src="~/Images/AvatarImages/@Model.AvatarImagePath?random=@ViewData["random"]" class="rounded-circle border border-warning border" height="150" width="150" alt="@Model.AvatarImagePath?random=@ViewData["random"].ToString()" />
 
             <div class="form-group mt-3">
                 <input asp-for="AvatarImage" class="form-control img-fluid bg-dark text-white border border-dark" />

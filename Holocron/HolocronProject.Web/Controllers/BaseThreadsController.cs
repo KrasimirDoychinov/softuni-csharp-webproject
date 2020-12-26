@@ -2,10 +2,7 @@
 using HolocronProject.Web.ViewModels.BaseThreads;
 using HolocronProject.Web.ViewModels.Pager;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace HolocronProject.Web.Controllers
 {
@@ -31,7 +28,6 @@ namespace HolocronProject.Web.Controllers
                 thread.PostsCount = this.postsService.TotalNotDeletedPostInThread(thread.Id);
             }
 
-            baseThread.Threads.AsParallel().ForAll(x => x.NormalizedCreatedOn = x.CreatedOn.ToLocalTime().ToString("MM/dd/yyyy h:mm tt"));
             baseThread.Pager = pager;
 
             return this.View(baseThread);

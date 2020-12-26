@@ -1,0 +1,22 @@
+﻿<label id="testDate"></label>
+<script>
+                                var createdOn = new Date("@Model UTC");
+                                var hours = 0;
+                                var minutes = 0;
+
+                                if (createdOn.getMinutes() <= 9) {
+                                    minutes = "0" + createdOn.getMinutes();
+                                }
+                                else {
+                                    minutes = createdOn.getMinutes();
+                                }
+
+                                if (createdOn.getHours() <= 9) {
+                                    hours = "0" + createdOn.getHours();
+                                }
+                                else {
+                                    hours = createdOn.getHours();
+                                }
+
+                                document.getElementById("testDate").outerHTML = createdOn.toLocaleDateString() + " " + hours + ":" + minutes;
+</script>

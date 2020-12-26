@@ -1,20 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Net;
 
 namespace HolocronProject.Web.Controllers
 {
     public class BaseController : Controller
     {
-        public override void OnActionExecuted(ActionExecutedContext filterContext)
+        public override void OnActionExecuted(ActionExecutedContext context)
         {
-            var random = new Random().NextDouble().ToString();
-            ViewData["random"] = random;
-
-            base.OnActionExecuted(filterContext);
+            ViewData["random"] = new Random().NextDouble();
+            base.OnActionExecuted(context);
         }
     }
 }

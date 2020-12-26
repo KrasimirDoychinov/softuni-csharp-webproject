@@ -31,9 +31,9 @@ else
             @foreach (var item in Model)
             {
                 <div class="d-inline-block grid m-3">
-                    <img src="~/Images/AvatarImages/@item.AvatarImagePath?random=@ViewData["random"].ToString()" class="border border-warning rounded-circle" width="325" ; height="300" />
+                    <img src="~/Images/AvatarImages/@item.AvatarImagePath?random=@ViewData["random"]" class="border border-warning rounded-circle" width="325" ; height="300" />
                     <h4><span class="font-weight-bold text-warning">Username: </span>@item.UserName</h4>
-                    <h5><span class="font-weight-bold text-warning">Created on: </span>@item.NormalizedCreatedOn</h5>
+                    <h5><span class="font-weight-bold text-warning">Created on: </span><partial name="ToLocalTime" model="item.CreatedOn" /></h5>
                     <h5><span class="font-weight-bold text-warning">Email: </span>@item.Email</h5>
 
                     @if (item.EmailConfirmed)
@@ -54,7 +54,7 @@ else
                     else
                     {
                         <h5 class="text-danger font-weight-bolder">BANNED</h5>
-                        <h5 class="text-danger">Banned on: <span class="font-weight-bolder">@item.NormalizedBannedOn</span></h5>
+                        <h5 class="text-danger">Banned on: <span class="font-weight-bolder"><partial name="ToLocalTime" model="item.BannedOn" /></span></h5>
                     }
                 </div>
             }

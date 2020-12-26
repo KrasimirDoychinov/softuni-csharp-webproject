@@ -1,20 +1,14 @@
 ﻿using HolocronProject.Data.Models;
 using HolocronProject.Services;
-using HolocronProject.Services.Models.Posts;
 using HolocronProject.Services.Models.Threads;
 using HolocronProject.Web.ViewModels.Threads;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
-using System.Threading;
 using Ganss.XSS;
-using System.Text.RegularExpressions;
-using HtmlAgilityPack;
 using HolocronProject.Web.ViewModels.Pager;
 
 namespace HolocronProject.Web.Controllers

@@ -17,8 +17,6 @@ namespace HolocronProject.Web.Areas.Administration.ViewModels.Characters
 
         public string AccountUserName { get; set; }
 
-        public string NormalizedCreatedOn => this.CreatedOn.ToLocalTime().ToString("MM/dd/yyyy h:mm tt");
-
         public int BannedCharacters { get; set; }
 
         public int NotBannedCharacters { get; set; }

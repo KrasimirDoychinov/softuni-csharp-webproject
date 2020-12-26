@@ -10,7 +10,7 @@
     <div class="text-center">
         <h5><span class="font-weight-bold text-warning">Title: </span>@Model.Title</h5>
         <h5><span class="font-weight-bold text-warning">Reported by: </span>@Model.AccountUserName</h5>
-        <h5><span class="font-weight-bold text-warning">Created on: </span>@Model.NormalizedCreatedOn</h5>
+        <h5><span class="font-weight-bold text-warning">Created on: </span><partial name="ToLocalTime" model="Model.CreatedOn" /></h5>
 
     </div>
     <div>
@@ -29,7 +29,7 @@
         <div class="card mb-4 background-modal-topbottom border border-dark">
             <div class="card-header">
                 <div class="media flex-wrap w-100 align-items-center">
-                    <img src="/Images/AvatarImages/@Model.Post.AccountAvatarImagePath?random=@ViewData["random"].ToString()" class="d-block ui-w-40 rounded-circle border border-warning" height="100" width="100" alt="">
+                    <img src="/Images/AvatarImages/@Model.Post.AccountAvatarImagePath?random=@ViewData["random"]" class="d-block ui-w-40 rounded-circle border border-warning" height="100" width="100" alt="">
 
                     <div class="media-body ml-3">
                         @if (Model.Post.AccountId == currAccountId)

@@ -35,7 +35,7 @@ else
             {
                 <div class="row mb-4 ">
                     <div>
-                        <a href="/Characters/CharacterInfo?characterId=@item.Id&accountId=@item.AccountId"><img src="~/Images/CharacterImages/@item.CharacterImagePath" class="ml-3 border rounded-pill border-warning" style="width: 325px; height:300px" /></a>
+                        <a href="/Characters/CharacterInfo?characterId=@item.Id&accountId=@item.AccountId"><img src="~/Images/CharacterImages/@item.CharacterImagePath?random=@ViewData["random"]" class="ml-3 border rounded-pill border-warning" style="width: 325px; height:300px" /></a>
                     </div>
                     <div class="col-md-4 mt-5">
                         <h4><span class="font-weight-bold text-warning">Name: </span>@item.Name</h4>
@@ -43,12 +43,12 @@ else
                         <h5><span class="font-weight-bold text-warning">Title: </span>@item.Title</h5>
                         <h5><span class="font-weight-bold text-warning">Gender: </span>@item.Gender</h5>
                         <h5><span class="font-weight-bold text-warning">Class: </span>@item.ClassName</h5>
-                        <h5><span class="font-weight-bold text-warning">Created on: </span>@item.NormalizedCreatedOn</h5>
+                        <h5><span class="font-weight-bold text-warning">Created on: </span><partial name="ToLocalTime" model="item.CreatedOn" /></h5>
 
                         @if (item.IsDeleted)
                         {
                             <h5 class="text-danger font-weight-bolder">DELETED</h5>
-                            <h5 class="text-danger">Deleted on: <span class="font-weight-bolder">@item.NormalizedDeletedOn</span></h5>
+                            <h5 class="text-danger">Deleted on: <span class="font-weight-bolder"><partial name="ToLocalTime" model="item.DeletedOn" /></span></h5>
                         }
 
                         @if (item.CharacterStatus == CharacterStatus.Approved)

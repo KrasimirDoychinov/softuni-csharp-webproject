@@ -43,7 +43,5 @@ namespace HolocronProject.Services
 
         IEnumerable<T> GetAllPendingCharacters<T>(IMapper mapper = null);
 
-        bool IsCharacterNameTakenInSameServer(string characterName, string serverId);
-
     }
 }

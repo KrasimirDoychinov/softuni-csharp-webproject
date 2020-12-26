@@ -175,8 +175,7 @@ namespace HolocronProject.Services.Implementations
             var account = this.GetAccountById(accountId);
 
             account.NotificationStatus = NotificationStatus.HasNoPendingOrApprovedCharacters;
-
-            this.context.Accounts.Update(account);
+            
             await this.context.SaveChangesAsync();
         }
 
@@ -203,9 +202,9 @@ namespace HolocronProject.Services.Implementations
             => this.context.Accounts
             .Count();
 
-        public bool IsAccountBanned(string accountUsername)
+        public bool IsAccountBanned(string accountId)
             => this.context.Accounts
-            .Any(x => x.UserName == accountUsername && x.IsBanned);
+            .Any(x => x.Id == accountId && x.IsBanned);
 
         public bool IsEmailTaken(string email)
             => this.context.Accounts

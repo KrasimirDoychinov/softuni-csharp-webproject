@@ -34,9 +34,8 @@ a.navbar-brand {
 }
 
 
-div.rte, .mceContentBody {
-    background-color: #000 !important;
-    color: #fff !important;
+.thead-darker {
+    background-color: #0d0d0d !important;
 }
 
 .background-color {

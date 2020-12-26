@@ -5,7 +5,7 @@
     <div class="text-center">
         <h5><span class="font-weight-bold text-warning">Title: </span>@Model.Title</h5>
         <h5><span class="font-weight-bold text-warning">Reported by: </span>@Model.AccountUserName</h5>
-        <h5><span class="font-weight-bold text-warning">Created on: </span>@Model.NormalizedCreatedOn</h5>
+        <h5><span class="font-weight-bold text-warning">Created on: </span><partial name="ToLocalTime" model="Model.CreatedOn" /></h5>
 
     </div>
 

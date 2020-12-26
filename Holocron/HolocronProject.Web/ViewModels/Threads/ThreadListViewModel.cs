@@ -20,8 +20,6 @@ namespace HolocronProject.Web.ViewModels.Threads
 
         public DateTime CreatedOn { get; set; }
 
-        public string NormalizedCreatedOn { get; set; }
-
         public int PostsCount { get; set; }
 
         public IEnumerable<PostCountViewModel> Posts { get; set; }

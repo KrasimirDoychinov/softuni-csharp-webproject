@@ -26,14 +26,14 @@
                 <div class="card mb-4 background-modal-topbottom  border border-dark">
                     <div class="card-header">
                         <div class="media flex-wrap w-100 align-items-center">
-                            <img src="/Images/AvatarImages/@item.AccountAvatarImagePath?random=@ViewData["random"].ToString()" class="d-block ui-w-40 rounded-circle border border-warning" height="100" width="100" alt="">
+                            <img src="/Images/AvatarImages/@item.AccountAvatarImagePath?random=@ViewData["random"]" class="d-block ui-w-40 rounded-circle border border-warning" height="100" width="100" alt="">
 
                             <div class="media-body ml-3">
                                 <div class="float-right">
                                     <a href="/Threads/ById?threadId=@item.ThreadId" class="text-decoration-none text-warning"><span class="text-white">Original thread: </span>@item.ShortedThreadTitle</a>
                                 </div>
                                 <label class="text-warning">@item.AccountUserName</label>
-                                <div class="small">Created on <strong>@item.NormalizedCreatedOn</strong></div>
+                                <div class="small">Created on <strong><partial name="ToLocalTime" model="item.CreatedOn" /></strong></div>
                             </div>
                         </div>
                     </div>

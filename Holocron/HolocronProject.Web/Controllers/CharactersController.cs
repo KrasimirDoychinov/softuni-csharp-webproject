@@ -1,5 +1,4 @@
-﻿using Hangfire;
-using HolocronProject.Data.Enums;
+﻿using HolocronProject.Data.Enums;
 using HolocronProject.Data.Models;
 using HolocronProject.Services;
 using HolocronProject.Services.Models.Character;
@@ -14,11 +13,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SixLabors.ImageSharp;
-using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace HolocronProject.Web.Controllers
@@ -66,10 +62,6 @@ namespace HolocronProject.Web.Controllers
         {
             var accountId = this.userManager.GetUserAsync(this.User).Result.Id;
 
-            if (this.characterService.IsCharacterNameTakenInSameServer(input.Name, input.ServerId))
-            {
-                ModelState.AddModelError("Name taken in server", "The name is already taken on this server.");
-            }
 
             if (!ModelState.IsValid)
             {
@@ -115,11 +107,6 @@ namespace HolocronProject.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(CharacterEditViewModel input)
         {
-            if (this.characterService.IsCharacterNameTakenInSameServer(input.Name, input.ServerId))
-            {
-                ModelState.AddModelError("Name taken in server", "The name is already taken on this server.");
-            }
-
             if (!ModelState.IsValid)
             {
                 input.Classes = this.classService.GetAll<ClassViewModel>(null);
@@ -227,7 +214,7 @@ namespace HolocronProject.Web.Controllers
 
         private static IEnumerable<CharacterListViewModel> CharListPager(int? page, IEnumerable<CharacterListViewModel> charListViewModel)
         {
-            charListViewModel = charListViewModel.OrderByDescending(x => x.NormalizedCreatedOn);
+            charListViewModel = charListViewModel.OrderByDescending(x => x.CreatedOn);
             var pager = new Pager(charListViewModel.Count(), page);
             charListViewModel = charListViewModel.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize);
             charListViewModel.AsParallel().ForAll(x => x.Pager = pager);
@@ -236,7 +223,7 @@ namespace HolocronProject.Web.Controllers
 
         private static IEnumerable<CharacterToPickViewModel> CharListToPickPager(int? page, IEnumerable<CharacterToPickViewModel> charListViewModel)
         {
-            charListViewModel = charListViewModel.OrderByDescending(x => x.NormalizedCreatedOn);
+            charListViewModel = charListViewModel.OrderByDescending(x => x.CreatedOn);
             var pager = new Pager(charListViewModel.Count(), page);
             charListViewModel = charListViewModel.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize);
             charListViewModel.AsParallel().ForAll(x => x.Pager = pager);

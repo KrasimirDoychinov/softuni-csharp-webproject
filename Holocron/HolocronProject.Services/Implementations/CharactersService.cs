@@ -180,8 +180,5 @@ namespace HolocronProject.Services.Implementations
             .Where(x => x.AccountId == accountId && !x.IsDeleted)
             .Count();
 
-        public bool IsCharacterNameTakenInSameServer(string characterName, string serverId)
-            => this.context.Characters
-            .Any(x => x.Name == characterName && x.Server.Id == serverId);
     }
 }

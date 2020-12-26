@@ -12,7 +12,7 @@
     @if (SignInManager.IsSignedIn(User))
     {
         <li class="nav-item">
-            <a asp-area="Identity" asp-page="/Account/Manage/Index"><img src="~/Images/AvatarImages/@accountService.GetAccountAvatarImagePath(account.Result.Id)?random=@ViewData["random"].ToString()" class="rounded-circle border border-warning " height="50" width="50" /></a>
+            <a asp-area="Identity" asp-page="/Account/Manage/Index"><img src="~/Images/AvatarImages/@accountService.GetAccountAvatarImagePath(account.Result.Id)?random=@ViewData["random"]" class="rounded-circle border border-warning " height="50" width="50" /></a>
         </li>
 
         <li class="nav-item">

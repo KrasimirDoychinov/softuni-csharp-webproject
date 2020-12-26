@@ -34,7 +34,7 @@
                 <div class="card mb-4 background-modal-topbottom border border-dark">
                     <div class="card-header">
                         <div class="media flex-wrap w-100 align-items-center">
-                            <img src="/Images/AvatarImages/@item.AccountAvatarImagePath?random=@ViewData["random"].ToString()" class="d-block ui-w-40 rounded-circle border border-warning" height="100" width="100" alt="">
+                            <img src="/Images/AvatarImages/@item.AccountAvatarImagePath?random=@ViewData["random"]" class="d-block ui-w-40 rounded-circle border border-warning" height="100" width="100" alt="">
 
                             <div class="media-body ml-3">
 
@@ -54,13 +54,13 @@
                                         <span class="text-danger font-weight-bolder">(BANNED)</span>
                                     }
                                 </label>
-                                <div class="small">Created on <strong>@item.NormalizedCreatedOn</strong></div>
+                                <div class="small">Created on <strong>@item.<partial name="ToLocalTime" model="item.CreatedOn" /></strong></div>
                                 <label class="small">@item.PostsCount <span class="font-weight-bold">posts</span></label>
                                 @if (item.IsDeleted)
                                 {
                                     <div>
                                         <label class="text-danger font-weight-bolder">DELETED</label>
-                                        <label class="text-danger">Deleted on: <span class="font-weight-bold">@item.NormalizedDeletedOn</span></label>
+                                        <label class="text-danger">Deleted on: <span class="font-weight-bold"><partial name="ToLocalTime" model="item.DeletedOn" /></span></label>
                                     </div>
                                 }
                             </div>

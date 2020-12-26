@@ -9,18 +9,19 @@
 }
 @if (Model.Count() <= 0)
 {
-    <div class="text-center">
+    <div class="text-center text-warning">
         @if (currAccountId == loggedInAccountId)
         {
             <h1>You currently have no approved characters.</h1>
-            <h3><a asp-controller="Characters" asp-action="CreateCharacter" class="text-decoration-none">Create one?</a></h3>
-            <a class="btn btn-primary" href="/Characters/PendingCharacters?accountId=@currAccountId">Pending characters</a>
+            <h3><a asp-controller="Characters" asp-action="CreateCharacter" class="btn btn-warning">Create one?</a></h3>
+            <a class="btn btn-outline-warning" href="/Characters/PendingCharacters?accountId=@currAccountId">Pending characters</a>
         }
         else
         {
             <h1>The account currently has no characters.</h1>
         }
     </div>
+
 }
 else
 {
@@ -30,11 +31,11 @@ else
             @foreach (var item in Model)
             {
                 <div class="d-inline-block grid">
-                    <a href="/Competitions/Pick?characterId=@item.Id&competitionId=@item.CompetitionId"><img src="~/Images/CharacterImages/@item.CharacterImagePath?random=@ViewData["random"].ToString()" class="ml-3 border border-warning rounded-pill" style="width: 325px; height:300px" /></a>
-                    <h4><span class="font-weight-bold">Name: </span>@item.Name</h4>
-                    <h5><span class="font-weight-bold">Title: </span>@item.Title</h5>
-                    <h5><span class="font-weight-bold">Gender: </span>@item.Gender</h5>
-                    <h5><span class="font-weight-bold">Class: </span>@item.ClassName</h5>
+                    <a href="/Competitions/Pick?characterId=@item.Id&competitionId=@item.CompetitionId"><img src="~/Images/CharacterImages/@item.CharacterImagePath?random=@ViewData["random"]" class="ml-3 border border-warning rounded-pill" style="width: 325px; height:300px" /></a>
+                    <h4><span class="font-weight-bold text-warning">Name: </span>@item.Name</h4>
+                    <h5><span class="font-weight-bold text-warning">Title: </span>@item.Title</h5>
+                    <h5><span class="font-weight-bold text-warning">Gender: </span>@item.Gender</h5>
+                    <h5><span class="font-weight-bold text-warning">Class: </span>@item.ClassName</h5>
                 </div>
             }
         </div>
@@ -49,27 +50,27 @@ else
                         @if (pager.CurrentPage > 1)
                         {
                             <li class="float-left mr-1">
-                                <a href="/Characters/CharactersToPick" class="btn btn-info">First</a>
+                                <a href="/Characters/CharactersToPick" class="btn btn-text-warning">First</a>
                             </li>
                             <li class="float-left mr-1">
-                                <a href="/Characters/CharactersToPick?accountId=@currAccountId&page=@(pager.CurrentPage - 1)" class="btn btn-info">Previous</a>
+                                <a href="/Characters/CharactersToPick?accountId=@currAccountId&page=@(pager.CurrentPage - 1)" class="btn btn-warning">Previous</a>
                             </li>
                         }
 
                         @for (var page = pager.StartPage; page <= pager.EndPage; page++)
                         {
                             <li class="@(page == pager.CurrentPage ? "active" : "") float-right mr-1">
-                                <a href="/Characters/CharactersToPick?accountId=@currAccountId&page=@(page)" class="btn btn-info">@(page)</a>
+                                <a href="/Characters/CharactersToPick?accountId=@currAccountId&page=@(page)" class="btn btn-outline-warning">@(page)</a>
                             </li>
                         }
 
                         @if (pager.CurrentPage < pager.TotalPages)
                         {
                             <li class="float-right mr-1">
-                                <a href="/Characters/CharactersToPick?accountId=@currAccountId&page=@(pager.CurrentPage + 1)" class="btn btn-info">Next</a>
+                                <a href="/Characters/CharactersToPick?accountId=@currAccountId&page=@(pager.CurrentPage + 1)" class="btn btn-warning">Next</a>
                             </li>
                             <li class="float-right mr-1">
-                                <a href="/Characters/CharactersToPick?accountId=@currAccountId&page=@(pager.TotalPages)" class="btn btn-info">Last</a>
+                                <a href="/Characters/CharactersToPick?accountId=@currAccountId&page=@(pager.TotalPages)" class="btn btn-warning">Last</a>
                             </li>
                         }
                     </ul>

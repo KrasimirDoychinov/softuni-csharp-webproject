@@ -144,7 +144,7 @@ namespace HolocronProject.Web
             app.UseAuthentication();
             app.UseAuthorization();
 
-            //DataSeeder.SeedData(userManager, roleManager, accountsService);
+            DataSeeder.SeedData(userManager, roleManager, accountsService);
 
             app.UseEndpoints(endpoints =>
             {
