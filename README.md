@@ -50,4 +50,5 @@ The project contains:
 * Moq
 * NUnit
 * SixLabors.ImageSharp
+* TinyMCE
 
