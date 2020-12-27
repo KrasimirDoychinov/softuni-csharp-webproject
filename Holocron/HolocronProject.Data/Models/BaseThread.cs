@@ -2,13 +2,10 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-using HolocronProject.Data.Common;
-
 namespace HolocronProject.Data.Models
 {
     public class BaseThread : BaseDeletableModel
     {
-        // TODO: View services
         public BaseThread()
         {
             this.Id = Guid.NewGuid().ToString();

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+
 using AutoMapper;
-using HolocronProject.Data.Models;
 
 namespace HolocronProject.Services
 {

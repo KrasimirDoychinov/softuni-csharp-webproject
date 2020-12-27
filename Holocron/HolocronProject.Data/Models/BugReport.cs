@@ -1,15 +1,13 @@
-﻿using HolocronProject.Data.Common;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
+
+using HolocronProject.Data.Common;
 
 namespace HolocronProject.Data.Models
 {
 
     public class BugReport : BaseResolvableModel
     {
-        // TODO: View services
         public BugReport()
         {
             this.Id = Guid.NewGuid().ToString();

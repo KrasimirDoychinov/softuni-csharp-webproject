@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
-using HolocronProject.Data.Common;
-using HolocronProject.Data.Enums;
 using Microsoft.AspNetCore.Identity;
+
+using HolocronProject.Data.Enums;
 
 namespace HolocronProject.Data.Models
 {

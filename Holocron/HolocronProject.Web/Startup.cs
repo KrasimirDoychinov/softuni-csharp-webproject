@@ -1,27 +1,30 @@
+using System;
+using System.Reflection;
+
+using Hangfire;
+using Hangfire.SqlServer;
+using SixLabors.ImageSharp.Web.DependencyInjection;
+
+using HolocronProject.Data;
+using HolocronProject.Services;
+using HolocronProject.Web.Hubs;
+using HolocronProject.Web.Seeder;
+using HolocronProject.Web.Models;
+using HolocronProject.Data.Models;
+using HolocronProject.Services.Mapper;
+using HolocronProject.Services.EmailSender;
+using HolocronProject.Services.Implementations;
+
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 
-using HolocronProject.Data;
-using HolocronProject.Data.Models;
-using HolocronProject.Services;
-using HolocronProject.Services.Implementations;
-using HolocronProject.Services.Mapper;
-using HolocronProject.Web.Models;
-using System.Reflection;
-using SixLabors.ImageSharp.Web.DependencyInjection;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using Microsoft.AspNetCore.Identity;
-using HolocronProject.Web.Hubs;
-using Hangfire;
-using Hangfire.SqlServer;
-using HolocronProject.Web.Seeder;
-using Microsoft.AspNetCore.Http;
-using HolocronProject.Services.EmailSender;
 
 namespace HolocronProject.Web
 {

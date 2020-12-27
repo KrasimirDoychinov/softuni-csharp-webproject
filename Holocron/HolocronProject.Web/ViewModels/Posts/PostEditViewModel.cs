@@ -1,7 +1,8 @@
-﻿using HolocronProject.Data.Common;
+﻿using System.ComponentModel.DataAnnotations;
+
+using HolocronProject.Data.Common;
 using HolocronProject.Data.Models;
 using HolocronProject.Services.Mapper;
-using System.ComponentModel.DataAnnotations;
 
 namespace HolocronProject.Web.ViewModels.Posts
 {

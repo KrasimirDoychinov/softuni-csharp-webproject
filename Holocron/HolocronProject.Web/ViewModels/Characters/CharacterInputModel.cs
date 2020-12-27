@@ -1,18 +1,16 @@
-﻿using HolocronProject.Data.Common;
-using HolocronProject.Data.Enums;
-using HolocronProject.Data.Models;
-using HolocronProject.Services.Mapper;
-using HolocronProject.Web.ValidationAttributes;
-using HolocronProject.Web.ViewModels.Classes;
-using HolocronProject.Web.ViewModels.Races;
-using HolocronProject.Web.ViewModels.Servers;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+
+using HolocronProject.Data.Enums;
+using HolocronProject.Data.Common;
+using HolocronProject.Services.Mapper;
+using HolocronProject.Web.ViewModels.Races;
+using HolocronProject.Web.ViewModels.Servers;
+using HolocronProject.Web.ViewModels.Classes;
+using HolocronProject.Web.ValidationAttributes;
+
+using Microsoft.AspNetCore.Http;
 
 namespace HolocronProject.Web.ViewModels.Characters
 {

@@ -1,9 +1,7 @@
-﻿    using HolocronProject.Data.Enums;
-using HolocronProject.Data.Models;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using HolocronProject.Data.Models;
+
 using Microsoft.EntityFrameworkCore;
-using System;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace HolocronProject.Data
 {
@@ -66,22 +64,22 @@ namespace HolocronProject.Data
 
             builder.Entity<Class>()
                 .HasData(
-                new Class { Name = "Juggernaut", Faction = Enums.Faction.Empire },
-                new Class { Name = "Marauder", Faction = Enums.Faction.Empire },
-                new Class { Name = "Sorcerer", Faction = Enums.Faction.Empire },
-                new Class { Name = "Assassin", Faction = Enums.Faction.Empire },
-                new Class { Name = "Sniper", Faction = Enums.Faction.Empire },
-                new Class { Name = "Operative", Faction = Enums.Faction.Empire },
-                new Class { Name = "Powertech", Faction = Enums.Faction.Empire },
-                new Class { Name = "Mercenary", Faction = Enums.Faction.Empire },
-                new Class { Name = "Gunslinger", Faction = Enums.Faction.Republic },
-                new Class { Name = "Scoundrel", Faction = Enums.Faction.Republic },
-                new Class { Name = "Vanguard", Faction = Enums.Faction.Republic },
-                new Class { Name = "Commando", Faction = Enums.Faction.Republic },
-                new Class { Name = "Sage", Faction = Enums.Faction.Republic },
-                new Class { Name = "Shadow", Faction = Enums.Faction.Republic },
-                new Class { Name = "Sentinel", Faction = Enums.Faction.Republic },
-                new Class { Name = "Guardian", Faction = Enums.Faction.Republic }
+                new Class { Name = "Juggernaut" },
+                new Class { Name = "Marauder" },
+                new Class { Name = "Sorcerer"},
+                new Class { Name = "Assassin"},
+                new Class { Name = "Sniper" },
+                new Class { Name = "Operative" },
+                new Class { Name = "Powertech" },
+                new Class { Name = "Mercenary" },
+                new Class { Name = "Gunslinger" },
+                new Class { Name = "Scoundrel" },
+                new Class { Name = "Vanguard" },
+                new Class { Name = "Commando" },
+                new Class { Name = "Sage" },
+                new Class { Name = "Shadow" },
+                new Class { Name = "Sentinel" },
+                new Class { Name = "Guardian" }
                 );
 
             builder.Entity<Race>()

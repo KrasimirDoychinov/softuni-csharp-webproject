@@ -1,7 +1,9 @@
-﻿using HolocronProject.Services;
-using Microsoft.AspNetCore.Authorization;
+﻿using System.Threading.Tasks;
+
+using HolocronProject.Services;
+
 using Microsoft.AspNetCore.SignalR;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HolocronProject.Web.Hubs
 {

@@ -1,8 +1,10 @@
-﻿using HolocronProject.Services;
-using HolocronProject.Web.ViewModels.BaseThreads;
+﻿using System.Linq;
+
+using HolocronProject.Services;
 using HolocronProject.Web.ViewModels.Pager;
+using HolocronProject.Web.ViewModels.BaseThreads;
+
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
 
 namespace HolocronProject.Web.Controllers
 {

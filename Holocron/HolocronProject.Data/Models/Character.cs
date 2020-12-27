@@ -1,16 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 using HolocronProject.Data.Enums;
 using HolocronProject.Data.Common;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace HolocronProject.Data.Models
 {
     public class Character : BaseDeletableModel
     {
-        // TODO: Edditing character info
         public Character()
         {
             this.Id = Guid.NewGuid().ToString();

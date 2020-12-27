@@ -1,13 +1,10 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using System.Collections.Generic;
 
-using HolocronProject.Data;
-using HolocronProject.Data.Models;
-using System.Security.Cryptography.X509Certificates;
-using HolocronProject.Services.Mapper;
 using AutoMapper;
+
+using HolocronProject.Data;
+using HolocronProject.Services.Mapper;
 
 namespace HolocronProject.Services.Implementations
 {

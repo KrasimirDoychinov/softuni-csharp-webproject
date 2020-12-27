@@ -1,15 +1,16 @@
-﻿using AutoMapper;
-using HolocronProject.Data;
-using HolocronProject.Data.Models;
-using HolocronProject.Services;
-using HolocronProject.Web.ViewModels.Races;
-using Microsoft.EntityFrameworkCore;
-using NUnit.Framework;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+
+using AutoMapper;
+using NUnit.Framework;
+
+using HolocronProject.Data;
+using HolocronProject.Services;
+using HolocronProject.Data.Models;
+using HolocronProject.Web.ViewModels.Races;
+
+using Microsoft.EntityFrameworkCore;
 
 namespace HolocronProject.Tests.Services
 {

@@ -1,14 +1,13 @@
-﻿using HolocronProject.Data;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+
+using AutoMapper;
+
+using HolocronProject.Data;
 using HolocronProject.Data.Models;
 using HolocronProject.Services.Mapper;
-using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Hangfire;
-using AutoMapper;
 
 namespace HolocronProject.Services.Implementations
 {

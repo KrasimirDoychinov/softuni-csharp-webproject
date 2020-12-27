@@ -1,12 +1,9 @@
 ﻿using HolocronProject.Services;
 using HolocronProject.Web.Areas.Administration.Controllers;
-using HolocronProject.Web.ViewModels.Admins;
+using HolocronProject.Web.Areas.Administration.ViewModels.Admins;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace HolocronProject.Web.Controllers
 {

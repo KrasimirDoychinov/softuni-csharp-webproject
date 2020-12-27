@@ -1,14 +1,12 @@
-﻿using HolocronProject.Data.Common;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
+
+using HolocronProject.Data.Common;
 
 namespace HolocronProject.Data.Models
 {
     public class Achievement
     {
-        // TODO: Service to win achievement
         public Achievement()
         {
             this.Id = Guid.NewGuid().ToString();

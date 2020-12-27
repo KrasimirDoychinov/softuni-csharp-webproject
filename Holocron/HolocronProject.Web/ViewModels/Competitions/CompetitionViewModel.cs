@@ -1,10 +1,8 @@
-﻿using HolocronProject.Data.Models;
+﻿using System.Collections.Generic;
+
+using HolocronProject.Data.Models;
 using HolocronProject.Services.Mapper;
 using HolocronProject.Web.ViewModels.CompetitionCharacters;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace HolocronProject.Web.ViewModels.Competitions
 {

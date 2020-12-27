@@ -1,10 +1,7 @@
-﻿using HolocronProject.Data;
+﻿using System.Collections.Generic;
+
 using HolocronProject.Data.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 namespace HolocronProject.Services.Implementations
 {
     public class AchievementsService : IAchievementsService

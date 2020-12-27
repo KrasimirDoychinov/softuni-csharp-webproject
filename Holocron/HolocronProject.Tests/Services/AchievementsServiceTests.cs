@@ -1,6 +1,8 @@
-﻿using HolocronProject.Services.Implementations;
+﻿using System.Linq;
+
 using NUnit.Framework;
-using System.Linq;
+
+using HolocronProject.Services.Implementations;
 
 namespace HolocronProject.Tests.Services
 {

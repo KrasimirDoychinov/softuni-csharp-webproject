@@ -1,13 +1,13 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Collections.Generic;
+
+using AutoMapper;
 
 using HolocronProject.Data;
 using HolocronProject.Data.Models;
-using System.Threading.Tasks;
-using HolocronProject.Services.Models.Posts;
 using HolocronProject.Services.Mapper;
-using System;
-using AutoMapper;
 
 namespace HolocronProject.Services.Implementations
 {

@@ -1,18 +1,19 @@
-﻿using HolocronProject.Data;
-using HolocronProject.Services;
-using HolocronProject.Services.Implementations;
-using Microsoft.EntityFrameworkCore;
-using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Moq;
-using System.Threading.Tasks;
-using HolocronProject.Data.Models;
+﻿using System;
 using System.Linq;
-using HolocronProject.Web.ViewModels.PostReports;
+using System.Threading.Tasks;
+
+using Moq;
 using AutoMapper;
+using NUnit.Framework;
+
+using HolocronProject.Data;
+using HolocronProject.Services;
+using HolocronProject.Data.Models;
 using HolocronProject.Web.ViewModels.Posts;
+using HolocronProject.Services.Implementations;
+using HolocronProject.Web.ViewModels.PostReports;
+
+using Microsoft.EntityFrameworkCore;
 
 namespace HolocronProject.Tests.Services
 {

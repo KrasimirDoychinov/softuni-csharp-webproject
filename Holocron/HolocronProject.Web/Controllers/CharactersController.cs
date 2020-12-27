@@ -1,21 +1,24 @@
-﻿using HolocronProject.Data.Enums;
-using HolocronProject.Data.Models;
-using HolocronProject.Services;
-using HolocronProject.Services.Models.Character;
-using HolocronProject.Services.Models.Characters;
-using HolocronProject.Web.ViewModels.Characters;
-using HolocronProject.Web.ViewModels.Classes;
-using HolocronProject.Web.ViewModels.Pager;
-using HolocronProject.Web.ViewModels.Races;
-using HolocronProject.Web.ViewModels.Servers;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using SixLabors.ImageSharp;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
+using SixLabors.ImageSharp;
+
+using HolocronProject.Services;
+using HolocronProject.Data.Enums;
+using HolocronProject.Data.Models;
+using HolocronProject.Web.ViewModels.Pager;
+using HolocronProject.Web.ViewModels.Races;
+using HolocronProject.Web.ViewModels.Classes;
+using HolocronProject.Web.ViewModels.Servers;
+using HolocronProject.Services.Models.Character;
+using HolocronProject.Web.ViewModels.Characters;
+using HolocronProject.Services.Models.Characters;
+
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HolocronProject.Web.Controllers
 {

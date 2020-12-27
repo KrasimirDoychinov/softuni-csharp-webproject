@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System.ComponentModel.DataAnnotations;
+
 using SixLabors.ImageSharp;
-using System.ComponentModel.DataAnnotations;
+
+using Microsoft.AspNetCore.Http;
 
 namespace HolocronProject.Web.ValidationAttributes
 {

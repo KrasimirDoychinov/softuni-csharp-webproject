@@ -1,7 +1,5 @@
-﻿using System.Threading.Tasks;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-using HolocronProject.Data.Models;
 using AutoMapper;
 
 namespace HolocronProject.Services

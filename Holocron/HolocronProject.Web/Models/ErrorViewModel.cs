@@ -1,5 +1,3 @@
-using System;
-
 namespace HolocronProject.Web.Models
 {
     public class ErrorViewModel

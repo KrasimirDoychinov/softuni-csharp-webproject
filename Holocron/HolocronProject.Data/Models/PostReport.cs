@@ -1,16 +1,12 @@
-﻿using HolocronProject.Data.Common;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
+
+using HolocronProject.Data.Common;
 
 namespace HolocronProject.Data.Models
 {
     public class PostReport : BaseResolvableModel
     {
-        // TODO: Implement services
-        // TODO: Resolve service
-        // TODO: View services
         public PostReport()
         {
             this.Id = Guid.NewGuid().ToString();

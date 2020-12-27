@@ -1,15 +1,17 @@
-﻿using HolocronProject.Data.Enums;
-using HolocronProject.Services;
-using HolocronProject.Web.Areas.Administration.ViewModels.Characters;
-using HolocronProject.Web.ViewModels.Characters;
-using HolocronProject.Web.ViewModels.Pager;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using SixLabors.ImageSharp;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+
+using SixLabors.ImageSharp;
+
+using HolocronProject.Services;
+using HolocronProject.Data.Enums;
+using HolocronProject.Web.ViewModels.Pager;
+using HolocronProject.Web.Areas.Administration.ViewModels.Characters;
+
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace HolocronProject.Web.Areas.Administration.Controllers

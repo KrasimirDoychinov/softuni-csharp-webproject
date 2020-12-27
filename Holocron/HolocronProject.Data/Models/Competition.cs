@@ -1,17 +1,13 @@
-﻿using HolocronProject.Data.Common;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
+
+using HolocronProject.Data.Common;
 
 namespace HolocronProject.Data.Models
 {
     public class Competition
     {
-        // TODO: Implement services
-        // TODO: Make sure IsFinished works
-        // TODO: Make sure everything works
-        // TODO: View services
         public Competition()
         {
             this.Id = Guid.NewGuid().ToString();

@@ -1,11 +1,10 @@
-﻿using HolocronProject.Data;
-using HolocronProject.Data.Enums;
-using HolocronProject.Data.Models;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+
+using HolocronProject.Data;
+using HolocronProject.Data.Models;
 
 namespace HolocronProject.Services.Implementations
 {

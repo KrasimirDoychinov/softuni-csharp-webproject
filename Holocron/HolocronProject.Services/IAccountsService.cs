@@ -1,11 +1,12 @@
 ﻿using System.Threading.Tasks;
 using System.Collections.Generic;
 
-using HolocronProject.Data.Models;
-using HolocronProject.Services.Models;
-using Microsoft.AspNetCore.Http;
-using HolocronProject.Data.Enums;
 using AutoMapper;
+
+using HolocronProject.Data.Models;
+using HolocronProject.Data.Enums;
+
+using Microsoft.AspNetCore.Http;
 
 namespace HolocronProject.Services
 {

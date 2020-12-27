@@ -1,10 +1,12 @@
-﻿using System.Diagnostics;
-using System.Linq;
+﻿using System.Linq;
+using System.Diagnostics;
+
+using HolocronProject.Services;
+using HolocronProject.Web.Models;
+using HolocronProject.Web.ViewModels.BaseThreads;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using HolocronProject.Web.Models;
-using HolocronProject.Services;
-using HolocronProject.Web.ViewModels.BaseThreads;
 
 namespace HolocronProject.Web.Controllers
 {

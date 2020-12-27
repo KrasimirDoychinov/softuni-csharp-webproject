@@ -1,15 +1,15 @@
-﻿using HolocronProject.Data.Models;
-using HolocronProject.Services;
-using HolocronProject.Web.Controllers;
-using HolocronProject.Web.ViewModels.BugReports;
-using HolocronProject.Web.ViewModels.Pager;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+
+using HolocronProject.Services;
+using HolocronProject.Data.Models;
+using HolocronProject.Web.ViewModels.Pager;
+using HolocronProject.Web.ViewModels.BugReports;
+
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HolocronProject.Web.Areas.Administration.Controllers
 {

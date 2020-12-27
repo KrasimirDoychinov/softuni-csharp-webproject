@@ -1,17 +1,17 @@
-﻿using HolocronProject.Data.Common;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+
 using HolocronProject.Data.Enums;
 using HolocronProject.Data.Models;
 using HolocronProject.Services.Mapper;
-using HolocronProject.Web.ValidationAttributes;
-using HolocronProject.Web.ViewModels.Classes;
 using HolocronProject.Web.ViewModels.Races;
 using HolocronProject.Web.ViewModels.Servers;
+using HolocronProject.Web.ViewModels.Classes;
+using HolocronProject.Web.ValidationAttributes;
+
 using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+
 using static HolocronProject.Data.Common.GlobalErrorMessages;
 using static HolocronProject.Data.Common.GlobalRangeConstraints;
 

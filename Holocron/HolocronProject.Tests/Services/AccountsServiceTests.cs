@@ -1,24 +1,23 @@
-﻿using HolocronProject.Data;
-using HolocronProject.Data.Models;
-using HolocronProject.Services.Implementations;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using NUnit;
-using NUnit.Framework;
-using Microsoft.AspNetCore.Http;
+﻿using System;
 using System.IO;
-using HolocronProject.Web.ViewModels.Accounts;
-using AutoMapper;
-using Moq;
-using HolocronProject.Services.Mapper;
-using HolocronProject.Data.Enums;
-using HolocronProject.Services.Models.Character;
-using HolocronProject.Services;
-using HolocronProject.Web.Areas.Administration.ViewModels.Accounts;
+using System.Text;
 using System.Linq;
+using System.Threading.Tasks;
+
+using Moq;
+using AutoMapper;
+using NUnit.Framework;
+
+using HolocronProject.Data;
+using HolocronProject.Services;
+using HolocronProject.Data.Enums;
+using HolocronProject.Data.Models;
+using HolocronProject.Web.ViewModels.Accounts;
+using HolocronProject.Services.Implementations;
+using HolocronProject.Web.Areas.Administration.ViewModels.Accounts;
+
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 
 namespace HolocronProject.Tests.Services
 {

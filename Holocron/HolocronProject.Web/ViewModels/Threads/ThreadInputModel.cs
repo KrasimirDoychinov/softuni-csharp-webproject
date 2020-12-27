@@ -1,10 +1,4 @@
-﻿using HolocronProject.Services.Mapper;
-using HolocronProject.Web.ViewModels.Posts;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace HolocronProject.Web.ViewModels.Threads
 {

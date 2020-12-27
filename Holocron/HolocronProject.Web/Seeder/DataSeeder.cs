@@ -1,12 +1,6 @@
-﻿using HolocronProject.Data;
-using HolocronProject.Data.Models;
+﻿using HolocronProject.Data.Models;
 using HolocronProject.Services;
-using HolocronProject.Services.Models.Threads;
 using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace HolocronProject.Web.Seeder
 {

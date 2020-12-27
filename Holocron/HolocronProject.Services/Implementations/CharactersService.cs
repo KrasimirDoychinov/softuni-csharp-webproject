@@ -1,24 +1,22 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+
+using AutoMapper;
 
 using HolocronProject.Data;
 using HolocronProject.Data.Models;
-using System.Threading.Tasks;
-using HolocronProject.Services.Models;
-using System.Security.Cryptography.X509Certificates;
-using HolocronProject.Services.Models.Character;
-using HolocronProject.Services.Mapper;
-using Microsoft.AspNetCore.Http;
-using System.IO;
-using HolocronProject.Services.Models.Characters;
 using HolocronProject.Data.Enums;
-using Hangfire;
-using AutoMapper;
+using HolocronProject.Services.Mapper;
+using HolocronProject.Services.Models.Character;
+using HolocronProject.Services.Models.Characters;
+
+using Microsoft.AspNetCore.Http;
 
 namespace HolocronProject.Services.Implementations
 {
-    // TODO: Add more character services
     public class CharactersService : ICharactersService
     {
         private readonly ApplicationDbContext context;

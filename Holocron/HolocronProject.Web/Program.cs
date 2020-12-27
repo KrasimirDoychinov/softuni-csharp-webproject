@@ -8,9 +8,7 @@ namespace HolocronProject.Web
 
     // TODO: Review the code each day at the beginning of the code session and at the end of the session
 
-    // TODO: Email ver
-    // TODO: !!!Look over all the tests and fix small bugs and try to add edge cases!!
-    // TODO: Look over all controllers and views
+    
 
     // -----USEFUL-----
     //var config = new MapperConfiguration(opts =>

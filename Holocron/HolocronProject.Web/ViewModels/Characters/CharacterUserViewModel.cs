@@ -1,10 +1,8 @@
-﻿using HolocronProject.Data.Enums;
+﻿using System.Collections.Generic;
+
+using HolocronProject.Data.Enums;
 using HolocronProject.Services.Mapper;
 using HolocronProject.Web.ViewModels.Achievements;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace HolocronProject.Web.ViewModels.Characters
 {

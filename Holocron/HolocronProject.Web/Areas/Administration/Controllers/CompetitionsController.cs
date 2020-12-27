@@ -1,12 +1,13 @@
-﻿using HolocronProject.Services;
-using HolocronProject.Web.Areas.Administration.ViewModels.Competitions;
-using HolocronProject.Web.Controllers;
-using HolocronProject.Web.ViewModels.Competitions;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using System;
 using System.Threading.Tasks;
+
 using Hangfire;
-using System;
+
+using HolocronProject.Services;
+using HolocronProject.Web.Areas.Administration.ViewModels.Competitions;
+
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HolocronProject.Web.Areas.Administration.Controllers
 {

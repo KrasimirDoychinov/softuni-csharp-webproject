@@ -1,13 +1,15 @@
-﻿using HolocronProject.Data.Models;
+﻿using System.Linq;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+
 using HolocronProject.Services;
+using HolocronProject.Data.Models;
 using HolocronProject.Web.ViewModels.Competitions;
 using HolocronProject.Web.ViewModels.Pager;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
+
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HolocronProject.Web.Controllers
 {
