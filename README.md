@@ -51,4 +51,5 @@ The project contains:
 * NUnit
 * SixLabors.ImageSharp
 * TinyMCE
+* Net.Mail;
 
