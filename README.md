@@ -1,4 +1,6 @@
 # Holocron
+[Link to the site](https://holocronproject.azurewebsites.net)
+The site may not be on.
 
 # About the project
 Just a simple forum for fans of [Star Wars the Old Republic](https://www.swtor.com) or Star Wars fans in general, to talk about the universe and the game.
