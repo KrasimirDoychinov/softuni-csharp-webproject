@@ -22,7 +22,7 @@ The database contains the following entities:
 * Threads
 * Votes
 
-The scheme can be found [here]()
+The scheme can be found [here](https://github.com/KrasimirDoychinov/softuni-csharp-webproject/blob/main/DatabaseScheme.png)
 
 # Backend
 The project contains:
