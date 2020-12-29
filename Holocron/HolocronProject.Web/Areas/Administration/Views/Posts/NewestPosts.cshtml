@@ -20,7 +20,7 @@
         {
             <div class="text-warning text-center background-admin">
                 <h1>POSTS STATS</h1>
-                <div >
+                <div>
                     <h4>Total posts: <span class="text-danger">@Model.FirstOrDefault().TotalPosts</span></h4>
                     <h4>Posts made today: <span class="text-danger">@Model.FirstOrDefault().PostsMadeToday</span></h4>
                     <h4>Not deleted posts: <span class="text-danger">@Model.FirstOrDefault().NotDeletedPosts</span></h4>
@@ -37,30 +37,29 @@
                             <img src="/Images/AvatarImages/@item.AccountAvatarImagePath?random=@ViewData["random"]" class="d-block ui-w-40 rounded-circle border border-warning" height="100" width="100" alt="">
 
                             <div class="media-body ml-3">
-                                <div class="float-right">
-                                    <a href="/Threads/ById?threadId=@item.ThreadId" class="text-decoration-none text-warning"><span class="text-white">Original thread: </span>@item.ShortedThreadTitle</a>
-                                </div>
                                 <br />
                                 @if (!item.IsDeleted)
-                                {
-                                    <a href="/Administration/Posts/Delete?postId=@item.Id" class="btn btn-outline-danger btn-sm row float-right">Delete</a>
+                                {<div class="float-right">
+                                        <a href="/Threads/ById?threadId=@item.ThreadId" class="text-decoration-none text-warning row mb-3"><span class="text-white">Original thread: </span>@item.ShortedThreadTitle</a>
+                                        <a href="/Administration/Posts/Delete?postId=@item.Id" class="btn btn-outline-danger btn-sm row">Delete</a>
+                                    </div>
                                 }
 
                                 <label class="text-warning">
                                     @item.AccountUserName
-                                @if (item.AccountIsBanned)
+                                    @if (item.AccountIsBanned)
+                                    {
+                                        <span class="text-danger font-weight-bolder">(BANNED)</span>
+                                    }
+                                </label>
+                                <div class="small">Created on <strong><partial name="ToLocalTime" model="item.CreatedOn" /></strong></div>
+                                @if (item.IsDeleted)
                                 {
-                                    <span class="text-danger font-weight-bolder">(BANNED)</span>
+                                    <div>
+                                        <label class="text-danger font-weight-bolder">DELETED</label>
+                                        <label class="text-danger">Deleted on: <span class="font-weight-bold"><partial name="ToLocalTime" model="item.DeletedOn" /></span></label>
+                                    </div>
                                 }
-                            </label>
-                            <div class="small">Created on <strong><partial name="ToLocalTime" model="item.CreatedOn" /></strong></div>
-                            @if (item.IsDeleted)
-                            {
-                                <div>
-                                    <label class="text-danger font-weight-bolder">DELETED</label>
-                                    <label class="text-danger">Deleted on: <span class="font-weight-bold"><partial name="ToLocalTime" model="item.DeletedOn" /></span></label>
-                                </div>
-                            }
                             </div>
                         </div>
                     </div>

@@ -26,7 +26,6 @@ else
                     <th scope="col" class="col">Title</th>
                     <th scope="col">Created on</th>
                     <th scope="col">Replies</th>
-                    <th scope="col">Votes</th>
                 </tr>
             </thead>
             <tbody>
@@ -41,7 +40,6 @@ else
                             <partial name="ToLocalTime" model="item.CreatedOn" />
                         </td>
                         <td>@item.PostsCount</td>
-                        <td>@item.VotesCount</td>
                     </tr>
                 }
             </tbody>

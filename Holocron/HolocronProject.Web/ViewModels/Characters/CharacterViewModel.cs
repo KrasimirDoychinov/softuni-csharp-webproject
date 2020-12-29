@@ -6,7 +6,7 @@ using HolocronProject.Web.ViewModels.Achievements;
 
 namespace HolocronProject.Web.ViewModels.Characters
 {
-    public class CharacterUserViewModel : IMapFrom<Data.Models.Character>
+    public class CharacterViewModel : IMapFrom<Data.Models.Character>
     {
         public string Id { get; set; }
 

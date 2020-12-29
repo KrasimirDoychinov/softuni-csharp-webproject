@@ -16,6 +16,8 @@ namespace HolocronProject.Web.Areas.Administration.ViewModels.Competitions
         [MaxLength(GlobalRangeConstraints.CompetitionConstants.DescriptionMaxLength, ErrorMessage = GlobalErrorMessages.CompetitionErrorMessages.DescriptionMaxLengthError)]
         public string Description { get; set; }
 
+        public DateTime StartDate => DateTime.UtcNow;
+
         [Required]
         [CompetitionEndDateAfterStartDate]
         public DateTime EndDate { get; set; }

@@ -13,7 +13,7 @@ namespace HolocronProject.Web.Areas.Administration.ValidationAttributes
             object instance = validationContext.ObjectInstance;
             var type = instance.GetType();
             var property = type.GetProperty("StartDate");
-            var startDate = DateTime.Now;
+            var startDate = DateTime.UtcNow;
             
             if (endDate > startDate)
             {

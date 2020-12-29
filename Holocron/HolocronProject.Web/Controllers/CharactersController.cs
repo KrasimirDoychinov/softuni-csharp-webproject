@@ -159,7 +159,7 @@ namespace HolocronProject.Web.Controllers
 
         public IActionResult CharacterInfo(string characterId, string accountId)
         {
-            var charViewModel = this.characterService.GetCharacterByIdGeneric<CharacterUserViewModel>(characterId);
+            var charViewModel = this.characterService.GetCharacterByIdGeneric<CharacterViewModel>(characterId);
             ViewData["charactersAccountId"] = accountId;
 
             if (charViewModel.ForceAffiliation == ForceAffiliation.LightSide)

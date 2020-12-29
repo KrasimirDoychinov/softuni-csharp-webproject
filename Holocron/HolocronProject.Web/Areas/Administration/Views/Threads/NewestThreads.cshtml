@@ -54,7 +54,7 @@
                                         <span class="text-danger font-weight-bolder">(BANNED)</span>
                                     }
                                 </label>
-                                <div class="small">Created on <strong>@item.<partial name="ToLocalTime" model="item.CreatedOn" /></strong></div>
+                                <div class="small">Created on <strong><partial name="ToLocalTime" model="item.CreatedOn" /></strong></div>
                                 <label class="small">@item.PostsCount <span class="font-weight-bold">posts</span></label>
                                 @if (item.IsDeleted)
                                 {

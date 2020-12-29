@@ -6,7 +6,7 @@ using HolocronProject.Web.ViewModels.Characters;
 
 namespace HolocronProject.Web.Areas.Administration.ViewModels.Characters
 {
-    public class CharacterAdminViewModel : CharacterUserViewModel, IMapFrom<Character>
+    public class CharacterAdminViewModel : CharacterViewModel, IMapFrom<Character>
     {
         public bool IsApproved { get; set; }
 

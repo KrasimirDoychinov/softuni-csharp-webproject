@@ -5,21 +5,11 @@ using HolocronProject.Services.Mapper;
 
 namespace HolocronProject.Web.ViewModels.BugReports
 {
-    public class BugReportListViewModel : IMapFrom<BugReport>
+    public class BugReportListViewModel : BugReportViewModel, IMapFrom<BugReport>
     {
-        public string Id { get; set; }
-
-        public string AccountUserName { get; set; }
-
-        public string Title { get; set; }
-
         public string ShortTitle => this.Title.Length <= 50 ? this.Title : this.Title.Substring(0, 50) + "...";
 
-        public DateTime CreatedOn { get; set; }
-
         public DateTime ResolvedOn { get; set; }
-
-        public string Description { get; set; }
 
         public string ShortDescription => this.Description.Length > 65 ? this.Description.Substring(0, 65) + "..." : this.Description;
 

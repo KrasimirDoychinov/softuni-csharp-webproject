@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace HolocronProject.Web.Controllers
 {
+    [Authorize]
     public class ThreadsController : BaseController
     {
         private readonly IThreadsService threadService;
@@ -31,13 +32,11 @@ namespace HolocronProject.Web.Controllers
             this.htmlSizeParser = htmlSizeParser;
         }
 
-        [Authorize]
         public IActionResult Create(string baseThreadId)
         {
             return this.View();
         }
 
-        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Create(ThreadInputModel input, string baseThreadId)
         {
@@ -59,7 +58,7 @@ namespace HolocronProject.Web.Controllers
             await this.threadService.CreateThreadAsync(threadInputModel);
             return this.Redirect($"/BaseThreads/ById/?threadId={baseThreadId}");
         }
-        [Authorize]
+
         public IActionResult Edit(string threadId)
         {
             var threadViewModel = this.threadService.GetThreadById<ThreadEditModel>(threadId);
@@ -67,10 +66,15 @@ namespace HolocronProject.Web.Controllers
             return this.View(threadViewModel);
         }
 
-        [Authorize]
         [HttpPost]
-        public async Task<IActionResult> Edit(ThreadEditModel input)
+        public async Task<IActionResult> Edit(ThreadEditModel input, string threadId)
         {
+            if (!ModelState.IsValid)
+            {
+                var threadViewModel = this.threadService.GetThreadById<ThreadEditModel>(threadId);
+                return this.View(threadViewModel);
+            }
+
             await this.threadService.EditThreadAsync(input.ThreadId, input.Description, input.Title);
 
             return this.Redirect($"/Threads/ById?threadId={input.ThreadId}");
@@ -90,7 +94,6 @@ namespace HolocronProject.Web.Controllers
             return this.View(threadViewModel);
         }
 
-        [Authorize]
         public IActionResult LastThreads(string accountId, int? page)
         {
             var lastThreads = this.threadService.GetLastNotDeletedThreadsByAccountId<ThreadViewModel>(accountId);

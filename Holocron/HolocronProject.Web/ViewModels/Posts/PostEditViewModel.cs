@@ -6,14 +6,10 @@ using HolocronProject.Services.Mapper;
 
 namespace HolocronProject.Web.ViewModels.Posts
 {
-    public class PostEditViewModel : IMapFrom<Post>
+    public class PostEditViewModel : PostInputModel, IMapFrom<Post>
     {
         public string PostId { get; set; }
 
         public string ThreadId { get; set; }
-
-        [Required]
-        [MaxLength(GlobalRangeConstraints.PostConstants.DescriptionMaxLength, ErrorMessage = GlobalErrorMessages.PostErrorMessages.DescriptionMaxLengthError)]
-        public string Description { get; set; }
     }
 }

@@ -44,6 +44,7 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account.Manage
         [Display(Name = "Username")]
         [StringLength(UserConstants.UserNameMaxLenght, MinimumLength = UserConstants.UserNameMinLenght, ErrorMessage = UserErrorMessages.UserNameLengthError)]
         [RegularExpression(UserConstants.UserNameRegex, ErrorMessage = UserErrorMessages.UserNameRegexError)]
+        [Required]
         public string UserName { get; set; }
 
         [Display(Name = "Forum signature")]
@@ -61,7 +62,6 @@ namespace HolocronProject.Web.Areas.Identity.Pages.Account.Manage
 
         [TempData]
         public string StatusMessage { get; set; }
-
 
         private async Task LoadAsync(Data.Models.Account user)
         {

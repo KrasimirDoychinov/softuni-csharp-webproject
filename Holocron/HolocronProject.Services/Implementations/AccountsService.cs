@@ -207,7 +207,7 @@ namespace HolocronProject.Services.Implementations
 
         public bool IsAccountBanned(string accountId)
             => this.context.Accounts
-            .Any(x => x.Id == accountId && x.IsBanned);
+            .Any(x => x.UserName == accountId && x.IsBanned);
 
         public bool IsEmailTaken(string email)
             => this.context.Accounts

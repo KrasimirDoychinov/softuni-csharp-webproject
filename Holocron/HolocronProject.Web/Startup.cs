@@ -25,7 +25,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-
 namespace HolocronProject.Web
 {
     public class Startup
@@ -140,8 +139,8 @@ namespace HolocronProject.Web
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
+            app.UseHangfireServer();
             app.UseHangfireDashboard();
-
             app.UseRouting();
 
             app.UseAuthentication();

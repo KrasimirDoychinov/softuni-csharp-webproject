@@ -23,10 +23,6 @@
 
             public const string InvalidGenderError = "Each character must have a gender.";
 
-            public const string InvalidCharacterTypeError = "Each character must have a type.";
-
-            public const string InvalidForceAffiliationError = "Each character must have force affiliation.";
-
         }
 
         public static class CompetitionErrorMessages

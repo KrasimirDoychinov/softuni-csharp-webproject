@@ -9,6 +9,5 @@ namespace HolocronProject.Web.ViewModels.Posts
         [Required]
         [MaxLength(PostConstants.DescriptionMaxLength, ErrorMessage = PostErrorMessages.DescriptionMaxLengthError)]
         public string Description { get; set; }
-
     }
 }

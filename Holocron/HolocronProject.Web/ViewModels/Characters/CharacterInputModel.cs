@@ -19,6 +19,7 @@ namespace HolocronProject.Web.ViewModels.Characters
 
     public class CharacterInputModel : IMapFrom<Data.Models.Character>
     {
+        [Required]
         [MaxLength(CharacterConstants.NameMaxLength, ErrorMessage = CharacterErrorMessages.NameMaxLengthError)]
         public string Name { get; set; }
 
@@ -42,12 +43,10 @@ namespace HolocronProject.Web.ViewModels.Characters
 
         [Required]
         [Display(Name = "Character type")]
-        [Range(1,4, ErrorMessage = CharacterErrorMessages.InvalidCharacterTypeError)]
         public CharacterType CharacterType { get; set; }
 
         [Required]
         [Display(Name = "Force affiliation")]
-        [Range(1,3, ErrorMessage = CharacterErrorMessages.InvalidForceAffiliationError)]
         public ForceAffiliation ForceAffiliation { get; set; }
 
         [Required]

@@ -48,7 +48,7 @@ namespace HolocronProject.Tests.Services
             var config = new MapperConfiguration(opts =>
             {
                 opts.CreateMap<Character, CharacterListViewModel>();
-                opts.CreateMap<Character, CharacterUserViewModel>();
+                opts.CreateMap<Character, CharacterViewModel>();
                 opts.CreateMap<Achievement, AchievementViewModel>();
             });
 
@@ -355,7 +355,7 @@ namespace HolocronProject.Tests.Services
             await context.Characters.AddAsync(character);
             await context.SaveChangesAsync();
 
-            var mappedEntity = charactersService.GetCharacterByIdGeneric<CharacterUserViewModel>("1", this.mapper);
+            var mappedEntity = charactersService.GetCharacterByIdGeneric<CharacterViewModel>("1", this.mapper);
 
             Assert.AreEqual(character.Id, mappedEntity.Id);
         }
