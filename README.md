@@ -32,6 +32,7 @@ The project contains:
 * 98 services
 * 18 controllers
 * 44 views
+* 134 tests
 
 # Build with
 * ASP.NET Core 3.1
