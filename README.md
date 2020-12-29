@@ -1,4 +1,6 @@
 # Holocron
+[Link to the site](https://holocronproject.azurewebsites.net)
+The site may not be on.
 
 # About the project
 Just a simple forum for fans of [Star Wars the Old Republic](https://www.swtor.com) or Star Wars fans in general, to talk about the universe and the game.
@@ -22,7 +24,7 @@ The database contains the following entities:
 * Threads
 * Votes
 
-The scheme can be found [here]()
+The scheme can be found [here](https://github.com/KrasimirDoychinov/softuni-csharp-webproject/blob/main/DatabaseScheme.png)
 
 # Backend
 The project contains:
@@ -30,6 +32,7 @@ The project contains:
 * 98 services
 * 18 controllers
 * 44 views
+* 134 tests
 
 # Build with
 * ASP.NET Core 3.1
@@ -48,4 +51,6 @@ The project contains:
 * Moq
 * NUnit
 * SixLabors.ImageSharp
+* TinyMCE
+* Net.Mail;
 
