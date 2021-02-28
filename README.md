@@ -2,6 +2,10 @@
 [Link to the site](https://holocronproject.azurewebsites.net)
 The site may not be on.
 
+Test accounts:
+Normal user - Username: TestUser1/TestUser1.
+Admin - Username: TestAdmin1/TestAdmin1.
+
 # About the project
 Just a simple forum for fans of [Star Wars the Old Republic](https://www.swtor.com) or Star Wars fans in general, to talk about the universe and the game.
 You can make characters which users should make that reflect their characters in-game. It's used for roleplay purposes mostly and for the competitions that can be found on the site. This was made as a project to defend for [SoftUni](https://softuni.bg).
