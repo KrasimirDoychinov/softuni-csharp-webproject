@@ -50,8 +50,7 @@ namespace HolocronProject.Web.Controllers
         public IActionResult ConfirmEmail(string userid, string token)
         {
             var user = userManager.FindByIdAsync(userid).Result;
-            var result = userManager.
-                        ConfirmEmailAsync(user, token).Result;
+            var result = userManager.ConfirmEmailAsync(user, token).Result;
 
             if (result.Succeeded)
             {
@@ -64,5 +63,6 @@ namespace HolocronProject.Web.Controllers
                 return View("UnSuccessfulEmailConfirmation");
             }
         }
+
     }
 }

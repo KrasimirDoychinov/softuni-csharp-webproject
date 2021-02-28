@@ -39,24 +39,24 @@
                     <ul class="navbar-nav flex-grow-1 text-warning">
                         @if (this.User.IsInRole("Admin"))
                         {
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="Administration" asp-controller="Admins" asp-action="Panel">Admin panel</a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="Administration" asp-controller="Admins" asp-action="Panel">Admin panel</a>
+                            </li>
                         }
 
                         @if (this.User.Identity.IsAuthenticated)
                         {
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Characters" asp-action="CreateCharacter">Create character</a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="Characters" asp-action="CreateCharacter">Create character</a>
+                            </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="BugReports" asp-action="Create">Create bug report</a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="BugReports" asp-action="Create">Create bug report</a>
+                            </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Competitions" asp-action="All">Competitions</a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="Competitions" asp-action="All">Competitions</a>
+                            </li>
                         }
 
                         <li class="nav-item">
@@ -70,60 +70,69 @@
         <div class="container p-3">
 
             <main role="main" class="pb-3 text-white">
-                
+
                 @if (this.accountService.IsAccountBanned(accountId))
                 {
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    This account has been banned.
-                </div>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        This account has been banned.
+                    </div>
                     await this.signInManager.SignOutAsync();
                     IgnoreBody();
                 }
-
                 else
                 {
-                @if (this.User.Identity.IsAuthenticated)
+                    @if (this.User.Identity.IsAuthenticated)
                     {
-                @if (isUserNotified == HolocronProject.Data.Enums.NotificationStatus.HasApprovedCharacters)
+                        @if (isUserNotified == HolocronProject.Data.Enums.NotificationStatus.HasApprovedCharacters)
                         {
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    You have one or more characters that have been approved!
-                    Click <span><a href="/Characters/AllCharacters?accountId=@accountId" class="text-dark text-decoration-none font-weight-bold">here</a></span> to view your characters.
-                    <span><a href="/Accounts/RemoveNotification?accountId=@accountId" class="text-dark text-decoration-none font-weight-bold">Don't show again</a></span>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                You have one or more characters that have been approved!
+                                Click <span><a href="/Characters/AllCharacters?accountId=@accountId" class="text-dark text-decoration-none font-weight-bold">here</a></span> to view your characters.
+                                <span><a href="/Accounts/RemoveNotification?accountId=@accountId" class="text-dark text-decoration-none font-weight-bold">Don't show again</a></span>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
                         }
                         else if (isUserNotified == HolocronProject.Data.Enums.NotificationStatus.HasPendingCharacters)
                         {
-                <div class="alert alert-primary alert-dismissible fade show" role="alert">
-                    You have one or more characters that are pending.
-                    <span><a href="/Accounts/RemoveNotification?accountId=@accountId" class="text-dark text-decoration-none font-weight-bold">Don't show again</a></span>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+                            <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                                You have one or more characters that are pending.
+                                <span><a href="/Accounts/RemoveNotification?accountId=@accountId" class="text-dark text-decoration-none font-weight-bold">Don't show again</a></span>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
                         }
                         else if (isUserNotified == HolocronProject.Data.Enums.NotificationStatus.HasDeletedCharacters)
                         {
-                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                    You have one or more characters that have not been approved.
-                    <span><a href="/Accounts/RemoveNotification?accountId=@accountId" class="text-dark text-decoration-none font-weight-bold">Don't show again</a></span>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                You have one or more characters that have not been approved.
+                                <span><a href="/Accounts/RemoveNotification?accountId=@accountId" class="text-dark text-decoration-none font-weight-bold">Don't show again</a></span>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
                         }
                     }
-                <partial name="_CookieConsentPartial" />
-                <script>
-                    //var now = new Date();
-                    //console.log(now.getHours().toString());
-                    //console.log(now.toDateString());
-                    //document.cookie = "LocalTimeZone=" + now.toDateString() + ";";
-                </script>
-                @RenderBody()
+                    <partial name="_CookieConsentPartial" />
+                    <script>
+                        document.addEventListener('mouseover', onHeaderHover);
+                        document.addEventListener('mouseout', onHeaderOut);
+
+                        function onHeaderHover(e) {
+                            if (Array.from(e.target.classList).includes('test')) {
+                                e.target.style.fontSize = '40px';
+                            }
+                        }
+
+                        function onHeaderOut(e) {
+                            if (Array.from(e.target.classList).includes('test')) {
+                                e.target.style.fontSize = '30px';
+                            }
+                        }
+                    </script>
+                    @RenderBody()
                 }
             </main>
         </div>

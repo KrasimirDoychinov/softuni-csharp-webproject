@@ -13,7 +13,7 @@ namespace HolocronProject.Services.Implementations
             doc.LoadHtml(input);
             var nodes = doc.DocumentNode.SelectNodes("//img | //iframe");
 
-            StringBuilder fullResult = new StringBuilder();
+            var fullResult = new StringBuilder();
 
             var haveChangesOccured = false;
             var temp = string.Empty;
@@ -23,7 +23,7 @@ namespace HolocronProject.Services.Implementations
                 {
                     var match = Regex.Match(item.OuterHtml,
                     "width=\\\"([0-9]|[1-9][0-9]|[1-9][0-9][0-9])\\\" height=\\\"([0-9]|[1-9][0-9]|[1-9][0-9][0-9])\\\"");
-
+                    
                     if (!match.Success)
                     {
                         var result = Regex.Replace(item.OuterHtml,

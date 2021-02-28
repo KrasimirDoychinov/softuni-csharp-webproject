@@ -124,11 +124,14 @@ namespace HolocronProject.Tests.Services
                 Id = "1",
                 Post = new Post { Id = "1" },
                 Account = new Account { Id = "1" },
-                IsResolved = true
+                IsResolved = false
             };
 
             await this.context.PostReports.AddAsync(postReport);
             await this.context.SaveChangesAsync();
+
+            await this.postReportsService.CreatePostReportAsync("1", "1", "Test", "Test", "Test");
+            await this.postReportsService.ResolvePostReportAsync(this.context.PostReports.FirstOrDefault().Id);
 
             var mappedEntity = this.postReportsService.GetAllAdminResolved<PostReportListViewModel>(this.mapper).ToList();
 
