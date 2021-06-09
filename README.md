@@ -1,5 +1,7 @@
 # Holocron
 [Link to the site](https://holocronproject.azurewebsites.net)
+![image](https://user-images.githubusercontent.com/65718191/121398501-1b79ad80-c95e-11eb-8c4a-d6e561829029.png)
+
 The site may not be on.
 
 Test accounts:
